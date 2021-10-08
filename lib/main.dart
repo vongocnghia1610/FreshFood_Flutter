@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_postman_application/src/lang/translation_service.dart';
+import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
+import 'package:flutter_postman_application/src/pages/profile/profile_page.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:flutter_postman_application/src/shared/logger/logger_utils.dart';
 import 'package:flutter_postman_application/src/theme/theme_service.dart';
@@ -20,7 +22,8 @@ void main() async {
       debugShowCheckedModeBanner: false,
       enableLog: true,
       logWriterCallback: Logger.write,
-      initialRoute: AppPages.INITIAL,
+      // initialRoute: AppPages.INITIAL,
+      home: ProfilePages(),
       getPages: AppPages.routes,
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,

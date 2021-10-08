@@ -3,6 +3,7 @@ import 'package:flutter_postman_application/src/pages/authentication/authenticat
 import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
 import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
+import 'package:flutter_postman_application/src/pages/profile/profile_page.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
@@ -34,8 +35,8 @@ class AppPages {
       children: [],
     ),
     GetPage(
-      name: Routes.PRODUCT,
-      page: () => ProductPage(),
+      name: Routes.PROFILE,
+      page: () => ProfilePages(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
