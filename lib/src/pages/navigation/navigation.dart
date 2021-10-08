@@ -19,7 +19,7 @@ class _NavigationState extends State<Navigation> {
     Container(),
     Container(),
   ];
-  int selected = 1;
+  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class _NavigationState extends State<Navigation> {
           ],
         ),
       ),
-      body: HomePage(),
+      body: pages[selected],
     );
   }
 

@@ -41,5 +41,12 @@ class AppPages {
       transitionDuration: Duration(milliseconds: 100),
       children: [],
     ),
+    GetPage(
+      name: Routes.PRODUCT,
+      page: () => ProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
   ];
 }
