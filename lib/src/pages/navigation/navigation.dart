@@ -3,6 +3,8 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
 import 'package:flutter_postman_application/src/public/constant.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:flutter_postman_application/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class Navigation extends StatefulWidget {
@@ -70,7 +72,8 @@ class _NavigationState extends State<Navigation> {
       onPressed: () => {
         setState(() {
           selected = index;
-        })
+        }),
+        if (index == 3) {Get.toNamed(Routes.PROFILE)}
       },
       icon: Icon(
         selected == index ? iconActive : iconInactive,
