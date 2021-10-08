@@ -1,4 +1,5 @@
 import 'package:flutter_postman_application/src/pages/navigation/navigation.dart';
+import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

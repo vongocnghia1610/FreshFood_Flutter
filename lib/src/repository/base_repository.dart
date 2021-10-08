@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const root_url = "freshfoodbe.tk";
@@ -46,7 +45,7 @@ class HandleApis {
 
   put(String name, Map<String, dynamic> body) async {
     // stderr.write("POST: " + root_url +'/'+ name);
-    return await http.put(Uri.http(root_url, '/' + name),
+    return await http.put(Uri.https(root_url, '/' + name),
         // Uri.http(root_url, '/' + name),
         headers: getHeaders(),
         body: jsonEncode(body));

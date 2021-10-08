@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/pages/home/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,7 +16,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
     return Container(
       width: 40.w,
       height: 60.w,
-      margin: EdgeInsets.only(left: 2.sp, right: 6.sp),
+      margin: EdgeInsets.only(left: 5.sp),
       child: GestureDetector(
         onTap: () => null,
         child: Container(
@@ -63,14 +62,15 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                               style: TextStyle(
                                   color: kPrimaryColor.withOpacity(0.5),
                                   fontSize: 12)),
-                          SizedBox(height: 2.sp),
+                          SizedBox(height: 5.sp),
                           Text(
                             widget.product.price.toString() + " VNĐ",
                             style: Theme.of(context)
                                 .textTheme
                                 .button
                                 .copyWith(color: kPrimaryColor),
-                          )
+                          ),
+                          SizedBox(height: 5.sp),
                         ],
                       ),
                     ),

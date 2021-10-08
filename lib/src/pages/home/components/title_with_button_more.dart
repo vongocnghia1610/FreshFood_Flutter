@@ -20,7 +20,9 @@ class TitleWithButton extends StatelessWidget {
               color: kPrimaryColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
-              onPressed: () {},
+              onPressed: () {
+                onpress();
+              },
               child: Text(
                 'More',
                 style:

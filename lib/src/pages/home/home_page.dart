@@ -2,14 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_postman_application/src/helpers/get_session.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/models/user.dart';
 import 'package:flutter_postman_application/src/pages/home/controllers/book_controller.dart';
 import 'package:flutter_postman_application/src/pages/home/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/public/constant.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'components/header.dart';
-import 'components/recomentplant.dart';
+import 'components/recoment_product.dart';
 import 'components/title_with_button_more.dart';
 import 'package:sizer/sizer.dart';
 
@@ -143,7 +142,11 @@ class _HomePageState extends State<HomePage> {
                             }),
                       ),
                     ),
-                    TitleWithButton(title: "Recomended", onpress: () {}),
+                    TitleWithButton(
+                        title: "Recomended",
+                        onpress: () {
+                          Get.toNamed(Routes.PRODUCT);
+                        }),
                     SizedBox(height: 10.sp),
                     Expanded(
                       child: StreamBuilder(

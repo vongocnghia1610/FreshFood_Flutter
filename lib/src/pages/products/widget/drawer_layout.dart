@@ -1,0 +1,242 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_postman_application/src/providers/user_provider.dart';
+import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+
+class DrawerLayout extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _DrawerLayoutState();
+}
+
+class _DrawerLayoutState extends State<DrawerLayout> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              GestureDetector(
+                onTap: () {},
+                child: UserAccountsDrawerHeader(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://images.unsplash.com/photo-1617909517211-c4e4275bf5b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fHNoaXBwaW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  // currentAccountPicture: Container(
+                  //   width: 30.sp,
+                  //   height: 30.sp,
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     image: DecorationImage(
+                  //       fit: BoxFit.fill,
+                  //       image: NetworkImage(
+                  //         "https://www.google.com/imgres?imgurl=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D309300366316049&imgrefurl=https%3A%2F%2Fwww.facebook.com%2FFreshFood-%25C4%2582n-V%25E1%25BA%25B7t-Ngon-309300366316049%2Fposts&tbnid=CXYmJu6eu5J7XM&vet=12ahUKEwjkoeDbxbPzAhVG7JQKHU-hCpQQMygBegUIARCzAQ..i&docid=DcHaRLaRnl3-SM&w=1500&h=1504&q=freshfood&ved=2ahUKEwjkoeDbxbPzAhVG7JQKHU-hCpQQMygBegUIARCzAQ",
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  // accountName: Container(
+                  //   child: Text(
+                  //     // Provider.of<UserProvider>(context).user.fullName,
+                  //     "a",
+                  //     style: TextStyle(
+                  //       // color: mCL,
+                  //       fontSize: 12.sp,
+                  //       // fontFamily: FontFamily.lato,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // ),
+                  // accountEmail: Container(
+                  //   child: Text(
+                  //     // Provider.of<UserProvider>(context).user.phone,
+                  //     "b",
+                  //     style: TextStyle(
+                  //       // color: mCL,
+                  //       fontSize: 10.sp,
+                  //       // fontFamily: FontFamily.lato,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  // Get.toNamed(
+                  //   Routes.HOME + Routes.STATISTIC,
+                  // );
+                },
+                child: _buildLineDrawer(
+                  context,
+                  'Thịt',
+                  PhosphorIcons.chart_line_up_bold,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  // Get.toNamed(
+                  //   Routes.HOME + Routes.STATISTIC,
+                  // );
+                },
+                child: _buildLineDrawer(
+                  context,
+                  'Hải sản',
+                  PhosphorIcons.fish_bold,
+                ),
+              ),
+              // Provider.of<UserProvider>(context).user.role == 0
+              //     ? Container()
+              //     : Divider(
+              //         height: .2,
+              //         thickness: .2,
+              //         color: Colors.black26,
+              //       ),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? GestureDetector(
+              //         onTap: () {
+              //           Get.toNamed(Routes.HOME + Routes.LIST_CLIENT);
+              //         },
+              //         child: _buildLineDrawer(
+              //             context, 'Khách hàng', PhosphorIcons.users_four_bold),
+              //       )
+              //     : Container(),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? Divider(
+              //         height: .2,
+              //         thickness: .2,
+              //         color: Colors.black26,
+              //       )
+              //     : Container(),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? GestureDetector(
+              //         onTap: () {
+              //           Get.toNamed(Routes.HOME + Routes.LIST_STAFF);
+              //         },
+              //         child: _buildLineDrawer(
+              //             context, 'Nhân viên', PhosphorIcons.users_three_bold),
+              //       )
+              //     : Container(),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? Divider(
+              //         height: .2,
+              //         thickness: .2,
+              //         color: Colors.black26,
+              //       )
+              //     : Container(),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? GestureDetector(
+              //         onTap: () {
+              //           Get.toNamed(Routes.ADDRESS);
+              //         },
+              //         child: _buildLineDrawer(
+              //             context, 'Địa chỉ', PhosphorIcons.map_pin_bold),
+              //       )
+              //     : Container(),
+              // Provider.of<UserProvider>(context).user.role == 1
+              //     ? Divider(
+              //         height: .2,
+              //         thickness: .2,
+              //         color: Colors.black26,
+              //       )
+              //     : Container(),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.toNamed(
+              //       Routes.HOME + Routes.EDIT_PROFILE,
+              //     );
+              //   },
+              //   child: _buildLineDrawer(
+              //     context,
+              //     'Sửa thông tin cá nhân',
+              //     PhosphorIcons.clipboard_bold,
+              //   ),
+              // ),
+              // Divider(
+              //   height: .2,
+              //   thickness: .2,
+              //   color: Colors.black26,
+              // ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Get.toNamed(
+              //       Routes.HOME + Routes.CHANGE_PASSWORD,
+              //     );
+              //   },
+              //   child: _buildLineDrawer(
+              //     context,
+              //     'Đổi mật khẩu',
+              //     PhosphorIcons.key_bold,
+              //   ),
+              // ),
+              // Divider(
+              //   height: .2,
+              //   thickness: .2,
+              //   color: Colors.black26,
+              // ),
+              // GestureDetector(
+              //   onTap: () async {
+              //     await FirebaseMessaging.instance.deleteToken();
+              //     socket.disconnect();
+              //     socket = null;
+              //     userProvider.setUser(null);
+              //   },
+              //   child: _buildLineDrawer(
+              //       context, 'Đăng xuất', PhosphorIcons.sign_out_bold),
+              // ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 18.sp, right: 8.sp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Loại hàng',
+                  style: TextStyle(
+                    color: colorDarkGrey,
+                    fontSize: 8.5.sp,
+                    // fontFamily: FontFamily.lato,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLineDrawer(context, title, icon) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12.25.sp, horizontal: 10.sp),
+      color: Colors.transparent,
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: title == 'Đăng xuất' ? colorPrimary : colorTitle,
+            size: 17.25.sp,
+          ),
+          SizedBox(width: 10.sp),
+          Text(
+            title,
+            style: TextStyle(
+              color: title == 'Đăng xuất' ? colorPrimary : colorTitle,
+              fontSize: 11.25.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

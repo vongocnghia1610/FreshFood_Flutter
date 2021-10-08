@@ -1,0 +1,167 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_postman_application/src/models/product.dart';
+import 'package:flutter_postman_application/src/pages/home/components/recoment_product.dart';
+import 'package:flutter_postman_application/src/pages/home/components/title_with_button_more.dart';
+import 'package:flutter_postman_application/src/pages/home/controllers/product_controller.dart';
+import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
+import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
+
+class ProductPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final productController = Get.put(ProductController());
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    productController.initialController();
+    productController.getProduct();
+
+    // bookController.getBooks();
+    // scrollController.addListener(() {
+    //   if (scrollController.position.atEdge) {
+    //     if (scrollController.offset != 0.0) {
+    //       bookController.getBooks();
+    //     }
+    //   }
+    // });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        key: _scaffoldKey,
+        drawer: Container(
+          width: 70.w,
+          child: Drawer(
+            child: DrawerLayout(),
+          ),
+        ),
+        appBar: AppBar(
+            elevation: 0,
+            leading: IconButton(
+              onPressed: () => _scaffoldKey.currentState.openDrawer(),
+              icon: SvgPicture.asset("assets/icons/menu.svg"),
+            ),
+            title: Center(
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                height: 54,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: Offset(0, 10),
+                          blurRadius: 50,
+                          color: kPrimaryColor.withOpacity(0.23))
+                    ]),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          hintText: "Search",
+                          hintStyle: TextStyle(
+                            color: kPrimaryColor.withOpacity(0.5),
+                          ),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    SvgPicture.asset("assets/icons/search.svg"),
+                  ],
+                ),
+              ),
+            )),
+        body: Container(
+            child: Column(children: [
+          Expanded(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 2.h,
+                ),
+                Container(
+                  height: 24,
+                  child: Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(left: kDefaultPadding / 4),
+                        child: Text(
+                          "Tất cả",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          child: Container(
+                            margin: EdgeInsets.only(right: kDefaultPadding / 4),
+                            height: 7,
+                            color: kPrimaryColor.withOpacity(0.2),
+                          ))
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.sp),
+                Expanded(
+                  child: StreamBuilder(
+                    stream: productController.listProduct,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
+
+                      return Container(
+                        margin: EdgeInsets.only(left: 5.sp, right: 10.sp),
+                        width: 100.w,
+                        child: GridView.builder(
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          primary: false,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio:
+                                MediaQuery.of(context).size.width /
+                                    (MediaQuery.of(context).size.height / 1.75),
+                            // crossAxisSpacing: 1.0,
+                            // mainAxisExtent: 1.0,
+                          ),
+                          // scrollDirection: Axis.horizontal,
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return RecomendProductCard(
+                              product: Product.fromMap(snapshot.data[index]),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          )
+        ])));
+  }
+}

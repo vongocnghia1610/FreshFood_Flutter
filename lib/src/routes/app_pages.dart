@@ -2,6 +2,7 @@ import 'package:flutter_postman_application/src/app.dart';
 import 'package:flutter_postman_application/src/pages/authentication/authentication_page.dart';
 import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
+import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
@@ -28,6 +29,13 @@ class AppPages {
     GetPage(
       name: Routes.HOME,
       page: () => HomePage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.PRODUCT,
+      page: () => ProductPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
