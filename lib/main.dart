@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_postman_application/src/lang/translation_service.dart';
 import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
 import 'package:flutter_postman_application/src/pages/products/create_product_screen.dart';
+import 'package:flutter_postman_application/src/pages/products/detail_product_screen.dart';
 import 'package:flutter_postman_application/src/pages/profile/profile_page.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:flutter_postman_application/src/shared/logger/logger_utils.dart';
@@ -24,7 +25,7 @@ void main() async {
       enableLog: true,
       logWriterCallback: Logger.write,
       // initialRoute: AppPages.INITIAL,
-      home: CreateProductPage(),
+      home: DetailProductPage(),
       getPages: AppPages.routes,
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
