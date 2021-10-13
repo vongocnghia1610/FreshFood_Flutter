@@ -4,7 +4,7 @@ import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:sizer/sizer.dart';
 
 class RecomendProductCard extends StatefulWidget {
-  final Product product;
+  final ProductModel product;
   RecomendProductCard({this.product});
   @override
   State<StatefulWidget> createState() => _RecomendProductCardState();

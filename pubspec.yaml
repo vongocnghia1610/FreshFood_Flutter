@@ -37,6 +37,8 @@ dependencies:
   flutter_svg: ^0.22.0
   line_awesome_flutter: ^2.0.0
   dropdown_search: ^1.0.3
+  numberpicker: ^2.0.1
+  image_picker: ^0.8.4+1
 
 dev_dependencies:
   flutter_test:

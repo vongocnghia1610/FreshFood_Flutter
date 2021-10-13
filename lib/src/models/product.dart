@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_postman_application/src/models/group_product.dart';
 import 'package:flutter_postman_application/src/public/constant.dart';
 
-class Product {
+class ProductModel {
   final String id;
   List<String> image;
   int status;
@@ -15,7 +15,7 @@ class Product {
   String detail;
   GroupProduct groupProduct;
 
-  Product({
+  ProductModel({
     this.id,
     this.image,
     this.status,
@@ -27,7 +27,7 @@ class Product {
     this.groupProduct,
   });
 
-  Product copyWith({
+  ProductModel copyWith({
     String id,
     List<String> image,
     int status,
@@ -38,7 +38,7 @@ class Product {
     String detail,
     List<dynamic> groupProduct,
   }) {
-    return Product(
+    return ProductModel(
       id: id ?? this.id,
       image: image ?? this.image,
       status: status ?? this.status,
@@ -65,10 +65,10 @@ class Product {
     };
   }
 
-  factory Product.fromMap(Map<String, dynamic> map) {
-    return Product(
+  factory ProductModel.fromMap(Map<String, dynamic> map) {
+    return ProductModel(
       id: map['_id'],
-      image: listDefaultImage,
+      image: (map['image'] as List<dynamic>).map((e) => e.toString()).toList(),
       status: map['status'],
       weight: double.tryParse((map['weight'] ?? 0).toString()),
       price: double.tryParse((map['weight'] ?? 0).toString()),
@@ -81,8 +81,8 @@ class Product {
 
   String toJson() => json.encode(toMap());
 
-  factory Product.fromJson(String source) =>
-      Product.fromMap(json.decode(source));
+  factory ProductModel.fromJson(String source) =>
+      ProductModel.fromMap(json.decode(source));
 
   @override
   String toString() {
@@ -93,7 +93,7 @@ class Product {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is Product &&
+    return other is ProductModel &&
         other.id == id &&
         listEquals(other.image, image) &&
         other.status == status &&

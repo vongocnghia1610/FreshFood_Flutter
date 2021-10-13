@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                               itemBuilder: (context, index) {
                                 return RecomendProductCard(
                                   product:
-                                      Product.fromMap(snapshot.data[index]),
+                                      ProductModel.fromMap(snapshot.data[index]),
                                 );
                               },
                             ),

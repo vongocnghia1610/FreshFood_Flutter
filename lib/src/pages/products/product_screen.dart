@@ -151,7 +151,7 @@ class _ProductPageState extends State<ProductPage> {
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return RecomendProductCard(
-                              product: Product.fromMap(snapshot.data[index]),
+                              product: ProductModel.fromMap(snapshot.data[index]),
                             );
                           },
                         ),

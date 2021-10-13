@@ -66,7 +66,8 @@ class HandleApis {
       'Connection': 'keep-alive',
       'Accept': '*/*',
       'Accept-Encoding': 'gzip, deflate, br',
-      'Authorization': 'Bearer ' + 'lambiengcode',
+      'Authorization': 'Bearer ' +
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzYzOWQxOWU1OTJiMDNkNDRmZjlmZCIsInJvbGUiOjB9LCJpYXQiOjE2MzA5NDM2OTc1MjksImV4cCI6MTYzMTAzMDA5NzUyOX0.RaOH15agShUZeaeKGch_7u_cc6T1R_QKrSUZMfaqvZI',
     };
   }
 }
