@@ -1,4 +1,5 @@
 import 'package:flutter_postman_application/src/pages/navigation/navigation.dart';
+import 'package:flutter_postman_application/src/pages/products/create_product_screen.dart';
 import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    return Navigation();
+    return CreateProductPage();
   }
 }
