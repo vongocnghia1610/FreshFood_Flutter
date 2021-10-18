@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
-import 'package:flutter_postman_application/src/routes/app_pages.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class RecomendProductCard extends StatefulWidget {
+class HistoryProductCard extends StatefulWidget {
   final ProductModel product;
-  RecomendProductCard({this.product});
+  HistoryProductCard({this.product});
   @override
-  State<StatefulWidget> createState() => _RecomendProductCardState();
+  State<StatefulWidget> createState() => _HistoryProductCardState();
 }
 
-class _RecomendProductCardState extends State<RecomendProductCard> {
+class _HistoryProductCardState extends State<HistoryProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +18,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
       height: 60.w,
       margin: EdgeInsets.only(left: 5.sp),
       child: GestureDetector(
-        onTap: () => {Get.toNamed(Routes.DETAIL_PRODUCT)},
+        onTap: () => null,
         child: Container(
           child: Column(
             children: <Widget>[
@@ -33,7 +31,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                   widget.product.image[0],
                   fit: BoxFit.cover,
                   height: 100.sp,
-                  width: 40.w,
+                  width: 60.w,
                 ),
               ),
               Container(

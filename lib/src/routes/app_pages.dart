@@ -1,7 +1,8 @@
 import 'package:flutter_postman_application/src/app.dart';
 import 'package:flutter_postman_application/src/pages/authentication/authentication_page.dart';
-import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
+import 'package:flutter_postman_application/src/pages/cart/cart_page.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
+import 'package:flutter_postman_application/src/pages/products/detail_product_screen.dart';
 import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
 import 'package:flutter_postman_application/src/pages/profile/profile_page.dart';
 import 'package:get/get.dart';
@@ -44,6 +45,20 @@ class AppPages {
     GetPage(
       name: Routes.PRODUCT,
       page: () => ProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.DETAIL_PRODUCT,
+      page: () => DetailProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CART,
+      page: () => CartPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

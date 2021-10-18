@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_postman_application/src/models/user.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
+import 'package:flutter_postman_application/src/providers/user_provider.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:flutter_postman_application/src/repository/authentication_repository.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
@@ -157,11 +159,20 @@ class _LoginPagesState extends State<LoginPages> {
                         );
                         getSnackBar.show();
                       } else {
-                        Get.toNamed(Routes.HOME);
+                        userProvider.setUser(
+                          User.fromLogin(value),
+                        );
+                        print("dang nhap thanh cong");
+                        GetSnackBar getSnackBar = GetSnackBar(
+                          title: 'Đăng nhập thành công!',
+                          subTitle: 'Đăng nhập thành công',
+                        );
+                        getSnackBar.show();
+                        // Get.toNamed(Routes.HOME);
                         // userProvider.setUser(
                         //   User.fromLogin(value),
                         // );
-                        return HomePage();
+                        // return HomePage();
                       }
                     });
                   }

@@ -10,4 +10,7 @@ class ApiGateway {
 
   //Group Product
   static const GETGROUPPRODUCT = 'groupProduct/getAllGroupProduct';
+
+  //Cart
+  static const GETCART = 'cart/getAllCart';
 }

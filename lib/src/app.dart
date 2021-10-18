@@ -1,10 +1,11 @@
+import 'package:flutter_postman_application/src/pages/authentication/authentication_page.dart';
+import 'package:flutter_postman_application/src/pages/cart/cart_page.dart';
+import 'package:flutter_postman_application/src/pages/home/home_page.dart';
 import 'package:flutter_postman_application/src/pages/navigation/navigation.dart';
-import 'package:flutter_postman_application/src/pages/products/create_product_screen.dart';
-import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
-import 'package:get/get.dart';
+import 'package:flutter_postman_application/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_postman_application/src/pages/home/home_page.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   @override
@@ -20,10 +21,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       DeviceOrientation.portraitUp,
     ]);
     super.initState();
+    Provider.of<UserProvider>(context, listen: false).checkLogined();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CreateProductPage();
+    return Provider.of<UserProvider>(context).user != null
+        ? Navigation()
+        : AuthenticationPages();
   }
 }

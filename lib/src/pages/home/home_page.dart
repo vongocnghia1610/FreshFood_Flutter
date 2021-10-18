@@ -125,65 +125,110 @@ class _HomePageState extends State<HomePage> {
             child: Column(children: [
               Header(size),
               Expanded(
-                child: Column(
-                  children: [
-                    Container(
-                      child: CarouselSlider(
-                        items: imageSliders,
-                        carouselController: _controller,
-                        options: CarouselOptions(
-                            autoPlay: true,
-                            enlargeCenterPage: false,
-                            aspectRatio: 2.0,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _current = index;
-                              });
-                            }),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        child: CarouselSlider(
+                          items: imageSliders,
+                          carouselController: _controller,
+                          options: CarouselOptions(
+                              autoPlay: true,
+                              enlargeCenterPage: false,
+                              aspectRatio: 2.0,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                        ),
                       ),
-                    ),
-                    TitleWithButton(
-                        title: "Recomended",
-                        onpress: () {
-                          Get.toNamed(Routes.PRODUCT);
-                        }),
-                    SizedBox(height: 10.sp),
-                    Expanded(
-                      child: StreamBuilder(
-                        stream: productController.listProductRecommend,
-                        builder: (context, AsyncSnapshot snapshot) {
-                          if (!snapshot.hasData) {
+                      TitleWithButton(
+                          title: "Nổi bật",
+                          onpress: () {
+                            Get.toNamed(Routes.PRODUCT);
+                          }),
+                      SizedBox(height: 10.sp),
+                      Container(
+                        child: StreamBuilder(
+                          stream: productController.listProductRecommend,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+
                             return Container(
-                              child: Center(
-                                child: CircularProgressIndicator(),
+                              width: 100.w,
+                              height: 200.sp,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                // gridDelegate:
+                                //     SliverGridDelegateWithFixedCrossAxisCount(
+                                //   crossAxisCount: 2,
+                                //   crossAxisSpacing: 4.0,
+                                //   mainAxisExtent: 4.0,
+                                // ),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return RecomendProductCard(
+                                    product: ProductModel.fromMap(
+                                        snapshot.data[index]),
+                                  );
+                                },
                               ),
                             );
-                          }
-
-                          return Container(
-                            width: 100.w,
-                            child: ListView.builder(
-                              controller: scrollController,
-                              // gridDelegate:
-                              //     SliverGridDelegateWithFixedCrossAxisCount(
-                              //   crossAxisCount: 2,
-                              //   crossAxisSpacing: 4.0,
-                              //   mainAxisExtent: 4.0,
-                              // ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return RecomendProductCard(
-                                  product: ProductModel.fromMap(
-                                      snapshot.data[index]),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                      TitleWithButton(
+                          title: "Đã xem gần đây",
+                          onpress: () {
+                            Get.toNamed(Routes.PRODUCT);
+                          }),
+                      SizedBox(height: 10.sp),
+                      Container(
+                        child: StreamBuilder(
+                          stream: productController.listProductRecommend,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container(
+                                child: Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }
+
+                            return Container(
+                              width: 100.w,
+                              height: 200.sp,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                // gridDelegate:
+                                //     SliverGridDelegateWithFixedCrossAxisCount(
+                                //   crossAxisCount: 2,
+                                //   crossAxisSpacing: 4.0,
+                                //   mainAxisExtent: 4.0,
+                                // ),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return RecomendProductCard(
+                                    product: ProductModel.fromMap(
+                                        snapshot.data[index]),
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ])));

@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/pages/home/home_page.dart';
-import 'package:flutter_postman_application/src/public/constant.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
-import 'package:flutter_postman_application/src/repository/authentication_repository.dart';
-import 'package:flutter_postman_application/src/routes/app_pages.dart';
-import 'package:flutter_postman_application/src/utils/snackbar.dart';
-import 'package:get/get.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfilePages extends StatefulWidget {
@@ -42,7 +35,10 @@ class _ProfilePagesState extends State<ProfilePages> {
                     gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Colors.deepOrange, Colors.pinkAccent])),
+                        colors: [
+                      kPrimaryColor,
+                      kPrimaryColor.withOpacity(0.38)
+                    ])),
                 child: Container(
                   width: double.infinity,
                   child: Center(
@@ -145,9 +141,9 @@ class _ProfilePagesState extends State<ProfilePages> {
                               padding: EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 8),
                               decoration: BoxDecoration(
-                                  color: Colors.pinkAccent,
+                                  color: kPrimaryColor,
                                   border: Border.all(
-                                      width: 2, color: Colors.pinkAccent),
+                                      width: 2, color: kPrimaryColor),
                                   borderRadius: BorderRadius.circular(5)),
                               child: Text(
                                 'Lưu thông tin',
@@ -156,7 +152,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -169,42 +165,41 @@ class _ProfilePagesState extends State<ProfilePages> {
     );
   }
 
-  TextFormField BuildTextField(
-      String vali,
-      TextEditingController name_controller,
-      String name,
-      String placeholder,
-      String lable_text,
-      IconData iconData) {
-    return TextFormField(
-      controller: name_controller,
-      validator: (val) => val.trim().length == 0 ? vali : null,
-      onChanged: (val) {
-        name = val.trim();
-      },
-      style: TextStyle(
-        color: Colors.black,
-        fontSize: 18,
-      ),
-      decoration: InputDecoration(
-        fillColor: Colors.black,
-        hintText: placeholder,
-        hintStyle: TextStyle(
+  Material BuildTextField(String vali, TextEditingController name_controller,
+      String name, String placeholder, String lable_text, IconData iconData) {
+    return Material(
+      elevation: 20.0,
+      shadowColor: kPrimaryColor.withOpacity(0.38),
+      child: TextFormField(
+        controller: name_controller,
+        validator: (val) => val.trim().length == 0 ? vali : null,
+        onChanged: (val) {
+          name = val.trim();
+        },
+        style: TextStyle(
           color: Colors.black,
           fontSize: 18,
         ),
-        labelText: lable_text,
-        prefixIcon: Container(
-            child: new Icon(
-          iconData,
-          color: Colors.black,
-        )),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(8)),
-            borderSide: BorderSide(color: Colors.black, width: 1)),
-        labelStyle: TextStyle(
-          color: Colors.black,
-          fontSize: 18,
+        decoration: InputDecoration(
+          fillColor: Colors.black,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
+          labelText: lable_text,
+          prefixIcon: Container(
+              child: new Icon(
+            iconData,
+            color: Colors.black,
+          )),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderSide: BorderSide(color: Colors.black, width: 1)),
+          labelStyle: TextStyle(
+            color: Colors.black,
+            fontSize: 18,
+          ),
         ),
       ),
     );

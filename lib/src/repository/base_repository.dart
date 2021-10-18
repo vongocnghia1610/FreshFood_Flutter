@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-const root_url = "freshfoodbe.tk";
+// const root_url = "freshfoodbe.tk";
+const root_url = "18.140.53.176:3005";
+
 const socket_url = "45.212.16.10:3000";
 
 class HandleApis {
@@ -27,8 +29,8 @@ class HandleApis {
     // stderr.write("GET: " + root_url +'/'+ name + '\n' + paramsObject.toString());
     http.Response response = await http.get(
       params == null
-          ? Uri.https(root_url, '/' + name)
-          : Uri.https(root_url, '/' + name, paramsObject),
+          ? Uri.http(root_url, '/' + name)
+          : Uri.http(root_url, '/' + name, paramsObject),
       // Uri.http(root_url, '/' + name, paramsObject),
       headers: getHeaders(),
     );
@@ -37,7 +39,7 @@ class HandleApis {
 
   post(String name, Map<String, dynamic> body) async {
     // stderr.write("POST: " + root_url +'/'+ name);
-    return await http.post(Uri.https(root_url, '/' + name),
+    return await http.post(Uri.http(root_url, '/' + name),
         // Uri.http(root_url, '/' + name),
         headers: getHeaders(),
         body: jsonEncode(body));
@@ -45,7 +47,7 @@ class HandleApis {
 
   put(String name, Map<String, dynamic> body) async {
     // stderr.write("POST: " + root_url +'/'+ name);
-    return await http.put(Uri.https(root_url, '/' + name),
+    return await http.put(Uri.http(root_url, '/' + name),
         // Uri.http(root_url, '/' + name),
         headers: getHeaders(),
         body: jsonEncode(body));
@@ -54,7 +56,7 @@ class HandleApis {
   delete(String name, {Map<String, dynamic> body}) async {
     // stderr.write("POST: " + root_url +'/'+ name);
     return await http.delete(
-      Uri.https(root_url, '/' + name),
+      Uri.http(root_url, '/' + name),
       // Uri.http(root_url, '/' + name),
       headers: getHeaders(),
     );
@@ -67,7 +69,7 @@ class HandleApis {
       'Accept': '*/*',
       'Accept-Encoding': 'gzip, deflate, br',
       'Authorization': 'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzYzOWQxOWU1OTJiMDNkNDRmZjlmZCIsInJvbGUiOjB9LCJpYXQiOjE2MzA5NDM2OTc1MjksImV4cCI6MTYzMTAzMDA5NzUyOX0.RaOH15agShUZeaeKGch_7u_cc6T1R_QKrSUZMfaqvZI',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzFmN2JmYTY3YzQzMjdjY2UyNzVjOSIsInJvbGUiOjB9LCJpYXQiOjE2MzA2NjUxMDMyMTEsImV4cCI6MTYzMDc1MTUwMzIxMX0.zC0dwS7U1s3e38a_kO0CxL1zb72CkMc5YhXKdbTpLqo',
     };
   }
 }

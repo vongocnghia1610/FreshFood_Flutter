@@ -1,16 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/pages/home/components/recoment_product.dart';
-import 'package:flutter_postman_application/src/pages/home/components/title_with_button_more.dart';
-import 'package:flutter_postman_application/src/pages/home/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
 class DetailProductPage extends StatefulWidget {
   @override

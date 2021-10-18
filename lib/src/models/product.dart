@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_postman_application/src/models/group_product.dart';
-import 'package:flutter_postman_application/src/public/constant.dart';
 
 class ProductModel {
   final String id;
@@ -71,7 +70,7 @@ class ProductModel {
       image: (map['image'] as List<dynamic>).map((e) => e.toString()).toList(),
       status: map['status'],
       weight: double.tryParse((map['weight'] ?? 0).toString()),
-      price: double.tryParse((map['weight'] ?? 0).toString()),
+      price: double.tryParse((map['price'] ?? 0).toString()),
       quantity: map['quantity'],
       name: map['name'],
       detail: map['detail'],

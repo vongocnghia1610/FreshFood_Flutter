@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
+import 'package:flutter_postman_application/src/pages/home/components/history_product.dart';
 import 'package:flutter_postman_application/src/pages/home/components/recoment_product.dart';
 import 'package:flutter_postman_application/src/pages/home/components/title_with_button_more.dart';
 import 'package:flutter_postman_application/src/pages/home/controllers/product_controller.dart';
@@ -150,7 +151,7 @@ class _ProductPageState extends State<ProductPage> {
                           // scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            return RecomendProductCard(
+                            return HistoryProductCard(
                               product:
                                   ProductModel.fromMap(snapshot.data[index]),
                             );
