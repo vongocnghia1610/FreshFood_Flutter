@@ -3,7 +3,6 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/models/cart.dart';
 import 'package:flutter_postman_application/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:flutter_postman_application/src/pages/cart/widgets/product_image.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sizer/sizer.dart';
 
 class CartItem extends StatefulWidget {
@@ -29,6 +28,20 @@ class _CartItem extends State<CartItem> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
+        // Checkbox(value: null, onChanged: null),
+        IconButton(
+          icon: widget.cart.status == 0
+              ? Icon(Icons.check_box_outline_blank_outlined)
+              : Icon(Icons.check_box_rounded),
+          onPressed: () {
+            setState(() {
+              if (widget.cart.status == 0)
+                widget.cart.status = 1;
+              else
+                widget.cart.status = 0;
+            });
+          },
+        ),
         ProductImage(
           widget.cart.image[0],
           height: 30.w,
@@ -65,23 +78,34 @@ class _CartItem extends State<CartItem> {
               ),
               Row(
                 children: <Widget>[
-                  CartItemButton(
-                      PhosphorIcons.minus, widget.cart.decrementQuantity),
+                  CartItemButton(PhosphorIcons.minus, () {
+                    setState(() {
+                      widget.cart.decrementQuantity();
+                    });
+                  }),
                   SizedBox(width: 1.w),
-                  Obx(
-                    () => Text(
-                      widget.cart.quantity.toString(),
-                      style: TextStyle(
-                        fontSize: 5.w,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  // Obx(
+                  //   () =>
+                  // GetBuilder(
+                  //   builder: (_) =>
+                  Text(
+                    widget.cart.quantity.toString(),
+                    style: TextStyle(
+                      fontSize: 5.w,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
+                  // ),
+
+                  // ),
                   SizedBox(width: 1.w),
 
-                  CartItemButton(
-                      PhosphorIcons.plus, widget.cart.incrementQuantity),
+                  CartItemButton(PhosphorIcons.plus, () {
+                    setState(() {
+                      widget.cart.incrementQuantity();
+                    });
+                  }),
                   SizedBox(width: 10.w),
                   // CartItemButton(
                   //     PhosphorIcons.trash, () => cartController.deleteItem(this.cartItem)),

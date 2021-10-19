@@ -6,9 +6,10 @@ import 'package:get/get.dart';
 class CartModel extends GetxController {
   final String id;
   List<String> image;
-  int status;
+  int status = 0;
   double cost;
-  var quantity = 0.obs;
+  int quantity;
+  var count = 0.obs;
   String name;
   String detail;
   String nameGroup;
@@ -64,7 +65,7 @@ class CartModel extends GetxController {
       image: List<String>.from(map['image']),
       status: map['status'],
       cost: double.tryParse((map['cost'] ?? 0).toString()),
-      quantity: map['quantity'] as RxInt,
+      quantity: map['quantity'],
       name: map['name'],
       detail: map['detail'],
       nameGroup: map['nameGroup'],
@@ -110,7 +111,7 @@ class CartModel extends GetxController {
 
   incrementQuantity() {
     if (this.quantity >= 10) {
-      this.quantity = 10 as RxInt;
+      this.quantity = 10;
     } else {
       this.quantity += 1;
     }
@@ -118,9 +119,10 @@ class CartModel extends GetxController {
 
   decrementQuantity() {
     if (this.quantity <= 1) {
-      this.quantity = 1 as RxInt;
+      this.quantity = 1;
     } else {
       this.quantity -= 1;
     }
+    update();
   }
 }
