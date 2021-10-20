@@ -4,6 +4,7 @@ import 'package:flutter_postman_application/src/models/cart.dart';
 import 'package:flutter_postman_application/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter_postman_application/src/pages/cart/widgets/cart_item.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -49,28 +50,39 @@ class _CartPageState extends State<CartPage> {
           ),
         ),
         body: Container(
-          child: StreamBuilder(
-              stream: cartController.listProduct,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (!snapshot.hasData) {
-                  return Container(
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-                }
+          child: Column(
+            children: [
+              Container(
+                height: 145.w,
+                child: StreamBuilder(
+                    stream: cartController.listProduct,
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (!snapshot.hasData) {
+                        return Container(
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      }
 
-                return Container(
-                  child: ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return CartItem(
-                        cart: CartModel.fromMap(snapshot.data[index]),
+                      return Container(
+                        child: ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return CartItem(
+                              cart: CartModel.fromMap(snapshot.data[index]),
+                            );
+                          },
+                        ),
                       );
-                    },
-                  ),
-                );
-              }),
+                    }),
+              ),
+              Container(
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.blueAccent)),
+              ),
+            ],
+          ),
           // bottomNavigationBar: CartTotal(),
         ));
   }
