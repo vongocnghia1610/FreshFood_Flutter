@@ -9,10 +9,10 @@ class CartModel extends GetxController {
   int status = 0;
   double cost;
   int quantity;
-  var count = 0.obs;
   String name;
   String detail;
   String nameGroup;
+  int selected;
   CartModel({
     this.id,
     this.image,
@@ -22,6 +22,7 @@ class CartModel extends GetxController {
     this.name,
     this.detail,
     this.nameGroup,
+    this.selected = 0,
   });
 
   CartModel copyWith({
