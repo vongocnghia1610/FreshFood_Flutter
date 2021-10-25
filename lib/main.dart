@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_postman_application/src/app.dart';
 import 'package:flutter_postman_application/src/lang/translation_service.dart';
-import 'package:flutter_postman_application/src/pages/chat/chat_page.dart';
+import 'package:flutter_postman_application/src/pages/Admin/manager_user.dart';
 import 'package:flutter_postman_application/src/providers/user_provider.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:flutter_postman_application/src/shared/logger/logger_utils.dart';
@@ -43,7 +42,7 @@ void main() async {
         enableLog: true,
         logWriterCallback: Logger.write,
         // initialRoute: AppPages.INITIAL,
-        home: App(),
+        home: ManagerUser(),
         getPages: AppPages.routes,
         // initialRoute: AppPages.INITIAL,
         locale: TranslationService.locale,
