@@ -1,8 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
+import 'package:flutter_postman_application/src/pages/products/widget/bottom_navigation_product.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class DetailProductPage extends StatefulWidget {
@@ -15,9 +18,10 @@ class _DetailProductPageState extends State<DetailProductPage> {
   List<String> listImage = [
     "https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2021/tuqzxgazsnzm/2018_11_08/143638-1.jpg",
     "https://img.lovepik.com/element/40031/4942.png_860.png",
-    "http://img.vinanet.vn/zoom/500/Uploaded/ThuHai/NongSan/pork_JSGL.jpg"
+    "http://img.vinanet.vn/zoom/500/Uploaded/ThuHai/NongSan/pork_JSGL.jpg",
   ];
   int selectedImage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -27,62 +31,74 @@ class _DetailProductPageState extends State<DetailProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        drawer: Container(
-          width: 70.w,
-          child: Drawer(
-            child: DrawerLayout(),
-          ),
-        ),
         appBar: AppBar(
             elevation: 0,
             leading: IconButton(
-              icon: const Icon(
-                PhosphorIcons.arrow_circle_left_bold,
+              onPressed: () => Get.back(),
+              icon: Icon(
+                PhosphorIcons.arrow_left,
                 color: Colors.white,
+                size: 8.w,
               ),
-              onPressed: () => {},
-              iconSize: 40,
             ),
-            title: Text(
-              "Detail Sản phảm",
+            title: Center(
+              child: Text(
+                "Chi tiết Sản phẩm",
+              ),
             ),
             actions: [
-              Container(
-                padding: EdgeInsets.only(right: 10),
-                child: Row(children: [
-                  Text(
-                    "4.5",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20),
-                  ),
-                  SizedBox(
-                    width: 3.0,
-                  ),
-                  Icon(
-                    PhosphorIcons.star_fill,
-                    color: Colors.yellow,
-                    size: 20,
-                  ),
-                ]),
+              IconButton(
+                // padding: EdgeInsets.zero,
+                // constraints: BoxConstraints(),
+                onPressed: () {},
+                icon: Icon(
+                  PhosphorIcons.shopping_cart,
+                  color: Colors.white,
+                  size: 8.w,
+                ),
               ),
             ]),
+        bottomNavigationBar: BottomNavigationProduct(),
         body: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(
-                child: AspectRatio(
-                  aspectRatio: 1.2,
-                  child: Image.network(listImage[selectedImage]),
+                child: GestureDetector(
+                  onHorizontalDragEnd: (details) {
+                    setState(() {
+                      if (details.primaryVelocity < 0) {
+                        if (selectedImage == listImage.length - 1)
+                          selectedImage = 0;
+                        else
+                          selectedImage++;
+                        // print(selectedImage);
+                      }
+                      if (details.primaryVelocity > 0) {
+                        if (selectedImage == 0)
+                          selectedImage = listImage.length - 1;
+                        else
+                          selectedImage--;
+                      }
+                    });
+                  },
+                  child: AspectRatio(
+                    aspectRatio: 1.2,
+                    child: Image.network(listImage[selectedImage]),
+                  ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ...List.generate(
-                      listImage.length, (index) => buildSmallPreview(index))
-                ],
+              Container(
+                padding: new EdgeInsets.only(left: 5.w, right: 5.w),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...List.generate(
+                          listImage.length, (index) => buildSmallPreview(index))
+                    ],
+                  ),
+                ),
               ),
               detail(
                 color: Colors.white,
@@ -90,40 +106,71 @@ class _DetailProductPageState extends State<DetailProductPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text("Thịt Heo Siêu Nạc",
-                            style: Theme.of(context).textTheme.headline5)),
-                    Padding(
-                        padding: EdgeInsets.only(left: 20, right: 64, top: 20),
-                        child: Text(
-                          "Thịt đùi heo là phần thịt đặc trưng được lấy từ đùi sau của heo bao gồm nạc, mỡ và da.",
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15),
-                        )),
-                    SizedBox(
-                      height: 20,
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: Text("Thịt Heo Siêu Nạc",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.headline5),
                     ),
-                    Center(
-                      child: InkWell(
-                        onTap: () async {},
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-                          decoration: BoxDecoration(
-                              color: Colors.pinkAccent,
-                              border: Border.all(
-                                  width: 2, color: Colors.pinkAccent),
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Text(
-                            'Thêm vào giỏ hàng',
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                    SizedBox(height: 3.w),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 6.w),
+                      child: Text(
+                        "1000000 VNĐ",
+                        style: TextStyle(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 6.w),
+                      ),
+                    ),
+                    SizedBox(height: 3.w),
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                      child: Row(children: [
+                        SizedBox(
+                          width: 5.w,
+                        ),
+                        IgnorePointer(
+                          child: RatingBar.builder(
+                            initialRating: 4.2,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemSize: 6.w,
+                            // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            ),
+
+                            onRatingUpdate: (rating) {
+                              print(rating);
+                            },
                           ),
                         ),
+                        SizedBox(
+                          width: 3.w,
+                        ),
+                        Text(
+                          "4.5",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 6.w),
+                        ),
+                      ]),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, right: 64, top: 20),
+                      child: Text(
+                        "Thịt đùi heo là phần thịt đặc trưng được lấy từ đùi sau của heo bao gồm nạc, mỡ và da.",
+                        style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

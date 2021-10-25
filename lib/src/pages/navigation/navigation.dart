@@ -29,13 +29,15 @@ class _NavigationState extends State<Navigation> {
           right: kDefaultPadding * 2,
         ),
         height: 60,
-        decoration: BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(
-            offset: Offset(0, -10),
-            blurRadius: 35,
-            color: kPrimaryColor.withOpacity(0.38),
-          )
-        ]),
+        decoration: selected != 1
+            ? BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                  offset: Offset(0, -10),
+                  blurRadius: 35,
+                  color: kPrimaryColor.withOpacity(0.38),
+                )
+              ])
+            : BoxDecoration(color: Colors.white),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

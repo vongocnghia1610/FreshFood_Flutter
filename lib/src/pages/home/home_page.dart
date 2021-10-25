@@ -160,18 +160,11 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               );
                             }
-
                             return Container(
                               width: 100.w,
                               height: 200.sp,
                               child: ListView.builder(
                                 controller: scrollController,
-                                // gridDelegate:
-                                //     SliverGridDelegateWithFixedCrossAxisCount(
-                                //   crossAxisCount: 2,
-                                //   crossAxisSpacing: 4.0,
-                                //   mainAxisExtent: 4.0,
-                                // ),
                                 scrollDirection: Axis.horizontal,
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
@@ -232,23 +225,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               )
             ])));
-
-    // GetBuilder<BookController>(
-    //   builder: (controller) => GridView.builder(
-    //     controller: scrollController,
-    //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //       crossAxisCount: 2,
-    //       crossAxisSpacing: 4.0,
-    //       mainAxisExtent: 4.0,
-    //     ),
-    //     itemCount: controller.listBook.length,
-    //     itemBuilder: (context, index) {
-    //       return Container(
-    //         child: Text(controller.listBook[index]['name']),
-    //       );
-    //     },
-    //   ),
-    // ),
   }
 
   AppBar buildAppBar() {

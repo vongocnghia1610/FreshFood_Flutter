@@ -22,6 +22,18 @@ class ProductRepository {
     return [];
   }
 
+  Future<List<dynamic>> getDetail(id) async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_DETAIL_PRODUCT,
+      'id=$id',
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
+
   Future<ProductModel> createProduct({
     List<File> images,
     double weight,
