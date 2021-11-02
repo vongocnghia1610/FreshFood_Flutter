@@ -14,8 +14,6 @@ class _ProfilePagesState extends State<ProfilePages> {
   String email;
   String password;
   TextEditingController _namecontroller = new TextEditingController();
-  TextEditingController _birthdaycontroller = new TextEditingController();
-  TextEditingController _sexcontroller = new TextEditingController();
   TextEditingController _addresscontroller = new TextEditingController();
   TextEditingController _phone_numbercontroller = new TextEditingController();
   TextEditingController _emailcontroller = new TextEditingController();
@@ -116,7 +114,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                         BuildTextField(
                             'Vui lòng điền email!',
-                            _namecontroller,
+                            _emailcontroller,
                             "name",
                             'Điền Email',
                             'Email',
@@ -126,7 +124,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                         BuildTextField(
                             'Vui lòng điền số điện thoại',
-                            _namecontroller,
+                            _phone_numbercontroller,
                             "name",
                             'Điền số điện thoại',
                             'Số điện thoại',
