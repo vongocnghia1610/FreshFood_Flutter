@@ -210,14 +210,12 @@ class _CartPageState extends State<CartPage> {
                       // listCart = (snapshot.data as List<dynamic>)
                       //     .map((data) => CartModel.fromMap(data))
                       //     .toList();
-                      print("reset ne");
                       return Container(
                         child: ListView.builder(
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return CartItem(
                               cart: CartModel.fromMap(snapshot.data[index]),
-                              selectedAll: selectAll,
                               cartController: cartController,
                               listCart: (snapshot.data as List<dynamic>)
                                   .map((data) => CartModel.fromMap(data))

@@ -9,16 +9,10 @@ import 'package:sizer/sizer.dart';
 
 class CartItem extends StatefulWidget {
   CartModel cart;
-  bool selectedAll;
   CartController cartController;
   List<CartModel> listCart;
   int index;
-  CartItem(
-      {this.cart,
-      this.selectedAll,
-      this.cartController,
-      this.index,
-      this.listCart});
+  CartItem({this.cart, this.cartController, this.index, this.listCart});
   @override
   State<StatefulWidget> createState() {
     return _CartItem();

@@ -25,60 +25,60 @@ class _ManagerUserState extends State<ManagerUser> {
     'assets/icons/vn-pay.jpg',
     'assets/icons/COD.png'
   ];
-  List<User> listCustomer = [
-    User(
+  List<UserModel> listCustomer = [
+    UserModel(
         id: "abc",
-        username: "duynao4",
+        email: "duynao4",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "bdf",
-        username: "duynao5",
+        email: "duynao5",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao6",
+        email: "duynao6",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao7",
+        email: "duynao7",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao8",
+        email: "duynao8",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao9",
+        email: "duynao9",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao10",
+        email: "duynao10",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao11",
+        email: "duynao11",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    User(
+    UserModel(
         id: "glh",
-        username: "duynao12",
+        email: "duynao12",
         phone: "0968356159",
-        image:
+        avatar:
             "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg")
   ];
   @override
@@ -157,12 +157,12 @@ class _ManagerUserState extends State<ManagerUser> {
                     SizedBox(height: 60.sp),
                     CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(listCustomer[index].image),
+                      backgroundImage: NetworkImage(listCustomer[index].avatar),
                     ),
                     SizedBox(width: 10.sp),
                     Container(
                       child: Text(
-                        listCustomer[index].username,
+                        listCustomer[index].email,
                         style: TextStyle(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w600,

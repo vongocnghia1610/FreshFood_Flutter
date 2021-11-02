@@ -43,30 +43,14 @@ class ProductController extends GetxController {
   }
 
   getProduct() {
-    print("zo rooi ne");
-
     ProductRepository().getRecommendProduct(1, 10).then((value) {
       print(value);
       if (value.isNotEmpty) {
-        print("zo rooi ne 1");
-
         _listRecomPro.addAll(value);
         _listProductController.add(_listRecomPro);
         update();
       }
     });
-    // if (pageNum != -1) {
-    //   BookRepository().getBooks(pageNum).then((value) {
-    //     if (value.length > 0) {
-    //       listBook.addAll(value);
-    //       pageNum++;
-    //       update();
-    //     } else {
-    //       pageNum = -1;
-    //       update();
-    //     }
-    //   });
-    // }
   }
 
   Stream<List<dynamic>> get listProductRecommend =>

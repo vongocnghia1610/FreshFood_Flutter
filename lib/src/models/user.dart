@@ -1,87 +1,105 @@
 import 'dart:convert';
 
-class User {
+class UserModel {
   final String id;
-  String username;
-  String token;
+  int role;
+  String fcm;
+  String email;
   String phone;
-  String image;
-  User({
-    this.id,
-    this.username,
-    this.token,
-    this.phone,
-    this.image,
-  });
-  factory User.fromLogin(Map<String, dynamic> data) {
-    return User(
+  String name;
+  String avatar;
+  String token;
+  UserModel(
+      {this.id,
+      this.role,
+      this.fcm,
+      this.email,
+      this.phone,
+      this.name,
+      this.avatar,
+      this.token});
+  factory UserModel.fromLogin(Map<String, dynamic> data) {
+    return UserModel(
       token: data['token'],
       // role: data['role'],
     );
   }
-  User copyWith({
+  UserModel copyWith({
     String id,
-    String username,
-    String token,
+    int role,
+    String fcm,
+    String email,
     String phone,
-    String image,
+    String name,
+    String avatar,
   }) {
-    return User(
+    return UserModel(
       id: id ?? this.id,
-      username: username ?? this.username,
-      token: token ?? this.token,
+      role: role ?? this.role,
+      fcm: fcm ?? this.fcm,
+      email: email ?? this.email,
       phone: phone ?? this.phone,
-      image: image ?? this.image,
+      name: name ?? this.name,
+      avatar: avatar ?? this.avatar,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      '_id': id,
-      'username': username,
-      'token': token,
+      'id': id,
+      'role': role,
+      'fcm': fcm,
+      'email': email,
       'phone': phone,
-      'image': image,
+      'name': name,
+      'avatar': avatar,
     };
   }
 
-  factory User.fromMap(Map<String, dynamic> map) {
-    return User(
+  factory UserModel.fromMap(Map<String, dynamic> map) {
+    return UserModel(
       id: map['_id'],
-      username: map['username'],
-      token: map['token'],
+      role: map['role'],
+      fcm: map['fcm'],
+      email: map['email'],
       phone: map['phone'],
-      image: map['image'],
+      name: map['name'],
+      avatar: map['avatar'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
+  factory UserModel.fromJson(String source) =>
+      UserModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'User(id: $id, username: $username, token: $token, phone: $phone, image: $image)';
+    return 'User(id: $id, role: $role, fcm: $fcm, email: $email, phone: $phone, name: $name, avatar: $avatar)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is User &&
+    return other is UserModel &&
         other.id == id &&
-        other.username == username &&
-        other.token == token &&
+        other.role == role &&
+        other.fcm == fcm &&
+        other.email == email &&
         other.phone == phone &&
-        other.image == image;
+        other.name == name &&
+        other.avatar == avatar;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-        username.hashCode ^
-        token.hashCode ^
+        role.hashCode ^
+        fcm.hashCode ^
+        email.hashCode ^
         phone.hashCode ^
-        image.hashCode;
+        name.hashCode ^
+        avatar.hashCode;
   }
 }

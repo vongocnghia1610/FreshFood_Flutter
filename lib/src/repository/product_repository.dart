@@ -22,7 +22,7 @@ class ProductRepository {
     return [];
   }
 
-  Future<List<dynamic>> getDetail(id) async {
+  Future<dynamic> getDetail(id) async {
     var response = await HandleApis().get(
       ApiGateway.GET_DETAIL_PRODUCT,
       'id=$id',
@@ -44,7 +44,7 @@ class ProductRepository {
     String groupProduct,
   }) async {
     var request = http.MultipartRequest(
-        'POST', Uri.https(root_url, 'product/createProduct'));
+        'POST', Uri.http(root_url, 'product/createProduct'));
     request.headers["Content-Type"] = 'multipart/form-data';
     request.headers["Authorization"] = 'Bearer ' +
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzYzOWQxOWU1OTJiMDNkNDRmZjlmZCIsInJvbGUiOjB9LCJpYXQiOjE2MzA5NDM2OTc1MjksImV4cCI6MTYzMTAzMDA5NzUyOX0.RaOH15agShUZeaeKGch_7u_cc6T1R_QKrSUZMfaqvZI';
@@ -57,9 +57,12 @@ class ProductRepository {
       'weight': weight.toString(),
       'quantity': quantity.toString(),
     });
+    print(request.fields.values);
 
-    if (images.isNotEmpty) {
+    if (images != null) {
       images.forEach((image) {
+        print("aaaaaa");
+
         request.files.add(
           http.MultipartFile.fromBytes(
             "image",
@@ -69,6 +72,7 @@ class ProductRepository {
         );
       });
     }
+    if (request.files.length == 0) return null;
 
     var response = await http.Response.fromStream(await request.send());
     print(response.statusCode);
