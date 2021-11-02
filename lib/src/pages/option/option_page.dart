@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_postman_application/src/pages/option/widgets/profile_list_item.dart';
+import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/providers/user_provider.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
@@ -10,12 +11,22 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
+import 'controllers/profile_controller.dart';
+
 class OptionPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _OptionPageState();
 }
 
 class _OptionPageState extends State<OptionPage> {
+  final profileController = Get.put(ProfileController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    profileController.getProfile();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(context,
@@ -58,15 +69,33 @@ class _OptionPageState extends State<OptionPage> {
             ),
           ),
           SizedBox(height: 5.w),
-          Text(
-            'Nicolas Adams',
-            style: kTitleTextStyle,
+          GetBuilder<ProfileController>(
+            init: profileController,
+            builder: (_) => _.user.name != null
+                ? Text(
+                    _.user.name,
+                    style: kTitleTextStyle,
+                  )
+                : Text(
+                    "",
+                    style: kCaptionTextStyle,
+                  ),
           ),
+
           SizedBox(height: 3.w),
-          Text(
-            'nicolasadams@gmail.com',
-            style: kCaptionTextStyle,
+          GetBuilder<ProfileController>(
+            init: profileController,
+            builder: (_) => _.user.email != null
+                ? Text(
+                    _.user.email,
+                    style: kCaptionTextStyle,
+                  )
+                : Text(
+                    "",
+                    style: kCaptionTextStyle,
+                  ),
           ),
+
           SizedBox(height: 10.w),
           // Container(
           //   height: 10.w * 4,

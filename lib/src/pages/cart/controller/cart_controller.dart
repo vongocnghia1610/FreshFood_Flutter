@@ -57,7 +57,7 @@ class CartController extends GetxController {
   }
 
   decreaseQuantity(index) {
-    if (listProductCart[index]['quantity'] > 0) {
+    if (listProductCart[index]['quantity'] > 1) {
       listProductCart[index]['quantity']--;
       getTotalMoney();
     }

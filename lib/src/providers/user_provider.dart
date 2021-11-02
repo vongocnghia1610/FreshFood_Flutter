@@ -6,11 +6,11 @@ import 'package:get_storage/get_storage.dart';
 class UserProvider extends ChangeNotifier {
   final _getStorage = GetStorage();
   final storageKey = 'token';
-  User _user;
+  UserModel _user;
 
-  User get user => _user;
+  UserModel get user => _user;
 
-  setUser(User data) {
+  setUser(UserModel data) {
     _user = data;
     if (user != null) {
       _getStorage.write(storageKey, user.token);
@@ -23,7 +23,7 @@ class UserProvider extends ChangeNotifier {
   checkLogined() {
     String token = _getStorage.read(storageKey) ?? '';
     if (token != '') {
-      _user = User(
+      _user = UserModel(
         token: token,
       );
     } else {

@@ -51,7 +51,9 @@ class AppPages {
     ),
     GetPage(
       name: Routes.DETAIL_PRODUCT,
-      page: () => DetailProductPage(),
+      page: () => DetailProductPage(
+        id: Get.arguments['id'],
+      ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

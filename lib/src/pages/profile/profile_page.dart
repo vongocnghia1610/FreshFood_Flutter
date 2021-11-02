@@ -182,7 +182,7 @@ class _ProfilePagesState extends State<ProfilePages> {
           fillColor: Colors.black,
           hintText: placeholder,
           hintStyle: TextStyle(
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 18,
           ),
           labelText: lable_text,

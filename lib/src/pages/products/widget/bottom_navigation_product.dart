@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_postman_application/src/pages/cart/widgets/cart_item_button.dart';
+import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:sizer/sizer.dart';
 
 class BottomNavigationProduct extends StatelessWidget {
-  const BottomNavigationProduct() : super();
+  ProductDetailController productController;
+  BottomNavigationProduct({this.productController});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,9 @@ class BottomNavigationProduct extends StatelessWidget {
                     child: IconButton(
                       // padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
-                      onPressed: () {},
+                      onPressed: () {
+                        bottomSheet(context, "Thêm vào giỏ hàng");
+                      },
                       icon: Icon(
                         CupertinoIcons.cart_badge_plus,
                         color: Color(0xFF2C3D50),
@@ -102,7 +108,7 @@ class BottomNavigationProduct extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          height: 70.w,
+          height: 90.w,
           child: Container(
             // decoration: new BoxDecoration(
             //     color: Colors.white,
@@ -113,6 +119,9 @@ class BottomNavigationProduct extends StatelessWidget {
               // mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
+                SizedBox(
+                  height: 5.w,
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -123,9 +132,9 @@ class BottomNavigationProduct extends StatelessWidget {
                         //   topRight: Radius.circular(10),
                         // ),
                         child: Image.network(
-                          "https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2021/tuqzxgazsnzm/2018_11_08/143638-1.jpg",
-                          fit: BoxFit.cover,
-                          height: 100.sp,
+                          productController.product.image[0],
+                          fit: BoxFit.fill,
+                          height: 43.2.w,
                           width: 50.w,
                         ),
                       ),
@@ -133,24 +142,136 @@ class BottomNavigationProduct extends StatelessWidget {
                     Expanded(
                       flex: 1,
                       child: Column(children: [
+                        SizedBox(
+                          height: 5.w,
+                        ),
                         Text(
-                          '1000000 VNĐ',
+                          productController.product.price.toString() + " VNĐ",
                           style: TextStyle(
                             fontSize: 6.w,
                             color: kPrimaryColor,
                             fontWeight: FontWeight.w500,
                           ),
-                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 2.w,
+                        ),
+                        Text(
+                          'Kho : ${productController.product.quantity}',
+                          style: TextStyle(
+                            fontSize: 4.w,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ]),
                     )
                   ],
                 ),
-                Text('Modal BottomSheet'),
-                ElevatedButton(
-                  child: const Text('Close BottomSheet'),
-                  onPressed: () => Navigator.pop(context),
-                )
+                SizedBox(
+                  height: 8.w,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Container(
+                        padding: EdgeInsets.only(left: 7.w),
+                        child: Text(
+                          'Số lượng:',
+                          style: TextStyle(
+                            fontSize: 5.w,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            CartItemButton(PhosphorIcons.minus, () {
+                              productController.decreaseQuantity();
+                              // widget.cartController.decreaseQuantity(widget.index);
+
+                              // setState(() {
+                              //   widget.cart.decrementQuantity();
+                              //   widget.cartController.getTotalMoney();
+                              // });
+                            }),
+                            SizedBox(width: 1.w),
+                            GetBuilder<ProductDetailController>(
+                              init: productController,
+                              builder: (_) => Text(
+                                productController.product.number.toString(),
+                                style: TextStyle(
+                                  fontSize: 4.w,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+
+                            // GetBuilder<CartController>(
+                            //   init: widget.cartController,
+                            //   builder: (_) => Text(
+                            //     _.listProductCart[widget.index]['quantity']
+                            //         .toString(),
+                            //     style: TextStyle(
+                            //       fontSize: 4.w,
+                            //       color: Colors.black,
+                            //       fontWeight: FontWeight.w600,
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(width: 1.w),
+                            CartItemButton(PhosphorIcons.plus, () {
+                              productController.increaseQuantity();
+
+                              // widget.cartController.increaseQuantity(widget.index);
+                              // setState(() {
+                              //   widget.cart.incrementQuantity();
+                              //   widget.cartController.getTotalMoney();
+                              // });
+                            }),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 1.w,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    // padding: EdgeInsets.all(2.w),
+                    width: 90.w,
+                    margin: EdgeInsets.all(5.w),
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      border: Border.all(width: 3.w, color: kPrimaryColor),
+                      // borderRadius: BorderRadius.circular(20)),
+                    ),
+                    child: InkWell(
+                      splashColor: kPrimaryColor,
+                      onTap: () {},
+                      child: Container(
+                        child: Text(
+                          text,
+                          style: TextStyle(
+                            fontSize: 6.w,
+                            color: Colors.white,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

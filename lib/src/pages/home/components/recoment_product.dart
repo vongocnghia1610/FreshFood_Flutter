@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_postman_application/src/helpers/money_formatter.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:flutter_postman_application/src/routes/app_pages.dart';
@@ -20,7 +21,10 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
       height: 60.w,
       margin: EdgeInsets.only(left: 5.sp),
       child: GestureDetector(
-        onTap: () => {Get.toNamed(Routes.DETAIL_PRODUCT)},
+        onTap: () => {
+          Get.toNamed(Routes.DETAIL_PRODUCT,
+              arguments: {"id": widget.product.id})
+        },
         child: Container(
           child: Column(
             children: <Widget>[
@@ -68,7 +72,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                                   fontSize: 12)),
                           SizedBox(height: 5.sp),
                           Text(
-                            widget.product.price.toString() + " VNĐ",
+                            formatMoney(widget.product.price),
                             style: Theme.of(context)
                                 .textTheme
                                 .button

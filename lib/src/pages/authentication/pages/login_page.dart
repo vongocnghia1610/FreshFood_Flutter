@@ -160,7 +160,7 @@ class _LoginPagesState extends State<LoginPages> {
                         getSnackBar.show();
                       } else {
                         userProvider.setUser(
-                          User.fromLogin(value),
+                          UserModel.fromLogin(value),
                         );
                         print("dang nhap thanh cong");
                         GetSnackBar getSnackBar = GetSnackBar(

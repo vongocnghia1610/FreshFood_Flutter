@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class CreateProductPage extends StatefulWidget {
   @override
@@ -27,8 +28,13 @@ class _CreateProductPageState extends State<CreateProductPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
-  TextEditingController _namecontroller = new TextEditingController();
-  List<File> _image;
+  var priceTest = MoneyMaskedTextController(
+      decimalSeparator: '',
+      thousandSeparator: '.',
+      leftSymbol: 'đ',
+      precision: 0); //after
+
+  List<File> _image = [];
   ImagePicker _imagePicker = ImagePicker();
   List<dynamic> test = [];
   StreamController<List<dynamic>> _listImage =
@@ -49,7 +55,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
     productController.initialController();
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
-
     // bookController.getBooks();
     // scrollController.addListener(() {
     //   if (scrollController.position.atEdge) {
@@ -252,17 +257,17 @@ class _CreateProductPageState extends State<CreateProductPage> {
           ),
         ),
         appBar: AppBar(
-          elevation: 0,
           leading: IconButton(
-            onPressed: () => _scaffoldKey.currentState.openDrawer(),
-            icon: SvgPicture.asset("assets/icons/menu.svg"),
-            iconSize: 20.sp,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
+              color: Colors.white,
+              size: 7.w,
+            ),
           ),
-          centerTitle: false,
           title: Text(
             "Tạo Sản Phẩm",
-            textAlign: TextAlign.left,
-            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: Colors.white,
@@ -285,7 +290,9 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       "name",
                       'Điền tên của sản phẩm',
                       'Tên sản phẩm',
-                      PhosphorIcons.package),
+                      PhosphorIcons.package,
+                      false,
+                      false),
                   SizedBox(
                     height: 30.0,
                   ),
@@ -341,12 +348,20 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       "detail",
                       'Điền chi tiết sản phẩm',
                       'Chi tiết sản phẩm',
-                      PhosphorIcons.clipboard_text),
+                      PhosphorIcons.clipboard_text,
+                      false,
+                      false),
                   SizedBox(
                     height: 30.0,
                   ),
-                  BuildTextField('Vui lòng điền giá sản phẩm!', "price",
-                      'Điền giá sản phẩm', 'Giá sản phẩm', PhosphorIcons.money),
+                  BuildTextField(
+                      'Vui lòng điền giá sản phẩm!',
+                      "price",
+                      'Điền giá sản phẩm',
+                      'Giá sản phẩm',
+                      PhosphorIcons.money,
+                      priceTest,
+                      true),
                   SizedBox(
                     height: 30.0,
                   ),
@@ -355,7 +370,9 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       "weight",
                       'Điền khối lượng sản phẩm',
                       'Khối lượng sản phẩm',
-                      PhosphorIcons.scales),
+                      PhosphorIcons.scales,
+                      false,
+                      true),
                   SizedBox(
                     height: 30.0,
                   ),
@@ -364,7 +381,9 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       "quantity",
                       'Điền số lượng sản phẩm',
                       'Số lượng sản phẩm',
-                      PhosphorIcons.stack),
+                      PhosphorIcons.stack,
+                      false,
+                      true),
                   SizedBox(
                     height: 30.0,
                   ),
@@ -461,12 +480,12 @@ class _CreateProductPageState extends State<CreateProductPage> {
   }
 
   Material BuildTextField(String vali, dynamic type, String placeholder,
-      String lable_text, IconData iconData) {
+      String lable_text, IconData iconData, name_controller, bool number) {
     return Material(
       elevation: 20.0,
       shadowColor: kPrimaryColor.withOpacity(0.38),
       child: TextFormField(
-        // controller: name_controller,
+        controller: name_controller == false ? null : name_controller,
         validator: (val) => val.trim().length == 0 ? vali : null,
         onChanged: (val) {
           setState(() {
@@ -474,9 +493,17 @@ class _CreateProductPageState extends State<CreateProductPage> {
               name = val.trim();
             else if (type == "detail")
               detail = val.trim();
-            else if (type == "price")
-              price = double.tryParse(val.trim());
-            else if (type == "weight")
+            else if (type == "price") {
+              // print(name_controller.numberValue);
+              // // name_controller.updateValue(val);
+              // if(name_controller.toString())
+              if (name_controller.text.toString() == "đ") {
+                name_controller.value = "đ0";
+              }
+              if (name_controller.numberValue != null)
+                price = name_controller.numberValue;
+              // price = double.tryParse(val.trim());
+            } else if (type == "weight")
               weight = double.tryParse(val.trim());
             else if (type == "quantity") quantity = int.tryParse(val.trim());
           });
@@ -485,11 +512,12 @@ class _CreateProductPageState extends State<CreateProductPage> {
           color: Colors.black,
           fontSize: 18,
         ),
+        keyboardType: number ? TextInputType.number : null,
         decoration: InputDecoration(
           fillColor: Colors.black,
           hintText: placeholder,
           hintStyle: TextStyle(
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 18,
           ),
           labelText: lable_text,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+
 import 'package:flutter_postman_application/src/models/group_product.dart';
 
 class ProductModel {
@@ -12,7 +13,9 @@ class ProductModel {
   int quantity;
   String name;
   String detail;
+  double rate;
   GroupProduct groupProduct;
+  int number;
 
   ProductModel({
     this.id,
@@ -23,7 +26,9 @@ class ProductModel {
     this.quantity,
     this.name,
     this.detail,
+    this.rate = 4.5,
     this.groupProduct,
+    this.number = 5,
   });
 
   ProductModel copyWith({
@@ -35,7 +40,8 @@ class ProductModel {
     int quantity,
     String name,
     String detail,
-    List<dynamic> groupProduct,
+    double rate,
+    GroupProduct groupProduct,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -46,6 +52,7 @@ class ProductModel {
       quantity: quantity ?? this.quantity,
       name: name ?? this.name,
       detail: detail ?? this.detail,
+      rate: rate ?? this.rate,
       groupProduct: groupProduct ?? this.groupProduct,
     );
   }
@@ -60,7 +67,8 @@ class ProductModel {
       'quantity': quantity,
       'name': name,
       'detail': detail,
-      'groupProduct': groupProduct,
+      'rate': rate,
+      'groupProduct': groupProduct.toMap(),
     };
   }
 
@@ -75,6 +83,7 @@ class ProductModel {
       name: map['name'],
       detail: map['detail'],
       groupProduct: GroupProduct.fromMap(map['groupProduct']),
+      rate: double.tryParse((map['rate'] ?? 0).toString()),
     );
   }
 
@@ -85,7 +94,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'Product(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, groupProduct: $groupProduct)';
+    return 'ProductModel(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, rate: $rate, groupProduct: $groupProduct)';
   }
 
   @override
@@ -100,7 +109,9 @@ class ProductModel {
         other.price == price &&
         other.quantity == quantity &&
         other.name == name &&
-        other.detail == detail;
+        other.detail == detail &&
+        other.rate == rate &&
+        other.groupProduct == groupProduct;
   }
 
   @override
@@ -113,6 +124,7 @@ class ProductModel {
         quantity.hashCode ^
         name.hashCode ^
         detail.hashCode ^
+        rate.hashCode ^
         groupProduct.hashCode;
   }
 }
