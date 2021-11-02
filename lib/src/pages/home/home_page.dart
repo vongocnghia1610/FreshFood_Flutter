@@ -85,39 +85,6 @@ class _HomePageState extends State<HomePage> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        // floatingActionButton: FloatingActionButton(
-        //   child: Icon(
-        //     Icons.refresh,
-        //     size: width / 16.0,
-        //   ),
-        //   onPressed: () {
-        //     var responseFromServer = {
-        //       '_id': 'nghia',
-        //       'username': 'vo ngoc ngu',
-        //       'token': 'haha',
-        //       'phone': '099999999',
-        //       'image': 'https://sextop1.com'
-        //     };
-        //     User user = User.fromMap(responseFromServer);
-        //     print(user.toString());
-        //     print(user.toMap());
-        //     // if (Get.locale == Locale('vi', 'VN')) {
-        //     //   Get.updateLocale(Locale('en', 'US'));
-        //     // } else {
-        //     //   Get.updateLocale(Locale('vi', 'VN'));
-        //     // }
-        //     Get.toNamed(Routes.AUTHENTICATION, arguments: {
-        //       'title': 'HAHAHA',
-        //       'tuNghiaaaa': 1213,
-        //     });
-        //     // Get.back();
-        //     // Get.offNamedUntil(Routes.ROOT, (route) => false);
-        //     // Get.offAllNamed(Routes.ROOT);
-        //     // if (Get.currentRoute == Routes.AUTHENTICATION) {
-        //     //   // dung co chuyen
-        //     // } else {}
-        //   },
-        // ),
         appBar: buildAppBar(),
         body: Container(
             height: 100.h,
