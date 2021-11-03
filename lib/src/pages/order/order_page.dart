@@ -6,6 +6,7 @@ import 'package:flutter_postman_application/src/models/product.dart';
 import 'package:flutter_postman_application/src/pages/order/pages/first_page.dart';
 import 'package:flutter_postman_application/src/pages/payment/widget/default_button.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -106,14 +107,14 @@ class _OrderPageState extends State<OrderPage>
           IconButton(
             onPressed: () => {},
             icon: Icon(
-              PhosphorIcons.magnifying_glass_bold,
+              PhosphorIcons.magnifying_glass,
               size: 7.w,
             ),
           ),
           IconButton(
-            onPressed: () => {},
+            onPressed: () => {Get.toNamed(Routes.CHAT)},
             icon: Icon(
-              PhosphorIcons.messenger_logo_bold,
+              PhosphorIcons.messenger_logo,
               size: 7.w,
             ),
           ),

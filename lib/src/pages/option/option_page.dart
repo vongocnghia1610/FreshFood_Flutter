@@ -145,12 +145,16 @@ class _OptionPageState extends State<OptionPage> {
                       icon: LineAwesomeIcons.user_shield,
                       text: 'Thông tin cá nhân',
                       tap: () {
-                        Get.toNamed(Routes.PROFILE);
+                        Get.toNamed(Routes.PROFILE,
+                            arguments: {"user": profileController.user});
                       },
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.history,
-                      text: 'Đã mua',
+                      text: 'Xem tất cả đơn',
+                      tap: () {
+                        Get.toNamed(Routes.ORDER);
+                      },
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.question_circle,

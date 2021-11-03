@@ -35,7 +35,7 @@ class BottomNavigationProduct extends StatelessWidget {
                     constraints: BoxConstraints(),
                     onPressed: () {},
                     icon: Icon(
-                      PhosphorIcons.discord_logo,
+                      PhosphorIcons.messenger_logo,
                       color: Color(0xFF2C3D50),
                       size: 8.w,
                     ),

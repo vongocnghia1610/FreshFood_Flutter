@@ -4,7 +4,6 @@ final oCcy = new NumberFormat(",###", "en_US");
 
 String formatMoney(double money) {
   String temp = "";
-  money = 99999999;
 
   // var save = (money) % (money / 1000).toInt();
 

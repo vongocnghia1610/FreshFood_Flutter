@@ -151,7 +151,7 @@ class _ProductPageState extends State<ProductPage> {
                           // scrollDirection: Axis.horizontal,
                           itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
-                            return HistoryProductCard(
+                            return RecomendProductCard(
                               product:
                                   ProductModel.fromMap(snapshot.data[index]),
                             );

@@ -50,8 +50,8 @@ class _CartPageState extends State<CartPage> {
             onPressed: () => Get.back(),
             icon: Icon(
               PhosphorIcons.arrow_left,
-              color: Color(0xFF2C3D50),
-              size: _size.width / 15.0,
+              color: Colors.white,
+              size: 7.w,
             ),
           ),
           title: Text(

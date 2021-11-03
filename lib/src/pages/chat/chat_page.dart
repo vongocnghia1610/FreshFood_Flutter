@@ -4,6 +4,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/pages/chat/chat_detail_pager.dart';
 import 'package:flutter_postman_application/src/pages/chat/models/user_model.dart';
 import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import 'models/message_model.dart';
@@ -84,12 +85,12 @@ class _ChatPageState extends State<ChatPage> {
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(
-            PhosphorIcons.arrow_circle_left_bold,
+          onPressed: () => Get.back(),
+          icon: Icon(
+            PhosphorIcons.arrow_left,
             color: Colors.white,
+            size: 7.w,
           ),
-          onPressed: () => {},
-          iconSize: 40,
         ),
         title: Text(
           "Chat",

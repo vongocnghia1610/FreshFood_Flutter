@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/pages/cart/cart_page.dart';
+import 'package:flutter_postman_application/src/pages/chat/chat_page.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
 import 'package:flutter_postman_application/src/pages/option/option_page.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
@@ -15,7 +16,7 @@ class _NavigationState extends State<Navigation> {
   var pages = [
     HomePage(),
     CartPage(),
-    Container(),
+    ChatPage(),
     OptionPage(),
   ];
   int selected = 0;
@@ -52,8 +53,8 @@ class _NavigationState extends State<Navigation> {
               1,
             ),
             _buildNavigationItem(
-              PhosphorIcons.discord_logo_fill,
-              PhosphorIcons.discord_logo,
+              PhosphorIcons.messenger_logo_fill,
+              PhosphorIcons.messenger_logo,
               2,
             ),
             _buildNavigationItem(

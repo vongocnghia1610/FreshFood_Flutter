@@ -148,7 +148,7 @@ class WidgetOrder extends StatelessWidget {
                         width: 42.sp,
                       ),
                       Icon(
-                        PhosphorIcons.money_bold,
+                        PhosphorIcons.money,
                         size: 28,
                         color: Colors.green,
                       ),
