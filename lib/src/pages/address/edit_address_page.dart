@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_postman_application/src/common/bottom_sheet_location.dart';
 import 'package:flutter_postman_application/src/models/address.dart';
 import 'package:flutter_postman_application/src/models/history.dart';
+import 'package:flutter_postman_application/src/pages/address/widget/option.dart';
 import 'package:flutter_postman_application/src/pages/payment/widget/default_button.dart';
 import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
 import 'package:flutter_postman_application/src/public/constant.dart';
@@ -19,6 +21,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
   bool isMain = false;
+  String province = '', distric = '';
   List<AddressModel> listAddressModel = [
     AddressModel(
         name: "Nguyễn Phan Nhật Phong",
@@ -136,8 +139,52 @@ class _EditAddressPageState extends State<EditAddressPage> {
                     ),
                   ),
                 ),
+                Option(
+                  handlePress: () {
+                    {
+                      showModalBottomSheet<void>(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return BottomSheet_Location(
+                                typeLocation: 0,
+                                textProvinceSelected: province,
+                                handleAccept: (value) {
+                                  this.setState(() {
+                                    province = value;
+                                    distric = '';
+                                  });
+                                });
+                          });
+                    }
+                  },
+                  name: 'Tỉnh/thành phố',
+                  description: province == '' ? 'Xin chọn' : province,
+                ),
                 SizedBox(
-                  height: 20.sp,
+                  height: 5.sp,
+                ),
+                Option(
+                  handlePress: province == ''
+                      ? () {}
+                      : () {
+                          showModalBottomSheet<void>(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return BottomSheet_Location(
+                                    typeLocation: 1,
+                                    textProvinceSelected: province,
+                                    textDistrictSelected: distric,
+                                    handleAccept: (value) {
+                                      this.setState(() {
+                                        distric = value;
+                                      });
+                                    });
+                              });
+                        },
+                  name: 'Quận/huyện',
+                  description: distric == '' ? 'Xin chọn' : distric,
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 10.sp),
@@ -152,7 +199,7 @@ class _EditAddressPageState extends State<EditAddressPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 15.sp,
+                  height: 10.sp,
                 ),
                 Container(
                   height: 50.sp,

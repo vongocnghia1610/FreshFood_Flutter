@@ -54,7 +54,7 @@ void main() async {
         enableLog: true,
         logWriterCallback: Logger.write,
         // initialRoute: AppPages.INITIAL,
-        home: App(),
+        home: EditAddressPage(),
         getPages: AppPages.routes,
         // initialRoute: AppPages.INITIAL,
         locale: TranslationService.locale,
