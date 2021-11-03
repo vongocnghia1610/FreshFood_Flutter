@@ -28,7 +28,7 @@ class ProductModel {
     this.detail,
     this.rate = 4.5,
     this.groupProduct,
-    this.number = 5,
+    this.number = 1,
   });
 
   ProductModel copyWith({

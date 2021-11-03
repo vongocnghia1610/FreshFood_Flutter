@@ -72,6 +72,8 @@ flutter:
     - assets/images/error-img.gif
     - assets/icons/
     - assets/images/
+    - assets/images/banner/
+
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

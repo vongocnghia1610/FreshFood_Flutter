@@ -6,6 +6,7 @@ import 'package:flutter_postman_application/src/models/product.dart';
 import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/pages/products/widget/bottom_navigation_product.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:flutter_postman_application/src/routes/app_pages.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -56,7 +57,9 @@ class _DetailProductPageState extends State<DetailProductPage> {
               IconButton(
                 // padding: EdgeInsets.zero,
                 // constraints: BoxConstraints(),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(Routes.CART);
+                },
                 icon: Icon(
                   PhosphorIcons.shopping_cart,
                   color: Colors.white,
@@ -108,6 +111,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 3.w),
                           Container(
                             padding: new EdgeInsets.only(left: 5.w, right: 5.w),
                             child: SingleChildScrollView(
@@ -223,6 +227,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                               ),
                       ),
                     ),
+                    SizedBox(height: 5.w),
                   ],
                 ),
               ),

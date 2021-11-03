@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_postman_application/src/models/user.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfilePages extends StatefulWidget {
-  ProfilePages();
+  final UserModel user;
+  ProfilePages({this.user});
 
   @override
   _ProfilePagesState createState() => _ProfilePagesState();
@@ -14,9 +16,17 @@ class _ProfilePagesState extends State<ProfilePages> {
   String email;
   String password;
   TextEditingController _namecontroller = new TextEditingController();
-  TextEditingController _addresscontroller = new TextEditingController();
-  TextEditingController _phone_numbercontroller = new TextEditingController();
+  TextEditingController _phoneNumbercontroller = new TextEditingController();
   TextEditingController _emailcontroller = new TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _namecontroller.text = widget.user.name;
+    _phoneNumbercontroller.text = widget.user.phone;
+    _emailcontroller.text = widget.user.email;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +134,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                         BuildTextField(
                             'Vui lòng điền số điện thoại',
-                            _phone_numbercontroller,
+                            _phoneNumbercontroller,
                             "name",
                             'Điền số điện thoại',
                             'Số điện thoại',
@@ -169,6 +179,7 @@ class _ProfilePagesState extends State<ProfilePages> {
       elevation: 20.0,
       shadowColor: kPrimaryColor.withOpacity(0.38),
       child: TextFormField(
+        readOnly: true,
         controller: name_controller,
         validator: (val) => val.trim().length == 0 ? vali : null,
         onChanged: (val) {

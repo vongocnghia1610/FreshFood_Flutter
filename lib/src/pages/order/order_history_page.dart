@@ -28,21 +28,8 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
     HistoryModel(
         title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 07)),
     HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 00))
+        title: "Đơn hàng đã giao thành công",
+        createdAt: DateTime(2021, 11, 1, 11, 00)),
   ];
   @override
   void initState() {
@@ -174,7 +161,7 @@ class WidgetHistoryOrder extends StatelessWidget {
               style: TextStyle(
                   fontSize: 13.sp,
                   color: Colors.black,
-                  fontWeight: FontWeight.bold)),
+                  fontWeight: FontWeight.w500)),
         ),
         SizedBox(
           width: 10.sp,
