@@ -4,6 +4,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:sizer/sizer.dart';
 
@@ -54,7 +55,10 @@ class BottomNavigationProduct extends StatelessWidget {
                       // padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                       onPressed: () {
-                        bottomSheet(context, "Thêm vào giỏ hàng");
+                        bottomSheet(context, "Thêm vào giỏ hàng", () {
+                          productController.addToCart();
+                          Navigator.pop(context);
+                        });
                       },
                       icon: Icon(
                         CupertinoIcons.cart_badge_plus,
@@ -83,7 +87,7 @@ class BottomNavigationProduct extends StatelessWidget {
               child: InkWell(
                 splashColor: kPrimaryColor,
                 onTap: () {
-                  bottomSheet(context, "Mua ngay");
+                  bottomSheet(context, "Mua ngay", () {});
                 },
                 child: Container(
                   child: Text(
@@ -103,7 +107,8 @@ class BottomNavigationProduct extends StatelessWidget {
     );
   }
 
-  Future<void> bottomSheet(BuildContext context, text) {
+  Future<void> bottomSheet(
+      BuildContext context, String text, Function onpress) {
     return showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
@@ -258,7 +263,9 @@ class BottomNavigationProduct extends StatelessWidget {
                     ),
                     child: InkWell(
                       splashColor: kPrimaryColor,
-                      onTap: () {},
+                      onTap: () {
+                        onpress();
+                      },
                       child: Container(
                         child: Text(
                           text,

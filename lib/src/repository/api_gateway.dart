@@ -11,6 +11,7 @@ class ApiGateway {
 
   //Cart
   static const GETCART = 'cart/getAllCart';
+  static const ADD_TO_CART = 'cart/createCart';
 
   //product
   static const GET_DETAIL_PRODUCT = 'product/getDetailProduct';
