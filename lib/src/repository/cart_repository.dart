@@ -12,4 +12,17 @@ class CartRepository {
     }
     return [];
   }
+
+  Future<dynamic> addToCart(String productId, int quantity) async {
+    var body = {
+      "productId": productId,
+      "quantity": quantity,
+    };
+    var response = await HandleApis().post(ApiGateway.ADD_TO_CART, body);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
 }
