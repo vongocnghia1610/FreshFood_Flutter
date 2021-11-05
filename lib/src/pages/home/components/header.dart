@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:freshfood/src/public/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Header extends StatelessWidget {

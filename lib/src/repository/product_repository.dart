@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/repository/api_gateway.dart';
-import 'package:flutter_postman_application/src/repository/base_repository.dart';
+import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/repository/api_gateway.dart';
+import 'package:freshfood/src/repository/base_repository.dart';
 import 'package:http/http.dart' as http;
 
 class ProductRepository {

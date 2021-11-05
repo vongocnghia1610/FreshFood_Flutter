@@ -1,4 +1,4 @@
-import 'package:flutter_postman_application/src/pages/chat/models/user_model.dart';
+import 'package:freshfood/src/pages/chat/models/user_model.dart';
 
 class Message {
   final User sender;

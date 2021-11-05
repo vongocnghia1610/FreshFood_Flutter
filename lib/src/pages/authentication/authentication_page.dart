@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/pages/authentication/pages/login_page.dart';
-import 'package:flutter_postman_application/src/pages/authentication/pages/register_page.dart';
-import 'package:flutter_postman_application/src/routes/app_pages.dart';
+import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
+import 'package:freshfood/src/pages/authentication/pages/register_page.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 
 class AuthenticationPages extends StatefulWidget {
   final String title;

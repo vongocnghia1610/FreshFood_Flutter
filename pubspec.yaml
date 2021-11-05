@@ -1,4 +1,4 @@
-name: flutter_postman_application
+name: freshfood
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -44,6 +44,7 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   intl: ^0.17.0
   flutter_masked_text: ^0.8.0
+  badges: ^2.0.1
 
 dev_dependencies:
   flutter_test:

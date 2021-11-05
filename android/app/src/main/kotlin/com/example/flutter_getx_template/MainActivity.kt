@@ -1,4 +1,4 @@
-package com.example.flutter_postman_application
+package com.example.freshfood
 
 import io.flutter.embedding.android.FlutterActivity
 

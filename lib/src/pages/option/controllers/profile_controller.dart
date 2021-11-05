@@ -1,5 +1,5 @@
-import 'package:flutter_postman_application/src/models/user.dart';
-import 'package:flutter_postman_application/src/repository/user_repository.dart';
+import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ProfileController extends GetxController {

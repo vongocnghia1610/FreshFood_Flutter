@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/models/user.dart';
-import 'package:flutter_postman_application/src/providers/user_provider.dart';
-import 'package:flutter_postman_application/src/repository/authentication_repository.dart';
-import 'package:flutter_postman_application/src/utils/snackbar.dart';
+import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
+import 'package:freshfood/src/repository/authentication_repository.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 
 class SignupPage extends StatefulWidget {

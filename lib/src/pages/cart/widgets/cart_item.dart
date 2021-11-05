@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/models/cart.dart';
-import 'package:flutter_postman_application/src/pages/cart/controller/cart_controller.dart';
-import 'package:flutter_postman_application/src/pages/cart/widgets/cart_item_button.dart';
-import 'package:flutter_postman_application/src/pages/cart/widgets/product_image.dart';
+import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
+import 'package:freshfood/src/pages/cart/widgets/product_image.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 

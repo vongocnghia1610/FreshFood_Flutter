@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/helpers/money_formatter.dart';
-import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
-import 'package:flutter_postman_application/src/routes/app_pages.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -59,12 +59,15 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.product.name.toUpperCase(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
+                          Container(
+                            height: 10.w,
+                            child: Text(widget.product.name.toUpperCase(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                          ),
                           Text('Số lượng: ${widget.product.quantity}',
                               maxLines: 1,
                               style: TextStyle(

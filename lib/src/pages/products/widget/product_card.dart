@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class HistoryProductCard extends StatefulWidget {
+class ProductCard extends StatefulWidget {
   final ProductModel product;
-  HistoryProductCard({this.product});
+  ProductCard({this.product});
   @override
-  State<StatefulWidget> createState() => _HistoryProductCardState();
+  State<StatefulWidget> createState() => _ProductCardState();
 }
 
-class _HistoryProductCardState extends State<HistoryProductCard> {
+class _ProductCardState extends State<ProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +21,10 @@ class _HistoryProductCardState extends State<HistoryProductCard> {
       height: 60.w,
       margin: EdgeInsets.only(left: 5.sp),
       child: GestureDetector(
-        onTap: () => null,
+        onTap: () => {
+          Get.toNamed(Routes.DETAIL_PRODUCT,
+              arguments: {"id": widget.product.id})
+        },
         child: Container(
           child: Column(
             children: <Widget>[
@@ -31,7 +37,7 @@ class _HistoryProductCardState extends State<HistoryProductCard> {
                   widget.product.image[0],
                   fit: BoxFit.cover,
                   height: 100.sp,
-                  width: 60.w,
+                  width: 50.w,
                 ),
               ),
               Container(
@@ -53,12 +59,15 @@ class _HistoryProductCardState extends State<HistoryProductCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.product.name.toUpperCase(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
+                          Container(
+                            height: 10.w,
+                            child: Text(widget.product.name.toUpperCase(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                          ),
                           Text('Số lượng: ${widget.product.quantity}',
                               maxLines: 1,
                               style: TextStyle(
@@ -66,7 +75,7 @@ class _HistoryProductCardState extends State<HistoryProductCard> {
                                   fontSize: 12)),
                           SizedBox(height: 5.sp),
                           Text(
-                            widget.product.price.toString() + " VNĐ",
+                            formatMoney(widget.product.price),
                             style: Theme.of(context)
                                 .textTheme
                                 .button

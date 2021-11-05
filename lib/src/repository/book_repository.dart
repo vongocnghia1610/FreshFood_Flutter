@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter_postman_application/src/repository/api_gateway.dart';
-import 'package:flutter_postman_application/src/repository/base_repository.dart';
+import 'package:freshfood/src/repository/api_gateway.dart';
+import 'package:freshfood/src/repository/base_repository.dart';
 
 class BookRepository {
   Future<List<dynamic>> getBooks(int page) async {

@@ -1,17 +1,21 @@
 import 'dart:async';
-import 'package:flutter_postman_application/src/models/cart.dart';
-import 'package:flutter_postman_application/src/repository/cart_repository.dart';
+import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/repository/cart_repository.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   List<dynamic> listProductCart = [];
   int pageNum = 1;
+
+  String totalQuantity = "0";
   // String total = '0';
   StreamController<String> _total = StreamController<String>.broadcast();
+
   StreamController<List<dynamic>> listProductCartController =
       StreamController<List<dynamic>>.broadcast();
   initialController() {
     listProductCart = [];
+    print("testne");
   }
 
   getTotalMoney() {
@@ -22,6 +26,18 @@ class CartController extends GetxController {
       }
     });
     _total.add(temp.toString());
+    update();
+  }
+
+  getTotalQuantity() {
+    int temp = 0;
+    listProductCart.forEach((element) {
+      temp += element['quantity'];
+    });
+    print("testne2");
+    print(temp);
+
+    totalQuantity = temp.toString();
     update();
   }
 
@@ -46,6 +62,7 @@ class CartController extends GetxController {
     listProductCartController.add(listProductCart);
     update();
     getTotalMoney();
+    getTotalQuantity();
   }
 
   increaseQuantity(index) {
@@ -53,6 +70,7 @@ class CartController extends GetxController {
     // {
     listProductCart[index]['quantity']++;
     getTotalMoney();
+    getTotalQuantity();
     // }
   }
 
@@ -60,6 +78,7 @@ class CartController extends GetxController {
     if (listProductCart[index]['quantity'] > 1) {
       listProductCart[index]['quantity']--;
       getTotalMoney();
+      getTotalQuantity();
     }
   }
 
@@ -82,8 +101,11 @@ class CartController extends GetxController {
       print(value);
       if (value.isNotEmpty) {
         print("zo dc cart r nek");
-        listProductCart.addAll(value);
+        listProductCart = value;
+        getTotalQuantity();
+
         listProductCartController.add(listProductCart);
+
         update();
       }
     });

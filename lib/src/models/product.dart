@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter_postman_application/src/models/group_product.dart';
+import 'package:freshfood/src/models/group_product.dart';
 
 class ProductModel {
   final String id;

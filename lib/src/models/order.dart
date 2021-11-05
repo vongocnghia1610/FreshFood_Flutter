@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:flutter_postman_application/src/models/history.dart';
-import 'package:flutter_postman_application/src/models/product.dart';
+import 'package:freshfood/src/models/history.dart';
+import 'package:freshfood/src/models/product.dart';
 
 class OrderModel {
   final String id;

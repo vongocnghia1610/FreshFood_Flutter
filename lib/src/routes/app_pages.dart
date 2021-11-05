@@ -1,13 +1,13 @@
-import 'package:flutter_postman_application/src/app.dart';
-import 'package:flutter_postman_application/src/pages/authentication/authentication_page.dart';
-import 'package:flutter_postman_application/src/pages/cart/cart_page.dart';
-import 'package:flutter_postman_application/src/pages/chat/chat_detail_pager.dart';
-import 'package:flutter_postman_application/src/pages/chat/chat_page.dart';
-import 'package:flutter_postman_application/src/pages/home/home_page.dart';
-import 'package:flutter_postman_application/src/pages/order/order_page.dart';
-import 'package:flutter_postman_application/src/pages/products/detail_product_screen.dart';
-import 'package:flutter_postman_application/src/pages/products/product_screen.dart';
-import 'package:flutter_postman_application/src/pages/profile/profile_page.dart';
+import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/authentication/authentication_page.dart';
+import 'package:freshfood/src/pages/cart/cart_page.dart';
+import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
+import 'package:freshfood/src/pages/chat/chat_page.dart';
+import 'package:freshfood/src/pages/home/home_page.dart';
+import 'package:freshfood/src/pages/order/order_page.dart';
+import 'package:freshfood/src/pages/products/detail_product_screen.dart';
+import 'package:freshfood/src/pages/products/product_screen.dart';
+import 'package:freshfood/src/pages/profile/profile_page.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 

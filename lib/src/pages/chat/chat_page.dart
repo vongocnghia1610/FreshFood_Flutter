@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/pages/chat/chat_detail_pager.dart';
-import 'package:flutter_postman_application/src/pages/chat/models/user_model.dart';
-import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
+import 'package:freshfood/src/pages/chat/models/user_model.dart';
+import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 

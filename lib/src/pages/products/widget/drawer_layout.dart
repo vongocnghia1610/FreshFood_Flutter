@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/providers/user_provider.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
+import 'package:freshfood/src/public/styles.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
