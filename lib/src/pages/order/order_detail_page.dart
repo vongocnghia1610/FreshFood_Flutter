@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/pages/payment/widget/default_button.dart';
-import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:freshfood/src/pages/payment/widget/default_button.dart';
+import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/public/styles.dart';
 import 'package:sizer/sizer.dart';
 
 class OrderDetailPage extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/pages/chat/models/message_model.dart';
-import 'package:flutter_postman_application/src/pages/chat/models/user_model.dart';
+import 'package:freshfood/src/pages/chat/models/message_model.dart';
+import 'package:freshfood/src/pages/chat/models/user_model.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final User user;

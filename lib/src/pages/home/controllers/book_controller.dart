@@ -1,4 +1,4 @@
-import 'package:flutter_postman_application/src/repository/book_repository.dart';
+import 'package:freshfood/src/repository/book_repository.dart';
 import 'package:get/get.dart';
 
 class BookController extends GetxController {

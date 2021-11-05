@@ -1,10 +1,10 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/pages/option/widgets/profile_list_item.dart';
-import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
-import 'package:flutter_postman_application/src/providers/user_provider.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
-import 'package:flutter_postman_application/src/routes/app_pages.dart';
+import 'package:freshfood/src/pages/option/widgets/profile_list_item.dart';
+import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
+import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';

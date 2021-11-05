@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/pages/payment/widget/default_button.dart';
+import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 
 class PaymentError extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/models/user.dart';
+import 'package:freshfood/src/models/user.dart';
 
 import 'package:get_storage/get_storage.dart';
 

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_postman_application/src/repository/group_product_repository.dart';
+import 'package:freshfood/src/repository/group_product_repository.dart';
 import 'package:get/get.dart';
 
 class GroupProductController extends GetxController {

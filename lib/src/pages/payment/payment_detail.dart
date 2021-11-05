@@ -2,9 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_postman_application/src/pages/payment/widget/default_button.dart';
-import 'package:flutter_postman_application/src/pages/products/widget/drawer_layout.dart';
-import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/order.dart';
+import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/payment/widget/default_button.dart';
+import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class PaymentDetailPage extends StatefulWidget {
@@ -14,9 +18,51 @@ class PaymentDetailPage extends StatefulWidget {
 
 class _PaymentDetailPageState extends State<PaymentDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  ScrollController scrollController = ScrollController();
+
+  List<CartModel> listCart = [
+    CartModel(
+        image: [
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
+        ],
+        quantity: 2,
+        cost: 130000,
+        name: "Thịt heo nhập khẩu từ Mỹ",
+        nameGroup: "Đồ tươi sống"),
+    CartModel(
+        image: [
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
+        ],
+        quantity: 2,
+        cost: 130000,
+        name: "Thịt bò nhập khẩu từ Mỹ",
+        nameGroup: "Đồ tươi sống"),
+    CartModel(
+        image: [
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
+        ],
+        quantity: 2,
+        cost: 130000,
+        name: "Thịt bò nhập khẩu từ Mỹ",
+        nameGroup: "Đồ tươi sống"),
+    CartModel(
+        image: [
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
+          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
+        ],
+        quantity: 2,
+        cost: 130000,
+        name: "Thịt bò nhập khẩu từ Mỹ",
+        nameGroup: "Đồ tươi sống"),
+  ];
+  double heighContainer;
   @override
   void initState() {
     super.initState();
+    heighContainer = 95.sp * listCart.length;
   }
 
   @override
@@ -32,16 +78,16 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 7.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Thanh Toán",
-            style: TextStyle(fontSize: 20),
+            style: TextStyle(fontSize: 17.sp),
           ),
         ),
         body: Container(
@@ -58,7 +104,6 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                     padding: EdgeInsets.only(left: 20),
                     margin: EdgeInsets.only(
                       top: 25.0,
-                      bottom: 12.0,
                     ),
                     child: Row(children: [
                       Icon(
@@ -83,10 +128,20 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                     ]),
                   ),
                 ),
-                // cart image
                 Container(
-                  height: 150.sp,
+                  height: heighContainer,
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemCount: listCart.length,
+                    itemBuilder: (context, index) {
+                      return CartDetail(
+                        cartModel: listCart[index],
+                      );
+                    },
+                  ),
                 ),
+
+                // cart image
                 Container(
                   padding: EdgeInsets.only(left: 20),
                   margin: EdgeInsets.only(
@@ -298,5 +353,76 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
             ),
           ),
         ));
+  }
+}
+
+class CartDetail extends StatelessWidget {
+  CartModel cartModel;
+  CartDetail({Key key, this.cartModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 75.sp,
+      padding: EdgeInsets.only(left: 10.sp, right: 10.sp),
+      margin: EdgeInsets.only(
+        top: 20.sp,
+      ),
+      child: Container(
+        padding: EdgeInsets.only(bottom: 5.sp),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border:
+              Border(bottom: BorderSide(color: Colors.black45, width: 1.sp)),
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 10.sp,
+            ),
+            Container(
+              child: Image.network(
+                cartModel.image[0],
+                height: 60.sp,
+                width: 60.sp,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(
+              width: 10.sp,
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text("[FF-0000012] Thịt heo nhập khẩu",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
+                  Container(
+                    padding: EdgeInsets.only(left: 170.sp, top: 5.sp),
+                    child: Text(
+                      "x2",
+                      style: TextStyle(
+                          fontSize: 10.sp, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 120.sp, top: 5.sp),
+                    child: Text(
+                      "đ120000",
+                      style: TextStyle(
+                          color: Colors.orange,
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

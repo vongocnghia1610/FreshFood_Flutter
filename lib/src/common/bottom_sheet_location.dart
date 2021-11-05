@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_postman_application/src/public/province_district.dart';
+import 'package:freshfood/src/public/province_district.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 

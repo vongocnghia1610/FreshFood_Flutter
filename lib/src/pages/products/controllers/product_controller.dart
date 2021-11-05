@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter_postman_application/src/models/product.dart';
-import 'package:flutter_postman_application/src/pages/cart/controller/cart_controller.dart';
-import 'package:flutter_postman_application/src/repository/cart_repository.dart';
-import 'package:flutter_postman_application/src/repository/product_repository.dart';
-import 'package:flutter_postman_application/src/utils/snackbar.dart';
+import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/repository/cart_repository.dart';
+import 'package:freshfood/src/repository/product_repository.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 

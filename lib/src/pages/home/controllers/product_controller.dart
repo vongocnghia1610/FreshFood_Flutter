@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter_postman_application/src/repository/product_repository.dart';
+import 'package:freshfood/src/repository/product_repository.dart';
 import 'package:get/get.dart';
 
 class ProductController extends GetxController {

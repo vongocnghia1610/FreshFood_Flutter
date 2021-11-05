@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:flutter_postman_application/src/models/cart.dart';
-import 'package:flutter_postman_application/src/repository/cart_repository.dart';
+import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/repository/cart_repository.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
