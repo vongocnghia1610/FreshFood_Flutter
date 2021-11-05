@@ -59,12 +59,15 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.product.name.toUpperCase(),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                              )),
+                          Container(
+                            height: 10.w,
+                            child: Text(widget.product.name.toUpperCase(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                )),
+                          ),
                           Text('Số lượng: ${widget.product.quantity}',
                               maxLines: 1,
                               style: TextStyle(

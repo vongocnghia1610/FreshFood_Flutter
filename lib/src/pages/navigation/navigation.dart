@@ -1,10 +1,13 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/pages/cart/cart_page.dart';
+import 'package:flutter_postman_application/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter_postman_application/src/pages/chat/chat_page.dart';
 import 'package:flutter_postman_application/src/pages/home/home_page.dart';
 import 'package:flutter_postman_application/src/pages/option/option_page.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class Navigation extends StatefulWidget {
@@ -13,6 +16,15 @@ class Navigation extends StatefulWidget {
 }
 
 class _NavigationState extends State<Navigation> {
+  final cartController = Get.put(CartController());
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    cartController.initialController();
+    cartController.getListProduct();
+  }
+
   var pages = [
     HomePage(),
     CartPage(),
@@ -70,18 +82,49 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget _buildNavigationItem(iconActive, iconInactive, index) {
-    return IconButton(
-      onPressed: () => {
-        setState(() {
-          selected = index;
-        }),
-        // if (index == 3) {Get.toNamed(Routes.PROFILE)}
-      },
-      icon: Icon(
-        selected == index ? iconActive : iconInactive,
-        size: 20.sp,
-        color: selected == index ? kPrimaryColor : Colors.grey.shade600,
-      ),
-    );
+    return index != 1
+        ? IconButton(
+            onPressed: () => {
+              setState(() {
+                selected = index;
+              }),
+              // if (index == 3) {Get.toNamed(Routes.PROFILE)}
+            },
+            icon: Icon(
+              selected == index ? iconActive : iconInactive,
+              size: 20.sp,
+              color: selected == index ? kPrimaryColor : Colors.grey.shade600,
+            ),
+          )
+        : Badge(
+            position: BadgePosition.topEnd(top: 0, end: 3),
+            animationDuration: Duration(milliseconds: 300),
+            animationType: BadgeAnimationType.slide,
+            borderSide: BorderSide(color: Colors.white),
+            badgeColor: kPrimaryColor,
+            badgeContent: GetBuilder<CartController>(
+                init: cartController,
+                builder: (_) => _.totalQuantity == null
+                    ? Text(
+                        '0',
+                        style: TextStyle(color: Colors.white, fontSize: 2.5.w),
+                      )
+                    : Text(
+                        _.totalQuantity,
+                        style: TextStyle(color: Colors.white, fontSize: 2.5.w),
+                      )),
+            child: IconButton(
+              onPressed: () => {
+                setState(() {
+                  selected = index;
+                }),
+                // if (index == 3) {Get.toNamed(Routes.PROFILE)}
+              },
+              icon: Icon(
+                selected == index ? iconActive : iconInactive,
+                size: 20.sp,
+                color: selected == index ? kPrimaryColor : Colors.grey.shade600,
+              ),
+            ));
   }
 }

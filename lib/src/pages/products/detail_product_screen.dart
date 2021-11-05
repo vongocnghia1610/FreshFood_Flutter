@@ -1,8 +1,10 @@
+import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_postman_application/src/models/product.dart';
+import 'package:flutter_postman_application/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter_postman_application/src/pages/products/controllers/product_controller.dart';
 import 'package:flutter_postman_application/src/pages/products/widget/bottom_navigation_product.dart';
 import 'package:flutter_postman_application/src/public/styles.dart';
@@ -27,6 +29,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
   // ];
   int selectedImage = 0;
   final productController = Get.put(ProductDetailController());
+  final cartController = Get.put(CartController());
+
   @override
   void initState() {
     super.initState();
@@ -54,18 +58,38 @@ class _DetailProductPageState extends State<DetailProductPage> {
               ),
             ),
             actions: [
-              IconButton(
-                // padding: EdgeInsets.zero,
-                // constraints: BoxConstraints(),
-                onPressed: () {
-                  Get.toNamed(Routes.CART);
-                },
-                icon: Icon(
-                  PhosphorIcons.shopping_cart,
-                  color: Colors.white,
-                  size: 8.w,
+              Badge(
+                position: BadgePosition.topEnd(top: 0, end: 3),
+                animationDuration: Duration(milliseconds: 300),
+                animationType: BadgeAnimationType.slide,
+                borderSide: BorderSide(color: Colors.white),
+                badgeColor: Colors.transparent,
+                badgeContent: GetBuilder<CartController>(
+                    init: cartController,
+                    builder: (_) => _.totalQuantity == null
+                        ? Text(
+                            '0',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 2.5.w),
+                          )
+                        : Text(
+                            _.totalQuantity,
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 2.5.w),
+                          )),
+                child: IconButton(
+                  // padding: EdgeInsets.zero,
+                  // constraints: BoxConstraints(),
+                  onPressed: () {
+                    Get.toNamed(Routes.CART);
+                  },
+                  icon: Icon(
+                    PhosphorIcons.shopping_cart,
+                    color: Colors.white,
+                    size: 8.w,
+                  ),
                 ),
-              ),
+              )
             ]),
         bottomNavigationBar: BottomNavigationProduct(
           productController: productController,
