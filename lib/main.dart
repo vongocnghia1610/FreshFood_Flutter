@@ -5,6 +5,9 @@ import 'package:freshfood/src/lang/translation_service.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
+import 'package:freshfood/src/pages/authentication/change_password_with_otp_page.dart';
+import 'package:freshfood/src/pages/authentication/fogot_password_page.dart';
+import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
@@ -54,7 +57,7 @@ void main() async {
         enableLog: true,
         logWriterCallback: Logger.write,
         // initialRoute: AppPages.INITIAL,
-        home: App(),
+        home: ForgotPassPage(),
         getPages: AppPages.routes,
         // initialRoute: AppPages.INITIAL,
         locale: TranslationService.locale,

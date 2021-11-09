@@ -41,4 +41,39 @@ class AuthenticationRepository {
     }
     return null;
   }
+
+  Future<bool> forgotPassword(String email) async {
+    var response = await HandleApis().get(
+      ApiGateway.FORGOTPASSWORD,
+      'email=$email',
+    );
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<Map<String, dynamic>> confirmOtp(String email, String otp) async {
+    var body = {"email": email, "otp": otp};
+    var response = await HandleApis().post(
+      ApiGateway.CONFIRMOTP,
+      body,
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
+
+  Future<bool> changePasswordWithOtp(String password, String token) async {
+    var body = {"token": token, "password": password};
+    var response = await HandleApis().post(
+      ApiGateway.CHANGEPASSWORDWITHOTP,
+      body,
+    );
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }
