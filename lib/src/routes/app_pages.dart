@@ -1,5 +1,8 @@
 import 'package:freshfood/src/app.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
+import 'package:freshfood/src/pages/authentication/change_password_with_otp_page.dart';
+import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
+import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
@@ -19,6 +22,11 @@ class AppPages {
     GetPage(
       name: Routes.ROOT,
       page: () => App(),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.LOGIN,
+      page: () => LoginPages(),
       children: [],
     ),
     GetPage(
@@ -80,6 +88,24 @@ class AppPages {
     GetPage(
       name: Routes.CHAT,
       page: () => ChatPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.OTP,
+      page: () => OtpPassPage(
+        email: Get.arguments['email'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CHANGEPASSWORDWITHOTP,
+      page: () => ChangePasswordWithOtp(
+        token: Get.arguments['token'],
+      ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

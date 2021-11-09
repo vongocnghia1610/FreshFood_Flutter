@@ -12,4 +12,6 @@ abstract class Routes {
   static const CART = '/cart';
   static const ORDER = '/order';
   static const CHAT = '/chat';
+  static const OTP = '/otp';
+  static const CHANGEPASSWORDWITHOTP = '/changePasswordWithOtp';
 }
