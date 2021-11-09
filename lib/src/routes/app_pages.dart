@@ -1,10 +1,14 @@
 import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/address/address_page.dart';
+import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
+import 'package:freshfood/src/pages/payment/payment_detail.dart';
+import 'package:freshfood/src/pages/payment/payment_page.dart';
 import 'package:freshfood/src/pages/products/detail_product_screen.dart';
 import 'package:freshfood/src/pages/products/product_screen.dart';
 import 'package:freshfood/src/pages/profile/profile_page.dart';
@@ -80,6 +84,36 @@ class AppPages {
     GetPage(
       name: Routes.CHAT,
       page: () => ChatPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.DETAIL_PAYMENT,
+      page: () => PaymentDetailPage(
+        list: Get.arguments['list'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADDRESS,
+      page: () => AddressPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADD_ADDRESS,
+      page: () => EditAddressPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.METHOD_PAYMENT,
+      page: () => PaymentPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

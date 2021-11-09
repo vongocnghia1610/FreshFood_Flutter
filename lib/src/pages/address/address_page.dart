@@ -4,10 +4,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/address.dart';
 import 'package:freshfood/src/models/history.dart';
+import 'package:freshfood/src/pages/payment/controller/addressController.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/constant.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class AddressPage extends StatefulWidget {
@@ -18,6 +21,7 @@ class AddressPage extends StatefulWidget {
 class _AddressPageState extends State<AddressPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+  final addressController = Get.put(AddressController());
 
   List<AddressModel> listAddressModel = [
     AddressModel(
@@ -109,12 +113,12 @@ class _AddressPageState extends State<AddressPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 7.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Chọn địa chỉ nhận hàng",
@@ -142,10 +146,10 @@ class _AddressPageState extends State<AddressPage> {
                   height: 145.w,
                   child: ListView.builder(
                     controller: scrollController,
-                    itemCount: listAddressModel.length,
+                    itemCount: addressController.listAddress.length,
                     itemBuilder: (context, index) {
                       return WidgetAddress(
-                        addressModel: listAddressModel[index],
+                        addressModel: addressController.listAddress[index],
                       );
                     },
                   ),
@@ -155,7 +159,9 @@ class _AddressPageState extends State<AddressPage> {
                 ),
                 Material(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed(Routes.ADD_ADDRESS);
+                    },
                     splashColor: Colors.grey,
                     child: Container(
                       padding: EdgeInsets.only(
@@ -164,7 +170,7 @@ class _AddressPageState extends State<AddressPage> {
                       child: Row(
                         children: [
                           Text(
-                            'Thêm Địa chỉ mới',
+                            'Thêm địa chỉ mới',
                             style: TextStyle(
                               // color: colorTitle,
                               fontSize: 12.sp,

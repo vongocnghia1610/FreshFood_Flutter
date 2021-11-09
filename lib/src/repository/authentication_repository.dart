@@ -9,6 +9,7 @@ class AuthenticationRepository {
       "email": email,
       "password": password,
     };
+    print(jsonEncode(body));
     var response = await HandleApis().post(
       ApiGateway.LOGIN,
       body,

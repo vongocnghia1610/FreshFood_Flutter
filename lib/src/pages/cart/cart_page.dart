@@ -5,6 +5,8 @@ import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -33,6 +35,7 @@ class _CartPageState extends State<CartPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+    cartController.updateCart();
   }
 
   @override
@@ -99,10 +102,10 @@ class _CartPageState extends State<CartPage> {
                       setState(() {
                         if (selectAll == false) {
                           selectAll = true;
-                          cartController.selectAddCart();
+                          cartController.selectAllCart();
                         } else {
                           selectAll = false;
-                          cartController.deleteAddCart();
+                          cartController.deleteAllCart();
                         }
                       });
                     },
@@ -180,7 +183,26 @@ class _CartPageState extends State<CartPage> {
                       color: kPrimaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      onPressed: () {},
+                      onPressed: () {
+                        List<CartModel> temp = cartController.listProductCart
+                            .map((data) => CartModel.fromMap(data))
+                            .where((element) =>
+                                element.selected == 1 && element.status == 1)
+                            .toList();
+
+                        print(temp);
+                        if (temp.length <= 0) {
+                          GetSnackBar getSnackBar = GetSnackBar(
+                            title: 'Bạn chưa chọn sản phẩm nào',
+                            subTitle:
+                                'Vui lòng chọn ít nhất 1 sản phẩm để thanh toán',
+                          );
+                          getSnackBar.show();
+                        } else {
+                          Get.toNamed(Routes.DETAIL_PAYMENT,
+                              arguments: {"list": temp});
+                        }
+                      },
                       child: Text(
                         'Thanh toán',
                         style: TextStyle(

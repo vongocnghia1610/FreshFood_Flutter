@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/cart_update_model.dart';
 import 'package:freshfood/src/repository/cart_repository.dart';
 import 'package:get/get.dart';
 
@@ -50,16 +51,14 @@ class CartController extends GetxController {
   }
 
   deleteItem() {
-    List<dynamic> temp = [];
+    List<dynamic> temp = listProductCart;
     listProductCart.forEach((element) {
       if (element['selected'] == 1) {
-        temp.add(element);
+        element['status'] = 0;
+        temp.remove(element);
       }
     });
-    temp.forEach((element) {
-      listProductCart.remove(element);
-    });
-    listProductCartController.add(listProductCart);
+    listProductCartController.add(temp);
     update();
     getTotalMoney();
     getTotalQuantity();
@@ -82,14 +81,14 @@ class CartController extends GetxController {
     }
   }
 
-  selectAddCart() {
+  selectAllCart() {
     listProductCart.forEach((element) {
       element['selected'] = 1;
     });
     getTotalMoney();
   }
 
-  deleteAddCart() {
+  deleteAllCart() {
     listProductCart.forEach((element) {
       element['selected'] = 0;
     });
@@ -107,6 +106,19 @@ class CartController extends GetxController {
         listProductCartController.add(listProductCart);
 
         update();
+      }
+    });
+  }
+
+  updateCart() {
+    CartRepository()
+        .updateCart(listProductCart
+            .map((data) => CartUpdateModel.fromMap(data).toMap())
+            .toList())
+        .then((value) {
+      print(value);
+      if (value.isNotEmpty) {
+        print("updatecartthanhcong1");
       }
     });
   }

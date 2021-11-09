@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -14,6 +16,8 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   int value = 0;
+  final paymentController = Get.put(PaymentController());
+
   final paymentLables = [
     'Thanh toán bằng PayPal',
     'Thanh toán bằng VNPay',
@@ -42,12 +46,12 @@ class _PaymentPageState extends State<PaymentPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 7.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             " Phương Thức Thanh Toán",
@@ -99,7 +103,10 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               DefaultButton(
                 btnText: 'Đồng ý',
-                onPressed: () {},
+                onPressed: () {
+                  paymentController.changePaymentMethod(value);
+                  Get.back();
+                },
               )
             ],
           ),

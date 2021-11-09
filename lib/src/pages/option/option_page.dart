@@ -41,10 +41,20 @@ class _OptionPageState extends State<OptionPage> {
             // margin: EdgeInsets.only(top: 10.w * 3),
             child: Stack(
               children: <Widget>[
-                CircleAvatar(
-                  radius: 10.w * 3,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
-                ),
+                GetBuilder<ProfileController>(
+                    init: profileController,
+                    builder: (_) => _.user.avatar != null
+                        ? CircleAvatar(
+                            radius: 10.w * 3,
+                            backgroundImage: NetworkImage(_.user.avatar),
+                            backgroundColor: Colors.transparent,
+                          )
+                        : CircleAvatar(
+                            radius: 10.w * 3,
+                            backgroundImage:
+                                AssetImage('assets/images/avatar.png'),
+                            backgroundColor: Colors.transparent,
+                          )),
                 // Align(
                 //   alignment: Alignment.bottomRight,
                 //   child: Container(

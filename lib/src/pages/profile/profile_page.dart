@@ -1,7 +1,15 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfilePages extends StatefulWidget {
@@ -13,11 +21,14 @@ class ProfilePages extends StatefulWidget {
 }
 
 class _ProfilePagesState extends State<ProfilePages> {
-  String email;
-  String password;
   TextEditingController _namecontroller = new TextEditingController();
   TextEditingController _phoneNumbercontroller = new TextEditingController();
   TextEditingController _emailcontroller = new TextEditingController();
+  String avatar;
+  File _image;
+  ImagePicker _imagePicker = ImagePicker();
+  final profileController = Get.put(ProfileController());
+
   @override
   void initState() {
     // TODO: implement initState
@@ -25,6 +36,174 @@ class _ProfilePagesState extends State<ProfilePages> {
     _namecontroller.text = widget.user.name;
     _phoneNumbercontroller.text = widget.user.phone;
     _emailcontroller.text = widget.user.email;
+    avatar = widget.user.avatar;
+  }
+
+  // void updateAvatar() {
+  //   UserRepository().updateImage(avatar: _image).then((value) {
+  //     Get.back();
+  //     if (value == null) {
+  //       GetSnackBar getSnackBar = GetSnackBar(
+  //         title: 'Thất bại',
+  //         subTitle: 'Cập nhật avatar thất bại',
+  //       );
+  //       getSnackBar.show();
+  //     } else {
+  //       profileController.user.avatar = value['image'];
+  //       GetSnackBar getSnackBar = GetSnackBar(
+  //         title: 'Thành công',
+  //         subTitle: 'Cập nhật avatar thành công',
+  //       );
+  //       getSnackBar.show();
+  //     }
+  //   });
+  // }
+
+  void showImageBottomSheet() {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(30.0),
+        ),
+      ),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return _chooseImage(context);
+      },
+    );
+  }
+
+  Widget _chooseImage(context) {
+    final _size = MediaQuery.of(context).size;
+
+    return Container(
+      decoration: BoxDecoration(
+        color: mC,
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(
+            30.0,
+          ),
+        ),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 12.0),
+            Container(
+              height: 4.0,
+              margin: EdgeInsets.symmetric(horizontal: _size.width * .35),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30.0),
+                color: mCD,
+                boxShadow: [
+                  BoxShadow(
+                    color: mCD,
+                    offset: Offset(2.0, 2.0),
+                    blurRadius: 2.0,
+                  ),
+                  BoxShadow(
+                    color: mCL,
+                    offset: Offset(-1.0, -1.0),
+                    blurRadius: 1.0,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 8.0),
+            _buildAction(
+              context,
+              'Chụp ảnh',
+              PhosphorIcons.instagram_logo_bold,
+            ),
+            Divider(
+              color: Colors.grey,
+              thickness: .25,
+              height: .25,
+              indent: 8.0,
+              endIndent: 8.0,
+            ),
+            _buildAction(
+              context,
+              'Chọn ảnh từ Album',
+              PhosphorIcons.image_square_bold,
+            ),
+            SizedBox(height: 18.0),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAction(context, title, icon) {
+    final _size = MediaQuery.of(context).size;
+    Future<void> _pickImage(ImageSource source) async {
+      XFile SelectedSource = await _imagePicker.pickImage(source: source);
+      if (SelectedSource != null) {
+        setState(() {
+          _image = File(SelectedSource.path);
+        });
+        profileController.updateAvatar(_image);
+      }
+    }
+
+    return GestureDetector(
+      onTap: () {
+        switch (title) {
+          // English
+          case 'Take a Photo':
+            _pickImage(ImageSource.camera);
+            break;
+          case 'Choose from Album':
+            _pickImage(ImageSource.gallery);
+            break;
+
+          // Vietnamese
+          case 'Chụp ảnh':
+            _pickImage(ImageSource.camera);
+            break;
+          case 'Chọn ảnh từ Album':
+            _pickImage(ImageSource.gallery);
+            break;
+
+          default:
+            break;
+        }
+      },
+      child: Container(
+        width: _size.width,
+        color: mC,
+        padding: EdgeInsets.fromLTRB(24.0, 15.0, 20.0, 15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  icon,
+                  size: _size.width / 16.0,
+                  color: Colors.grey.shade800,
+                ),
+                SizedBox(
+                  width: 16.0,
+                ),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: _size.width / 22.5,
+                    color: Colors.grey.shade800,
+                    fontWeight: FontWeight.w600,
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -44,8 +223,8 @@ class _ProfilePagesState extends State<ProfilePages> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                      kPrimaryColor,
-                      kPrimaryColor.withOpacity(0.38)
+                      kPrimaryColor.withOpacity(0.6),
+                      kPrimaryColor.withOpacity(0.2)
                     ])),
                 child: Container(
                   width: double.infinity,
@@ -62,9 +241,11 @@ class _ProfilePagesState extends State<ProfilePages> {
                             clipBehavior: Clip.none,
                             children: [
                               CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  "https://www.trendrr.net/wp-content/uploads/2017/06/Deepika-Padukone-1.jpg",
-                                ),
+                                backgroundImage: _image == null
+                                    ? NetworkImage(avatar)
+                                    : FileImage(
+                                        _image,
+                                      ),
                               ),
                               Positioned(
                                 right: -16,
@@ -81,7 +262,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                       primary: Colors.white,
                                       backgroundColor: Color(0xFFF5F6F9),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: showImageBottomSheet,
                                     child: Icon(
                                       PhosphorIcons.camera_bold,
                                       color: Colors.black, // Pencil Icon
@@ -177,7 +358,7 @@ class _ProfilePagesState extends State<ProfilePages> {
       String name, String placeholder, String lable_text, IconData iconData) {
     return Material(
       elevation: 20.0,
-      shadowColor: kPrimaryColor.withOpacity(0.38),
+      shadowColor: kPrimaryColor.withOpacity(0.2),
       child: TextFormField(
         readOnly: true,
         controller: name_controller,

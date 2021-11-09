@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/repository/api_gateway.dart';
 import 'package:freshfood/src/repository/base_repository.dart';
 import 'package:http/http.dart' as http;
@@ -46,8 +47,8 @@ class ProductRepository {
     var request = http.MultipartRequest(
         'POST', Uri.http(root_url, 'product/createProduct'));
     request.headers["Content-Type"] = 'multipart/form-data';
-    request.headers["Authorization"] = 'Bearer ' +
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzYzOWQxOWU1OTJiMDNkNDRmZjlmZCIsInJvbGUiOjB9LCJpYXQiOjE2MzA5NDM2OTc1MjksImV4cCI6MTYzMTAzMDA5NzUyOX0.RaOH15agShUZeaeKGch_7u_cc6T1R_QKrSUZMfaqvZI';
+    request.headers["Authorization"] =
+        'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
 
     request.fields.addAll({
       'name': name,
@@ -57,7 +58,6 @@ class ProductRepository {
       'weight': weight.toString(),
       'quantity': quantity.toString(),
     });
-    print(request.fields.values);
 
     if (images != null) {
       images.forEach((image) {

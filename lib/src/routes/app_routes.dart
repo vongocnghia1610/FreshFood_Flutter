@@ -12,4 +12,8 @@ abstract class Routes {
   static const CART = '/cart';
   static const ORDER = '/order';
   static const CHAT = '/chat';
+  static const DETAIL_PAYMENT = '/detailPayment';
+  static const ADDRESS = '/address';
+  static const ADD_ADDRESS = '/addAddress';
+  static const METHOD_PAYMENT = '/methodPayment';
 }

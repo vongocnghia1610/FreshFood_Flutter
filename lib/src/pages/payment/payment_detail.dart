@@ -2,16 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/payment/controller/addressController.dart';
+import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class PaymentDetailPage extends StatefulWidget {
+  List<CartModel> list;
+  PaymentDetailPage({this.list});
   @override
   State<StatefulWidget> createState() => _PaymentDetailPageState();
 }
@@ -19,50 +25,15 @@ class PaymentDetailPage extends StatefulWidget {
 class _PaymentDetailPageState extends State<PaymentDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+  final addressController = Get.put(AddressController());
+  final paymentController = Get.put(PaymentController());
 
-  List<CartModel> listCart = [
-    CartModel(
-        image: [
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
-        ],
-        quantity: 2,
-        cost: 130000,
-        name: "Thịt heo nhập khẩu từ Mỹ",
-        nameGroup: "Đồ tươi sống"),
-    CartModel(
-        image: [
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
-        ],
-        quantity: 2,
-        cost: 130000,
-        name: "Thịt bò nhập khẩu từ Mỹ",
-        nameGroup: "Đồ tươi sống"),
-    CartModel(
-        image: [
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
-        ],
-        quantity: 2,
-        cost: 130000,
-        name: "Thịt bò nhập khẩu từ Mỹ",
-        nameGroup: "Đồ tươi sống"),
-    CartModel(
-        image: [
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png",
-          "https://vinmec-prod.s3.amazonaws.com/images/20191112_133536_897440_thit-bo.max-1800x1800.png"
-        ],
-        quantity: 2,
-        cost: 130000,
-        name: "Thịt bò nhập khẩu từ Mỹ",
-        nameGroup: "Đồ tươi sống"),
-  ];
   double heighContainer;
   @override
   void initState() {
     super.initState();
-    heighContainer = 95.sp * listCart.length;
+    heighContainer = 95.sp * widget.list.length;
+    addressController.getAllAddress();
   }
 
   @override
@@ -99,7 +70,9 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
               children: [
                 InkWell(
                   splashColor: Colors.greenAccent,
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(Routes.ADDRESS);
+                  },
                   child: Container(
                     padding: EdgeInsets.only(left: 20),
                     margin: EdgeInsets.only(
@@ -114,16 +87,24 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                         width: 16.sp,
                       ),
                       Expanded(
-                        child: Text(
-                          'Địa Chỉ: Chung cư opal garden đường số 20 - Phường hiệp bình chánh - Thủ đức',
-                          style: TextStyle(
-                            // color: colorTitle,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                        child: GetBuilder<AddressController>(
+                            init: addressController,
+                            builder: (_) => _.listAddress.length == 0
+                                ? Text(
+                                    'Bạn chưa có địa chỉ, vui lòng chọn địa chỉ',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 2.5.w),
+                                  )
+                                : Text(
+                                    ' ${_.listAddress[0].address} - ${_.listAddress[0].district} - ${_.listAddress[0].province}',
+                                    style: TextStyle(
+                                      // color: colorTitle,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                  )),
                       ),
                     ]),
                   ),
@@ -132,10 +113,10 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                   height: heighContainer,
                   child: ListView.builder(
                     controller: scrollController,
-                    itemCount: listCart.length,
+                    itemCount: widget.list.length,
                     itemBuilder: (context, index) {
                       return CartDetail(
-                        cartModel: listCart[index],
+                        cartModel: widget.list[index],
                       );
                     },
                   ),
@@ -173,6 +154,7 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                         textAlign: TextAlign.end,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Nhập ghi chú cho đơn hàng',
+                          hintStyle: TextStyle(color: Colors.grey),
                         ),
                         textCapitalization: TextCapitalization.sentences,
                       )),
@@ -208,7 +190,8 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                         width: 10.sp,
                       ),
                       Text(
-                        'đ425000',
+                        formatMoney(
+                            paymentController.getproductPrice(widget.list)),
                         style: TextStyle(
                           color: Colors.redAccent,
                           fontSize: 14.sp,
@@ -252,14 +235,25 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                           ),
                           Expanded(
                             child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed(Routes.METHOD_PAYMENT);
+                              },
                               style: TextButton.styleFrom(
                                 textStyle: TextStyle(fontSize: 12.sp),
                               ),
-                              child: Text(
-                                'Phương thức thanh toán',
-                                maxLines: 3,
-                                style: TextStyle(color: Colors.orange),
+                              child: GetBuilder<PaymentController>(
+                                init: paymentController,
+                                builder: (_) => _.methodPayment == null
+                                    ? Text(
+                                        'Phương thức thanh toán',
+                                        maxLines: 3,
+                                        style: TextStyle(color: Colors.orange),
+                                      )
+                                    : Text(
+                                        paymentController.getPaymentMethod(),
+                                        maxLines: 3,
+                                        style: TextStyle(color: Colors.orange),
+                                      ),
                               ),
                             ),
                           ),
@@ -369,7 +363,7 @@ class CartDetail extends StatelessWidget {
         top: 20.sp,
       ),
       child: Container(
-        padding: EdgeInsets.only(bottom: 5.sp),
+        padding: EdgeInsets.only(bottom: 5.sp, right: 10.sp),
         decoration: BoxDecoration(
           color: Colors.transparent,
           border:
@@ -392,29 +386,40 @@ class CartDetail extends StatelessWidget {
               width: 10.sp,
             ),
             Expanded(
+              flex: 1,
               child: Column(
                 children: [
-                  Text("[FF-0000012] Thịt heo nhập khẩu",
+                  Container(
+                    width: double.infinity,
+                    child: Text(
+                      cartModel.name,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          fontSize: 12.sp, fontWeight: FontWeight.bold)),
-                  Container(
-                    padding: EdgeInsets.only(left: 170.sp, top: 5.sp),
-                    child: Text(
-                      "x2",
-                      style: TextStyle(
-                          fontSize: 10.sp, fontWeight: FontWeight.bold),
+                          fontSize: 12.sp, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.right,
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(left: 120.sp, top: 5.sp),
+                    width: double.infinity,
+                    padding: EdgeInsets.only(top: 5.sp),
                     child: Text(
-                      "đ120000",
+                      "x${cartModel.quantity}",
+                      style: TextStyle(
+                          fontSize: 10.sp, fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.only(top: 5.sp),
+                    child: Text(
+                      formatMoney(cartModel.cost),
                       style: TextStyle(
                           color: Colors.orange,
                           fontSize: 13.sp,
                           fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.right,
                     ),
                   ),
                 ],
