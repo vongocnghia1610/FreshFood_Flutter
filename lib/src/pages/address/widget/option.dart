@@ -18,7 +18,7 @@ class Option extends StatelessWidget {
     return GestureDetector(
       onTap: handlePress,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 3.sp),
+        padding: EdgeInsets.only(left: 10.sp),
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(5.sp))),

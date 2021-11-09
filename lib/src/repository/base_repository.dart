@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 
 // const root_url = "freshfoodbe.tk";
@@ -53,6 +54,14 @@ class HandleApis {
         body: jsonEncode(body));
   }
 
+  putArray(String name, List<Map<String, dynamic>> body) async {
+    // stderr.write("POST: " + root_url +'/'+ name);
+    return await http.put(Uri.http(root_url, '/' + name),
+        // Uri.http(root_url, '/' + name),
+        headers: getHeaders(),
+        body: jsonEncode(body));
+  }
+
   delete(String name, {Map<String, dynamic> body}) async {
     // stderr.write("POST: " + root_url +'/'+ name);
     return await http.delete(
@@ -69,7 +78,7 @@ class HandleApis {
       'Accept': '*/*',
       'Accept-Encoding': 'gzip, deflate, br',
       'Authorization': 'Bearer ' +
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJOZ3V5ZW4gUGhhbiBOaGF0IFR1IiwiZGF0YSI6eyJpZCI6IjYxMzFmN2JmYTY3YzQzMjdjY2UyNzVjOSIsInJvbGUiOjB9LCJpYXQiOjE2MzA2NjUxMDMyMTEsImV4cCI6MTYzMDc1MTUwMzIxMX0.zC0dwS7U1s3e38a_kO0CxL1zb72CkMc5YhXKdbTpLqo',
+          (userProvider.user == null ? '' : userProvider.user.token),
     };
   }
 }
