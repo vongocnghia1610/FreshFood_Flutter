@@ -45,6 +45,7 @@ dependencies:
   intl: ^0.17.0
   flutter_masked_text: ^0.8.0
   badges: ^2.0.1
+  otp_screen: ^0.0.3
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
     - assets/icons/COD.png
     - assets/images/success.gif
     - assets/images/error-img.gif
+    - assets/images/OTP.jpg
+    - assets/images/OTP2.png
     - assets/icons/
     - assets/images/
     - assets/images/banner/

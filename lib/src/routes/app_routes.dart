@@ -16,4 +16,6 @@ abstract class Routes {
   static const ADDRESS = '/address';
   static const ADD_ADDRESS = '/addAddress';
   static const METHOD_PAYMENT = '/methodPayment';
+  static const OTP = '/otp';
+  static const CHANGEPASSWORDWITHOTP = '/changePasswordWithOtp';
 }
