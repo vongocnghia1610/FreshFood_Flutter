@@ -1,3 +1,4 @@
+import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';

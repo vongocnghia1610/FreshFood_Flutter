@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class ManagerUser extends StatefulWidget {
@@ -14,76 +16,13 @@ class ManagerUser extends StatefulWidget {
 
 class _ManagerUserState extends State<ManagerUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  int value = 0;
-  final paymentLables = [
-    'Thanh toán bằng PayPal',
-    'Thanh toán bằng VNPay',
-    'Thanh toán khi nhận hàng'
-  ];
-  final paymentIconss = [
-    'assets/icons/paypal-logo.png',
-    'assets/icons/vn-pay.jpg',
-    'assets/icons/COD.png'
-  ];
-  List<UserModel> listCustomer = [
-    UserModel(
-        id: "abc",
-        email: "duynao4",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "bdf",
-        email: "duynao5",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao6",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao7",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao8",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao9",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao10",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao11",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg"),
-    UserModel(
-        id: "glh",
-        email: "duynao12",
-        phone: "0968356159",
-        avatar:
-            "https://vtv1.mediacdn.vn/zoom/550_339/2019/7/16/spider-man-far-from-home-og-size-imagecmti-15632378070951222687900.jpg")
-  ];
+  final adminController = Get.put(AdminController());
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
+    adminController.getAllUser();
   }
 
   @override
@@ -99,12 +38,14 @@ class _ManagerUserState extends State<ManagerUser> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => {
+              // Get.back();
+            },
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 7.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Quản Lý người dùng",
@@ -149,42 +90,91 @@ class _ManagerUserState extends State<ManagerUser> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.all(20),
-                itemCount: listCustomer.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Row(children: [
-                    SizedBox(height: 60.sp),
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundImage: NetworkImage(listCustomer[index].avatar),
-                    ),
-                    SizedBox(width: 10.sp),
-                    Container(
-                      child: Text(
-                        listCustomer[index].email,
-                        style: TextStyle(
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+              child: GetBuilder<AdminController>(
+                init: adminController,
+                builder: (_) => ListView.builder(
+                  padding: EdgeInsets.only(top: 10.sp, left: 10.sp),
+                  controller: scrollController,
+                  itemCount: adminController.listUser.length,
+                  itemBuilder: (context, index) {
+                    return Row(children: [
+                      SizedBox(height: 60.sp),
+                      CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                            adminController.listUser[index].avatar),
                       ),
-                      width: 100.sp,
-                    ),
-                    SizedBox(width: 30.sp),
-                    Icon(
-                      PhosphorIcons.notepad,
-                      size: 25.sp,
-                    ),
-                    SizedBox(width: 30.sp),
-                    Icon(
-                      PhosphorIcons.chart_line,
-                      size: 25.sp,
-                    )
-                  ]);
-                },
+                      SizedBox(width: 10.sp),
+                      Container(
+                        child: Text(
+                          adminController.listUser[index].email,
+                          style: TextStyle(
+                            fontSize: 17.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        width: 100.sp,
+                      ),
+                      SizedBox(width: 30.sp),
+                      InkWell(
+                        onTap: () {},
+                        splashColor: Colors.grey,
+                        child: Icon(
+                          PhosphorIcons.notepad,
+                          size: 25.sp,
+                        ),
+                      ),
+                      SizedBox(width: 30.sp),
+                      InkWell(
+                        onTap: () {},
+                        splashColor: Colors.grey,
+                        child: Icon(
+                          PhosphorIcons.chart_line,
+                          size: 25.sp,
+                        ),
+                      )
+                    ]);
+                  },
+                ),
               ),
+              // ListView.builder(
+              //   padding: EdgeInsets.all(20),
+              //   itemCount: listCustomer.length,
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return Row(children: [
+              //       SizedBox(height: 60.sp),
+              //       CircleAvatar(
+              //         radius: 20,
+              //         backgroundImage: NetworkImage(listCustomer[index].avatar),
+              //       ),
+              //       SizedBox(width: 10.sp),
+              //       Container(
+              //         child: Text(
+              //           listCustomer[index].email,
+              //           style: TextStyle(
+              //             fontSize: 17.sp,
+              //             fontWeight: FontWeight.w600,
+              //           ),
+              //           overflow: TextOverflow.ellipsis,
+              //           maxLines: 1,
+              //         ),
+              //         width: 100.sp,
+              //       ),
+              //       SizedBox(width: 30.sp),
+              //       Icon(
+              //         PhosphorIcons.notepad,
+              //         size: 25.sp,
+              //       ),
+              //       SizedBox(width: 30.sp),
+              //       Icon(
+              //         PhosphorIcons.chart_line,
+              //         size: 25.sp,
+              //       )
+              //     ]);
+              //   },
+              // ),
             ),
           ],
         ));
