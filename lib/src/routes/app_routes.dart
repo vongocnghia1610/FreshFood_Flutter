@@ -15,6 +15,8 @@ abstract class Routes {
   static const DETAIL_PAYMENT = '/detailPayment';
   static const ADDRESS = '/address';
   static const ADD_ADDRESS = '/addAddress';
+  static const UPDATE_ADDRESS = '/updateAddress';
+  static const UPDATE_ADDRESS_PAGE_DETAIL = '/updateAddressDetail';
   static const METHOD_PAYMENT = '/methodPayment';
   static const OTP = '/otp';
   static const CHANGEPASSWORDWITHOTP = '/changePasswordWithOtp';

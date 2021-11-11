@@ -1,6 +1,8 @@
 import 'package:freshfood/src/app.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
+import 'package:freshfood/src/pages/address/update_address_page.dart';
+import 'package:freshfood/src/pages/address/update_address_page_detail.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/authentication/change_password_with_otp_page.dart';
 import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
@@ -127,8 +129,22 @@ class AppPages {
       children: [],
     ),
     GetPage(
+      name: Routes.UPDATE_ADDRESS,
+      page: () => UpdateAddressPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
       name: Routes.METHOD_PAYMENT,
       page: () => PaymentPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.UPDATE_ADDRESS_PAGE_DETAIL,
+      page: () => UpdateAddressPageDetail(address: Get.arguments['address']),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

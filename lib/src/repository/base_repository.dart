@@ -35,6 +35,7 @@ class HandleApis {
       // Uri.http(root_url, '/' + name, paramsObject),
       headers: getHeaders(),
     );
+    print(getHeaders()['Authorization']);
     return response;
   }
 
@@ -62,13 +63,22 @@ class HandleApis {
         body: jsonEncode(body));
   }
 
-  delete(String name, {Map<String, dynamic> body}) async {
-    // stderr.write("POST: " + root_url +'/'+ name);
-    return await http.delete(
-      Uri.http(root_url, '/' + name),
-      // Uri.http(root_url, '/' + name),
+  delete(String name, [String params]) async {
+    Map<String, String> paramsObject = {};
+    if (params != null)
+      params.split('&').forEach((element) {
+        paramsObject[element.split('=')[0].toString()] =
+            element.split('=')[1].toString();
+      });
+    // stderr.write("GET: " + root_url +'/'+ name + '\n' + paramsObject.toString());
+    http.Response response = await http.delete(
+      params == null
+          ? Uri.http(root_url, '/' + name)
+          : Uri.http(root_url, '/' + name, paramsObject),
+      // Uri.http(root_url, '/' + name, paramsObject),
       headers: getHeaders(),
     );
+    return response;
   }
 
   getHeaders() {

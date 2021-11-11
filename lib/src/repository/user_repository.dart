@@ -48,4 +48,54 @@ class UserRepository {
     }
     return [];
   }
+
+  Future<bool> addAddress(String name, String phone, String province,
+      String district, String address, bool isMain) async {
+    var body = {
+      "name": name,
+      "phone": phone,
+      "province": province,
+      "district": district,
+      "address": address,
+      "isMain": isMain,
+    };
+    var response = await HandleApis().post(ApiGateway.ADD_ADDRESS, body);
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateAddress(String id, String name, String phone,
+      String province, String district, String address, bool isMain) async {
+    var body = {
+      "name": name,
+      "phone": phone,
+      "province": province,
+      "district": district,
+      "address": address,
+      "isMain": isMain,
+      "id": id,
+    };
+    print(body);
+    var response = await HandleApis().put(ApiGateway.UPDATE_ADDRESS, body);
+    print("response ne");
+    print(response.statusCode);
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> deleteAddress(String id) async {
+    var response = await HandleApis().delete(
+      ApiGateway.DELETE_ADDRESS,
+      'id=$id',
+    );
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }
