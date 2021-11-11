@@ -126,7 +126,7 @@ class _AddressPageState extends State<AddressPage> {
           ),
           actions: [
             IconButton(
-              onPressed: () => {},
+              onPressed: () => {Get.toNamed(Routes.UPDATE_ADDRESS)},
               icon: Icon(
                 PhosphorIcons.pen,
                 size: 7.w,
@@ -144,14 +144,17 @@ class _AddressPageState extends State<AddressPage> {
               children: [
                 Container(
                   height: 145.w,
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: addressController.listAddress.length,
-                    itemBuilder: (context, index) {
-                      return WidgetAddress(
-                        addressModel: addressController.listAddress[index],
-                      );
-                    },
+                  child: GetBuilder<AddressController>(
+                    init: addressController,
+                    builder: (_) => ListView.builder(
+                      controller: scrollController,
+                      itemCount: addressController.listAddress.length,
+                      itemBuilder: (context, index) {
+                        return WidgetAddress(
+                          addressModel: addressController.listAddress[index],
+                        );
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(

@@ -28,4 +28,9 @@ class ApiGateway {
 
   //address
   static const GET_ADDRESS = 'address/getAllAddress';
+  static const ADD_ADDRESS = 'address/createAddress';
+  static const UPDATE_ADDRESS = 'address/updateAddress';
+  static const DELETE_ADDRESS = 'address/deleteAddress';
+  //admin
+  static const GET_ALL_USER = 'user/getAllUser';
 }
