@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
@@ -35,6 +35,7 @@ class _CartPageState extends State<CartPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
+
     cartController.updateCart();
   }
 

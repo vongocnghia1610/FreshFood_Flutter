@@ -38,12 +38,12 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
+            onPressed: () => Get.back(),
+            icon: Icon(
               PhosphorIcons.arrow_left,
-              color: Colors.black,
+              color: Colors.white,
+              size: 7.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Quên mật khẩu",

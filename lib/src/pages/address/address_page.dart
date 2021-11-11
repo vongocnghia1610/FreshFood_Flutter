@@ -23,78 +23,6 @@ class _AddressPageState extends State<AddressPage> {
   ScrollController scrollController = ScrollController();
   final addressController = Get.put(AddressController());
 
-  List<AddressModel> listAddressModel = [
-    AddressModel(
-        name: "Nguyễn Phan Nhật Tú",
-        phone: "0968356159",
-        address: "Chung cư Opal Garden đường 20",
-        province: "Thủ Đức",
-        district: "Hiệp Bình Chánh",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-    AddressModel(
-        name: "Nguyễn Phan Nhật Phong",
-        phone: "0968356159",
-        address: "215-115 Nguyễn Xí",
-        province: "Bình Thạnh",
-        district: "Phường 26",
-        isMain: true),
-  ];
   @override
   void initState() {
     super.initState();
@@ -202,107 +130,116 @@ class _AddressPageState extends State<AddressPage> {
 class WidgetAddress extends StatelessWidget {
   AddressModel addressModel;
   WidgetAddress({Key key, this.addressModel});
+  final addressController = Get.put(AddressController());
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10.sp),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            //                   <--- left side
-            color: Colors.grey.shade300,
-            width: 2.sp,
+    return InkWell(
+      onTap: () {
+        addressController.setAddress(id: addressModel.id);
+        Get.back();
+      },
+      child: Container(
+        padding: EdgeInsets.all(10.sp),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(
+              //                   <--- left side
+              color: Colors.grey.shade300,
+              width: 2.sp,
+            ),
           ),
         ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Text(
-                '${addressModel.name}',
-                style: TextStyle(
-                  // color: colorTitle,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(
-                width: 10.sp,
-              ),
-              Text(
-                '[Mặc định]',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 12.sp,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 10.sp,
-          ),
-          Container(
-            child: Row(children: [
-              Column(children: [
-                Container(
-                  width: 265.sp,
-                  child: Text(
-                    '(+84) ${addressModel.phone}',
-                    style: TextStyle(
-                      // color: colorTitle,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w300,
-                    ),
-                    textAlign: TextAlign.start,
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text(
+                  '${addressModel.name}',
+                  style: TextStyle(
+                    // color: colorTitle,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                Row(children: [
+                SizedBox(
+                  width: 10.sp,
+                ),
+                Text(
+                  addressModel.isMain == true ? '[Mặc định]' : '',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 12.sp,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10.sp,
+            ),
+            Container(
+              child: Row(children: [
+                Column(children: [
                   Container(
-                    width: 210.sp,
+                    width: 265.sp,
                     child: Text(
-                      '${addressModel.address}',
+                      '(+84) ${addressModel.phone}',
                       style: TextStyle(
                         // color: colorTitle,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w300,
                       ),
+                      textAlign: TextAlign.start,
                     ),
                   ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  Icon(
-                    PhosphorIcons.check,
-                    color: Colors.red,
-                  )
-                ]),
-                Row(children: [
-                  Container(
-                    width: 210.sp,
-                    child: Text(
-                      '${addressModel.province} - ${addressModel.district}',
-                      style: TextStyle(
-                        // color: colorTitle,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w300,
+                  Row(children: [
+                    Container(
+                      width: 210.sp,
+                      child: Text(
+                        '${addressModel.address}',
+                        style: TextStyle(
+                          // color: colorTitle,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  Icon(
-                    PhosphorIcons.map_pin,
-                    color: Colors.red,
-                  )
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    addressModel.id == addressController.addressSelected.id
+                        ? Icon(
+                            PhosphorIcons.check,
+                            color: Colors.red,
+                          )
+                        : Container(),
+                  ]),
+                  Row(children: [
+                    Container(
+                      width: 210.sp,
+                      child: Text(
+                        '${addressModel.province} - ${addressModel.district}',
+                        style: TextStyle(
+                          // color: colorTitle,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 12.w,
+                    ),
+                    Icon(
+                      PhosphorIcons.map_pin,
+                      color: Colors.red,
+                    )
+                  ]),
                 ]),
               ]),
-            ]),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

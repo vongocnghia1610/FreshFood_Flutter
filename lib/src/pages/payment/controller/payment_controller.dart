@@ -1,5 +1,8 @@
-import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/cart_model.dart';
+import 'package:freshfood/src/repository/payment_repository.dart';
 import 'package:get/get.dart';
+
+import 'addressController.dart';
 
 class PaymentController extends GetxController {
   double total = 0;
@@ -34,5 +37,20 @@ class PaymentController extends GetxController {
   changePaymentMethod(int value) {
     methodPayment = value;
     update();
+  }
+
+  getMoney() {
+    final addressController = Get.put(AddressController());
+
+    PaymentRepository()
+        .getShipFee(
+            address: addressController.addressSelected.address,
+            province: addressController.addressSelected.province,
+            district: addressController.addressSelected.district)
+        .then((value) {
+      transportFee = double.parse(value.toString());
+      total = transportFee + productPrice;
+      update();
+    });
   }
 }
