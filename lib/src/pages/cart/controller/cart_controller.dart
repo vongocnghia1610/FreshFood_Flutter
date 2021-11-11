@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/cart_update_model.dart';
 import 'package:freshfood/src/repository/cart_repository.dart';
 import 'package:get/get.dart';

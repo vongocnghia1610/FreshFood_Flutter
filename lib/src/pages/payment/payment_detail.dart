@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
-import 'package:freshfood/src/models/cart.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/payment/controller/addressController.dart';
@@ -89,14 +89,14 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                       Expanded(
                         child: GetBuilder<AddressController>(
                             init: addressController,
-                            builder: (_) => _.listAddress.length == 0
+                            builder: (_) => _.addressSelected == null
                                 ? Text(
                                     'Bạn chưa có địa chỉ, vui lòng chọn địa chỉ',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 2.5.w),
                                   )
                                 : Text(
-                                    ' ${_.listAddress[0].address} - ${_.listAddress[0].district} - ${_.listAddress[0].province}',
+                                    ' ${_.addressSelected.address} - ${_.addressSelected.district} - ${_.addressSelected.province}',
                                     style: TextStyle(
                                       // color: colorTitle,
                                       fontSize: 12.sp,
@@ -279,7 +279,8 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                             width: 110.sp,
                           ),
                           Text(
-                            'đ225000',
+                            formatMoney(
+                                paymentController.getproductPrice(widget.list)),
                             style: TextStyle(
                               color: Colors.black87,
                               fontSize: 10.sp,
@@ -303,12 +304,15 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                         SizedBox(
                           width: 80.sp,
                         ),
-                        Text(
-                          'đ200000',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w600,
+                        GetBuilder<PaymentController>(
+                          init: paymentController,
+                          builder: (_) => Text(
+                            formatMoney(paymentController.transportFee),
+                            style: TextStyle(
+                              color: Colors.orange,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ]),
@@ -327,12 +331,15 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                         SizedBox(
                           width: 80.sp,
                         ),
-                        Text(
-                          'đ425000',
-                          style: TextStyle(
-                            color: Colors.orange,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w600,
+                        GetBuilder<PaymentController>(
+                          init: paymentController,
+                          builder: (_) => Text(
+                            formatMoney(paymentController.total),
+                            style: TextStyle(
+                              color: Colors.orange,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ])
