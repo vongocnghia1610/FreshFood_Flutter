@@ -10,6 +10,7 @@ import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
+import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
@@ -154,6 +155,13 @@ class AppPages {
       page: () => ChangePasswordWithOtp(
         token: Get.arguments['token'],
       ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.EVELUATE_DETAIL,
+      page: () => EveluateProductPage(productId: Get.arguments['productId']),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

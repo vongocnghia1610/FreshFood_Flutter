@@ -20,4 +20,5 @@ abstract class Routes {
   static const METHOD_PAYMENT = '/methodPayment';
   static const OTP = '/otp';
   static const CHANGEPASSWORDWITHOTP = '/changePasswordWithOtp';
+  static const EVELUATE_DETAIL = '/eveluateDetail';
 }

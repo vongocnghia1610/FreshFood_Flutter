@@ -33,4 +33,6 @@ class ApiGateway {
   static const DELETE_ADDRESS = 'address/deleteAddress';
   //admin
   static const GET_ALL_USER = 'user/getAllUser';
+  //eveluate
+  static const GET_EVELUATE = 'eveluate/getEveluate';
 }

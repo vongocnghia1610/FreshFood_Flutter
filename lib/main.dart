@@ -10,6 +10,7 @@ import 'package:freshfood/src/pages/authentication/change_password_with_otp_page
 import 'package:freshfood/src/pages/authentication/fogot_password_page.dart';
 import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_page.dart';
+import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';

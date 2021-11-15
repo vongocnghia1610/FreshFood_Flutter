@@ -13,9 +13,10 @@ class ProductModel {
   int quantity;
   String name;
   String detail;
-  double rate;
   GroupProduct groupProduct;
   int number;
+  int starAVG;
+  int eveluateCount;
 
   ProductModel({
     this.id,
@@ -26,9 +27,10 @@ class ProductModel {
     this.quantity,
     this.name,
     this.detail,
-    this.rate = 4.5,
     this.groupProduct,
     this.number = 1,
+    this.starAVG,
+    this.eveluateCount,
   });
 
   ProductModel copyWith({
@@ -40,8 +42,10 @@ class ProductModel {
     int quantity,
     String name,
     String detail,
-    double rate,
     GroupProduct groupProduct,
+    int number,
+    int starAVG,
+    int eveluateCount,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -52,8 +56,10 @@ class ProductModel {
       quantity: quantity ?? this.quantity,
       name: name ?? this.name,
       detail: detail ?? this.detail,
-      rate: rate ?? this.rate,
       groupProduct: groupProduct ?? this.groupProduct,
+      number: number ?? this.number,
+      starAVG: starAVG ?? this.starAVG,
+      eveluateCount: eveluateCount ?? this.eveluateCount,
     );
   }
 
@@ -67,8 +73,10 @@ class ProductModel {
       'quantity': quantity,
       'name': name,
       'detail': detail,
-      'rate': rate,
       'groupProduct': groupProduct.toMap(),
+      'number': number,
+      'starAVG': starAVG,
+      'eveluateCount': eveluateCount,
     };
   }
 
@@ -83,7 +91,8 @@ class ProductModel {
       name: map['name'],
       detail: map['detail'],
       groupProduct: GroupProduct.fromMap(map['groupProduct']),
-      rate: double.tryParse((map['rate'] ?? 0).toString()),
+      starAVG: map['starAVG'],
+      eveluateCount: map['eveluateCount'],
     );
   }
 
@@ -94,7 +103,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, rate: $rate, groupProduct: $groupProduct)';
+    return 'ProductModel(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, groupProduct: $groupProduct, number: $number, starAVG: $starAVG, eveluateCount: $eveluateCount)';
   }
 
   @override
@@ -110,8 +119,10 @@ class ProductModel {
         other.quantity == quantity &&
         other.name == name &&
         other.detail == detail &&
-        other.rate == rate &&
-        other.groupProduct == groupProduct;
+        other.groupProduct == groupProduct &&
+        other.number == number &&
+        other.starAVG == starAVG &&
+        other.eveluateCount == eveluateCount;
   }
 
   @override
@@ -124,7 +135,9 @@ class ProductModel {
         quantity.hashCode ^
         name.hashCode ^
         detail.hashCode ^
-        rate.hashCode ^
-        groupProduct.hashCode;
+        groupProduct.hashCode ^
+        number.hashCode ^
+        starAVG.hashCode ^
+        eveluateCount.hashCode;
   }
 }
