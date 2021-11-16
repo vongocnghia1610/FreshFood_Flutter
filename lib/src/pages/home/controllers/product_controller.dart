@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class ProductController extends GetxController {
   List<dynamic> _listRecomPro = [];
+  List<dynamic> listAllProduct = [];
 
   int pageNum = 1;
   StreamController<List<dynamic>> _listRecommendController =
@@ -48,6 +49,16 @@ class ProductController extends GetxController {
       if (value.isNotEmpty) {
         _listRecomPro.addAll(value);
         _listProductController.add(_listRecomPro);
+        update();
+      }
+    });
+  }
+
+  getAllProduct() {
+    ProductRepository().getAllProduct(1, 15).then((value) {
+      print(value);
+      if (value.isNotEmpty) {
+        listAllProduct.addAll(value);
         update();
       }
     });

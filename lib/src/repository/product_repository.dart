@@ -23,6 +23,19 @@ class ProductRepository {
     return [];
   }
 
+  Future<List<dynamic>> getAllProduct(skip, limit) async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_ALL_PRODUCT,
+      'skip=$skip&limit=$limit',
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
+
   Future<dynamic> getDetail(id) async {
     var response = await HandleApis().get(
       ApiGateway.GET_DETAIL_PRODUCT,
