@@ -17,6 +17,10 @@ class ApiGateway {
   static const ADD_TO_CART = 'cart/createCart';
   static const UPDATE_CART = 'cart/updateCart';
 
+  //order
+  static const CREATE_ORDER = 'order/createOrder';
+  static const GET_ORDER = 'order/getOrders';
+
   //product
   static const GET_DETAIL_PRODUCT = 'product/getDetailProduct';
   static const GET_RECOMMEND = 'product/findAllProduct';

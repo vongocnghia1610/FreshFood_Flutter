@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/order/controller/order_controller.dart';
 import 'package:freshfood/src/pages/order/pages/first_page.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
@@ -21,6 +22,8 @@ class _OrderPageState extends State<OrderPage>
   TabController _tabController;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+  final orderController = Get.put(OrderController());
+
   List<OrderModel> orders = [
     OrderModel(
       shipFee: 12000,
@@ -71,14 +74,16 @@ class _OrderPageState extends State<OrderPage>
       length: statusOrder.length,
       initialIndex: 0,
     );
-    _pages = [
-      FirstPage(orders: orders),
-      FirstPage(orders: orders),
-      FirstPage(orders: orders),
-      FirstPage(orders: orders),
-      FirstPage(orders: orders),
-    ];
-    Future.delayed(Duration(seconds: 2), () async {});
+    orderController.getOrder(search: '', limit: 10, skip: 1);
+    // _pages = [
+    //   FirstPage(orders: orderController.list0, status: statusOrder[0]),
+    //   FirstPage(orders: orderController.list1, status: statusOrder[1]),
+    //   FirstPage(orders: orderController.list2, status: statusOrder[2]),
+    //   FirstPage(orders: orderController.list3, status: statusOrder[3]),
+    //   FirstPage(orders: orderController.list4, status: statusOrder[4]),
+    // ];
+
+    // Future.delayed(Duration(seconds: 2), () async {});
   }
 
   @override
@@ -174,11 +179,23 @@ class _OrderPageState extends State<OrderPage>
             ),
           ),
           Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: _pages.map((Widget tab) {
-                return tab;
-              }).toList(),
+            child: GetBuilder(
+              init: orderController,
+              builder: (_) => TabBarView(
+                controller: _tabController,
+                children: [
+                  FirstPage(
+                      orders: orderController.list0, status: statusOrder[0]),
+                  FirstPage(
+                      orders: orderController.list1, status: statusOrder[1]),
+                  FirstPage(
+                      orders: orderController.list2, status: statusOrder[2]),
+                  FirstPage(
+                      orders: orderController.list3, status: statusOrder[3]),
+                  FirstPage(
+                      orders: orderController.list4, status: statusOrder[4]),
+                ],
+              ),
             ),
           ),
         ],

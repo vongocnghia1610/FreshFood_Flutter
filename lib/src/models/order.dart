@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:freshfood/src/models/address.dart';
 import 'package:freshfood/src/models/history.dart';
 import 'package:freshfood/src/models/product.dart';
 
@@ -18,6 +19,7 @@ class OrderModel {
   String customerId;
   DateTime createdAt;
   DateTime updatedAt;
+  AddressModel area;
 
   OrderModel({
     this.id,
@@ -32,6 +34,7 @@ class OrderModel {
     this.customerId,
     this.createdAt,
     this.updatedAt,
+    this.area,
   });
 
   OrderModel copyWith({
@@ -47,6 +50,7 @@ class OrderModel {
     String customerId,
     DateTime createdAt,
     DateTime updatedAt,
+    AddressModel area,
   }) {
     return OrderModel(
       id: id ?? this.id,
@@ -61,6 +65,7 @@ class OrderModel {
       customerId: customerId ?? this.customerId,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      area: area ?? this.area,
     );
   }
 
@@ -78,28 +83,46 @@ class OrderModel {
       'customerId': customerId,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'area': area.toMap(),
     };
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
-      id: map['id'],
+      id: map['_id'],
       product: List<ProductModel>.from(
-          map['product']?.map((x) => ProductModel.fromMap(x))),
+          map['product']?.map((x) => ProductModel.fromMap1(x))),
       history: List<HistoryModel>.from(
-          map['history']?.map((x) => HistoryModel.fromMap(x))),
+          map['history']?.map((x) => HistoryModel.fromMap1(x))),
       status: map['status'],
       orderCode: map['orderCode'],
-      totalMoney: map['totalMoney'],
-      shipFee: map['shipFee'],
+      totalMoney: double.tryParse((map['totalMoney'] ?? 0).toString()),
+      shipFee: double.tryParse((map['shipFee'] ?? 0).toString()),
       typePayment: map['typePayment'],
       address: map['address'],
       customerId: map['customerId'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
-      updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
+      area: AddressModel.fromMap(map['area']),
     );
   }
 
+  factory OrderModel.fromMap1(Map<String, dynamic> map) {
+    return OrderModel(
+      id: map['_id'],
+      product: List<ProductModel>.from(
+          map['product']?.map((x) => ProductModel.fromMap1(x))),
+      status: map['status'],
+      orderCode: map['orderCode'],
+      totalMoney: double.tryParse((map['totalMoney'] ?? 0).toString()),
+      shipFee: double.tryParse((map['shipFee'] ?? 0).toString()),
+      typePayment: map['typePayment'],
+      address: map['address'],
+      customerId: map['customerId'],
+      createdAt: DateTime.parse(map['createdAt']),
+      updatedAt: DateTime.parse(map['updatedAt']),
+    );
+  }
   String toJson() => json.encode(toMap());
 
   factory OrderModel.fromJson(String source) =>
@@ -107,7 +130,7 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, product: $product, history: $history, status: $status, orderCode: $orderCode, totalMoney: $totalMoney, shipFee: $shipFee, typePayment: $typePayment, address: $address, customerId: $customerId, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'OrderModel(id: $id, product: $product, history: $history, status: $status, orderCode: $orderCode, totalMoney: $totalMoney, shipFee: $shipFee, typePayment: $typePayment, address: $address, customerId: $customerId, createdAt: $createdAt, updatedAt: $updatedAt, area: $area)';
   }
 
   @override
@@ -126,7 +149,8 @@ class OrderModel {
         other.address == address &&
         other.customerId == customerId &&
         other.createdAt == createdAt &&
-        other.updatedAt == updatedAt;
+        other.updatedAt == updatedAt &&
+        other.area == area;
   }
 
   @override
@@ -142,6 +166,7 @@ class OrderModel {
         address.hashCode ^
         customerId.hashCode ^
         createdAt.hashCode ^
-        updatedAt.hashCode;
+        updatedAt.hashCode ^
+        area.hashCode;
   }
 }

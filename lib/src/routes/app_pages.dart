@@ -11,9 +11,12 @@ import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
+import 'package:freshfood/src/pages/order/order_detail_page.dart';
+import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
+import 'package:freshfood/src/pages/payment/payment_web_page.dart';
 import 'package:freshfood/src/pages/products/detail_product_screen.dart';
 import 'package:freshfood/src/pages/products/product_screen.dart';
 import 'package:freshfood/src/pages/profile/profile_page.dart';
@@ -153,6 +156,33 @@ class AppPages {
       name: Routes.CHANGEPASSWORDWITHOTP,
       page: () => ChangePasswordWithOtp(
         token: Get.arguments['token'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.PAYMENT_WEB_PAGE,
+      page: () => PaymentWebPage(
+        link: Get.arguments['link'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.DETAIL_ORDER,
+      page: () => OrderDetailPage(
+        order: Get.arguments['order'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.HISTORY_ORDER,
+      page: () => OrderHistoryPage(
+        history: Get.arguments['history'],
       ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),

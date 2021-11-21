@@ -46,6 +46,7 @@ dependencies:
   flutter_masked_text: ^0.8.0
   badges: ^2.0.1
   otp_screen: ^0.0.3
+  webview_flutter: ^2.0.13
 
 dev_dependencies:
   flutter_test:
