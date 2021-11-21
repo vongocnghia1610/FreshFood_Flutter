@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/cart_model.dart';
+import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/Admin/widget/product_item.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item.dart';
@@ -70,7 +71,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
           child: Column(
             children: [
               Container(
-                height: 145.w,
+                height: 175.w,
                 child: GetBuilder<ProductController>(
                   init: productController,
                   builder: (_) => ListView.builder(
@@ -78,7 +79,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
                     itemCount: productController.listAllProduct.length,
                     itemBuilder: (context, index) {
                       return ProductItem(
-                        product: productController.listAllProduct[index],
+                        product: ProductModel.fromMap(_.listAllProduct[index]),
                       );
                     },
                   ),

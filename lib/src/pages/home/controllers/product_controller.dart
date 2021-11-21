@@ -58,7 +58,7 @@ class ProductController extends GetxController {
     ProductRepository().getAllProduct(1, 15).then((value) {
       print(value);
       if (value.isNotEmpty) {
-        listAllProduct.addAll(value);
+        listAllProduct = value;
         update();
       }
     });

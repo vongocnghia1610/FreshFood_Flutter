@@ -8,6 +8,7 @@ class GroupProductRepository {
     var response = await HandleApis().get(
       ApiGateway.GETGROUPPRODUCT,
     );
+    print(response.statusCode);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

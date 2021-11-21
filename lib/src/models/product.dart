@@ -17,50 +17,51 @@ class ProductModel {
   int number;
   int starAVG;
   int eveluateCount;
+  int sold;
 
-  ProductModel({
-    this.id,
-    this.image,
-    this.status,
-    this.weight,
-    this.price,
-    this.quantity,
-    this.name,
-    this.detail,
-    this.groupProduct,
-    this.number = 1,
-    this.starAVG,
-    this.eveluateCount,
-  });
+  ProductModel(
+      {this.id,
+      this.image,
+      this.status,
+      this.weight,
+      this.price,
+      this.quantity,
+      this.name,
+      this.detail,
+      this.groupProduct,
+      this.number = 1,
+      this.starAVG,
+      this.eveluateCount,
+      this.sold});
 
-  ProductModel copyWith({
-    String id,
-    List<String> image,
-    int status,
-    double weight,
-    double price,
-    int quantity,
-    String name,
-    String detail,
-    GroupProduct groupProduct,
-    int number,
-    int starAVG,
-    int eveluateCount,
-  }) {
+  ProductModel copyWith(
+      {String id,
+      List<String> image,
+      int status,
+      double weight,
+      double price,
+      int quantity,
+      String name,
+      String detail,
+      GroupProduct groupProduct,
+      int number,
+      int starAVG,
+      int eveluateCount,
+      int sold}) {
     return ProductModel(
-      id: id ?? this.id,
-      image: image ?? this.image,
-      status: status ?? this.status,
-      weight: weight ?? this.weight,
-      price: price ?? this.price,
-      quantity: quantity ?? this.quantity,
-      name: name ?? this.name,
-      detail: detail ?? this.detail,
-      groupProduct: groupProduct ?? this.groupProduct,
-      number: number ?? this.number,
-      starAVG: starAVG ?? this.starAVG,
-      eveluateCount: eveluateCount ?? this.eveluateCount,
-    );
+        id: id ?? this.id,
+        image: image ?? this.image,
+        status: status ?? this.status,
+        weight: weight ?? this.weight,
+        price: price ?? this.price,
+        quantity: quantity ?? this.quantity,
+        name: name ?? this.name,
+        detail: detail ?? this.detail,
+        groupProduct: groupProduct ?? this.groupProduct,
+        number: number ?? this.number,
+        starAVG: starAVG ?? this.starAVG,
+        eveluateCount: eveluateCount ?? this.eveluateCount,
+        sold: sold ?? this.sold);
   }
 
   Map<String, dynamic> toMap() {
@@ -77,6 +78,7 @@ class ProductModel {
       'number': number,
       'starAVG': starAVG,
       'eveluateCount': eveluateCount,
+      'sold': sold
     };
   }
 
@@ -93,6 +95,7 @@ class ProductModel {
       groupProduct: GroupProduct.fromMap(map['groupProduct']),
       starAVG: map['starAVG'],
       eveluateCount: map['eveluateCount'],
+      sold: map['sold'],
     );
   }
 
@@ -103,7 +106,7 @@ class ProductModel {
 
   @override
   String toString() {
-    return 'ProductModel(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, groupProduct: $groupProduct, number: $number, starAVG: $starAVG, eveluateCount: $eveluateCount)';
+    return 'ProductModel(id: $id, image: $image, status: $status, weight: $weight, price: $price, quantity: $quantity, name: $name, detail: $detail, groupProduct: $groupProduct, number: $number, starAVG: $starAVG, eveluateCount: $eveluateCount,sold: $sold)';
   }
 
   @override
@@ -122,7 +125,8 @@ class ProductModel {
         other.groupProduct == groupProduct &&
         other.number == number &&
         other.starAVG == starAVG &&
-        other.eveluateCount == eveluateCount;
+        other.eveluateCount == eveluateCount &&
+        other.sold == sold;
   }
 
   @override
@@ -138,6 +142,7 @@ class ProductModel {
         groupProduct.hashCode ^
         number.hashCode ^
         starAVG.hashCode ^
-        eveluateCount.hashCode;
+        eveluateCount.hashCode ^
+        sold.hashCode;
   }
 }

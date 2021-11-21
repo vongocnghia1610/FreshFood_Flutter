@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freshfood/src/app.dart';
 import 'package:freshfood/src/lang/translation_service.dart';
+import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
@@ -60,7 +61,7 @@ void main() async {
         enableLog: true,
         logWriterCallback: Logger.write,
         // initialRoute: AppPages.INITIAL,
-        home: ManagerProductPage(),
+        home: App(),
         getPages: AppPages.routes,
         // initialRoute: AppPages.INITIAL,
         locale: TranslationService.locale,

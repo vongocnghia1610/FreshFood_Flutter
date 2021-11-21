@@ -1,4 +1,5 @@
 import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
@@ -162,6 +163,14 @@ class AppPages {
     GetPage(
       name: Routes.EVELUATE_DETAIL,
       page: () => EveluateProductPage(productId: Get.arguments['productId']),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.UPDATE_PRODUCT,
+      page: () =>
+          EditProductPage(productCurrent: Get.arguments['productCurrent']),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
