@@ -28,9 +28,10 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // return Provider.of<UserProvider>(context).user != null
-    //     ? Navigation()
-    //     : AuthenticationPages();
-    return ManagerProductPage();
+    return Provider.of<UserProvider>(context).user != null
+        ? Provider.of<UserProvider>(context).user.role == 0
+            ? Navigation()
+            : ManagerProductPage()
+        : AuthenticationPages();
   }
 }

@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
    <application
         android:label="freshfood"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

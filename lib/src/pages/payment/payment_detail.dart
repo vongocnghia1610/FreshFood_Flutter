@@ -27,6 +27,7 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
   ScrollController scrollController = ScrollController();
   final addressController = Get.put(AddressController());
   final paymentController = Get.put(PaymentController());
+  TextEditingController _noteController = TextEditingController();
 
   double heighContainer;
   @override
@@ -34,6 +35,7 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
     super.initState();
     heighContainer = 95.sp * widget.list.length;
     addressController.getAllAddress();
+    _noteController.text = paymentController.note;
   }
 
   @override
@@ -151,6 +153,9 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                       ),
                       Expanded(
                           child: TextField(
+                        onChanged: (value) {
+                          paymentController.note = value;
+                        },
                         textAlign: TextAlign.end,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Nhập ghi chú cho đơn hàng',
@@ -348,7 +353,9 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                 ),
                 DefaultButton(
                   btnText: 'Đồng ý',
-                  onPressed: () {},
+                  onPressed: () {
+                    paymentController.createOrder(widget.list);
+                  },
                 )
               ],
             ),
@@ -384,13 +391,13 @@ class CartDetail extends StatelessWidget {
             Container(
               child: Image.network(
                 cartModel.image[0],
-                height: 60.sp,
-                width: 60.sp,
+                height: 70.sp,
+                width: 70.sp,
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(
-              width: 10.sp,
+              width: 20.sp,
             ),
             Expanded(
               flex: 1,
@@ -404,7 +411,7 @@ class CartDetail extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           fontSize: 12.sp, fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.right,
+                      textAlign: TextAlign.left,
                     ),
                   ),
                   Container(
@@ -414,9 +421,10 @@ class CartDetail extends StatelessWidget {
                       "x${cartModel.quantity}",
                       style: TextStyle(
                           fontSize: 10.sp, fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.right,
+                      textAlign: TextAlign.left,
                     ),
                   ),
+                  SizedBox(height: 10.sp),
                   Container(
                     width: double.infinity,
                     padding: EdgeInsets.only(top: 5.sp),

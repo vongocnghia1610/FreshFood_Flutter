@@ -7,9 +7,12 @@ import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/constant.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class OrderHistoryPage extends StatefulWidget {
+  final List<HistoryModel> history;
+  OrderHistoryPage({this.history});
   @override
   State<StatefulWidget> createState() => _OrderHistoryPageState();
 }
@@ -49,12 +52,12 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 8.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Lịch sử đơn hàng",

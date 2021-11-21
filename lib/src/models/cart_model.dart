@@ -72,7 +72,18 @@ class CartModel extends GetxController {
         nameGroup: map['nameGroup'],
         selected: map['selected']);
   }
-
+  factory CartModel.fromMap1(Map<String, dynamic> map) {
+    return CartModel(
+        id: map['productId'],
+        image: List<String>.from(map['image']),
+        status: map['status'],
+        cost: double.tryParse((map['price'] ?? 0).toString()),
+        quantity: map['quantity'],
+        name: map['name'],
+        detail: map['detail'],
+        nameGroup: map['nameGroup'],
+        selected: map['selected']);
+  }
   String toJson() => json.encode(toMap());
 
   factory CartModel.fromJson(String source) =>

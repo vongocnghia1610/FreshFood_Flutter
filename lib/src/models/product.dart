@@ -82,6 +82,23 @@ class ProductModel {
     };
   }
 
+  Map<String, dynamic> toMap1() {
+    return {
+      'id': id,
+      'image': image,
+      'status': status,
+      'weight': weight,
+      'price': price,
+      'quantity': quantity,
+      'name': name,
+      'detail': detail,
+      'number': number,
+      'starAVG': starAVG,
+      'eveluateCount': eveluateCount,
+      'sold': sold
+    };
+  }
+
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['_id'],
@@ -98,7 +115,18 @@ class ProductModel {
       sold: map['sold'],
     );
   }
-
+  factory ProductModel.fromMap1(Map<String, dynamic> map) {
+    return ProductModel(
+      id: map['_id'],
+      image: (map['image'] as List<dynamic>).map((e) => e.toString()).toList(),
+      status: map['status'],
+      weight: double.tryParse((map['weight'] ?? 0).toString()),
+      price: double.tryParse((map['price'] ?? 0).toString()),
+      quantity: map['quantity'],
+      name: map['name'],
+      detail: map['detail'],
+    );
+  }
   String toJson() => json.encode(toMap());
 
   factory ProductModel.fromJson(String source) =>

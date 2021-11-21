@@ -1,5 +1,7 @@
 import 'package:freshfood/src/models/cart_model.dart';
-import 'package:freshfood/src/repository/payment_repository.dart';
+import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/repository/order_repository.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 import 'addressController.dart';
@@ -8,7 +10,8 @@ class PaymentController extends GetxController {
   double total = 0;
   double transportFee = 0;
   double productPrice = 0;
-  int methodPayment;
+  int methodPayment = 0;
+  String note = '';
   double getproductPrice(List<CartModel> list) {
     productPrice = 0;
     list.forEach((element) {
@@ -20,14 +23,14 @@ class PaymentController extends GetxController {
   String getPaymentMethod() {
     String temp;
     switch (methodPayment) {
-      case 0:
+      case 1:
         temp = "Paypal";
         break;
 
-      case 1:
+      case 2:
         temp = "VNPay";
         break;
-      case 2:
+      case 0:
         temp = "Thanh toán khi nhận hàng";
         break;
     }
@@ -42,7 +45,7 @@ class PaymentController extends GetxController {
   getMoney() {
     final addressController = Get.put(AddressController());
 
-    PaymentRepository()
+    OrderRepository()
         .getShipFee(
             address: addressController.addressSelected.address,
             province: addressController.addressSelected.province,
@@ -51,6 +54,24 @@ class PaymentController extends GetxController {
       transportFee = double.parse(value.toString());
       total = transportFee + productPrice;
       update();
+    });
+  }
+
+  createOrder(List<CartModel> list) {
+    final addressController = Get.put(AddressController());
+    List<String> id = list.map((value) => value.id).toList();
+    OrderRepository()
+        .createOrder(
+            cartId: id,
+            address: addressController.addressSelected,
+            note: note,
+            typePaymentOrder: methodPayment)
+        .then((value) {
+      print(value['link']);
+      final cartController = Get.put(CartController());
+      cartController.getListProduct();
+      methodPayment = 0;
+      Get.toNamed(Routes.PAYMENT_WEB_PAGE, arguments: {"link": value['link']});
     });
   }
 }

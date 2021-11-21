@@ -33,11 +33,10 @@ class CartController extends GetxController {
   getTotalQuantity() {
     int temp = 0;
     listProductCart.forEach((element) {
-      temp += element['quantity'];
+      if (element['status'] == 1) temp += element['quantity'];
     });
-    print("testne2");
+    print("halo");
     print(temp);
-
     totalQuantity = temp.toString();
     update();
   }
@@ -101,7 +100,9 @@ class CartController extends GetxController {
       if (value.isNotEmpty) {
         print("zo dc cart r nek");
         listProductCart = value;
+        print("nguyenphannhattu");
         getTotalQuantity();
+        print("nguyenphannhattu");
 
         listProductCartController.add(listProductCart);
 
@@ -116,6 +117,7 @@ class CartController extends GetxController {
             .map((data) => CartUpdateModel.fromMap(data).toMap())
             .toList())
         .then((value) {
+      getTotalQuantity();
       print(value);
       if (value.isNotEmpty) {
         print("updatecartthanhcong1");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
 
 import 'package:get_storage/get_storage.dart';
 
@@ -23,9 +24,11 @@ class UserProvider extends ChangeNotifier {
   checkLogined() {
     String token = _getStorage.read(storageKey) ?? '';
     if (token != '') {
-      _user = UserModel(
-        token: token,
-      );
+      _user = UserModel(token: token);
+      UserRepository().getProfile().then((value) {
+        _user = UserModel.fromMap(value);
+        _user.token = token;
+      });
     } else {
       _user = null;
     }

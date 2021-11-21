@@ -2,18 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/lang/vi_VN.dart';
+import 'package:freshfood/src/models/order.dart';
+import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:intl/intl.dart';
 
 class OrderDetailPage extends StatefulWidget {
+  final OrderModel order;
+  OrderDetailPage({this.order});
   @override
   State<StatefulWidget> createState() => _OrderDetailPageState();
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -32,12 +43,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(
-              PhosphorIcons.arrow_circle_left_bold,
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
               color: Colors.white,
+              size: 8.w,
             ),
-            onPressed: () => {},
-            iconSize: 30,
           ),
           title: Text(
             "Thông tin đơn hàng",
@@ -111,25 +122,34 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       SizedBox(
                         width: 10.sp,
                       ),
-                      Text("Thông tin vận chuyển",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 13.sp,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(
-                        width: 72.sp,
+                      Expanded(
+                        flex: 3,
+                        child: Text(widget.order.history.last.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 13.sp,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold)),
                       ),
-                      TextButton(
-                        onPressed: () {},
-                        style: TextButton.styleFrom(
-                          textStyle: TextStyle(fontSize: 14.sp),
-                        ),
-                        child: Text(
-                          'Xem',
-                          style: TextStyle(
-                              color: Colors.green, fontWeight: FontWeight.bold),
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          onPressed: () {
+                            Get.toNamed(Routes.HISTORY_ORDER,
+                                arguments: {"history": widget.order.history});
+                          },
+                          style: TextButton.styleFrom(
+                            textStyle: TextStyle(fontSize: 14.sp),
+                          ),
+                          child: Container(
+                            child: Text(
+                              'Xem',
+                              style: TextStyle(
+                                  color: Colors.green,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       )
                     ],
@@ -173,7 +193,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Container(
                         width: 210.sp,
                         child: Text(
-                          'Nguyễn Phan Nhật Tú',
+                          widget.order.area.name,
                           style: TextStyle(
                             // color: colorTitle,
                             fontSize: 12.sp,
@@ -184,7 +204,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Container(
                         width: 210.sp,
                         child: Text(
-                          '(+84) 0968356159',
+                          widget.order.area.phone,
                           style: TextStyle(
                             // color: colorTitle,
                             fontSize: 12.sp,
@@ -196,7 +216,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Container(
                         width: 210.sp,
                         child: Text(
-                          'Chung cư opal garden đường số 20 - Phường hiệp bình chánh - Thủ đức',
+                          '${widget.order.area.address} - ${widget.order.area.district} - ${widget.order.area.province}',
                           style: TextStyle(
                             // color: colorTitle,
                             fontSize: 12.sp,
@@ -208,77 +228,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ]),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 10.sp, right: 10.sp),
-                  margin: EdgeInsets.only(
-                    top: 25.0,
-                  ),
-                  child: Material(
-                    child: InkWell(
-                      onTap: () {
-                        // print(order);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.only(bottom: 5.sp),
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: Colors.black45, width: 1.sp)),
-                        ),
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              width: 10.sp,
-                            ),
-                            Image.network(
-                              "https://cdn.tgdd.vn/2021/07/content/100gr-thit-heo-bao-nhieu-calo-an-thit-heo-co-tot-khong-va-luu-y-khi-an-2-800x467.jpg",
-                              height: 50.sp,
-                              width: 50.sp,
-                              fit: BoxFit.cover,
-                            ),
-                            SizedBox(
-                              width: 10.sp,
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Text("[FF-0000012] Thịt heo nhập khẩu",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold)),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: 170.sp, top: 5.sp),
-                                    child: Text(
-                                      "x2",
-                                      style: TextStyle(
-                                          fontSize: 10.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.only(
-                                        left: 120.sp, top: 5.sp),
-                                    child: Text(
-                                      "đ120000",
-                                      style: TextStyle(
-                                          color: Colors.orange,
-                                          fontSize: 13.sp,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Icon(PhosphorIcons.caret_right),
-                          ],
-                        ),
-                      ),
+                    height: widget.order.product.length * 75.sp,
+                    padding: EdgeInsets.only(left: 10.sp, right: 10.sp),
+                    margin: EdgeInsets.only(
+                      top: 25.0,
                     ),
-                  ),
-                ),
+                    child: ListView.builder(
+                      controller: scrollController,
+                      itemCount: widget.order.product.length,
+                      itemBuilder: (context, index) {
+                        return Column(children: [
+                          ProductWidget(
+                            product: widget.order.product[index],
+                          ),
+                        ]);
+                      },
+                    )),
                 Container(
                   padding: EdgeInsets.only(left: 20),
                   margin: EdgeInsets.only(
@@ -302,7 +267,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                           Container(
                             padding: EdgeInsets.only(top: 10.sp),
                             child: Text(
-                              'đ2000000',
+                              formatMoney(widget.order.totalMoney),
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14.sp,
@@ -327,22 +292,28 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         size: 20.sp,
                         color: Colors.redAccent,
                       ),
-                      SizedBox(
-                        width: 55.sp,
-                      ),
-                      Text(
-                        'Phương thức thanh toán: PayPal',
-                        style: TextStyle(
-                          // color: colorTitle,
-                          fontSize: 13.sp,
-                          fontWeight: FontWeight.w500,
+                      SizedBox(width: 5.sp),
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.only(right: 20.sp),
+                          child: Text(
+                            widget.order.typePayment == "Chưa thanh toán"
+                                ? widget.order.typePayment
+                                : 'Phương thức thanh toán: ${widget.order.typePayment}',
+                            style: TextStyle(
+                              // color: colorTitle,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.right,
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.only(left: 10.sp),
                   margin: EdgeInsets.only(
                     bottom: 12.0,
                   ),
@@ -358,21 +329,23 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          SizedBox(
-                            width: 100.sp,
-                          ),
-                          Text(
-                            'FF-0000001',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(right: 20.sp),
+                              child: Text(
+                                widget.order.orderCode,
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  // color: colorTitle,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                           )
                         ],
                       ),
-                      Container(
+                      SizedBox(
                         height: 5.sp,
                       ),
                       Row(
@@ -385,21 +358,25 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          SizedBox(
-                            width: 50.sp,
-                          ),
-                          Text(
-                            '12-10-2021 16:32',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w400,
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(right: 20.sp),
+                              child: Text(
+                                DateFormat("dd-MM-yyyy HH:mm:ss")
+                                    .format(widget.order.createdAt.toLocal())
+                                    .toString(),
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  // color: colorTitle,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
-                      Container(
+                      SizedBox(
                         height: 5.sp,
                       ),
                       Row(
@@ -412,18 +389,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                          SizedBox(
-                            width: 40.sp,
-                          ),
-                          Text(
-                            '12-10-2021 16:32',
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w400,
+                          Expanded(
+                            child: Container(
+                              padding: EdgeInsets.only(right: 20.sp),
+                              child: Text(
+                                DateFormat("dd-MM-yyyy HH:mm:ss")
+                                    .format(widget.order.updatedAt.toLocal())
+                                    .toString(),
+                                textAlign: TextAlign.right,
+                                style: TextStyle(
+                                  // color: colorTitle,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ],
@@ -437,5 +418,92 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ),
           ),
         ));
+  }
+}
+
+class ProductWidget extends StatelessWidget {
+  ProductModel product;
+  ProductWidget({this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        padding: EdgeInsets.only(bottom: 5.sp),
+        margin: EdgeInsets.only(bottom: 10.sp),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(
+              //                   <--- left side
+              color: Colors.black26,
+              width: 1.sp,
+            ),
+          ),
+        ),
+        height: 70.sp,
+        child: Material(
+            child: InkWell(
+                onTap: () {
+                  // print(order);
+                },
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10.sp,
+                    ),
+                    Image.network(
+                      product.image[0],
+                      height: 70.sp,
+                      width: 70.sp,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(
+                      width: 20.sp,
+                    ),
+                    Expanded(
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(top: 5.sp),
+                            child: Text(
+                              "${product.name}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 12.sp, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(top: 5.sp, right: 5.sp),
+                            child: Text(
+                              "x${product.quantity}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize: 10.sp, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.left,
+                            ),
+                          ),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.only(top: 5.sp, right: 5.sp),
+                            child: Text(
+                              formatMoney(product.price),
+                              style: TextStyle(
+                                  color: Colors.orange,
+                                  fontSize: 13.sp,
+                                  fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(PhosphorIcons.caret_right),
+                  ],
+                ))));
   }
 }

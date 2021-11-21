@@ -222,10 +222,20 @@ class _CartPageState extends State<CartPage> {
                 child: StreamBuilder(
                     stream: cartController.listProduct,
                     builder: (context, AsyncSnapshot snapshot) {
-                      if (!snapshot.hasData) {
+                      if (!snapshot.hasData ||
+                          snapshot.data
+                                  .where((x) => x['status'] == 1)
+                                  .toList()
+                                  .length ==
+                              0) {
                         return Container(
                           child: Center(
-                            child: CircularProgressIndicator(),
+                            child: Text(
+                              'Chưa có sản phẩm nào trong giỏ hàng!',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         );
                       }
@@ -235,16 +245,22 @@ class _CartPageState extends State<CartPage> {
                       //     .toList();
                       return Container(
                         child: ListView.builder(
-                          itemCount: snapshot.data.length,
+                          itemCount: snapshot.data
+                              .where((x) => x['status'] == 1)
+                              .toList()
+                              .length,
                           itemBuilder: (context, index) {
-                            return CartItem(
-                              cart: CartModel.fromMap(snapshot.data[index]),
-                              cartController: cartController,
-                              listCart: (snapshot.data as List<dynamic>)
-                                  .map((data) => CartModel.fromMap(data))
-                                  .toList(),
-                              index: index,
-                            );
+                            return snapshot.data[index]['status'] == 1
+                                ? CartItem(
+                                    cart:
+                                        CartModel.fromMap(snapshot.data[index]),
+                                    cartController: cartController,
+                                    listCart: (snapshot.data as List<dynamic>)
+                                        .map((data) => CartModel.fromMap(data))
+                                        .toList(),
+                                    index: index,
+                                  )
+                                : null;
                           },
                         ),
                       );

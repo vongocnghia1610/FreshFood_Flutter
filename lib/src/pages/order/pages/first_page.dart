@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class FirstPage extends StatefulWidget {
   final List<OrderModel> orders;
-  FirstPage({this.orders});
+  String status;
+  FirstPage({this.orders, this.status});
 
   @override
   State<StatefulWidget> createState() => _FirstPageState();
@@ -31,6 +36,7 @@ class _FirstPageState extends State<FirstPage> {
           return Column(children: [
             WidgetOrder(
               order: widget.orders[index],
+              status: widget.status,
             ),
           ]);
         },
@@ -47,16 +53,13 @@ class _FirstPageState extends State<FirstPage> {
 
 class WidgetOrder extends StatelessWidget {
   OrderModel order;
-  WidgetOrder({
-    this.order,
-  });
+  String status;
+  WidgetOrder({this.order, this.status});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.sp, bottom: 10.sp),
-      width: 100.w,
-      height: 68.w,
+      margin: EdgeInsets.only(bottom: 10.sp),
       color: Colors.white,
       child: Column(
         children: [
@@ -67,6 +70,9 @@ class WidgetOrder extends StatelessWidget {
                 Material(
                   child: InkWell(
                     onTap: () {
+                      Get.toNamed(Routes.DETAIL_ORDER,
+                          arguments: {"order": order});
+
                       print(order);
                     },
                     child: Row(
@@ -76,42 +82,52 @@ class WidgetOrder extends StatelessWidget {
                         ),
                         Image.network(
                           order.product[0].image[0],
-                          height: 50.sp,
-                          width: 50.sp,
+                          height: 70.sp,
+                          width: 70.sp,
                           fit: BoxFit.cover,
                         ),
                         SizedBox(
-                          width: 10.sp,
+                          width: 20.sp,
                         ),
                         Expanded(
                           child: Column(
                             children: [
-                              Text(
+                              Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.only(top: 5.sp),
+                                child: Text(
                                   "[${order.orderCode}] ${order.product[0].name}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                       fontSize: 12.sp,
-                                      fontWeight: FontWeight.bold)),
+                                      fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
                               Container(
+                                width: double.infinity,
                                 padding:
-                                    EdgeInsets.only(left: 170.sp, top: 5.sp),
+                                    EdgeInsets.only(top: 5.sp, right: 5.sp),
                                 child: Text(
                                   "x${order.product[0].quantity}",
                                   style: TextStyle(
                                       fontSize: 10.sp,
                                       fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.right,
                                 ),
                               ),
                               Container(
+                                width: double.infinity,
                                 padding:
-                                    EdgeInsets.only(left: 120.sp, top: 5.sp),
+                                    EdgeInsets.only(top: 5.sp, right: 5.sp),
                                 child: Text(
-                                  "đ${order.product[0].price}",
+                                  formatMoney(order.product[0].price),
                                   style: TextStyle(
                                       color: Colors.orange,
                                       fontSize: 13.sp,
                                       fontWeight: FontWeight.bold),
+                                  textAlign: TextAlign.right,
                                 ),
                               ),
                             ],
@@ -164,7 +180,7 @@ class WidgetOrder extends StatelessWidget {
                         width: 3.sp,
                       ),
                       Text(
-                        "đ${order.totalMoney}",
+                        formatMoney(order.totalMoney),
                         style: TextStyle(
                             color: Colors.orange,
                             fontSize: 13.sp,
@@ -202,7 +218,7 @@ class WidgetOrder extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
-                                  child: Text("Lịch sử đơn hàng",
+                                  child: Text(status,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -225,24 +241,85 @@ class WidgetOrder extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: 5.sp,
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 150.sp),
-            child: FlatButton(
-              height: 35.sp,
-              minWidth: 120.sp,
-              padding: EdgeInsets.symmetric(vertical: 3),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              color: kPrimaryColor,
-              textColor: Colors.white,
-              highlightColor: Colors.transparent,
-              onPressed: () {},
-              child: Text("Mua Tiếp"),
-            ),
-          )
+          status == "Đã giao" || status == "Đã hủy"
+              ? SizedBox(
+                  height: 5.sp,
+                )
+              : SizedBox(),
+          status == "Đã giao"
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+                        child: FlatButton(
+                          height: 35.sp,
+                          minWidth: 120.sp,
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          color: kPrimaryColor,
+                          textColor: Colors.white,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            Get.toNamed(Routes.EVELUATE_PRODUCT);
+                            // arguments: {"list": product});
+                          },
+                          child: Text("Đánh giá"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+                        child: FlatButton(
+                          height: 35.sp,
+                          minWidth: 120.sp,
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          color: kPrimaryColor,
+                          textColor: Colors.white,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            print(order.product.length);
+                            List<CartModel> product = [];
+                            product.addAll((order.product
+                                .map((e) => CartModel.fromMap1(e.toMap1()))
+                                .toList()));
+                            Get.toNamed(Routes.DETAIL_PAYMENT,
+                                arguments: {"list": product});
+                          },
+                          child: Text("Mua lại"),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : status == "Đã hủy"
+                  ? Container(
+                      padding: EdgeInsets.only(left: 140.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          List<CartModel> product = [];
+                          product.addAll((order.product
+                              .map((e) => CartModel.fromMap1(e.toMap1()))
+                              .toList()));
+                          Get.toNamed(Routes.DETAIL_PAYMENT,
+                              arguments: {"list": product});
+                        },
+                        child: Text("Mua lại"),
+                      ),
+                    )
+                  : Container(),
         ],
       ),
     );

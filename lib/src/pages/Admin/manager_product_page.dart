@@ -59,7 +59,9 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
           ),
           actions: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.toNamed(Routes.CREATE_PRODUCT);
+              },
               icon: Icon(
                 PhosphorIcons.plus,
                 size: 7.w,

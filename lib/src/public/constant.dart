@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-const baseUrl = 'http://localhost:port/route';
+const baseUrl = 'http://18.140.53.176:3005';
 var width = Get.width;
 var height = Get.height;
 

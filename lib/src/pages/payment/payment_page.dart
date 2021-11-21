@@ -19,14 +19,14 @@ class _PaymentPageState extends State<PaymentPage> {
   final paymentController = Get.put(PaymentController());
 
   final paymentLables = [
+    'Thanh toán khi nhận hàng',
     'Thanh toán bằng PayPal',
-    'Thanh toán bằng VNPay',
-    'Thanh toán khi nhận hàng'
+    'Thanh toán bằng VNPay'
   ];
   final paymentIconss = [
+    'assets/icons/COD.png',
     'assets/icons/paypal-logo.png',
-    'assets/icons/vn-pay.jpg',
-    'assets/icons/COD.png'
+    'assets/icons/vn-pay.jpg'
   ];
   @override
   void initState() {
@@ -79,7 +79,9 @@ class _PaymentPageState extends State<PaymentPage> {
                           activeColor: kPrimaryColor,
                           value: index,
                           groupValue: value,
-                          onChanged: (i) => setState(() => value = i),
+                          onChanged: (i) {
+                            setState(() => value = i);
+                          },
                         ),
                         title: Text(
                           paymentLables[index],
