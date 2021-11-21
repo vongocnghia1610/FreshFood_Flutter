@@ -1,7 +1,7 @@
 part of 'app_pages.dart';
 
 abstract class Routes {
-  static const ROOT = '/root';
+  static const ROOT = '/';
   static const HOME = '/home';
   static const AUTHENTICATION = '/authentication';
   static const LOGIN = '/login';
@@ -23,4 +23,8 @@ abstract class Routes {
   static const PAYMENT_WEB_PAGE = '/paymentWebPage';
   static const DETAIL_ORDER = '/detailOrder';
   static const HISTORY_ORDER = '/historyOrder';
+  static const EVELUATE_DETAIL = '/eveluateDetail';
+  static const UPDATE_PRODUCT = '/updateProduct';
+  static const CREATE_PRODUCT = '/createProduct';
+  static const EVELUATE_PRODUCT = '/eveluateProduct';
 }

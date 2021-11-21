@@ -1,3 +1,4 @@
+import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
@@ -28,7 +29,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Provider.of<UserProvider>(context).user != null
-        ? Navigation()
+        ? Provider.of<UserProvider>(context).user.role == 0
+            ? Navigation()
+            : ManagerProductPage()
         : AuthenticationPages();
   }
 }

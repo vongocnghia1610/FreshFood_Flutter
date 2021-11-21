@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/repository/cart_repository.dart';
@@ -11,13 +12,18 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ProductDetailController extends GetxController {
   ProductModel product = new ProductModel();
+  List<EveluateModel> eveluates = [];
 
   getDetailProduct(String id) {
     ProductRepository().getDetail(id).then((value) {
       print(id);
       if (value.isNotEmpty) {
         product = ProductModel.fromMap(value);
-        print(product.name);
+        eveluates = (value['eveluates'] as List<dynamic>)
+            .map((data) => EveluateModel.fromMap(data))
+            .toList();
+        print(eveluates);
+
         // _listProductController.add(_listRecomPro);
         update();
       }

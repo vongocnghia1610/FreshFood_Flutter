@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
@@ -245,23 +246,80 @@ class WidgetOrder extends StatelessWidget {
                   height: 5.sp,
                 )
               : SizedBox(),
-          status == "Đã giao" || status == "Đã hủy"
-              ? Container(
-                  padding: EdgeInsets.only(left: 150.sp),
-                  child: FlatButton(
-                    height: 35.sp,
-                    minWidth: 120.sp,
-                    padding: EdgeInsets.symmetric(vertical: 3),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {},
-                    child: Text("Mua lại"),
-                  ),
+          status == "Đã giao"
+              ? Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+                        child: FlatButton(
+                          height: 35.sp,
+                          minWidth: 120.sp,
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          color: kPrimaryColor,
+                          textColor: Colors.white,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            Get.toNamed(Routes.EVELUATE_PRODUCT);
+                            // arguments: {"list": product});
+                          },
+                          child: Text("Đánh giá"),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+                        child: FlatButton(
+                          height: 35.sp,
+                          minWidth: 120.sp,
+                          padding: EdgeInsets.symmetric(vertical: 3),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          color: kPrimaryColor,
+                          textColor: Colors.white,
+                          highlightColor: Colors.transparent,
+                          onPressed: () {
+                            print(order.product.length);
+                            List<CartModel> product = [];
+                            product.addAll((order.product
+                                .map((e) => CartModel.fromMap1(e.toMap1()))
+                                .toList()));
+                            Get.toNamed(Routes.DETAIL_PAYMENT,
+                                arguments: {"list": product});
+                          },
+                          child: Text("Mua lại"),
+                        ),
+                      ),
+                    ),
+                  ],
                 )
-              : Container()
+              : status == "Đã hủy"
+                  ? Container(
+                      padding: EdgeInsets.only(left: 140.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          List<CartModel> product = [];
+                          product.addAll((order.product
+                              .map((e) => CartModel.fromMap1(e.toMap1()))
+                              .toList()));
+                          Get.toNamed(Routes.DETAIL_PAYMENT,
+                              arguments: {"list": product});
+                        },
+                        child: Text("Mua lại"),
+                      ),
+                    )
+                  : Container(),
         ],
       ),
     );

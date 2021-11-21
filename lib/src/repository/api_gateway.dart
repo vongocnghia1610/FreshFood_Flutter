@@ -25,6 +25,8 @@ class ApiGateway {
   static const GET_DETAIL_PRODUCT = 'product/getDetailProduct';
   static const GET_RECOMMEND = 'product/findAllProduct';
   static const CREATE_PRODUCt = 'product/createProduct';
+  static const GET_ALL_PRODUCT = 'product/findAllProduct';
+  static const UPDATE_PRODUCT = 'product/updateProduct';
 
   //user
   static const GET_PROFILE = 'user/getInformation';
@@ -37,4 +39,6 @@ class ApiGateway {
   static const DELETE_ADDRESS = 'address/deleteAddress';
   //admin
   static const GET_ALL_USER = 'user/getAllUser';
+  //eveluate
+  static const GET_EVELUATE = 'eveluate/getEveluate';
 }

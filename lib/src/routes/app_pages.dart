@@ -1,4 +1,5 @@
 import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
@@ -10,6 +11,8 @@ import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
+import 'package:freshfood/src/pages/eveluate/eveluate_page.dart';
+import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
@@ -17,6 +20,7 @@ import 'package:freshfood/src/pages/order/order_page.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
 import 'package:freshfood/src/pages/payment/payment_web_page.dart';
+import 'package:freshfood/src/pages/products/create_product_screen.dart';
 import 'package:freshfood/src/pages/products/detail_product_screen.dart';
 import 'package:freshfood/src/pages/products/product_screen.dart';
 import 'package:freshfood/src/pages/profile/profile_page.dart';
@@ -171,6 +175,13 @@ class AppPages {
       children: [],
     ),
     GetPage(
+      name: Routes.EVELUATE_DETAIL,
+      page: () => EveluateProductPage(productId: Get.arguments['productId']),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
       name: Routes.DETAIL_ORDER,
       page: () => OrderDetailPage(
         order: Get.arguments['order'],
@@ -184,6 +195,28 @@ class AppPages {
       page: () => OrderHistoryPage(
         history: Get.arguments['history'],
       ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.UPDATE_PRODUCT,
+      page: () =>
+          EditProductPage(productCurrent: Get.arguments['productCurrent']),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CREATE_PRODUCT,
+      page: () => CreateProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.EVELUATE_PRODUCT,
+      page: () => EveluatePage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
