@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
@@ -30,7 +31,6 @@ class _DetailProductPageState extends State<DetailProductPage> {
   int selectedImage = 0;
   final productController = Get.put(ProductDetailController());
   final cartController = Get.put(CartController());
-
   @override
   void initState() {
     super.initState();
@@ -188,8 +188,8 @@ class _DetailProductPageState extends State<DetailProductPage> {
                       padding: EdgeInsets.only(right: 10),
                       child: GetBuilder<ProductDetailController>(
                         init: productController,
-                        builder: (_) => _.product.rate == null ||
-                                _.product.rate == 0
+                        builder: (_) => _.product.starAVG == null ||
+                                _.product.starAVG == 0
                             ? Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 6.w),
                                 child: Text(
@@ -206,7 +206,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                 ),
                                 IgnorePointer(
                                   child: RatingBar.builder(
-                                    initialRating: _.product.rate,
+                                    initialRating: _.product.starAVG.toDouble(),
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
                                     itemCount: 5,
@@ -226,7 +226,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                   width: 3.w,
                                 ),
                                 Text(
-                                  _.product.rate.toString(),
+                                  _.product.starAVG.toString(),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w500,
@@ -251,7 +251,114 @@ class _DetailProductPageState extends State<DetailProductPage> {
                               ),
                       ),
                     ),
-                    SizedBox(height: 5.w),
+                  ],
+                ),
+              ),
+              detail(
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(5.sp),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                          bottom: BorderSide(
+                            //                   <--- left side
+                            color: Colors.grey.shade300,
+                            width: 2.sp,
+                          ),
+                        ),
+                      ),
+                      child: GetBuilder<ProductDetailController>(
+                        init: productController,
+                        builder: (_) => (_.product.eveluateCount == null ||
+                                _.product.starAVG == null)
+                            ? Container()
+                            : Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 6.w),
+                                        child: Text(
+                                          'ĐÁNH GIÁ SẢN PHẨM',
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 11.sp),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 6.w),
+                                        child: Row(children: [
+                                          IgnorePointer(
+                                            child: RatingBar.builder(
+                                              initialRating:
+                                                  _.product.starAVG.toDouble(),
+                                              direction: Axis.horizontal,
+                                              allowHalfRating: true,
+                                              itemCount: 5,
+                                              itemSize: 5.w,
+                                              // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                              itemBuilder: (context, _) => Icon(
+                                                Icons.star,
+                                                color: Colors.amber,
+                                              ),
+                                              onRatingUpdate: (double value) {},
+                                            ),
+                                          ),
+                                          Text(
+                                              '${_.product.starAVG}/5 (${_.product.eveluateCount} đánh giá)')
+                                        ]),
+                                      ),
+                                    ],
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Get.toNamed(Routes.EVELUATE_DETAIL,
+                                            arguments: {
+                                              'productId': _.product.id
+                                            });
+                                      },
+                                      child: Text(
+                                        'Xem tất cả',
+                                        style: TextStyle(
+                                            color: Colors.orangeAccent),
+                                      ))
+                                ],
+                              ),
+                      ),
+                    ),
+                    Container(
+                      height: 200.sp,
+                      child: GetBuilder<ProductDetailController>(
+                        init: productController,
+                        builder: (_) => _.eveluates.length == 0
+                            ? Container(
+                                child: Center(
+                                  child: Text(
+                                    'Chưa có đánh giá cho sản phẩm này',
+                                    style: TextStyle(
+                                        color: Colors.black38, fontSize: 15.sp),
+                                  ),
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: productController.eveluates.length,
+                                itemBuilder: (context, index) {
+                                  return eveluate(
+                                    eveluate_detail:
+                                        productController.eveluates[index],
+                                  );
+                                },
+                              ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -280,6 +387,68 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     ? kPrimaryColor
                     : Colors.transparent)),
         child: Image.network(listImage[index]),
+      ),
+    );
+  }
+}
+
+class eveluate extends StatelessWidget {
+  EveluateModel eveluate_detail;
+  eveluate({Key key, this.eveluate_detail}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(left: 5.sp, right: 5.sp),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(
+            //                   <--- left side
+            color: Colors.grey.shade300,
+            width: 2.sp,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 6.w),
+            child: Row(children: [
+              CircleAvatar(
+                  backgroundImage: NetworkImage(eveluate_detail.avatar)),
+              SizedBox(
+                width: 4.sp,
+              ),
+              Text(eveluate_detail.name)
+            ]),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 18.w),
+            child: IgnorePointer(
+              child: RatingBar.builder(
+                initialRating: eveluate_detail.star.toDouble(),
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 5.w,
+                // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (double value) {},
+              ),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 5.w),
+              child: Text(
+                eveluate_detail.content,
+                style: TextStyle(fontSize: 12.sp),
+              )),
+        ],
       ),
     );
   }
