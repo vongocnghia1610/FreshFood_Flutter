@@ -8,6 +8,7 @@ import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
+import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/authentication/change_password_with_otp_page.dart';
 import 'package:freshfood/src/pages/authentication/fogot_password_page.dart';
 import 'package:freshfood/src/pages/authentication/otp_password_page.dart';

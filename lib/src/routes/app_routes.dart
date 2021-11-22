@@ -27,4 +27,5 @@ abstract class Routes {
   static const UPDATE_PRODUCT = '/updateProduct';
   static const CREATE_PRODUCT = '/createProduct';
   static const EVELUATE_PRODUCT = '/eveluateProduct';
+  static const ADMIN_VNPAY_PAGE = '/adminVNPayPage';
 }
