@@ -168,7 +168,11 @@ class _OptionPageState extends State<OptionPage> {
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.question_circle,
-                      text: 'Help & Support',
+                      text: 'VNPay',
+                      tap: () {
+                        Get.toNamed(Routes.ADMIN_VNPAY_PAGE,
+                            arguments: {"method": 2});
+                      },
                     ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.cog,

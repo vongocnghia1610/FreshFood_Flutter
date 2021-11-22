@@ -1,4 +1,5 @@
 import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/Admin/admin_vnpay_page.dart';
 import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
@@ -217,6 +218,15 @@ class AppPages {
     GetPage(
       name: Routes.EVELUATE_PRODUCT,
       page: () => EveluatePage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADMIN_VNPAY_PAGE,
+      page: () => AdminVnPayWebPage(
+        method: Get.arguments['method'],
+      ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
