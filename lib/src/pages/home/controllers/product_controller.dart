@@ -6,14 +6,18 @@ import 'package:get/get.dart';
 class ProductController extends GetxController {
   List<dynamic> _listRecomPro = [];
   List<dynamic> listAllProduct = [];
+  List<dynamic> _listProductUser = [];
 
   int pageNum = 1;
   StreamController<List<dynamic>> _listRecommendController =
       StreamController<List<dynamic>>.broadcast();
   StreamController<List<dynamic>> _listProductController =
       StreamController<List<dynamic>>.broadcast();
+  StreamController<List<dynamic>> _listProductUserController =
+      StreamController<List<dynamic>>.broadcast();
   initialController() {
     _listRecomPro = [];
+    _listProductUser = [];
   }
 
   getRecommendProduct() {
@@ -64,7 +68,22 @@ class ProductController extends GetxController {
     });
   }
 
+  getProductUser() {
+    ProductRepository().getProductUser().then((value) {
+      print(value);
+      if (value.isNotEmpty) {
+        print("zo rooi ne 1");
+
+        _listProductUser = value;
+        _listProductUserController.add(_listProductUser);
+        update();
+      }
+    });
+  }
+
   Stream<List<dynamic>> get listProductRecommend =>
       _listRecommendController.stream;
   Stream<List<dynamic>> get listProduct => _listProductController.stream;
+  Stream<List<dynamic>> get listProductUser =>
+      _listProductUserController.stream;
 }
