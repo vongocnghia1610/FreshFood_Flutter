@@ -27,6 +27,9 @@ class ApiGateway {
   static const CREATE_PRODUCt = 'product/createProduct';
   static const GET_ALL_PRODUCT = 'product/findAllProduct';
   static const UPDATE_PRODUCT = 'product/updateProduct';
+  //productUser
+  static const PRODUCT_USER = 'productUser/getAllProductUser';
+  static const CREATE_PRODUCT_USER = 'productUser/createProductUser';
 
   //user
   static const GET_PROFILE = 'user/getInformation';

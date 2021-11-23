@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/repository/product_repository.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -14,6 +18,8 @@ class RecomendProductCard extends StatefulWidget {
 }
 
 class _RecomendProductCardState extends State<RecomendProductCard> {
+  final productController = Get.put(ProductController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,6 +28,9 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
       margin: EdgeInsets.only(left: 5.sp),
       child: GestureDetector(
         onTap: () => {
+          ProductRepository()
+              .createProductUser(widget.product.id)
+              .then((value) => {productController.getProductUser()}),
           Get.toNamed(Routes.DETAIL_PRODUCT,
               arguments: {"id": widget.product.id})
         },
