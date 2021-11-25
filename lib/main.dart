@@ -17,6 +17,7 @@ import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
+import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
 import 'package:freshfood/src/pages/payment/payment_error.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
