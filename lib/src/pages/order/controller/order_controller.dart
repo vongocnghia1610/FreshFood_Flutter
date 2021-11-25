@@ -58,4 +58,53 @@ class OrderController extends GetxController {
     });
     update();
   }
+
+  getOrderByAdmin({
+    String search,
+    int skip,
+    int limit,
+  }) {
+    OrderRepository()
+        .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 0)
+        .then((value) {
+      print("value:");
+      print(value);
+      if (value != null)
+        list0 = value.map((e) => OrderModel.fromMap(e)).toList();
+      update();
+    });
+    OrderRepository()
+        .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 1)
+        .then((value) {
+      print("value:");
+      print(value);
+      if (value != null)
+        list1 = value.map((e) => OrderModel.fromMap(e)).toList();
+    });
+    OrderRepository()
+        .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 2)
+        .then((value) {
+      print("value:");
+      print(value);
+      if (value != null)
+        list2 = value.map((e) => OrderModel.fromMap(e)).toList();
+    });
+    OrderRepository()
+        .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 3)
+        .then((value) {
+      print("value:");
+      print(value);
+      if (value != null)
+        list3 = value.map((e) => OrderModel.fromMap(e)).toList();
+    });
+    OrderRepository()
+        .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 4)
+        .then((value) {
+      print("value:");
+      print(value);
+      if (value != null)
+        list4 = value.map((e) => OrderModel.fromMap(e)).toList();
+    });
+    update();
+  }
 }
