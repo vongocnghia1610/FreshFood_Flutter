@@ -7,14 +7,14 @@ import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class AdminVnPayWebPage extends StatefulWidget {
+class ManagerWalletPage extends StatefulWidget {
   int method;
-  AdminVnPayWebPage({this.method});
+  ManagerWalletPage({this.method});
   @override
-  _AdminVnPayWebPageState createState() => _AdminVnPayWebPageState();
+  _ManagerWalletPageState createState() => _ManagerWalletPageState();
 }
 
-class _AdminVnPayWebPageState extends State<AdminVnPayWebPage> {
+class _ManagerWalletPageState extends State<ManagerWalletPage> {
   // final _key = UniqueKey();
   WebViewController _controller;
   GetSnackBar getSnackBar;

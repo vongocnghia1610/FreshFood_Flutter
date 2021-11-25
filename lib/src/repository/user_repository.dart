@@ -99,4 +99,17 @@ class UserRepository {
     }
     return false;
   }
+
+  Future<List<dynamic>> getMessage({int skip, String idRoom}) async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_MESSAGE,
+      'skip=$skip&idRoom=$idRoom',
+    );
+    print(response.body.toString());
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
 }

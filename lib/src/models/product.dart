@@ -15,7 +15,7 @@ class ProductModel {
   String detail;
   GroupProduct groupProduct;
   int number;
-  int starAVG;
+  double starAVG;
   int eveluateCount;
   int sold;
 
@@ -110,7 +110,7 @@ class ProductModel {
       name: map['name'],
       detail: map['detail'],
       groupProduct: GroupProduct.fromMap(map['groupProduct']),
-      starAVG: map['starAVG'],
+      starAVG: double.tryParse((map['starAVG'] ?? 0).toString()),
       eveluateCount: map['eveluateCount'],
       sold: map['sold'],
     );

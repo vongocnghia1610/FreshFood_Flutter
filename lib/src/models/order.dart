@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart';
 import 'package:freshfood/src/models/address.dart';
 import 'package:freshfood/src/models/history.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/models/product_order_model.dart';
 
 class OrderModel {
   final String id;
-  List<ProductModel> product;
+  List<ProductOrderModel> product;
   List<HistoryModel> history;
   int status;
   String orderCode;
@@ -90,8 +91,8 @@ class OrderModel {
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       id: map['_id'],
-      product: List<ProductModel>.from(
-          map['product']?.map((x) => ProductModel.fromMap1(x))),
+      product: List<ProductOrderModel>.from(
+          map['product']?.map((x) => ProductOrderModel.fromMap(x))),
       history: List<HistoryModel>.from(
           map['history']?.map((x) => HistoryModel.fromMap1(x))),
       status: map['status'],
@@ -110,8 +111,8 @@ class OrderModel {
   factory OrderModel.fromMap1(Map<String, dynamic> map) {
     return OrderModel(
       id: map['_id'],
-      product: List<ProductModel>.from(
-          map['product']?.map((x) => ProductModel.fromMap1(x))),
+      product: List<ProductOrderModel>.from(
+          map['product']?.map((x) => ProductOrderModel.fromMap(x))),
       status: map['status'],
       orderCode: map['orderCode'],
       totalMoney: double.tryParse((map['totalMoney'] ?? 0).toString()),

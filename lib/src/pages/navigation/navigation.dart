@@ -5,8 +5,10 @@ import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
+import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
 import 'package:freshfood/src/pages/option/option_page.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/services/socket.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -17,12 +19,16 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   final cartController = Get.put(CartController());
+  final profileController = Get.put(ProfileController());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     cartController.initialController();
     cartController.getListProduct();
+    profileController.getProfile();
+    connectAndListen();
   }
 
   var pages = [

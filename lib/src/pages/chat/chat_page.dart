@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
+import 'package:freshfood/src/pages/chat/chat_detail_page.dart';
 import 'package:freshfood/src/pages/chat/models/user_model.dart';
+import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +17,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+  final profileController = Get.put(ProfileController());
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   List<Message> chats = [
     Message(
@@ -129,14 +133,10 @@ class _ChatPageState extends State<ChatPage> {
                 itemBuilder: (BuildContext context, int index) {
                   final Message chat = chats[index];
                   return GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ChatDetailScreen(
-                          user: chat.sender,
-                        ),
-                      ),
-                    ),
+                    onTap: () {
+                      Get.toNamed(Routes.CHAT_DETAIL,
+                          arguments: {"user": profileController.user});
+                    },
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 20,

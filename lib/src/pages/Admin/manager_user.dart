@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
+import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
@@ -32,20 +34,14 @@ class _ManagerUserState extends State<ManagerUser> {
         drawer: Container(
           width: 70.w,
           child: Drawer(
-            child: DrawerLayout(),
+            child: DrawerLayoutAdmin(status: 2),
           ),
         ),
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            onPressed: () => {
-              // Get.back();
-            },
-            icon: Icon(
-              PhosphorIcons.arrow_left,
-              color: Colors.white,
-              size: 7.w,
-            ),
+            onPressed: () => _scaffoldKey.currentState.openDrawer(),
+            icon: SvgPicture.asset("assets/icons/menu.svg"),
           ),
           title: Text(
             "Quản Lý người dùng",
@@ -107,7 +103,7 @@ class _ManagerUserState extends State<ManagerUser> {
                       SizedBox(width: 10.sp),
                       Container(
                         child: Text(
-                          adminController.listUser[index].email,
+                          _.listUser[index].name,
                           style: TextStyle(
                             fontSize: 17.sp,
                             fontWeight: FontWeight.w600,

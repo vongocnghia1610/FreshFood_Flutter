@@ -22,6 +22,7 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list0 = value.map((e) => OrderModel.fromMap(e)).toList();
+
       update();
     });
     OrderRepository()

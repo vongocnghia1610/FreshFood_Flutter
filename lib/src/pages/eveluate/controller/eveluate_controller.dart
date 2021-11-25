@@ -1,5 +1,7 @@
 import 'package:freshfood/src/models/address.dart';
+import 'package:freshfood/src/models/create_eveluate_model.dart';
 import 'package:freshfood/src/models/eveluate.dart';
+import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/repository/eveluate_repository.dart';
 import 'package:freshfood/src/repository/user_repository.dart';
@@ -15,6 +17,21 @@ class EveluateController extends GetxController {
         listEveluate =
             value.map((data) => EveluateModel.fromMap(data)).toList();
         update();
+      }
+    });
+  }
+
+  createEveluate(List<EveluateModel> listProduct) {
+    EveluateRepository()
+        .createEveluate(
+            product: listProduct
+                .map(
+                    (data) => CreateEveluateModel.fromMap(data.toMap()).toMap())
+                .toList())
+        .then((value) {
+      if (value.isNotEmpty) {
+        print("thanh cong");
+        Get.back();
       }
     });
   }
