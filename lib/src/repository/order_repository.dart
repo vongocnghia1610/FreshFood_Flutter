@@ -88,4 +88,49 @@ class OrderRepository {
 
     return [];
   }
+
+  Future<List<dynamic>> getOrdersByAdmin({
+    String search,
+    int skip,
+    int limit,
+    int status,
+  }) async {
+    // Map<String, dynamic> paramsObject = {
+    //   "search": search,
+    //   "skip": skip,
+    //   "limit": limit,
+    //   "status": status,
+    // };
+
+    var response = await HandleApis().get(
+      ApiGateway.GET_ORDER_ADMIN,
+      'search=$search&status=$status&skip=$skip&limit=$limit',
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
+
+  Future<bool> changeStatusOrderByAdminOrStaff({
+    String id,
+    int status,
+  }) async {
+    var body = {
+      "id": id,
+      "status": status,
+    };
+    var response = await HandleApis().put(
+      ApiGateway.UPDATE_STATUS_ORDER,
+      body,
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
 }

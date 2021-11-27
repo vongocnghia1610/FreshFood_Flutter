@@ -31,4 +31,5 @@ abstract class Routes {
   static const CHAT_DETAIL = '/ChatDetail';
   static const ADMIN_MANAGER_USER = '/ManagerUser';
   static const ADMIN_MANAGER_PRODUCT = '/ManagerProduct';
+  static const ADMIN_MANAGER_ORDER = '/ManagerOrderAdmin';
 }

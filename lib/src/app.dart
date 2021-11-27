@@ -4,6 +4,7 @@ import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/navigation/navigation.dart';
+import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

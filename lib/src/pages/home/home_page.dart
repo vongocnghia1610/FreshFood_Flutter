@@ -22,13 +22,14 @@ class _HomePageState extends State<HomePage> {
   ScrollController scrollController = ScrollController();
   final CarouselController _controller = CarouselController();
   final productController = Get.put(ProductController());
+
   int _current = 0;
   @override
   void initState() {
     super.initState();
     productController.initialController();
     productController.getRecommendProduct();
-
+    productController.getProductUser();
     // bookController.getBooks();
     // scrollController.addListener(() {
     //   if (scrollController.position.atEdge) {
@@ -145,7 +146,7 @@ class _HomePageState extends State<HomePage> {
                       SizedBox(height: 10.sp),
                       Container(
                         child: StreamBuilder(
-                          stream: productController.listProductRecommend,
+                          stream: productController.listProductUser,
                           builder: (context, AsyncSnapshot snapshot) {
                             if (!snapshot.hasData) {
                               return Container(

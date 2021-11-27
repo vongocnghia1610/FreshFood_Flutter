@@ -20,6 +20,7 @@ import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
+import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
 import 'package:freshfood/src/pages/payment/payment_web_page.dart';
@@ -254,6 +255,13 @@ class AppPages {
     GetPage(
       name: Routes.ADMIN_MANAGER_PRODUCT,
       page: () => ManagerProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADMIN_MANAGER_ORDER,
+      page: () => OrderPageAdmin(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

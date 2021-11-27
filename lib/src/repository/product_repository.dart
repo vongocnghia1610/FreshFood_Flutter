@@ -149,4 +149,33 @@ class ProductRepository {
 
     return null;
   }
+
+  Future<List<dynamic>> getProductUser() async {
+    var response = await HandleApis().get(
+      ApiGateway.PRODUCT_USER,
+    );
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print("huhu");
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
+
+  Future<bool> createProductUser(String productId) async {
+    var body = {"productId": productId};
+    print(body);
+    var response =
+        await HandleApis().post(ApiGateway.CREATE_PRODUCT_USER, body);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      print("add product user success");
+      return true;
+    }
+
+    return false;
+  }
 }
