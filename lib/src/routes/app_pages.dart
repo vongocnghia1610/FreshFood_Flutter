@@ -1,6 +1,8 @@
 import 'package:freshfood/src/app.dart';
-import 'package:freshfood/src/pages/Admin/admin_vnpay_page.dart';
 import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
+import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
+import 'package:freshfood/src/pages/Admin/manager_user.dart';
+import 'package:freshfood/src/pages/Admin/manager_wallet.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
@@ -10,7 +12,7 @@ import 'package:freshfood/src/pages/authentication/change_password_with_otp_page
 import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
 import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
-import 'package:freshfood/src/pages/chat/chat_detail_pager.dart';
+import 'package:freshfood/src/pages/chat/chat_detail_page.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_page.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
@@ -18,6 +20,7 @@ import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/order/order_detail_page.dart';
 import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
+import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
 import 'package:freshfood/src/pages/payment/payment_web_page.dart';
@@ -217,16 +220,48 @@ class AppPages {
     ),
     GetPage(
       name: Routes.EVELUATE_PRODUCT,
-      page: () => EveluatePage(),
+      page: () => EveluatePage(
+        listProduct: Get.arguments['listProduct'],
+      ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],
     ),
     GetPage(
-      name: Routes.ADMIN_VNPAY_PAGE,
-      page: () => AdminVnPayWebPage(
+      name: Routes.ADMIN_WALLET,
+      page: () => ManagerWalletPage(
         method: Get.arguments['method'],
       ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CHAT_DETAIL,
+      page: () => ChatDetailScreen(
+        user: Get.arguments['user'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADMIN_MANAGER_USER,
+      page: () => ManagerUser(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADMIN_MANAGER_PRODUCT,
+      page: () => ManagerProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.ADMIN_MANAGER_ORDER,
+      page: () => OrderPageAdmin(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

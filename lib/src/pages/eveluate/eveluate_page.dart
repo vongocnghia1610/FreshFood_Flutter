@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/bottom_navigation_product.dart';
@@ -10,31 +11,33 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import 'controller/eveluate_controller.dart';
+
 class EveluatePage extends StatefulWidget {
+  List<EveluateModel> listProduct;
+  EveluatePage({this.listProduct});
   @override
   State<StatefulWidget> createState() => _EveluatePageState();
 }
 
 class _EveluatePageState extends State<EveluatePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final eveluateController = Get.put(EveluateController());
+
   List<String> listImage = [
     "https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2021/tuqzxgazsnzm/2018_11_08/143638-1.jpg",
     "https://img.lovepik.com/element/40031/4942.png_860.png",
     "http://img.vinanet.vn/zoom/500/Uploaded/ThuHai/NongSan/pork_JSGL.jpg",
   ];
-  List<ProductModel> listProduct = [
-    ProductModel(image: [
-      "https://photo-cms-baonghean.zadn.vn/w607/Uploaded/2021/tuqzxgazsnzm/2018_11_08/143638-1.jpg"
-    ], name: "[Mã đơn 01120] Thịt Ba Chỉ Rút Sườn Nhập Khẩu Từ Úc "),
-    ProductModel(
-        image: ["https://img.lovepik.com/element/40031/4942.png_860.png"],
-        name: "[Mã đơn 01121] Thịt Bò Chỉ Rút Sườn Nhập Khẩu Từ Mỹ "),
-  ];
+
   int selectedImage = 0;
 
   @override
   void initState() {
     super.initState();
+    widget.listProduct.forEach((element) {
+      element.star = 5;
+    });
   }
 
   @override
@@ -85,9 +88,10 @@ class _EveluatePageState extends State<EveluatePage> {
             ),
             Expanded(
               child: ListView.builder(
-                  itemCount: listProduct.length,
+                  itemCount: widget.listProduct.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final ProductModel productModel = listProduct[index];
+                    final EveluateModel productModel =
+                        widget.listProduct[index];
                     return Column(
                       children: [
                         Container(
@@ -99,8 +103,8 @@ class _EveluatePageState extends State<EveluatePage> {
                               children: [
                                 Image.network(
                                   productModel.image[0],
-                                  height: 30.sp,
-                                  width: 30.sp,
+                                  height: 50.sp,
+                                  width: 50.sp,
                                   fit: BoxFit.cover,
                                 ),
                                 SizedBox(
@@ -111,8 +115,8 @@ class _EveluatePageState extends State<EveluatePage> {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.bold)),
+                                          fontSize: 15.sp,
+                                          fontWeight: FontWeight.w400)),
                                 ),
                                 Icon(PhosphorIcons.caret_right)
                               ],
@@ -122,9 +126,9 @@ class _EveluatePageState extends State<EveluatePage> {
                         Container(
                           padding: EdgeInsets.only(top: 30.sp),
                           child: RatingBar.builder(
-                            initialRating: 4.2,
+                            initialRating: 5,
                             direction: Axis.horizontal,
-                            allowHalfRating: true,
+                            // allowHalfRating: true,
                             itemCount: 5,
                             itemSize: 15.w,
                             // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
@@ -132,7 +136,10 @@ class _EveluatePageState extends State<EveluatePage> {
                               Icons.star,
                               color: Colors.amber,
                             ),
-                            onRatingUpdate: (double value) {},
+                            onRatingUpdate: (double value) {
+                              widget.listProduct[index].star =
+                                  int.parse((value.toString()));
+                            },
                           ),
                         ),
                         Container(
@@ -142,6 +149,9 @@ class _EveluatePageState extends State<EveluatePage> {
                             child: TextFormField(
                               textAlign: TextAlign.start,
                               textAlignVertical: TextAlignVertical.top,
+                              onChanged: (value) {
+                                widget.listProduct[index].content = value;
+                              },
                               decoration: const InputDecoration(
                                   hintText:
                                       'Nhập nội dung mà bạn muốn đánh giá!',
@@ -168,58 +178,60 @@ class _EveluatePageState extends State<EveluatePage> {
             ),
             DefaultButton(
               btnText: 'Đánh giá ngay',
-              onPressed: () {},
+              onPressed: () {
+                eveluateController.createEveluate(widget.listProduct);
+              },
             )
           ],
         ));
   }
 
-  GestureDetector buildSmallPreview(int index) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedImage = index;
-        });
-      },
-      child: Container(
-        margin: EdgeInsets.only(right: 5),
-        padding: EdgeInsets.all(3),
-        height: 10.h,
-        width: 18.w,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-                color: selectedImage == index
-                    ? kPrimaryColor
-                    : Colors.transparent)),
-        child: Image.network(listImage[index]),
-      ),
-    );
-  }
-}
+//   GestureDetector buildSmallPreview(int index) {
+//     return GestureDetector(
+//       onTap: () {
+//         setState(() {
+//           selectedImage = index;
+//         });
+//       },
+//       child: Container(
+//         margin: EdgeInsets.only(right: 5),
+//         padding: EdgeInsets.all(3),
+//         height: 10.h,
+//         width: 18.w,
+//         decoration: BoxDecoration(
+//             color: Colors.white,
+//             borderRadius: BorderRadius.circular(10),
+//             border: Border.all(
+//                 color: selectedImage == index
+//                     ? kPrimaryColor
+//                     : Colors.transparent)),
+//         child: Image.network(listImage[index]),
+//       ),
+//     );
+//   }
+// }
 
-class detail extends StatelessWidget {
-  const detail({Key key, @required this.color, @required this.child})
-      : super(key: key);
-  final Color color;
-  final Widget child;
+// class detail extends StatelessWidget {
+//   const detail({Key key, @required this.color, @required this.child})
+//       : super(key: key);
+//   final Color color;
+//   final Widget child;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      // height: 300,
-      margin: EdgeInsets.only(top: 20),
-      padding: EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(20),
-          bottomLeft: Radius.circular(20),
-        ),
-      ),
-      child: child,
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: double.infinity,
+//       // height: 300,
+//       margin: EdgeInsets.only(top: 20),
+//       padding: EdgeInsets.only(top: 20),
+//       decoration: BoxDecoration(
+//         color: Colors.white,
+//         borderRadius: BorderRadius.only(
+//           topLeft: Radius.circular(20),
+//           bottomLeft: Radius.circular(20),
+//         ),
+//       ),
+//       child: child,
+//     );
+//   }
 }

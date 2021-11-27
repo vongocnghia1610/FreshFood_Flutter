@@ -1,11 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:freshfood/src/models/message_model.dart';
+import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/chat/models/message_model.dart';
 import 'package:freshfood/src/pages/chat/models/user_model.dart';
+import 'package:freshfood/src/providers/chat_provider.dart';
+import 'package:freshfood/src/services/socket_emit.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 
 class ChatDetailScreen extends StatefulWidget {
-  final User user;
-
+  final UserModel user;
   ChatDetailScreen({this.user});
 
   @override
@@ -13,7 +19,31 @@ class ChatDetailScreen extends StatefulWidget {
 }
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
-  _ChatDetailBubble(Message message, bool isMe, bool isSameUser) {
+  TextEditingController msgController = TextEditingController();
+  ScrollController scrollController = ScrollController();
+
+  String message = "";
+
+  @override
+  void initState() {
+    super.initState();
+    chatProvider.initial();
+    chatProvider.joinChannel(
+      idRoom: widget.user.id,
+    );
+    chatProvider.getMessage(widget.user.id);
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels == 0) {
+          // You're at the top.
+        } else {
+          chatProvider.getMessage(widget.user.id);
+        }
+      }
+    });
+  }
+
+  _ChatDetailBubble(MessageModel message, bool isMe, bool isSameUser) {
     if (isMe) {
       return Column(
         children: <Widget>[
@@ -37,7 +67,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 ],
               ),
               child: Text(
-                message.text,
+                message.message,
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -49,7 +79,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      message.time,
+                      // DateFormat("dd-MM-yyyy HH:mm:ss")
+                      DateFormat("HH:mm dd-MM")
+                          .format(message.createdAt.toLocal())
+                          .toString(),
+
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.black45,
@@ -71,7 +105,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       ),
                       child: CircleAvatar(
                         radius: 15,
-                        backgroundImage: AssetImage(message.sender.imageUrl),
+                        //sender img
+                        backgroundImage: NetworkImage(
+                            "https://marvelvietnam.com/wp-content/uploads/2021/06/Iron-Man-4-905x613.jpg"),
                       ),
                     ),
                   ],
@@ -104,7 +140,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 ],
               ),
               child: Text(
-                message.text,
+                message.message,
                 style: TextStyle(
                   color: Colors.black54,
                 ),
@@ -127,14 +163,18 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       ),
                       child: CircleAvatar(
                         radius: 15,
-                        backgroundImage: NetworkImage(message.sender.imageUrl),
+                        //sender image url
+                        backgroundImage: NetworkImage(
+                            "https://marvelvietnam.com/wp-content/uploads/2021/06/Iron-Man-4-905x613.jpg"),
                       ),
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      message.time,
+                      DateFormat("HH:mm dd-MM")
+                          .format(message.createdAt.toLocal())
+                          .toString(),
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.black45,
@@ -165,17 +205,33 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           ),
           Expanded(
             child: TextField(
+              controller: msgController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               decoration: InputDecoration.collapsed(
                 hintText: 'Send a message..',
               ),
-              textCapitalization: TextCapitalization.sentences,
+              // textCapitalization: TextCapitalization.sentences,
+              onChanged: (mes) {
+                setState(() {
+                  message = mes.trim();
+                });
+              },
             ),
           ),
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25,
             color: Theme.of(context).primaryColor,
-            onPressed: () {},
+            onPressed: () {
+              if (message.trim().length > 0) {
+                SocketEmit().sendMessage(message);
+                setState(() {
+                  message = '';
+                  msgController.text = '';
+                });
+              }
+            },
           ),
         ],
       ),
@@ -184,7 +240,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int prevUserId;
+    String prevUserId;
     return Scaffold(
       backgroundColor: Color(0xFFF6F6F6),
       appBar: AppBar(
@@ -201,7 +257,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     fontWeight: FontWeight.w400,
                   )),
               TextSpan(text: '\n'),
-              widget.user.isOnline
+              // widget.user.isOnline
+              true
                   ? TextSpan(
                       text: 'Online',
                       style: TextStyle(
@@ -229,18 +286,28 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: ListView.builder(
-              reverse: true,
-              padding: EdgeInsets.all(20),
-              itemCount: messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final Message message = messages[index];
-                final bool isMe = message.sender.id == currentUser.id;
-                final bool isSameUser = prevUserId == message.sender.id;
-                prevUserId = message.sender.id;
-                return _ChatDetailBubble(message, isMe, isSameUser);
-              },
-            ),
+            child: StreamBuilder(
+                stream: chatProvider.listMessage,
+                builder: (context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container();
+                  }
+
+                  return ListView.builder(
+                    reverse: true,
+                    padding: EdgeInsets.all(15.sp),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      // final Message message = messages[index];
+                      MessageModel message =
+                          MessageModel.fromMap(snapshot.data[index]);
+                      final bool isMe = message.creatorUser == widget.user.id;
+                      final bool isSameUser = prevUserId == message.creatorUser;
+                      prevUserId = message.creatorUser;
+                      return _ChatDetailBubble(message, isMe, isSameUser);
+                    },
+                  );
+                }),
           ),
           _sendMessageArea(),
         ],

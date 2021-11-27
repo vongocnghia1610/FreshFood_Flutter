@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/order/controller/order_controller.dart';
 import 'package:freshfood/src/pages/order/pages/first_page.dart';
 import 'package:freshfood/src/pages/order/pages/first_page_admin.dart';
@@ -64,15 +66,17 @@ class _OrderPageAdminState extends State<OrderPageAdmin>
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
+      drawer: Container(
+        width: 70.w,
+        child: Drawer(
+          child: DrawerLayoutAdmin(status: 1),
+        ),
+      ),
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            PhosphorIcons.arrow_left,
-            color: Colors.white,
-            size: 8.w,
-          ),
+          onPressed: () => _scaffoldKey.currentState.openDrawer(),
+          icon: SvgPicture.asset("assets/icons/menu.svg"),
         ),
         title: Container(
           padding: EdgeInsets.only(

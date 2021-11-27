@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart_model.dart';
+import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/order.dart';
+import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
@@ -262,7 +264,15 @@ class WidgetOrder extends StatelessWidget {
                           textColor: Colors.white,
                           highlightColor: Colors.transparent,
                           onPressed: () {
-                            Get.toNamed(Routes.EVELUATE_PRODUCT);
+                            List<EveluateModel> product = [];
+                            product.addAll((order.product
+                                .map((e) => EveluateModel.fromMap1(e.toMap()))
+                                .toList()));
+                            product.forEach((element) {
+                              element.orderId = order.id;
+                            });
+                            Get.toNamed(Routes.EVELUATE_PRODUCT,
+                                arguments: {"listProduct": product});
                             // arguments: {"list": product});
                           },
                           child: Text("Đánh giá"),
@@ -285,7 +295,7 @@ class WidgetOrder extends StatelessWidget {
                             print(order.product.length);
                             List<CartModel> product = [];
                             product.addAll((order.product
-                                .map((e) => CartModel.fromMap1(e.toMap1()))
+                                .map((e) => CartModel.fromMap1(e.toMap()))
                                 .toList()));
                             Get.toNamed(Routes.DETAIL_PAYMENT,
                                 arguments: {"list": product});
@@ -311,7 +321,7 @@ class WidgetOrder extends StatelessWidget {
                         onPressed: () {
                           List<CartModel> product = [];
                           product.addAll((order.product
-                              .map((e) => CartModel.fromMap1(e.toMap1()))
+                              .map((e) => CartModel.fromMap1(e.toMap()))
                               .toList()));
                           Get.toNamed(Routes.DETAIL_PAYMENT,
                               arguments: {"list": product});

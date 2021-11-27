@@ -24,7 +24,6 @@ class _OptionPageState extends State<OptionPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    profileController.getProfile();
   }
 
   @override
@@ -170,7 +169,7 @@ class _OptionPageState extends State<OptionPage> {
                       icon: LineAwesomeIcons.question_circle,
                       text: 'VNPay',
                       tap: () {
-                        Get.toNamed(Routes.ADMIN_VNPAY_PAGE,
+                        Get.toNamed(Routes.ADMIN_WALLET,
                             arguments: {"method": 2});
                       },
                     ),

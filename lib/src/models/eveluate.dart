@@ -68,8 +68,8 @@ class EveluateModel extends GetxController {
       'orderId': orderId,
       'avatar': avatar,
       'name': name,
-      'createdAt': createdAt.millisecondsSinceEpoch,
-      'updatedAt': updatedAt.millisecondsSinceEpoch,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
     };
   }
 
@@ -83,6 +83,18 @@ class EveluateModel extends GetxController {
       customerId: map['customerId'],
       orderId: map['orderId'],
       avatar: map['avatar'],
+      name: map['name'],
+      // createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      // updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),
+    );
+  }
+  factory EveluateModel.fromMap1(Map<String, dynamic> map) {
+    return EveluateModel(
+      image: List<String>.from(map['image']),
+      star: map['star'],
+      content: map['content'],
+      productId: map['productId'],
+      orderId: map['orderId'],
       name: map['name'],
       // createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       // updatedAt: DateTime.fromMillisecondsSinceEpoch(map['updatedAt']),

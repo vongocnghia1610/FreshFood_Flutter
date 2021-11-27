@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/Admin/widget/product_item.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item.dart';
@@ -22,6 +24,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
   // Stream<List<dynamic>> listItem;
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -36,18 +39,18 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
 
     return Scaffold(
         // backgroundColor: AppColors.LIGHT,
+        key: _scaffoldKey,
+        drawer: Container(
+          width: 70.w,
+          child: Drawer(
+            child: DrawerLayoutAdmin(status: 1),
+          ),
+        ),
         appBar: AppBar(
-          centerTitle: true,
-          elevation: .0,
-          backgroundColor: kPrimaryColor,
-          brightness: Brightness.light,
+          elevation: 0,
           leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              PhosphorIcons.arrow_left,
-              color: Colors.white,
-              size: 7.w,
-            ),
+            onPressed: () => _scaffoldKey.currentState.openDrawer(),
+            icon: SvgPicture.asset("assets/icons/menu.svg"),
           ),
           title: Text(
             'Tất cả sản phẩm',

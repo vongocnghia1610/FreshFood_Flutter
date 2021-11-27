@@ -6,6 +6,7 @@ import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/lang/vi_VN.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/models/product_order_model.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
@@ -422,7 +423,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
 }
 
 class ProductWidget extends StatelessWidget {
-  ProductModel product;
+  ProductOrderModel product;
   ProductWidget({this.product});
 
   @override

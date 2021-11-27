@@ -22,6 +22,7 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list0 = value.map((e) => OrderModel.fromMap(e)).toList();
+
       update();
     });
     OrderRepository()
@@ -71,7 +72,9 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list0 = value.map((e) => OrderModel.fromMap(e)).toList();
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     });
     OrderRepository()
         .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 1)
@@ -105,6 +108,8 @@ class OrderController extends GetxController {
       if (value != null)
         list4 = value.map((e) => OrderModel.fromMap(e)).toList();
     });
-    update();
+    Future.delayed(Duration(milliseconds: 20), () {
+      update();
+    });
   }
 }
