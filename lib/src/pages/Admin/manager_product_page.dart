@@ -11,6 +11,7 @@ import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/services/socket.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -31,6 +32,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
     // TODO: implement initState
     super.initState();
     productController.getAllProduct();
+    connectAndListen();
   }
 
   @override
@@ -43,7 +45,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
         drawer: Container(
           width: 70.w,
           child: Drawer(
-            child: DrawerLayoutAdmin(status: 1),
+            child: DrawerLayoutAdmin(status: 0),
           ),
         ),
         appBar: AppBar(

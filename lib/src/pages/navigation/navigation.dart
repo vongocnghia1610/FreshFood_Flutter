@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/pages/chat/chat_detail_page.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
 import 'package:freshfood/src/pages/option/option_page.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/services/socket.dart';
 import 'package:get/get.dart';
@@ -34,7 +36,10 @@ class _NavigationState extends State<Navigation> {
   var pages = [
     HomePage(),
     CartPage(),
-    ChatPage(),
+    ChatDetailScreen(
+      id: userProvider.user.id,
+      name: "Fresh Food",
+    ),
     OptionPage(),
   ];
   int selected = 0;

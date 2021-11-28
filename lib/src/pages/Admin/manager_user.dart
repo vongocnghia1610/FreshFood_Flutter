@@ -34,7 +34,7 @@ class _ManagerUserState extends State<ManagerUser> {
         drawer: Container(
           width: 70.w,
           child: Drawer(
-            child: DrawerLayoutAdmin(status: 2),
+            child: DrawerLayoutAdmin(status: 1),
           ),
         ),
         appBar: AppBar(

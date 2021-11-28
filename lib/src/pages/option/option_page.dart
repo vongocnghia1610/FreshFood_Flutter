@@ -40,20 +40,26 @@ class _OptionPageState extends State<OptionPage> {
             // margin: EdgeInsets.only(top: 10.w * 3),
             child: Stack(
               children: <Widget>[
-                GetBuilder<ProfileController>(
-                    init: profileController,
-                    builder: (_) => _.user.avatar != null
-                        ? CircleAvatar(
-                            radius: 10.w * 3,
-                            backgroundImage: NetworkImage(_.user.avatar),
-                            backgroundColor: Colors.transparent,
-                          )
-                        : CircleAvatar(
-                            radius: 10.w * 3,
-                            backgroundImage:
-                                AssetImage('assets/images/avatar.png'),
-                            backgroundColor: Colors.transparent,
-                          )),
+                // GetBuilder<ProfileController>(
+                //     init: profileController,
+                //     builder: (_) => _.user.avatar != null
+                //         ? CircleAvatar(
+                //             radius: 10.w * 3,
+                //             backgroundImage: NetworkImage(_.user.avatar),
+                //             backgroundColor: Colors.transparent,
+                //           )
+                //         : CircleAvatar(
+                //             radius: 10.w * 3,
+                //             backgroundImage:
+                //                 AssetImage('assets/images/avatar.png'),
+                //             backgroundColor: Colors.transparent,
+                //           )),
+                CircleAvatar(
+                  radius: 10.w * 3,
+                  backgroundImage: NetworkImage(
+                      Provider.of<UserProvider>(context).user.avatar),
+                  backgroundColor: Colors.transparent,
+                ),
                 // Align(
                 //   alignment: Alignment.bottomRight,
                 //   child: Container(
@@ -78,19 +84,22 @@ class _OptionPageState extends State<OptionPage> {
             ),
           ),
           SizedBox(height: 5.w),
-          GetBuilder<ProfileController>(
-            init: profileController,
-            builder: (_) => _.user.name != null
-                ? Text(
-                    _.user.name,
-                    style: kTitleTextStyle,
-                  )
-                : Text(
-                    "",
-                    style: kCaptionTextStyle,
-                  ),
+          // GetBuilder<ProfileController>(
+          //   init: profileController,
+          //   builder: (_) => _.user.name != null
+          //       ? Text(
+          //           _.user.name,
+          //           style: kTitleTextStyle,
+          //         )
+          //       : Text(
+          //           "",
+          //           style: kCaptionTextStyle,
+          //         ),
+          // ),
+          Text(
+            Provider.of<UserProvider>(context).user.name,
+            style: kTitleTextStyle,
           ),
-
           SizedBox(height: 3.w),
           GetBuilder<ProfileController>(
             init: profileController,
