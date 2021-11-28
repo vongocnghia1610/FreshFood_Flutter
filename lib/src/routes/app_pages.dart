@@ -239,7 +239,8 @@ class AppPages {
     GetPage(
       name: Routes.CHAT_DETAIL,
       page: () => ChatDetailScreen(
-        user: Get.arguments['user'],
+        id: Get.arguments['id'],
+        name: Get.arguments['name'],
       ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),

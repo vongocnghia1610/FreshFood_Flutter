@@ -24,15 +24,20 @@ class _AppState extends State<App> with WidgetsBindingObserver {
       DeviceOrientation.portraitUp,
     ]);
     super.initState();
-    Provider.of<UserProvider>(context, listen: false).checkLogined();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Provider.of<UserProvider>(context, listen: false).checkLogined();
+      setState(() {});
+    });
   }
+  // Provider.of<UserProvider>(context, listen: false).checkLogined();
+  // setState(() {});
 
   @override
   Widget build(BuildContext context) {
     return Provider.of<UserProvider>(context).user != null
         ? Provider.of<UserProvider>(context).user.role == 0
             ? Navigation()
-            : ManagerUser()
+            : ManagerProductPage()
         : AuthenticationPages();
   }
 }

@@ -11,9 +11,13 @@ class UserProvider extends ChangeNotifier {
 
   UserModel get user => _user;
 
-  setUser(UserModel data) {
+  setUser(UserModel data) async {
     _user = data;
     if (user != null) {
+      await UserRepository().getProfile().then((value) {
+        _user = UserModel.fromMap(value);
+        _user.token = data.token;
+      });
       _getStorage.write(storageKey, user.token);
     } else {
       _getStorage.write(storageKey, '');
@@ -21,11 +25,17 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  checkLogined() {
-    String token = _getStorage.read(storageKey) ?? '';
+  setUserProvider(UserModel data) {
+    _user = data;
+
+    notifyListeners();
+  }
+
+  Future checkLogined() async {
+    String token = await _getStorage.read(storageKey) ?? '';
     if (token != '') {
       _user = UserModel(token: token);
-      UserRepository().getProfile().then((value) {
+      await UserRepository().getProfile().then((value) {
         _user = UserModel.fromMap(value);
         _user.token = token;
       });

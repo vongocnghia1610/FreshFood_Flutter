@@ -5,14 +5,17 @@ import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/chat/models/message_model.dart';
 import 'package:freshfood/src/pages/chat/models/user_model.dart';
 import 'package:freshfood/src/providers/chat_provider.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class ChatDetailScreen extends StatefulWidget {
-  final UserModel user;
-  ChatDetailScreen({this.user});
+  final String id;
+  final String name;
+
+  ChatDetailScreen({this.id, this.name});
 
   @override
   _ChatDetailScreenState createState() => _ChatDetailScreenState();
@@ -29,15 +32,15 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     super.initState();
     chatProvider.initial();
     chatProvider.joinChannel(
-      idRoom: widget.user.id,
+      idRoom: widget.id,
     );
-    chatProvider.getMessage(widget.user.id);
+    chatProvider.getMessage(widget.id);
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
-          chatProvider.getMessage(widget.user.id);
+          chatProvider.getMessage(widget.id);
         }
       }
     });
@@ -251,7 +254,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
           text: TextSpan(
             children: [
               TextSpan(
-                  text: widget.user.name,
+                  text: widget.name,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -301,7 +304,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       // final Message message = messages[index];
                       MessageModel message =
                           MessageModel.fromMap(snapshot.data[index]);
-                      final bool isMe = message.creatorUser == widget.user.id;
+                      final bool isMe =
+                          message.creatorUser == userProvider.user.id;
                       final bool isSameUser = prevUserId == message.creatorUser;
                       prevUserId = message.creatorUser;
                       return _ChatDetailBubble(message, isMe, isSameUser);

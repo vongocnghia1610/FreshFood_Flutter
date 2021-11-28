@@ -134,8 +134,10 @@ class _ChatPageState extends State<ChatPage> {
                   final Message chat = chats[index];
                   return GestureDetector(
                     onTap: () {
-                      Get.toNamed(Routes.CHAT_DETAIL,
-                          arguments: {"user": profileController.user});
+                      Get.toNamed(Routes.CHAT_DETAIL, arguments: {
+                        "id": "6131f7bfa67c4327cce275c9",
+                        "name": "tu"
+                      });
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(

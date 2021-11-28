@@ -17,6 +17,17 @@ class DrawerLayoutAdmin extends StatefulWidget {
 }
 
 class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
+  List<String> listAdmin = [
+    "Quản lý sản phẩm",
+    "Quản lý người dùng",
+    "Quản lý đơn hàng",
+    "Tin nhắn",
+    "Quản lý tài khoản VNPAY",
+    "Quản lý tài khoản PAYPAL",
+    "Thống kê",
+    "Thông tin cá nhân",
+    "Đăng xuất"
+  ];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -83,7 +94,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Quản lý sản phẩm',
+                  0,
                   PhosphorIcons.fish_bold,
                 ),
               ),
@@ -95,7 +106,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Quản lý người dùng',
+                  1,
                   PhosphorIcons.users_bold,
                 ),
               ),
@@ -108,8 +119,20 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Quản lý đơn hàng',
+                  2,
                   PhosphorIcons.clipboard_bold,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(
+                    Routes.CHAT,
+                  );
+                },
+                child: _buildLineDrawer(
+                  context,
+                  3,
+                  PhosphorIcons.messenger_logo,
                 ),
               ),
               GestureDetector(
@@ -118,7 +141,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Quản lý tài khoản VNPAY',
+                  4,
                   PhosphorIcons.wallet_bold,
                 ),
               ),
@@ -128,7 +151,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Quản lý tài khoản PAYPAL',
+                  5,
                   PhosphorIcons.wallet_bold,
                 ),
               ),
@@ -141,7 +164,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Thống kê',
+                  6,
                   PhosphorIcons.chart_line_up_bold,
                 ),
               ),
@@ -152,7 +175,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Thông tin cá nhân',
+                  7,
                   PhosphorIcons.user_bold,
                 ),
               ),
@@ -162,7 +185,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  'Đăng xuất',
+                  8,
                   PhosphorIcons.sign_out_bold,
                 ),
               ),
@@ -296,14 +319,14 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
         children: [
           Icon(
             icon,
-            color: title == 'Đăng xuất' ? colorPrimary : colorTitle,
+            color: title == widget.status ? kPrimaryColor : colorTitle,
             size: 17.25.sp,
           ),
           SizedBox(width: 10.sp),
           Text(
-            title,
+            listAdmin[title],
             style: TextStyle(
-              color: title == 'Đăng xuất' ? colorPrimary : colorTitle,
+              color: title == widget.status ? kPrimaryColor : colorTitle,
               fontSize: 11.25.sp,
               fontWeight: FontWeight.w500,
             ),

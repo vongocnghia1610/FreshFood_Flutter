@@ -69,7 +69,7 @@ class _OrderPageAdminState extends State<OrderPageAdmin>
       drawer: Container(
         width: 70.w,
         child: Drawer(
-          child: DrawerLayoutAdmin(status: 1),
+          child: DrawerLayoutAdmin(status: 2),
         ),
       ),
       appBar: AppBar(
