@@ -26,13 +26,7 @@ class _OrderPageAdminState extends State<OrderPageAdmin>
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
   final orderController = Get.put(OrderController());
-  List<Widget> _pages = [
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-    Container(),
-  ];
+
   List<String> statusOrder = [
     "Chờ xác nhận",
     "Đã xác nhận",

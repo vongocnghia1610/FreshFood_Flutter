@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,17 +11,17 @@ const socket_url = "18.140.53.176:3005";
 
 class HandleApis {
   Future<String> getBaseURLSocket() async {
-    // var fcmToken = await getFcmToken();
-    // debugPrint('FCM Token: ' + fcmToken.toString());
+    var fcmToken = await getFcmToken();
+    debugPrint('FCM Token: ' + fcmToken.toString());
 
     // return 'http://$socket_url?fcm=$fcmToken&token=Bearer ${userProvider.user.token}';
-    return 'http://$socket_url?token=Bearer ${userProvider.user.token}';
+    return 'http://$socket_url?fcm=$fcmToken&token=Bearer ${userProvider.user.token}';
   }
 
-  // Future<String> getFcmToken() async {
-  //   FirebaseMessaging _fcm = FirebaseMessaging.instance;
-  //   return await _fcm.getToken();
-  // }
+  Future<String> getFcmToken() async {
+    FirebaseMessaging _fcm = FirebaseMessaging.instance;
+    return await _fcm.getToken();
+  }
 
   get(String name, [String params]) async {
     Map<String, String> paramsObject = {};

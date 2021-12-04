@@ -11,6 +11,7 @@ class OrderRepository {
     String address,
     String province,
     String district,
+    double weight,
   }) async {
     Map<String, dynamic> paramsObject = {
       "address": address,
@@ -18,7 +19,7 @@ class OrderRepository {
       "district": district,
       "pick_province": 'Hồ Chí Minh',
       "pick_district": 'Thủ Đức',
-      "weight": (5 * 1000).toString(),
+      "weight": (weight * 1000).toString(),
     };
 
     http.Response response = await http.get(

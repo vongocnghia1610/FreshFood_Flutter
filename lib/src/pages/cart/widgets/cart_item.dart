@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
@@ -103,7 +104,7 @@ class _CartItem extends State<CartItem> {
                   Row(
                     children: <Widget>[
                       Text(
-                        widget.cart.cost.toString() + " VNĐ",
+                        formatMoney(widget.cart.cost),
                         style: TextStyle(
                           fontSize: 5.w,
                           color: Colors.green,

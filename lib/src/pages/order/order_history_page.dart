@@ -37,6 +37,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
   @override
   void initState() {
     super.initState();
+    print(widget.history);
   }
 
   @override
@@ -128,11 +129,11 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                   // width: 100.sp,
                   child: ListView.builder(
                     controller: scrollController,
-                    itemCount: historyOrder.length,
+                    itemCount: widget.history.length,
                     itemBuilder: (context, index) {
                       return Column(children: [
                         WidgetHistoryOrder(
-                          historyModel: historyOrder[index],
+                          historyModel: widget.history[index],
                         ),
                       ]);
                     },

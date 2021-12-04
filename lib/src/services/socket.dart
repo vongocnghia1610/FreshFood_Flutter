@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:freshfood/src/pages/Admin/controller/chat_admin_controller.dart';
 import 'package:freshfood/src/providers/chat_provider.dart';
 import 'package:freshfood/src/repository/base_repository.dart';
+import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:convert' as convert;
@@ -20,6 +22,7 @@ void connectAndListen() async {
     socket.connect();
     socket.onConnect((_) {
       debugPrint('connect');
+      SocketEmit().sendDeviceInfo();
 
       // socket.on(
       //   'ORDER_CHANGE_STATUS_SSC',
@@ -32,9 +35,7 @@ void connectAndListen() async {
       socket.on(
         'SEND_MESSAGE_SSC',
         (data) {
-          print("nhan thong tin tu serve");
-          print(data);
-          chatProvider.insertMessage(data);
+          messageAdminController.insertMessage(data);
           // infoUserProvider.addInfoUser(data['createUser'] ?? null);
         },
       );

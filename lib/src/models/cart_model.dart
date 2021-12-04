@@ -13,6 +13,7 @@ class CartModel extends GetxController {
   String detail;
   String nameGroup;
   int selected;
+  double weight;
   CartModel({
     this.id,
     this.image,
@@ -23,6 +24,7 @@ class CartModel extends GetxController {
     this.detail,
     this.nameGroup,
     this.selected = 0,
+    this.weight,
   });
 
   CartModel copyWith({
@@ -34,6 +36,8 @@ class CartModel extends GetxController {
     String name,
     String detail,
     String nameGroup,
+    int selected,
+    double weight,
   }) {
     return CartModel(
       id: id ?? this.id,
@@ -44,6 +48,8 @@ class CartModel extends GetxController {
       name: name ?? this.name,
       detail: detail ?? this.detail,
       nameGroup: nameGroup ?? this.nameGroup,
+      selected: selected ?? this.selected,
+      weight: weight ?? this.weight,
     );
   }
 
@@ -57,20 +63,24 @@ class CartModel extends GetxController {
       'name': name,
       'detail': detail,
       'nameGroup': nameGroup,
+      'selected': selected,
+      'weight': weight,
     };
   }
 
   factory CartModel.fromMap(Map<String, dynamic> map) {
     return CartModel(
-        id: map['_id'],
-        image: List<String>.from(map['image']),
-        status: map['status'],
-        cost: double.tryParse((map['cost'] ?? 0).toString()),
-        quantity: map['quantity'],
-        name: map['name'],
-        detail: map['detail'],
-        nameGroup: map['nameGroup'],
-        selected: map['selected']);
+      id: map['_id'],
+      image: List<String>.from(map['image']),
+      status: map['status'],
+      cost: double.tryParse((map['cost'] ?? 0).toString()),
+      quantity: map['quantity'],
+      name: map['name'],
+      detail: map['detail'],
+      nameGroup: map['nameGroup'],
+      selected: map['selected'],
+      weight: double.tryParse((map['weight'] ?? 0).toString()),
+    );
   }
   factory CartModel.fromMap1(Map<String, dynamic> map) {
     return CartModel(
@@ -91,7 +101,7 @@ class CartModel extends GetxController {
 
   @override
   String toString() {
-    return 'CartModel(id: $id, image: $image, status: $status, cost: $cost, quantity: $quantity, name: $name, detail: $detail, nameGroup: $nameGroup)';
+    return 'CartModel(id: $id, image: $image, status: $status, cost: $cost, quantity: $quantity, name: $name, detail: $detail, nameGroup: $nameGroup, selected: $selected, weight: $weight)';
   }
 
   @override
@@ -106,7 +116,9 @@ class CartModel extends GetxController {
         other.quantity == quantity &&
         other.name == name &&
         other.detail == detail &&
-        other.nameGroup == nameGroup;
+        other.nameGroup == nameGroup &&
+        other.selected == selected &&
+        other.weight == weight;
   }
 
   @override
@@ -118,7 +130,9 @@ class CartModel extends GetxController {
         quantity.hashCode ^
         name.hashCode ^
         detail.hashCode ^
-        nameGroup.hashCode;
+        nameGroup.hashCode ^
+        selected.hashCode ^
+        weight.hashCode;
   }
 
   incrementQuantity() {

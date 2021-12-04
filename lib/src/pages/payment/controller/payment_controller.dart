@@ -11,6 +11,7 @@ class PaymentController extends GetxController {
   double transportFee = 0;
   double productPrice = 0;
   int methodPayment = 0;
+  List<CartModel> list = [];
   String note = '';
   double getproductPrice(List<CartModel> list) {
     productPrice = 0;
@@ -18,6 +19,10 @@ class PaymentController extends GetxController {
       productPrice += element.cost * element.quantity;
     });
     return productPrice;
+  }
+
+  initPaymentController(List<CartModel> listProduct) {
+    list = listProduct;
   }
 
   String getPaymentMethod() {
@@ -44,12 +49,16 @@ class PaymentController extends GetxController {
 
   getMoney() {
     final addressController = Get.put(AddressController());
-
+    double weight = 0;
+    list.forEach((element) {
+      weight += element.weight;
+    });
     OrderRepository()
         .getShipFee(
             address: addressController.addressSelected.address,
             province: addressController.addressSelected.province,
-            district: addressController.addressSelected.district)
+            district: addressController.addressSelected.district,
+            weight: weight)
         .then((value) {
       transportFee = double.parse(value.toString());
       total = transportFee + productPrice;
@@ -70,8 +79,14 @@ class PaymentController extends GetxController {
       print(value['link']);
       final cartController = Get.put(CartController());
       cartController.getListProduct();
+      var temp = methodPayment;
       methodPayment = 0;
-      Get.toNamed(Routes.PAYMENT_WEB_PAGE, arguments: {"link": value['link']});
+      if (temp != 0) {
+        Get.toNamed(Routes.PAYMENT_WEB_PAGE,
+            arguments: {"link": value['link']});
+      } else {
+        Get.offAllNamed(Routes.ROOT);
+      }
     });
   }
 }

@@ -53,7 +53,7 @@ class _PaymentWebPageState extends State<PaymentWebPage> {
               title: 'Thanh toán thành công!',
               subTitle: 'Hãy theo dõi quá trình vận đơn',
             );
-            Get.offAllNamed(Routes.ROOT);
+            Get.offAllNamed(Routes.PAYMENT_SUCCESS);
             getSnackBar.show();
           } else if (url
               .toLowerCase()
@@ -63,19 +63,17 @@ class _PaymentWebPageState extends State<PaymentWebPage> {
               title: 'Thanh toán thất bại!',
               subTitle: 'Bạn chưa thanh toán đơn hàng này!',
             );
-            Get.offAllNamed(Routes.ROOT);
+            Get.offAllNamed(Routes.PAYMENT_ERROR);
             getSnackBar.show();
           } else if (url
               .toLowerCase()
               .startsWith('$baseUrl/user/successVnPay'.toLowerCase())) {
             // pickAddressController.disposeFormInput();
-            Get.offAndToNamed(Routes.ROOT);
-            getSnackBar.show();
             getSnackBar = GetSnackBar(
               title: 'Thanh toán thành công!',
               subTitle: 'Hãy theo dõi quá trình vận đơn',
             );
-            Get.offAllNamed(Routes.ROOT);
+            Get.offAllNamed(Routes.PAYMENT_SUCCESS);
             getSnackBar.show();
           }
         },

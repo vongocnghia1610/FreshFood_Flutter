@@ -11,6 +11,7 @@ import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/services/fcm.dart';
 import 'package:freshfood/src/services/socket.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,8 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
     // TODO: implement initState
     super.initState();
     productController.getAllProduct();
+    handleReceiveNotification(context);
+
     connectAndListen();
   }
 

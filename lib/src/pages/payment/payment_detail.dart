@@ -33,9 +33,11 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
   @override
   void initState() {
     super.initState();
+    paymentController.list = widget.list;
     heighContainer = 95.sp * widget.list.length;
     addressController.getAllAddress();
     _noteController.text = paymentController.note;
+    print('start');
   }
 
   @override
