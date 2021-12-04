@@ -22,7 +22,9 @@ import 'package:freshfood/src/pages/order/order_history_page.dart';
 import 'package:freshfood/src/pages/order/order_page.dart';
 import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/pages/payment/payment_detail.dart';
+import 'package:freshfood/src/pages/payment/payment_error.dart';
 import 'package:freshfood/src/pages/payment/payment_page.dart';
+import 'package:freshfood/src/pages/payment/payment_success.dart';
 import 'package:freshfood/src/pages/payment/payment_web_page.dart';
 import 'package:freshfood/src/pages/products/create_product_screen.dart';
 import 'package:freshfood/src/pages/products/detail_product_screen.dart';
@@ -263,6 +265,20 @@ class AppPages {
     GetPage(
       name: Routes.ADMIN_MANAGER_ORDER,
       page: () => OrderPageAdmin(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.PAYMENT_SUCCESS,
+      page: () => PaymentSuccess(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.PAYMENT_ERROR,
+      page: () => PaymentError(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

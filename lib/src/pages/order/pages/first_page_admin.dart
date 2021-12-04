@@ -275,7 +275,6 @@ class WidgetOrder extends StatelessWidget {
                                 subTitle:
                                     'Đã chuyển trạng thái thành "Đã xác nhận"',
                               );
-                              Get.back();
 
                               getSnackBar.show();
                               orderController.getOrderByAdmin(
@@ -323,7 +322,6 @@ class WidgetOrder extends StatelessWidget {
                                     subTitle:
                                         'Đã chuyển trạng thái thành "Đang giao"',
                                   );
-                                  Get.back();
                                   getSnackBar.show();
                                   orderController.getOrderByAdmin(
                                       search: '', limit: 10, skip: 1);
@@ -372,7 +370,6 @@ class WidgetOrder extends StatelessWidget {
                                         subTitle:
                                             'Đã chuyển trạng thái thành "Đã giao"',
                                       );
-                                      Get.back();
                                       getSnackBar.show();
                                       orderController.getOrderByAdmin(
                                           search: '', limit: 10, skip: 1);

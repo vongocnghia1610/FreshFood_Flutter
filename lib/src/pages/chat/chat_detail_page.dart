@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/message_model.dart';
 import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/pages/Admin/controller/chat_admin_controller.dart';
 import 'package:freshfood/src/pages/chat/models/message_model.dart';
 import 'package:freshfood/src/pages/chat/models/user_model.dart';
 import 'package:freshfood/src/providers/chat_provider.dart';
@@ -30,17 +31,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   @override
   void initState() {
     super.initState();
-    chatProvider.initial();
-    chatProvider.joinChannel(
-      idRoom: widget.id,
-    );
-    chatProvider.getMessage(widget.id);
+    messageAdminController.initialMessage(widget.id);
+    messageAdminController.getListMessage(widget.id);
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
-          chatProvider.getMessage(widget.id);
+          messageAdminController.getListMessage(widget.id);
         }
       }
     });
@@ -283,20 +281,22 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             icon: Icon(Icons.arrow_back_ios),
             color: Colors.white,
             onPressed: () {
-              Navigator.pop(context);
+              messageAdminController.leaveChannel(widget.id);
+              Get.back();
             }),
       ),
       body: Column(
         children: <Widget>[
           Expanded(
             child: StreamBuilder(
-                stream: chatProvider.listMessage,
+                stream: messageAdminController.listMessages,
                 builder: (context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return Container();
                   }
 
                   return ListView.builder(
+                    controller: scrollController,
                     reverse: true,
                     padding: EdgeInsets.all(15.sp),
                     itemCount: snapshot.data.length,
@@ -317,5 +317,12 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    messageAdminController.leaveChannel(widget.id);
+    super.dispose();
   }
 }

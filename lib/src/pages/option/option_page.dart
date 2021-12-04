@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/pages/option/widgets/profile_list_item.dart';
 import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
@@ -6,6 +7,8 @@ import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'package:freshfood/src/services/socket.dart';
+import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -101,17 +104,9 @@ class _OptionPageState extends State<OptionPage> {
             style: kTitleTextStyle,
           ),
           SizedBox(height: 3.w),
-          GetBuilder<ProfileController>(
-            init: profileController,
-            builder: (_) => _.user.email != null
-                ? Text(
-                    _.user.email,
-                    style: kCaptionTextStyle,
-                  )
-                : Text(
-                    "",
-                    style: kCaptionTextStyle,
-                  ),
+          Text(
+            Provider.of<UserProvider>(context).user.email,
+            style: kCaptionTextStyle,
           ),
 
           SizedBox(height: 10.w),
@@ -164,7 +159,7 @@ class _OptionPageState extends State<OptionPage> {
                       text: 'Thông tin cá nhân',
                       tap: () {
                         Get.toNamed(Routes.PROFILE,
-                            arguments: {"user": profileController.user});
+                            arguments: {"user": userProvider.user});
                       },
                     ),
                     ProfileListItem(
@@ -194,8 +189,12 @@ class _OptionPageState extends State<OptionPage> {
                       icon: LineAwesomeIcons.alternate_sign_out,
                       text: 'Đăng xuất',
                       hasNavigation: false,
-                      tap: () {
+                      tap: () async {
+                        await SocketEmit().deleteDeviceInfo();
+                        await FirebaseMessaging.instance.deleteToken();
+                        socket.disconnect();
                         userProvider.setUser(null);
+                        Get.offAllNamed(Routes.ROOT);
                       },
                     ),
                   ],

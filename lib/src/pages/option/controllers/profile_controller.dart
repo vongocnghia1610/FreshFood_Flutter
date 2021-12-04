@@ -8,17 +8,17 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 class ProfileController extends GetxController {
-  UserModel user = new UserModel();
-  getProfile() {
-    // UserRepository().getProfile().then((value) {
-    //   if (value.isNotEmpty) {
-    //     user = UserModel.fromMap(value);
-    //     update();
-    //   }
-    // });
-    user = userProvider.user;
-    update();
-  }
+  // UserModel user = userProvider.user;
+  // getProfile() {
+  //   // UserRepository().getProfile().then((value) {
+  //   //   if (value.isNotEmpty) {
+  //   //     user = UserModel.fromMap(value);
+  //   //     update();
+  //   //   }
+  //   // });
+  //   user = userProvider.user;
+  //   update();
+  // }
 
   updateAvatar(File image) {
     UserRepository().updateImage(avatar: image).then((value) {
@@ -30,8 +30,8 @@ class ProfileController extends GetxController {
         );
         getSnackBar.show();
       } else {
-        user.avatar = value['image'];
-        userProvider.setUserProvider(user);
+        userProvider.user.avatar = value['image'];
+        userProvider.setUserProvider(userProvider.user);
         update();
         GetSnackBar getSnackBar = GetSnackBar(
           title: 'Thành công',

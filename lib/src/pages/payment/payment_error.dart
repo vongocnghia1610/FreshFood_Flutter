@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class PaymentError extends StatelessWidget {
   @override
@@ -16,7 +18,9 @@ class PaymentError extends StatelessWidget {
           ),
           DefaultButton(
             btnText: 'Ok',
-            onPressed: () {},
+            onPressed: () {
+              Get.offAllNamed(Routes.ROOT);
+            },
           )
         ],
       ),

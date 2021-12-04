@@ -1,4 +1,5 @@
 import 'package:freshfood/src/models/order.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:get/get.dart';
 
@@ -111,5 +112,25 @@ class OrderController extends GetxController {
     Future.delayed(Duration(milliseconds: 20), () {
       update();
     });
+  }
+
+  String getStatus(status) {
+    switch (status) {
+      case 0:
+        return 'Xác nhận';
+      case 1:
+        return 'Giao hàng';
+      case 2:
+        {
+          if (userProvider.user.role == 0) return 'Đã nhận';
+
+          return 'Đã giao';
+        }
+      case 3:
+        {
+          if (userProvider.user.role == 0) return 'Đánh giá';
+          return '';
+        }
+    }
   }
 }

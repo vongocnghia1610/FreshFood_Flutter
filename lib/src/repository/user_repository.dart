@@ -111,4 +111,13 @@ class UserRepository {
 
     return [];
   }
+
+  Future<List<dynamic>> getRoom(int skip) async {
+    var response = await HandleApis().get(ApiGateway.GET_LiST_ROOM);
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
 }

@@ -37,15 +37,15 @@ class HistoryModel {
     return HistoryModel(
       id: map['id'],
       title: map['title'],
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
+      createdAt: DateTime.parse(map['createdAt']),
     );
   }
-  factory HistoryModel.fromMap1(Map<String, dynamic> map) {
-    return HistoryModel(
-      id: map['id'],
-      title: map['title'],
-    );
-  }
+  // factory HistoryModel.fromMap1(Map<String, dynamic> map) {
+  //   return HistoryModel(
+  //     id: map['id'],
+  //     title: map['title'],
+  //   );
+  // }
 
   String toJson() => json.encode(toMap());
 

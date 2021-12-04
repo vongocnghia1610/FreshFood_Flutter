@@ -10,6 +10,7 @@ import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
 import 'package:freshfood/src/pages/option/option_page.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/services/fcm.dart';
 import 'package:freshfood/src/services/socket.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -29,7 +30,7 @@ class _NavigationState extends State<Navigation> {
     super.initState();
     cartController.initialController();
     cartController.getListProduct();
-    profileController.getProfile();
+    handleReceiveNotification(context);
     connectAndListen();
   }
 

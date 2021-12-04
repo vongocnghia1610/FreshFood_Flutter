@@ -94,7 +94,7 @@ class OrderModel {
       product: List<ProductOrderModel>.from(
           map['product']?.map((x) => ProductOrderModel.fromMap(x))),
       history: List<HistoryModel>.from(
-          map['history']?.map((x) => HistoryModel.fromMap1(x))),
+          map['history']?.map((x) => HistoryModel.fromMap(x))),
       status: map['status'],
       orderCode: map['orderCode'],
       totalMoney: double.tryParse((map['totalMoney'] ?? 0).toString()),

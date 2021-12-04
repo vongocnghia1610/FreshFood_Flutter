@@ -10,10 +10,14 @@ import 'package:freshfood/src/models/product_order_model.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:intl/intl.dart';
+
+import 'controller/order_controller.dart';
 
 class OrderDetailPage extends StatefulWidget {
   final OrderModel order;
@@ -25,6 +29,7 @@ class OrderDetailPage extends StatefulWidget {
 class _OrderDetailPageState extends State<OrderDetailPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+  final orderController = Get.put(OrderController());
 
   @override
   void initState() {
@@ -137,6 +142,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         flex: 1,
                         child: TextButton(
                           onPressed: () {
+                            print(widget.order.history);
                             Get.toNamed(Routes.HISTORY_ORDER,
                                 arguments: {"history": widget.order.history});
                           },
@@ -229,20 +235,19 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                   ]),
                 ),
                 Container(
-                    height: widget.order.product.length * 75.sp,
+                    height: widget.order.product.length * 80.sp,
                     padding: EdgeInsets.only(left: 10.sp, right: 10.sp),
                     margin: EdgeInsets.only(
                       top: 25.0,
                     ),
                     child: ListView.builder(
+                      physics: NeverScrollableScrollPhysics(), // new
                       controller: scrollController,
                       itemCount: widget.order.product.length,
                       itemBuilder: (context, index) {
-                        return Column(children: [
-                          ProductWidget(
-                            product: widget.order.product[index],
-                          ),
-                        ]);
+                        return ProductWidget(
+                          product: widget.order.product[index],
+                        );
                       },
                     )),
                 Container(
@@ -411,10 +416,36 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     ],
                   ),
                 ),
-                DefaultButton(
-                  btnText: 'Mua Lại',
-                  onPressed: () {},
-                )
+                orderController.getStatus(widget.order.status) != ''
+                    ? DefaultButton(
+                        btnText: orderController.getStatus(widget.order.status),
+                        onPressed: () {
+                          OrderRepository()
+                              .changeStatusOrderByAdminOrStaff(
+                                  id: widget.order.id,
+                                  status: widget.order.status + 1)
+                              .then((value) {
+                            if (value == true) {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Chuyển trạng thái đơn hàng thành công',
+                                subTitle:
+                                    'Đã chuyển trạng thái thành "Đã giao"',
+                              );
+                              Get.back();
+                              getSnackBar.show();
+                              orderController.getOrderByAdmin(
+                                  search: '', limit: 10, skip: 1);
+                            } else {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Chuyển trạng thái đơn hàng thất bại',
+                                subTitle: '',
+                              );
+                              getSnackBar.show();
+                            }
+                          });
+                        },
+                      )
+                    : Container()
               ],
             ),
           ),
