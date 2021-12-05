@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                             if (!snapshot.hasData) {
                               return Container(
                                 child: Center(
-                                  child: CircularProgressIndicator(),
+                                  child: Container(),
                                 ),
                               );
                             }

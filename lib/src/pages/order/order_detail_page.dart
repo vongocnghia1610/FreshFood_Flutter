@@ -4,11 +4,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/lang/vi_VN.dart';
+import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/models/product_order_model.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
@@ -416,33 +418,54 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     ],
                   ),
                 ),
-                orderController.getStatus(widget.order.status) != ''
+                orderController.getStatus(
+                            widget.order.status, widget.order.checkEveluate) !=
+                        ''
                     ? DefaultButton(
-                        btnText: orderController.getStatus(widget.order.status),
+                        btnText: orderController.getStatus(
+                            widget.order.status, widget.order.checkEveluate),
                         onPressed: () {
-                          OrderRepository()
-                              .changeStatusOrderByAdminOrStaff(
-                                  id: widget.order.id,
-                                  status: widget.order.status + 1)
-                              .then((value) {
-                            if (value == true) {
-                              GetSnackBar getSnackBar = GetSnackBar(
-                                title: 'Chuyển trạng thái đơn hàng thành công',
-                                subTitle:
-                                    'Đã chuyển trạng thái thành "Đã giao"',
-                              );
-                              Get.back();
-                              getSnackBar.show();
-                              orderController.getOrderByAdmin(
-                                  search: '', limit: 10, skip: 1);
-                            } else {
-                              GetSnackBar getSnackBar = GetSnackBar(
-                                title: 'Chuyển trạng thái đơn hàng thất bại',
-                                subTitle: '',
-                              );
-                              getSnackBar.show();
-                            }
-                          });
+                          if (widget.order.status == 3) {
+                            List<EveluateModel> product = [];
+                            product.addAll((widget.order.product
+                                .map((e) => EveluateModel.fromMap1(e.toMap()))
+                                .toList()));
+                            product.forEach((element) {
+                              element.orderId = widget.order.id;
+                            });
+                            Get.toNamed(Routes.EVELUATE_PRODUCT,
+                                arguments: {"listProduct": product});
+                            // arguments: {"list": product});
+                          } else {
+                            OrderRepository()
+                                .changeStatusOrderByAdminOrStaff(
+                                    id: widget.order.id,
+                                    status: widget.order.status + 1)
+                                .then((value) {
+                              if (value == true) {
+                                GetSnackBar getSnackBar = GetSnackBar(
+                                  title:
+                                      'Chuyển trạng thái đơn hàng thành công',
+                                  subTitle:
+                                      'Đã chuyển trạng thái thành "Đã giao"',
+                                );
+                                Get.back();
+
+                                getSnackBar.show();
+                                userProvider.user.role == 0
+                                    ? orderController.getOrder(
+                                        search: '', limit: 10, skip: 1)
+                                    : orderController.getOrderByAdmin(
+                                        search: '', limit: 10, skip: 1);
+                              } else {
+                                GetSnackBar getSnackBar = GetSnackBar(
+                                  title: 'Chuyển trạng thái đơn hàng thất bại',
+                                  subTitle: '',
+                                );
+                                getSnackBar.show();
+                              }
+                            });
+                          }
                         },
                       )
                     : Container()

@@ -123,10 +123,15 @@ class OrderRepository {
       "id": id,
       "status": status,
     };
+    print('body:');
+    print(body);
+
     var response = await HandleApis().put(
       ApiGateway.UPDATE_STATUS_ORDER,
       body,
     );
+    print('response:');
+
     print(response.body);
     if (response.statusCode == 200) {
       return true;

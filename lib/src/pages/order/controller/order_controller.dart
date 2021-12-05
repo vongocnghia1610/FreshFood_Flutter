@@ -114,7 +114,14 @@ class OrderController extends GetxController {
     });
   }
 
-  String getStatus(status) {
+  String getStatus(status, checkEveluate) {
+    if (userProvider.user.role == 0) {
+      return status == 2
+          ? 'Đã nhận'
+          : checkEveluate == false && status == 3
+              ? 'Đánh giá'
+              : '';
+    }
     switch (status) {
       case 0:
         return 'Xác nhận';
@@ -122,15 +129,9 @@ class OrderController extends GetxController {
         return 'Giao hàng';
       case 2:
         {
-          if (userProvider.user.role == 0) return 'Đã nhận';
-
           return 'Đã giao';
         }
-      case 3:
-        {
-          if (userProvider.user.role == 0) return 'Đánh giá';
-          return '';
-        }
     }
+    return '';
   }
 }
