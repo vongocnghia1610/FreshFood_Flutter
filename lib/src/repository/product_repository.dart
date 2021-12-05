@@ -23,10 +23,10 @@ class ProductRepository {
     return [];
   }
 
-  Future<List<dynamic>> getAllProduct(skip, limit) async {
+  Future<List<dynamic>> getAllProduct(search, skip, limit, groupProduct) async {
     var response = await HandleApis().get(
       ApiGateway.GET_ALL_PRODUCT,
-      'skip=$skip&limit=$limit',
+      'skip=$skip&limit=$limit&search=$search&groupProduct=$groupProduct',
     );
 
     if (response.statusCode == 200) {

@@ -32,7 +32,8 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    productController.getAllProduct();
+    productController.getAllProduct(
+        search: '', skip: 1, limit: 10, groupProduct: '');
     handleReceiveNotification(context);
 
     connectAndListen();
@@ -43,6 +44,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
     final _size = MediaQuery.of(context).size;
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         // backgroundColor: AppColors.LIGHT,
         key: _scaffoldKey,
         drawer: Container(
@@ -80,8 +82,32 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
         body: Container(
           child: Column(
             children: [
+              Padding(
+                padding: EdgeInsets.only(top: 5.sp, left: 5.sp, right: 5.sp),
+                child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Tìm kiếm",
+                      hintStyle: TextStyle(color: Colors.grey.shade600),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: Colors.grey.shade600,
+                        size: 20,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey.shade100,
+                      contentPadding: EdgeInsets.all(8),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide(color: Colors.grey.shade100)),
+                    ),
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (value) {
+                      productController.getAllProduct(
+                          search: value, limit: 10, skip: 1, groupProduct: '');
+                    }),
+              ),
               Container(
-                height: 175.w,
+                height: 160.w,
                 child: GetBuilder<ProductController>(
                   init: productController,
                   builder: (_) => ListView.builder(

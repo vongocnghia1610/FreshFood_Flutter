@@ -58,8 +58,10 @@ class ProductController extends GetxController {
     });
   }
 
-  getAllProduct() {
-    ProductRepository().getAllProduct(1, 15).then((value) {
+  getAllProduct({String search, int skip, int limit, String groupProduct}) {
+    ProductRepository()
+        .getAllProduct(search, skip, limit, groupProduct)
+        .then((value) {
       print(value);
       if (value.isNotEmpty) {
         listAllProduct = value;

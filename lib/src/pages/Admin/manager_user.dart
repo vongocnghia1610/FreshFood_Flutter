@@ -24,7 +24,7 @@ class _ManagerUserState extends State<ManagerUser> {
   @override
   void initState() {
     super.initState();
-    adminController.getAllUser();
+    adminController.getAllUser(search: '', skip: 1, limit: 10);
   }
 
   @override
@@ -51,39 +51,29 @@ class _ManagerUserState extends State<ManagerUser> {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 25.sp, top: 20.sp),
-                  child: FlatButton(
-                    height: 30.sp,
-                    minWidth: 120.sp,
-                    padding: EdgeInsets.symmetric(vertical: 3),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {},
-                    child: Text("Khách Hàng"),
+            Padding(
+              padding: EdgeInsets.only(top: 5.sp, left: 5.sp, right: 5.sp),
+              child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Tìm kiếm...",
+                    hintStyle: TextStyle(color: Colors.grey.shade600),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
+                    contentPadding: EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey.shade100)),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 18.sp, top: 20.sp),
-                  child: FlatButton(
-                    height: 30.sp,
-                    minWidth: 120.sp,
-                    padding: EdgeInsets.symmetric(vertical: 3),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {},
-                    child: Text("Nhân Viên"),
-                  ),
-                ),
-              ],
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (value) {
+                    adminController.getAllUser(
+                        search: value, skip: 1, limit: 10);
+                  }),
             ),
             Expanded(
               child: GetBuilder<AdminController>(

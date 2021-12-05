@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 
 class AdminController extends GetxController {
   List<UserModel> listUser = [];
-  getAllUser() {
-    AdminRepository().getAllUser().then((value) {
+  getAllUser({String search, int skip, int limit}) {
+    AdminRepository().getAllUser(search, skip, limit).then((value) {
       if (value.isNotEmpty) {
         print("abc");
 
