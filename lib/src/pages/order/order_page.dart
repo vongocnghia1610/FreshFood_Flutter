@@ -50,15 +50,6 @@ class _OrderPageState extends State<OrderPage>
       initialIndex: 0,
     );
     orderController.getOrder(search: '', limit: 10, skip: 1);
-    // _pages = [
-    //   FirstPage(orders: orderController.list0, status: statusOrder[0]),
-    //   FirstPage(orders: orderController.list1, status: statusOrder[1]),
-    //   FirstPage(orders: orderController.list2, status: statusOrder[2]),
-    //   FirstPage(orders: orderController.list3, status: statusOrder[3]),
-    //   FirstPage(orders: orderController.list4, status: statusOrder[4]),
-    // ];
-
-    // Future.delayed(Duration(seconds: 2), () async {});
   }
 
   @override
@@ -85,13 +76,6 @@ class _OrderPageState extends State<OrderPage>
         ),
         actions: [
           IconButton(
-            onPressed: () => {},
-            icon: Icon(
-              PhosphorIcons.magnifying_glass,
-              size: 7.w,
-            ),
-          ),
-          IconButton(
             onPressed: () => {Get.toNamed(Routes.CHAT)},
             icon: Icon(
               PhosphorIcons.messenger_logo,
@@ -102,6 +86,29 @@ class _OrderPageState extends State<OrderPage>
       ),
       body: Column(
         children: [
+          Padding(
+            padding: EdgeInsets.only(top: 5.sp, left: 5.sp, right: 5.sp),
+            child: TextField(
+                decoration: InputDecoration(
+                  hintText: "Tìm kiếm nhập tên sản phẩm",
+                  hintStyle: TextStyle(color: Colors.grey.shade600),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey.shade600,
+                    size: 20,
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade100,
+                  contentPadding: EdgeInsets.all(8),
+                  enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide(color: Colors.grey.shade100)),
+                ),
+                textInputAction: TextInputAction.search,
+                onSubmitted: (value) {
+                  orderController.getOrder(search: value, limit: 10, skip: 1);
+                }),
+          ),
           Container(
             child: TabBar(
               isScrollable: true,
