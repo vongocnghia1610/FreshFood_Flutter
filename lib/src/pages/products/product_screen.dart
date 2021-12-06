@@ -25,16 +25,8 @@ class _ProductPageState extends State<ProductPage> {
   void initState() {
     super.initState();
     productController.initialController();
-    productController.getProduct();
-
-    // bookController.getBooks();
-    // scrollController.addListener(() {
-    //   if (scrollController.position.atEdge) {
-    //     if (scrollController.offset != 0.0) {
-    //       bookController.getBooks();
-    //     }
-    //   }
-    // });
+    productController.getAllProduct(
+        search: '', limit: 10, skip: 1, groupProduct: '');
   }
 
   @override
@@ -71,15 +63,23 @@ class _ProductPageState extends State<ProductPage> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle: TextStyle(
-                            color: kPrimaryColor.withOpacity(0.5),
+                          decoration: InputDecoration(
+                            hintText: "Tìm kiếm",
+                            hintStyle: TextStyle(
+                              color: kPrimaryColor.withOpacity(0.5),
+                            ),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                           ),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      ),
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (value) {
+                            print(value);
+                            productController.getAllProduct(
+                                search: value,
+                                limit: 10,
+                                skip: 1,
+                                groupProduct: '');
+                          }),
                     ),
                     SvgPicture.asset("assets/icons/search.svg"),
                   ],
