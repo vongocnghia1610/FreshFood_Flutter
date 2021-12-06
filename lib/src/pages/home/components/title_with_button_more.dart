@@ -24,7 +24,7 @@ class TitleWithButton extends StatelessWidget {
                 onpress();
               },
               child: Text(
-                'More',
+                'Xem thêm',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ))

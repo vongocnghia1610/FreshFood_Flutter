@@ -65,6 +65,7 @@ class ProductController extends GetxController {
       print(value);
       if (value.isNotEmpty) {
         listAllProduct = value;
+        _listProductController.add(listAllProduct);
         update();
       }
     });

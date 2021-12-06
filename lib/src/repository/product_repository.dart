@@ -10,10 +10,7 @@ import 'package:http/http.dart' as http;
 
 class ProductRepository {
   Future<List<dynamic>> getRecommendProduct(skip, limit) async {
-    var response = await HandleApis().get(
-      ApiGateway.GET_RECOMMEND,
-      'skip=$skip&limit=$limit',
-    );
+    var response = await HandleApis().get(ApiGateway.GET_RECOMMEND);
 
     if (response.statusCode == 200) {
       print("huhu");
