@@ -2,9 +2,11 @@ import 'package:freshfood/src/models/address.dart';
 import 'package:freshfood/src/models/create_eveluate_model.dart';
 import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/order/controller/order_controller.dart';
 import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/repository/eveluate_repository.dart';
 import 'package:freshfood/src/repository/user_repository.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class EveluateController extends GetxController {
@@ -29,9 +31,14 @@ class EveluateController extends GetxController {
                     (data) => CreateEveluateModel.fromMap(data.toMap()).toMap())
                 .toList())
         .then((value) {
+      Get.back();
       if (value.isNotEmpty) {
-        print("thanh cong");
+        final orderController = Get.put(OrderController());
+        orderController.getOrder(search: '', limit: 10, skip: 1);
         Get.back();
+        Get.currentRoute == Routes.DETAIL_ORDER
+            ? Get.back()
+            : null; // do nothing
       }
     });
   }

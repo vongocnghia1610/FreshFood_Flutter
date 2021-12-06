@@ -248,7 +248,7 @@ class WidgetOrder extends StatelessWidget {
                   height: 5.sp,
                 )
               : SizedBox(),
-          status == "Đã giao"
+          status == "Đã giao" && order.checkEveluate == false
               ? Row(
                   children: [
                     Expanded(
@@ -329,7 +329,31 @@ class WidgetOrder extends StatelessWidget {
                         child: Text("Mua lại"),
                       ),
                     )
-                  : Container(),
+                  : status == "Đã giao" && order.checkEveluate == true
+                      ? Container(
+                          padding: EdgeInsets.only(left: 140.sp),
+                          child: FlatButton(
+                            height: 35.sp,
+                            minWidth: 120.sp,
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            color: kPrimaryColor,
+                            textColor: Colors.white,
+                            highlightColor: Colors.transparent,
+                            onPressed: () {
+                              print(order.product.length);
+                              List<CartModel> product = [];
+                              product.addAll((order.product
+                                  .map((e) => CartModel.fromMap1(e.toMap()))
+                                  .toList()));
+                              Get.toNamed(Routes.DETAIL_PAYMENT,
+                                  arguments: {"list": product});
+                            },
+                            child: Text("Mua lại"),
+                          ),
+                        )
+                      : Container(),
         ],
       ),
     );

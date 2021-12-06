@@ -23,20 +23,19 @@ class AuthenticationRepository {
     return null;
   }
 
-  Future<String> register(String email, String phone, String password,
-      String fullname, String address) async {
+  Future<Map<String, dynamic>> register(
+      String email, String phone, String password, String fullname) async {
     var body = {
       "email": email,
       "password": password,
       "phone": phone,
       "name": fullname,
-      "address": address
     };
     var response = await HandleApis().post(
       ApiGateway.REGISTER,
       body,
     );
-
+    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

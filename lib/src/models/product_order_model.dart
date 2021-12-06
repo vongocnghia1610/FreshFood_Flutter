@@ -70,6 +70,19 @@ class ProductOrderModel {
     );
   }
 
+  factory ProductOrderModel.fromMap1(Map<String, dynamic> map) {
+    return ProductOrderModel(
+      id: map['_id'],
+      image: List<String>.from(map['image']),
+      weight: double.tryParse((map['weight'] ?? 0).toString()),
+      price: double.tryParse((map['price'] ?? 0).toString()),
+      quantity: map['quantity'],
+      name: map['name'],
+      nameGroup: map['nameGroup'],
+      productId: map['_id'],
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory ProductOrderModel.fromJson(String source) =>

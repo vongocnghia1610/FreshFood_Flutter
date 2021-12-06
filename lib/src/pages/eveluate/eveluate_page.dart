@@ -38,6 +38,7 @@ class _EveluatePageState extends State<EveluatePage> {
     widget.listProduct.forEach((element) {
       element.star = 5;
     });
+    print(widget.listProduct);
   }
 
   @override
@@ -138,7 +139,7 @@ class _EveluatePageState extends State<EveluatePage> {
                             ),
                             onRatingUpdate: (double value) {
                               widget.listProduct[index].star =
-                                  int.parse((value.toString()));
+                                  int.tryParse((value.toString()));
                             },
                           ),
                         ),
@@ -179,6 +180,18 @@ class _EveluatePageState extends State<EveluatePage> {
             DefaultButton(
               btnText: 'Đánh giá ngay',
               onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      );
+                    },
+                    barrierColor: Color(0x80000000),
+                    barrierDismissible: false);
                 eveluateController.createEveluate(widget.listProduct);
               },
             )

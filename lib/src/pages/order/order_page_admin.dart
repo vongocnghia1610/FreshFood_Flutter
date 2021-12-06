@@ -1,17 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freshfood/src/models/order.dart';
-import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/order/controller/order_controller.dart';
-import 'package:freshfood/src/pages/order/pages/first_page.dart';
 import 'package:freshfood/src/pages/order/pages/first_page_admin.dart';
-import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
-import 'package:freshfood/src/routes/app_pages.dart';
-import 'package:flutter_svg/avd.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 

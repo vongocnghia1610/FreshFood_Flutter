@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/group_product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
@@ -100,6 +101,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
         );
         getSnackBar.show();
       } else {
+        productController.getAllProduct();
         GetSnackBar getSnackBar = GetSnackBar(
           title: 'Tạo thành công nè',
           subTitle: 'Gút vé rỳ gút',
@@ -349,7 +351,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       'Điền chi tiết sản phẩm',
                       'Chi tiết sản phẩm',
                       PhosphorIcons.clipboard_text,
-                      false,
+                      null,
                       false),
                   SizedBox(
                     height: 30.0,
@@ -371,7 +373,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       'Điền khối lượng sản phẩm',
                       'Khối lượng sản phẩm',
                       PhosphorIcons.scales,
-                      false,
+                      null,
                       true),
                   SizedBox(
                     height: 30.0,
@@ -382,7 +384,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       'Điền số lượng sản phẩm',
                       'Số lượng sản phẩm',
                       PhosphorIcons.stack,
-                      false,
+                      null,
                       true),
                   SizedBox(
                     height: 30.0,
@@ -513,6 +515,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
           fontSize: 18,
         ),
         keyboardType: number ? TextInputType.number : null,
+        // inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
         decoration: InputDecoration(
           fillColor: Colors.black,
           hintText: placeholder,

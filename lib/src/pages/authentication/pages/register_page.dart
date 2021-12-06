@@ -4,6 +4,7 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/repository/authentication_repository.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,6 @@ class _SignupPageState extends State<SignupPage> {
   FocusNode textFieldFocus = FocusNode();
   String fullName = '';
   String confirmPassword = '';
-  String address = 'thu duc';
   String phone = '';
   String email = '';
   String password = '';
@@ -188,8 +188,7 @@ class _SignupPageState extends State<SignupPage> {
                                   barrierColor: Color(0x80000000),
                                   barrierDismissible: false);
                               AuthenticationRepository()
-                                  .register(
-                                      email, phone, password, fullName, address)
+                                  .register(email, phone, password, fullName)
                                   .then((value) {
                                 Get.back();
                                 if (value == null) {
@@ -200,7 +199,14 @@ class _SignupPageState extends State<SignupPage> {
                                   );
                                   getSnackBar.show();
                                 } else {
-                                  print("Đăng kí thành công nè");
+                                  userProvider.setUser(
+                                    UserModel.fromLogin(value),
+                                  );
+                                  GetSnackBar getSnackBar = GetSnackBar(
+                                    title: 'Đăng kí thành công',
+                                    subTitle: '',
+                                  );
+                                  getSnackBar.show();
                                 }
                               });
                             }
@@ -251,6 +257,7 @@ class _SignupPageState extends State<SignupPage> {
           fontSize: _size.width / 26.0,
           fontWeight: FontWeight.w500,
         ),
+        keyboardType: title == 'Số điện thoại' ? TextInputType.number : null,
         validator: (val) {
           if (title == 'Email') {
             return GetUtils.isEmail(val.trim()) ? null : valid;

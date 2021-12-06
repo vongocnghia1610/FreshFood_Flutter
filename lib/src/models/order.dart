@@ -21,7 +21,7 @@ class OrderModel {
   DateTime createdAt;
   DateTime updatedAt;
   AddressModel area;
-
+  bool checkEveluate;
   OrderModel({
     this.id,
     this.product,
@@ -36,6 +36,7 @@ class OrderModel {
     this.createdAt,
     this.updatedAt,
     this.area,
+    this.checkEveluate,
   });
 
   OrderModel copyWith({
@@ -105,25 +106,10 @@ class OrderModel {
       createdAt: DateTime.parse(map['createdAt']),
       updatedAt: DateTime.parse(map['updatedAt']),
       area: AddressModel.fromMap(map['area']),
+      checkEveluate: map['checkEveluate'],
     );
   }
 
-  factory OrderModel.fromMap1(Map<String, dynamic> map) {
-    return OrderModel(
-      id: map['_id'],
-      product: List<ProductOrderModel>.from(
-          map['product']?.map((x) => ProductOrderModel.fromMap(x))),
-      status: map['status'],
-      orderCode: map['orderCode'],
-      totalMoney: double.tryParse((map['totalMoney'] ?? 0).toString()),
-      shipFee: double.tryParse((map['shipFee'] ?? 0).toString()),
-      typePayment: map['typePayment'],
-      address: map['address'],
-      customerId: map['customerId'],
-      createdAt: DateTime.parse(map['createdAt']),
-      updatedAt: DateTime.parse(map['updatedAt']),
-    );
-  }
   String toJson() => json.encode(toMap());
 
   factory OrderModel.fromJson(String source) =>
