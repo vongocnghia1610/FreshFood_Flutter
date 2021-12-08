@@ -20,18 +20,18 @@ class _ProductPageState extends State<ProductPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
-
+  String _search = '';
   @override
   void initState() {
     super.initState();
     productController.initialController();
-    productController.getProduct();
+    productController.getAllProduct(search: _search, groupProduct: '');
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
-          productController.getProduct();
+          productController.getAllProduct(search: _search, groupProduct: '');
         }
       }
     });
@@ -79,15 +79,21 @@ class _ProductPageState extends State<ProductPage> {
                   children: <Widget>[
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle: TextStyle(
-                            color: kPrimaryColor.withOpacity(0.5),
+                          decoration: InputDecoration(
+                            hintText: "Tìm kiếm",
+                            hintStyle: TextStyle(
+                              color: kPrimaryColor.withOpacity(0.5),
+                            ),
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                           ),
-                          enabledBorder: InputBorder.none,
-                          focusedBorder: InputBorder.none,
-                        ),
-                      ),
+                          textInputAction: TextInputAction.search,
+                          onSubmitted: (value) {
+                            print(value);
+                            _search = value;
+                            productController.getAllProduct(
+                                search: _search, groupProduct: '');
+                          }),
                     ),
                     SvgPicture.asset("assets/icons/search.svg"),
                   ],

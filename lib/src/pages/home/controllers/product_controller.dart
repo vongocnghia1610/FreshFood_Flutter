@@ -18,6 +18,7 @@ class ProductController extends GetxController {
   initialController() {
     _listRecomPro = [];
     _listProductUser = [];
+    listAllProduct = [];
   }
 
   getRecommendProduct() {
@@ -56,16 +57,22 @@ class ProductController extends GetxController {
     });
   }
 
-  getAllProduct({String search, int skip, int limit, String groupProduct}) {
-    ProductRepository()
-        .getAllProduct(search, skip, limit, groupProduct)
-        .then((value) {
-      print(value);
-      if (value.isNotEmpty) {
-        listAllProduct = value;
-        update();
-      }
-    });
+  getAllProduct({String search, String groupProduct}) {
+    if (skip != -1) {
+      ProductRepository()
+          .getAllProduct(search, skip, 10, groupProduct)
+          .then((value) {
+        if (value.isNotEmpty) {
+          listAllProduct.addAll(value);
+          _listProductController.add(listAllProduct);
+          skip++;
+          update();
+        } else {
+          skip = -1;
+          update();
+        }
+      });
+    }
   }
 
   getProductUser() {

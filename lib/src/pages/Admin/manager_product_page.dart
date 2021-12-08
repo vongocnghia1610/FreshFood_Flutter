@@ -32,8 +32,8 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    productController.getAllProduct(
-        search: '', skip: 1, limit: 10, groupProduct: '');
+    productController.initialController();
+    productController.getAllProduct(search: '', groupProduct: '');
     handleReceiveNotification(context);
 
     connectAndListen();
@@ -103,7 +103,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
                     textInputAction: TextInputAction.search,
                     onSubmitted: (value) {
                       productController.getAllProduct(
-                          search: value, limit: 10, skip: 1, groupProduct: '');
+                          search: value, groupProduct: '');
                     }),
               ),
               Container(
