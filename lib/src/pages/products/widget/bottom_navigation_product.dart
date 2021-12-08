@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
@@ -151,7 +152,7 @@ class BottomNavigationProduct extends StatelessWidget {
                           height: 5.w,
                         ),
                         Text(
-                          productController.product.price.toString() + " VNĐ",
+                          formatMoney(productController.product.price),
                           style: TextStyle(
                             fontSize: 6.w,
                             color: kPrimaryColor,

@@ -16,4 +16,24 @@ class AdminRepository {
     }
     return [];
   }
+
+  Future<List<dynamic>> getstatisticOrder(
+      String timeStart, String timeEnd) async {
+    var response = await HandleApis().get(ApiGateway.GET_STATISTIC_ORDER,
+        'timeStart=$timeStart&timeEnd=$timeEnd');
+    print(jsonDecode(response.body)['data']);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
+
+  Future<List<dynamic>> getstatisticProduct() async {
+    var response = await HandleApis().get(ApiGateway.GET_STATISTIC_PRODUCT);
+    print(jsonDecode(response.body)['data']);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
 }

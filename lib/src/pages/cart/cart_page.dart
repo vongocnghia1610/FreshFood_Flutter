@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item.dart';
@@ -144,7 +145,7 @@ class _CartPageState extends State<CartPage> {
                                   builder: (context, AsyncSnapshot snapshot) {
                                     if (!snapshot.hasData) {
                                       return Text(
-                                        "0 VNĐ",
+                                        formatMoney(0),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -155,7 +156,8 @@ class _CartPageState extends State<CartPage> {
                                       );
                                     }
                                     return Text(
-                                      snapshot.data + "VNĐ",
+                                      formatMoney(
+                                          double.tryParse(snapshot.data)),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(

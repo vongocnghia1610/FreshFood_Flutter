@@ -161,9 +161,9 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
 
               GestureDetector(
                 onTap: () {
-                  // Get.toNamed(
-                  //   Routes.ADMIN_MANAGER_USER,
-                  // );
+                  Get.toNamed(
+                    Routes.STATISTIC_ORDER,
+                  );
                 },
                 child: _buildLineDrawer(
                   context,

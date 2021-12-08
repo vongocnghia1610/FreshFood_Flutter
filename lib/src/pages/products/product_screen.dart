@@ -26,7 +26,15 @@ class _ProductPageState extends State<ProductPage> {
     super.initState();
     productController.initialController();
     productController.getProduct();
-
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels == 0) {
+          // You're at the top.
+        } else {
+          productController.getProduct();
+        }
+      }
+    });
     // bookController.getBooks();
     // scrollController.addListener(() {
     //   if (scrollController.position.atEdge) {

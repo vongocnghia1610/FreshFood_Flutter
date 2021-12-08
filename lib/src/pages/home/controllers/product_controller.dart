@@ -8,7 +8,7 @@ class ProductController extends GetxController {
   List<dynamic> listAllProduct = [];
   List<dynamic> _listProductUser = [];
 
-  int pageNum = 1;
+  int skip = 1;
   StreamController<List<dynamic>> _listRecommendController =
       StreamController<List<dynamic>>.broadcast();
   StreamController<List<dynamic>> _listProductController =
@@ -21,9 +21,7 @@ class ProductController extends GetxController {
   }
 
   getRecommendProduct() {
-    print("zo rooi ne");
-
-    ProductRepository().getRecommendProduct(1, 10).then((value) {
+    ProductRepository().getRecommendProduct(skip, 10).then((value) {
       print(value);
       if (value.isNotEmpty) {
         print("zo rooi ne 1");

@@ -81,14 +81,16 @@ handleReceiveNotification(context) async {
         //   showDialogFCM(context, message);
         // }
       } else {
-        print('fcmneong');
+        print('nameneong');
+
+        print(message.data['name']);
         GetSnackBar getSnackBar = GetSnackBar(
           title: message.notification.title,
           subTitle: limitString(message.notification.body, 35),
           handlePressed: () {
             Get.toNamed(Routes.CHAT_DETAIL, arguments: {
               'id': message.data['idRoom'],
-              'name': null,
+              'name': message.data['name'],
             });
           },
         );
