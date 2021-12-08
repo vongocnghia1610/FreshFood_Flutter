@@ -8,7 +8,7 @@ class ProductController extends GetxController {
   List<dynamic> listAllProduct = [];
   List<dynamic> _listProductUser = [];
 
-  int pageNum = 1;
+  int skip = 1;
   StreamController<List<dynamic>> _listRecommendController =
       StreamController<List<dynamic>>.broadcast();
   StreamController<List<dynamic>> _listProductController =
@@ -18,12 +18,11 @@ class ProductController extends GetxController {
   initialController() {
     _listRecomPro = [];
     _listProductUser = [];
+    listAllProduct = [];
   }
 
   getRecommendProduct() {
-    print("zo rooi ne");
-
-    ProductRepository().getRecommendProduct(1, 10).then((value) {
+    ProductRepository().getRecommendProduct(skip, 10).then((value) {
       print(value);
       if (value.isNotEmpty) {
         print("zo rooi ne 1");
@@ -58,17 +57,22 @@ class ProductController extends GetxController {
     });
   }
 
-  getAllProduct({String search, int skip, int limit, String groupProduct}) {
-    ProductRepository()
-        .getAllProduct(search, skip, limit, groupProduct)
-        .then((value) {
-      print(value);
-      if (value.isNotEmpty) {
-        listAllProduct = value;
-        _listProductController.add(listAllProduct);
-        update();
-      }
-    });
+  getAllProduct({String search, String groupProduct}) {
+    if (skip != -1) {
+      ProductRepository()
+          .getAllProduct(search, skip, 10, groupProduct)
+          .then((value) {
+        if (value.isNotEmpty) {
+          listAllProduct.addAll(value);
+          _listProductController.add(listAllProduct);
+          skip++;
+          update();
+        } else {
+          skip = -1;
+          update();
+        }
+      });
+    }
   }
 
   getProductUser() {

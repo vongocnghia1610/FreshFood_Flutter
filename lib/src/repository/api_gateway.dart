@@ -46,6 +46,8 @@ class ApiGateway {
   //admin
   static const GET_ALL_USER = 'user/getAllUser';
   static const GET_LiST_ROOM = 'chat/getRoom';
+  static const GET_STATISTIC_ORDER = 'statistic/getStatisticByOrderMobile';
+  static const GET_STATISTIC_PRODUCT = 'statistic/getStatisticByProduct';
 
   //eveluate
   static const GET_EVELUATE = 'eveluate/getEveluate';

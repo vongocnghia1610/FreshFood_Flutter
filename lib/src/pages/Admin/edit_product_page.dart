@@ -424,8 +424,40 @@ class _EditProductPageState extends State<EditProductPage> {
                         builder: (context, AsyncSnapshot snapshot) {
                           if (!snapshot.hasData) {
                             return Container(
-                              child: Center(
-                                child: Text("Chưa có ảnh"),
+                              width: 150.w,
+                              height: 150.sp,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                // gridDelegate:
+                                //     SliverGridDelegateWithFixedCrossAxisCount(
+                                //   crossAxisCount: 2,
+                                //   crossAxisSpacing: 4.0,
+                                //   mainAxisExtent: 4.0,
+                                // ),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: widget.productCurrent.image.length,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    child: Container(
+                                        margin: EdgeInsets.only(
+                                          left: kDefaultPadding,
+                                          top: kDefaultPadding / 2,
+                                          bottom: kDefaultPadding / 2,
+                                        ),
+                                        width: 150.sp,
+                                        height: 150.sp,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                widget.productCurrent
+                                                    .image[index],
+                                              ),
+                                            ))),
+                                  );
+                                },
                               ),
                             );
                           }

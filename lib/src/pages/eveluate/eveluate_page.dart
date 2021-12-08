@@ -37,6 +37,7 @@ class _EveluatePageState extends State<EveluatePage> {
     super.initState();
     widget.listProduct.forEach((element) {
       element.star = 5;
+      element.content = "";
     });
     print(widget.listProduct);
   }

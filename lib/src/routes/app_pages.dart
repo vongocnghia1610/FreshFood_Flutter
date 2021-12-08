@@ -3,6 +3,7 @@ import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/Admin/manager_wallet.dart';
+import 'package:freshfood/src/pages/Admin/statistic_page.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
@@ -279,6 +280,13 @@ class AppPages {
     GetPage(
       name: Routes.PAYMENT_ERROR,
       page: () => PaymentError(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.STATISTIC_ORDER,
+      page: () => StatisticAdminPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

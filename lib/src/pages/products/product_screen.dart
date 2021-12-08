@@ -20,13 +20,29 @@ class _ProductPageState extends State<ProductPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
-
+  String _search = '';
   @override
   void initState() {
     super.initState();
     productController.initialController();
-    productController.getAllProduct(
-        search: '', limit: 10, skip: 1, groupProduct: '');
+    productController.getAllProduct(search: _search, groupProduct: '');
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels == 0) {
+          // You're at the top.
+        } else {
+          productController.getAllProduct(search: _search, groupProduct: '');
+        }
+      }
+    });
+    // bookController.getBooks();
+    // scrollController.addListener(() {
+    //   if (scrollController.position.atEdge) {
+    //     if (scrollController.offset != 0.0) {
+    //       bookController.getBooks();
+    //     }
+    //   }
+    // });
   }
 
   @override
@@ -74,11 +90,9 @@ class _ProductPageState extends State<ProductPage> {
                           textInputAction: TextInputAction.search,
                           onSubmitted: (value) {
                             print(value);
+                            _search = value;
                             productController.getAllProduct(
-                                search: value,
-                                limit: 10,
-                                skip: 1,
-                                groupProduct: '');
+                                search: _search, groupProduct: '');
                           }),
                     ),
                     SvgPicture.asset("assets/icons/search.svg"),

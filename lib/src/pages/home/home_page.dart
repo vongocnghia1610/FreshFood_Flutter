@@ -5,6 +5,7 @@ import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/home/controllers/book_controller.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/public/constant.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'components/header.dart';
