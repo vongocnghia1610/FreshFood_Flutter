@@ -37,4 +37,5 @@ abstract class Routes {
   static const STATISTIC_ORDER = '/SatisticOrder';
   static const DETAIL_INFORMATION_USER = '/DetailInformationUser';
   static const STATISTIC_USER = '/StatisticUser';
+  static const FORGOT_PASSWORD = '/ForgotPassword';
 }
