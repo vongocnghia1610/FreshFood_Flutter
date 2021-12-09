@@ -29,6 +29,7 @@ class EditProductPage extends StatefulWidget {
 
 class _EditProductPageState extends State<EditProductPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
   TextEditingController _nameProductController = new TextEditingController();
@@ -288,141 +289,182 @@ class _EditProductPageState extends State<EditProductPage> {
             ),
           ),
         ),
-        body: Container(
-          height: 100.h,
-          width: 100.w,
-          child: ListView(children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  BuildTextField(
-                      'Vui lòng điền tên sản phẩm!',
-                      "name",
-                      'Điền tên của sản phẩm',
-                      'Tên sản phẩm',
-                      PhosphorIcons.package,
-                      _nameProductController,
-                      false),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  StreamBuilder(
-                      stream: _groupProduct.listGroupProduct,
-                      builder: (context, AsyncSnapshot snapshot) {
-                        if (!snapshot.hasData) {
-                          return Material(
-                              elevation: 20.0,
-                              shadowColor: kPrimaryColor.withOpacity(0.38),
-                              child: DropdownSearch(
-                                mode: Mode.MENU,
-                                label: "Loại sản phẩm",
-                                onChanged: print,
-                              )
-                              // selectedItem: "Brazil"),
-                              );
-                        }
-
-                        List<String> listOption =
-                            (snapshot.data as List<dynamic>)
-                                .map((e) => e['name'].toString())
-                                .toList();
-
-                        return Container(
-                          width: 100.w,
-                          child: Material(
-                              elevation: 20.0,
-                              shadowColor: kPrimaryColor.withOpacity(0.38),
-                              child: DropdownSearch(
-                                items: listOption,
-                                onChanged: (val) {
-                                  List<dynamic> data = snapshot.data;
-                                  int index = data.indexWhere(
-                                      (element) => element['name'] == val);
-                                  if (index != -1) {
-                                    grProduct = data[index]['key'];
-                                  }
-                                },
-                                label: "Loại sản phẩm",
-                                selectedItem:
-                                    widget.productCurrent.groupProduct.name,
-                              )
-                              // selectedItem: "Brazil"),
-                              ),
-                        );
-                      }),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  BuildTextField(
-                      'Vui lòng điền chi tiết sản phẩm!',
-                      "detail",
-                      'Điền chi tiết sản phẩm',
-                      'Chi tiết sản phẩm',
-                      PhosphorIcons.clipboard_text,
-                      _detailProductController,
-                      false),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  BuildTextField(
-                      'Vui lòng điền giá sản phẩm!',
-                      "price",
-                      'Điền giá sản phẩm',
-                      'Giá sản phẩm',
-                      PhosphorIcons.money,
-                      priceTest,
-                      true),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  BuildTextField(
-                      'Vui lòng điền khối lượng sản phẩm!',
-                      "weight",
-                      'Điền khối lượng sản phẩm',
-                      'Khối lượng sản phẩm',
-                      PhosphorIcons.scales,
-                      _weightProductController,
-                      true),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  BuildTextField(
-                      'Vui lòng điền số lượng sản phẩm!',
-                      "quantity",
-                      'Điền số lượng sản phẩm',
-                      'Số lượng sản phẩm',
-                      PhosphorIcons.stack,
-                      _quantityProductController,
-                      true),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  FlatButton(
-                      color: kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: showImageBottomSheet,
-                      child: Text(
-                        'Thêm ảnh',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
-                  Material(
-                    elevation: 20.0,
-                    shadowColor: kPrimaryColor.withOpacity(0.38),
-                    child: Container(
-                      height: 150.sp,
-                      padding: const EdgeInsets.all(3.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black, width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(8))),
-                      child: StreamBuilder(
-                        stream: _listImage.stream,
+        body: Form(
+          key: _formKey,
+          child: Container(
+            height: 100.h,
+            width: 100.w,
+            child: ListView(children: [
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    BuildTextField(
+                        'Vui lòng điền tên sản phẩm!',
+                        "name",
+                        'Điền tên của sản phẩm',
+                        'Tên sản phẩm',
+                        PhosphorIcons.package,
+                        _nameProductController,
+                        false),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    StreamBuilder(
+                        stream: _groupProduct.listGroupProduct,
                         builder: (context, AsyncSnapshot snapshot) {
                           if (!snapshot.hasData) {
+                            return Material(
+                                elevation: 20.0,
+                                shadowColor: kPrimaryColor.withOpacity(0.38),
+                                child: DropdownSearch(
+                                  mode: Mode.MENU,
+                                  label: "Loại sản phẩm",
+                                  onChanged: print,
+                                )
+                                // selectedItem: "Brazil"),
+                                );
+                          }
+
+                          List<String> listOption =
+                              (snapshot.data as List<dynamic>)
+                                  .map((e) => e['name'].toString())
+                                  .toList();
+
+                          return Container(
+                            width: 100.w,
+                            child: Material(
+                                elevation: 20.0,
+                                shadowColor: kPrimaryColor.withOpacity(0.38),
+                                child: DropdownSearch(
+                                  items: listOption,
+                                  onChanged: (val) {
+                                    List<dynamic> data = snapshot.data;
+                                    int index = data.indexWhere(
+                                        (element) => element['name'] == val);
+                                    if (index != -1) {
+                                      grProduct = data[index]['key'];
+                                    }
+                                  },
+                                  label: "Loại sản phẩm",
+                                  selectedItem:
+                                      widget.productCurrent.groupProduct.name,
+                                )
+                                // selectedItem: "Brazil"),
+                                ),
+                          );
+                        }),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    BuildTextField(
+                        'Vui lòng điền chi tiết sản phẩm!',
+                        "detail",
+                        'Điền chi tiết sản phẩm',
+                        'Chi tiết sản phẩm',
+                        PhosphorIcons.clipboard_text,
+                        _detailProductController,
+                        false),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    BuildTextField(
+                        'Vui lòng điền giá sản phẩm!',
+                        "price",
+                        'Điền giá sản phẩm',
+                        'Giá sản phẩm',
+                        PhosphorIcons.money,
+                        priceTest,
+                        true),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    BuildTextField(
+                        'Vui lòng điền khối lượng sản phẩm!',
+                        "weight",
+                        'Điền khối lượng sản phẩm',
+                        'Khối lượng sản phẩm',
+                        PhosphorIcons.scales,
+                        _weightProductController,
+                        true),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    BuildTextField(
+                        'Vui lòng điền số lượng sản phẩm!',
+                        "quantity",
+                        'Điền số lượng sản phẩm',
+                        'Số lượng sản phẩm',
+                        PhosphorIcons.stack,
+                        _quantityProductController,
+                        true),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    FlatButton(
+                        color: kPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: showImageBottomSheet,
+                        child: Text(
+                          'Thêm ảnh',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
+                    Material(
+                      elevation: 20.0,
+                      shadowColor: kPrimaryColor.withOpacity(0.38),
+                      child: Container(
+                        height: 150.sp,
+                        padding: const EdgeInsets.all(3.0),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 1),
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        child: StreamBuilder(
+                          stream: _listImage.stream,
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (!snapshot.hasData) {
+                              return Container(
+                                width: 150.w,
+                                height: 150.sp,
+                                child: ListView.builder(
+                                  controller: scrollController,
+                                  // gridDelegate:
+                                  //     SliverGridDelegateWithFixedCrossAxisCount(
+                                  //   crossAxisCount: 2,
+                                  //   crossAxisSpacing: 4.0,
+                                  //   mainAxisExtent: 4.0,
+                                  // ),
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: widget.productCurrent.image.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      child: Container(
+                                          margin: EdgeInsets.only(
+                                            left: kDefaultPadding,
+                                            top: kDefaultPadding / 2,
+                                            bottom: kDefaultPadding / 2,
+                                          ),
+                                          width: 150.sp,
+                                          height: 150.sp,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                fit: BoxFit.cover,
+                                                image: NetworkImage(
+                                                  widget.productCurrent
+                                                      .image[index],
+                                                ),
+                                              ))),
+                                    );
+                                  },
+                                ),
+                              );
+                            }
+
                             return Container(
                               width: 150.w,
                               height: 150.sp,
@@ -435,7 +477,7 @@ class _EditProductPageState extends State<EditProductPage> {
                                 //   mainAxisExtent: 4.0,
                                 // ),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: widget.productCurrent.image.length,
+                                itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
                                     child: Container(
@@ -450,77 +492,43 @@ class _EditProductPageState extends State<EditProductPage> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: NetworkImage(
-                                                widget.productCurrent
-                                                    .image[index],
-                                              ),
-                                            ))),
+                                                fit: BoxFit.cover,
+                                                image: FileImage(
+                                                  snapshot.data[index],
+                                                )))),
                                   );
                                 },
                               ),
                             );
-                          }
-
-                          return Container(
-                            width: 150.w,
-                            height: 150.sp,
-                            child: ListView.builder(
-                              controller: scrollController,
-                              // gridDelegate:
-                              //     SliverGridDelegateWithFixedCrossAxisCount(
-                              //   crossAxisCount: 2,
-                              //   crossAxisSpacing: 4.0,
-                              //   mainAxisExtent: 4.0,
-                              // ),
-                              scrollDirection: Axis.horizontal,
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  child: Container(
-                                      margin: EdgeInsets.only(
-                                        left: kDefaultPadding,
-                                        top: kDefaultPadding / 2,
-                                        bottom: kDefaultPadding / 2,
-                                      ),
-                                      width: 150.sp,
-                                      height: 150.sp,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          image: DecorationImage(
-                                              fit: BoxFit.cover,
-                                              image: FileImage(
-                                                snapshot.data[index],
-                                              )))),
-                                );
-                              },
-                            ),
-                          );
-                        },
+                          },
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  FlatButton(
-                      color: kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      onPressed: updateProduct,
-                      child: Text(
-                        'Lưu chỉnh sửa',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      )),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                ],
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    FlatButton(
+                        color: kPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          if (_formKey.currentState.validate()) {
+                            updateProduct();
+                          }
+                        },
+                        child: Text(
+                          'Lưu chỉnh sửa',
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        )),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ));
   }
 

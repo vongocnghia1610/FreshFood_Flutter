@@ -4,10 +4,12 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
+import 'package:freshfood/src/pages/Admin/manager_user_detail.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -105,7 +107,12 @@ class _ManagerUserState extends State<ManagerUser> {
                       ),
                       SizedBox(width: 30.sp),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(Routes.DETAIL_INFORMATION_USER,
+                              arguments: {
+                                "user": adminController.listUser[index]
+                              });
+                        },
                         splashColor: Colors.grey,
                         child: Icon(
                           PhosphorIcons.notepad,
@@ -114,7 +121,11 @@ class _ManagerUserState extends State<ManagerUser> {
                       ),
                       SizedBox(width: 30.sp),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed(Routes.STATISTIC_USER, arguments: {
+                            "id": adminController.listUser[index].id
+                          });
+                        },
                         splashColor: Colors.grey,
                         child: Icon(
                           PhosphorIcons.chart_line,

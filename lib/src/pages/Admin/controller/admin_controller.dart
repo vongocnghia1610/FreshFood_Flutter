@@ -14,6 +14,7 @@ class AdminController extends GetxController {
   List<BarChartGroupData> listOrderNumber = [];
   List<FlSpot> listOrderMoney = [];
   List<dynamic> listProduct = [];
+  dynamic resultStatisticUser;
   getAllUser({String search, int skip, int limit}) {
     AdminRepository().getAllUser(search, skip, limit).then((value) {
       if (value.isNotEmpty) {
@@ -56,6 +57,16 @@ class AdminController extends GetxController {
   statisticProduct() {
     AdminRepository().getstatisticProduct().then((value) {
       listProduct = value;
+      update();
+    });
+  }
+
+  statisticUser(String id) {
+    AdminRepository().getStatisticUser(id).then((value) {
+      print("value ne");
+
+      print(value);
+      resultStatisticUser = value;
       update();
     });
   }
