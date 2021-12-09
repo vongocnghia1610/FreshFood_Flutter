@@ -112,7 +112,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
                     textInputAction: TextInputAction.search,
                     onSubmitted: (value) {
                       _search = value;
-                      productController.skip = 1;
+                      productController.initialController();
                       productController.getAllProduct(
                           search: _search, groupProduct: '');
                     }),

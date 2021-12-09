@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> {
       leading: Image.asset("assets/images/logo.png"),
       title: Center(
         child: Text(
-          "Hi, " + getSession(),
+          "Chào " + getSession(),
         ),
       ),
       actions: [

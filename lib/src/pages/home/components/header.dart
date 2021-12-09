@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sizer/sizer.dart';
 
 class Header extends StatelessWidget {
   Size size;
@@ -25,6 +28,17 @@ class Header extends StatelessWidget {
                     bottomLeft: Radius.circular(36),
                     bottomRight: Radius.circular(36))),
           ),
+          Column(
+            children: [
+              Center(
+                  child: Text(Provider.of<UserProvider>(context).user.name,
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white))),
+              SizedBox(height: 30.sp)
+            ],
+          )
           // Positioned(
           //   bottom: 0,
           //   left: 0,

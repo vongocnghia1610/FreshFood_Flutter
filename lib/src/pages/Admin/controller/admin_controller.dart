@@ -14,9 +14,14 @@ class AdminController extends GetxController {
   List<BarChartGroupData> listOrderNumber = [];
   List<FlSpot> listOrderMoney = [];
   List<dynamic> listProduct = [];
+  dynamic resultStatisticUser;
+
   int skip = 1;
+  int skipStaff = 1;
+
   initialController() {
     skip = 1;
+    skipStaff = 1;
     listUser = [];
     listOrderMoney = [];
     listProduct = [];
@@ -25,13 +30,30 @@ class AdminController extends GetxController {
 
   getAllUser({String search}) {
     if (skip != -1) {
-      AdminRepository().getAllUser(search, skip, 10).then((value) {
+      AdminRepository().getAllUser(search, skip, 10, 0).then((value) {
         if (value.isNotEmpty) {
           listUser
               .addAll(value.map((data) => UserModel.fromMap(data)).toList());
+          skip++;
           update();
         } else {
           skip = -1;
+          update();
+        }
+      });
+    }
+  }
+
+  getAllStaff({String search}) {
+    if (skipStaff != -1) {
+      AdminRepository().getAllUser(search, skipStaff, 10, 2).then((value) {
+        if (value.isNotEmpty) {
+          listUser
+              .addAll(value.map((data) => UserModel.fromMap(data)).toList());
+          skipStaff++;
+          update();
+        } else {
+          skipStaff = -1;
           update();
         }
       });
@@ -71,6 +93,16 @@ class AdminController extends GetxController {
   statisticProduct() {
     AdminRepository().getstatisticProduct().then((value) {
       listProduct = value;
+      update();
+    });
+  }
+
+  statisticUser(String id) {
+    AdminRepository().getStatisticUser(id).then((value) {
+      print("value ne");
+
+      print(value);
+      resultStatisticUser = value;
       update();
     });
   }

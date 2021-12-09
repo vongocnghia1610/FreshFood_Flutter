@@ -83,7 +83,7 @@ class _ProductPageState extends State<ProductPage> {
                           onSubmitted: (value) {
                             print(value);
                             _search = value;
-                            productController.skip = 1;
+                            productController.initialController();
                             productController.getAllProduct(
                                 search: _search, groupProduct: '');
                           }),

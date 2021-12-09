@@ -35,4 +35,7 @@ abstract class Routes {
   static const PAYMENT_SUCCESS = '/PaymentSuccess';
   static const PAYMENT_ERROR = '/PaymentError';
   static const STATISTIC_ORDER = '/SatisticOrder';
+  static const DETAIL_INFORMATION_USER = '/DetailInformationUser';
+  static const STATISTIC_USER = '/StatisticUser';
+  static const MANAGER_STAFF = '/ManagerStaff';
 }

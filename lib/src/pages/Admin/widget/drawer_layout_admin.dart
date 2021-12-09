@@ -115,10 +115,9 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
               ),
               GestureDetector(
                 onTap: () {
-                  // if (Get.find())
-                  // Get.toNamed(
-                  //   Routes.ADMIN_MANAGER_ORDER,
-                  // );
+                  Get.toNamed(
+                    Routes.MANAGER_STAFF,
+                  );
                 },
                 child:
                     _buildLineDrawer(context, 2, PhosphorIcons.user_list_bold),
