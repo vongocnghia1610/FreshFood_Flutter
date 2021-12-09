@@ -23,7 +23,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
   List<String> listAdmin = [
     "Quản lý sản phẩm",
     "Quản lý người dùng",
-    "Quản lý đơn hàng",
+    "Quản lý nhân viên",
     "Tin nhắn",
     "Quản lý tài khoản VNPAY",
     "Quản lý tài khoản PAYPAL",
@@ -115,16 +115,12 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
               ),
               GestureDetector(
                 onTap: () {
-                  // if (Get.find())
                   Get.toNamed(
-                    Routes.ADMIN_MANAGER_ORDER,
+                    Routes.MANAGER_STAFF,
                   );
                 },
-                child: _buildLineDrawer(
-                  context,
-                  2,
-                  PhosphorIcons.clipboard_bold,
-                ),
+                child:
+                    _buildLineDrawer(context, 2, PhosphorIcons.user_list_bold),
               ),
               GestureDetector(
                 onTap: () {

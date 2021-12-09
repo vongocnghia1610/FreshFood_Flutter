@@ -13,12 +13,12 @@ import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class ManagerUser extends StatefulWidget {
+class ManagerStaff extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _ManagerUserState();
+  State<StatefulWidget> createState() => _ManagerStaffState();
 }
 
-class _ManagerUserState extends State<ManagerUser> {
+class _ManagerStaffState extends State<ManagerStaff> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final adminController = Get.put(AdminController());
   ScrollController scrollController = ScrollController();
@@ -28,13 +28,13 @@ class _ManagerUserState extends State<ManagerUser> {
   void initState() {
     super.initState();
     adminController.initialController();
-    adminController.getAllUser(search: '');
+    adminController.getAllStaff(search: '');
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
-          adminController.getAllUser(search: _search);
+          adminController.getAllStaff(search: _search);
         }
       }
     });
@@ -47,7 +47,7 @@ class _ManagerUserState extends State<ManagerUser> {
         drawer: Container(
           width: 70.w,
           child: Drawer(
-            child: DrawerLayoutAdmin(status: 1),
+            child: DrawerLayoutAdmin(status: 2),
           ),
         ),
         appBar: AppBar(
@@ -57,7 +57,7 @@ class _ManagerUserState extends State<ManagerUser> {
             icon: SvgPicture.asset("assets/icons/menu.svg"),
           ),
           title: Text(
-            "Quản Lý người dùng",
+            "Quản Lý nhân viên",
             style: TextStyle(fontSize: 20),
           ),
         ),
@@ -86,7 +86,7 @@ class _ManagerUserState extends State<ManagerUser> {
                   onSubmitted: (value) {
                     _search = value;
                     adminController.initialController();
-                    adminController.getAllUser(
+                    adminController.getAllStaff(
                       search: _search,
                     );
                   }),
@@ -111,13 +111,13 @@ class _ManagerUserState extends State<ManagerUser> {
                         child: Text(
                           _.listUser[index].name,
                           style: TextStyle(
-                            fontSize: 14.sp,
+                            fontSize: 17.sp,
                             fontWeight: FontWeight.w600,
                           ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
-                        width: 100.sp,
+                        width: 160.sp,
                       ),
                       SizedBox(width: 30.sp),
                       InkWell(
@@ -133,19 +133,6 @@ class _ManagerUserState extends State<ManagerUser> {
                           size: 25.sp,
                         ),
                       ),
-                      SizedBox(width: 30.sp),
-                      InkWell(
-                        onTap: () {
-                          Get.toNamed(Routes.STATISTIC_USER, arguments: {
-                            "id": adminController.listUser[index].id
-                          });
-                        },
-                        splashColor: Colors.grey,
-                        child: Icon(
-                          PhosphorIcons.chart_line,
-                          size: 25.sp,
-                        ),
-                      )
                     ]);
                   },
                 ),

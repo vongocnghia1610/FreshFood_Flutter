@@ -37,7 +37,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     return Provider.of<UserProvider>(context).user != null
         ? Provider.of<UserProvider>(context).user.role == 0
             ? Navigation()
-            : ManagerProductPage()
+            : Provider.of<UserProvider>(context).user.role == 1
+                ? ManagerProductPage()
+                : OrderPageAdmin()
         : AuthenticationPages();
   }
 }

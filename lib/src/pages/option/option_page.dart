@@ -169,17 +169,10 @@ class _OptionPageState extends State<OptionPage> {
                         Get.toNamed(Routes.ORDER);
                       },
                     ),
-                    ProfileListItem(
-                      icon: LineAwesomeIcons.question_circle,
-                      text: 'VNPay',
-                      tap: () {
-                        Get.toNamed(Routes.ADMIN_WALLET,
-                            arguments: {"method": 2});
-                      },
-                    ),
+
                     ProfileListItem(
                       icon: LineAwesomeIcons.cog,
-                      text: 'Settings',
+                      text: 'Quên mật khẩu',
                     ),
                     // ProfileListItem(
                     //   icon: LineAwesomeIcons.user_plus,

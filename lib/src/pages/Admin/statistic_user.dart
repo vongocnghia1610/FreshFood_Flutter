@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -47,31 +48,33 @@ class _StatisticUserState extends State<StatisticUser> {
         ),
         body: Container(
           padding: EdgeInsets.only(top: 50.sp),
-          child: Column(
-            children: [
-              Container(
-                child: Image.network(
-                  "https://vanchuyentrungquoc247.com/wp-content/uploads/2015/04/icon-3.png",
-                  fit: BoxFit.cover,
-                  width: 250.sp,
-                  height: 250.sp,
-                ),
-              ),
-              _buildLineInfo(
-                'Tổng đơn hàng đã đặt: ',
-                adminController.resultStatisticUser['totalOrder'] == null
-                    ? 0.toString()
-                    : adminController.resultStatisticUser['totalOrder']
-                        .toString(),
-              ),
-              _buildLineInfo(
-                'Tổng tiền tất cả đơn hàng: ',
-                adminController.resultStatisticUser['totalMoney'] == null
-                    ? 0.toString()
-                    : adminController.resultStatisticUser['totalMoney']
-                        .toString(),
-              ),
-            ],
+          child: GetBuilder<AdminController>(
+            init: adminController,
+            builder: (_) => _.resultStatisticUser == null
+                ? Container()
+                : Column(
+                    children: [
+                      Container(
+                        child: Image.network(
+                          "https://vanchuyentrungquoc247.com/wp-content/uploads/2015/04/icon-3.png",
+                          fit: BoxFit.cover,
+                          width: 250.sp,
+                          height: 250.sp,
+                        ),
+                      ),
+                      _buildLineInfo(
+                        'Tổng đơn hàng: ',
+                        adminController.resultStatisticUser['totalOrder']
+                            .toString(),
+                      ),
+                      _buildLineInfo(
+                        'Tổng tiền: ',
+                        formatMoney(double.tryParse(adminController
+                            .resultStatisticUser['totalMoney']
+                            .toString())),
+                      ),
+                    ],
+                  ),
           ),
         ));
   }
@@ -83,7 +86,7 @@ class _StatisticUserState extends State<StatisticUser> {
       child: Row(
         children: [
           Expanded(
-            flex: 7,
+            flex: 1,
             child: Text(
               title,
               style: TextStyle(
@@ -94,7 +97,7 @@ class _StatisticUserState extends State<StatisticUser> {
             ),
           ),
           Expanded(
-            flex: 3,
+            flex: 1,
             child: Text(
               value,
               style: TextStyle(

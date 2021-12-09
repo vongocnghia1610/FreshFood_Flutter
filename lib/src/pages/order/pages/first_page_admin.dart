@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
@@ -86,11 +87,13 @@ class WidgetOrder extends StatelessWidget {
                         SizedBox(
                           width: 10.sp,
                         ),
-                        Image.network(
-                          order.product[0].image[0],
+                        CachedNetworkImage(
+                          imageUrl: order.product[0].image[0],
+                          fit: BoxFit.cover,
                           height: 70.sp,
                           width: 70.sp,
-                          fit: BoxFit.cover,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                         SizedBox(
                           width: 20.sp,
@@ -209,7 +212,10 @@ class WidgetOrder extends StatelessWidget {
                   child: Material(
                     color: Colors.transparent,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.HISTORY_ORDER,
+                            arguments: {"history": order.history});
+                      },
                       child: Row(
                         children: [
                           Icon(

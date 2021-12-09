@@ -19,6 +19,7 @@ class ProductController extends GetxController {
     _listRecomPro = [];
     _listProductUser = [];
     listAllProduct = [];
+    skip = 1;
   }
 
   getRecommendProduct() {

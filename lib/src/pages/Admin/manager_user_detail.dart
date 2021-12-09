@@ -132,25 +132,6 @@ class _ManagerUserDetailState extends State<ManagerUserDetail> {
                         SizedBox(
                           height: 30.0,
                         ),
-                        Center(
-                          child: InkWell(
-                            onTap: () async {},
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: kPrimaryColor,
-                                  border: Border.all(
-                                      width: 2, color: kPrimaryColor),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                'Lưu thông tin',
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
                   ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -391,11 +392,12 @@ class CartDetail extends StatelessWidget {
               width: 10.sp,
             ),
             Container(
-              child: Image.network(
-                cartModel.image[0],
+              child: CachedNetworkImage(
+                imageUrl: cartModel.image[0],
+                fit: BoxFit.cover,
                 height: 70.sp,
                 width: 70.sp,
-                fit: BoxFit.cover,
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             SizedBox(

@@ -37,6 +37,7 @@ class ApiGateway {
   static const GET_PROFILE = 'user/getInformation';
   static const UPDATE_IMAGE = 'user/updateImage';
   static const GET_MESSAGE = 'chat/getMessage';
+  static const UPDATE_PROFILE = 'user/updateInformation';
 
   //address
   static const GET_ADDRESS = 'address/getAllAddress';

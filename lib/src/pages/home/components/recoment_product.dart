@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/product.dart';
@@ -42,11 +43,12 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.network(
-                  widget.product.image[0],
+                child: CachedNetworkImage(
+                  imageUrl: widget.product.image[0],
                   fit: BoxFit.cover,
                   height: 100.sp,
                   width: 40.w,
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               Container(

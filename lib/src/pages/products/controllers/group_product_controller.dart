@@ -3,13 +3,14 @@ import 'package:freshfood/src/repository/group_product_repository.dart';
 import 'package:get/get.dart';
 
 class GroupProductController extends GetxController {
-  List<dynamic> _listGroupProduct = [];
-
+  List<dynamic> groupProduct = [];
+  dynamic selected = {};
   StreamController<List<dynamic>> _listGroupProductController =
       StreamController<List<dynamic>>.broadcast();
 
   initialController() {
-    _listGroupProduct = [];
+    groupProduct = [];
+    selected = {};
   }
 
   getGroupProduct() {
@@ -17,8 +18,8 @@ class GroupProductController extends GetxController {
       print("zodiml");
       print(value);
       if (value.isNotEmpty) {
-        _listGroupProduct.addAll(value);
-        _listGroupProductController.add(_listGroupProduct);
+        groupProduct.addAll(value);
+        _listGroupProductController.add(groupProduct);
       }
     });
     // if (pageNum != -1) {

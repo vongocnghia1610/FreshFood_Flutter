@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -138,11 +139,14 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                     },
                                     child: AspectRatio(
                                       aspectRatio: 1.2,
-                                      child: Image.network(
-                                        _.product.image[selectedImage],
+                                      child: CachedNetworkImage(
+                                        imageUrl:
+                                            _.product.image[selectedImage],
+                                        fit: BoxFit.fitHeight,
                                         width: 80.w,
                                         height: 70.w,
-                                        fit: BoxFit.fitHeight,
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
                                       ),
                                     ),
                                   ),
@@ -410,7 +414,13 @@ class _DetailProductPageState extends State<DetailProductPage> {
                 color: selectedImage == index
                     ? kPrimaryColor
                     : Colors.transparent)),
-        child: Image.network(listImage[index]),
+        child: CachedNetworkImage(
+          imageUrl: listImage[index],
+          fit: BoxFit.cover,
+          // height: 70.sp,
+          // width: 70.sp,
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
       ),
     );
   }

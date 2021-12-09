@@ -175,7 +175,7 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
                                     subTitle: '',
                                   );
                                   getSnackBar.show();
-                                  Get.toNamed(Routes.LOGIN);
+                                  Get.offAllNamed(Routes.ROOT);
                                 }
                               });
                             }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -103,11 +104,13 @@ class _EveluatePageState extends State<EveluatePage> {
                             splashColor: Colors.grey,
                             child: Row(
                               children: [
-                                Image.network(
-                                  productModel.image[0],
+                                CachedNetworkImage(
+                                  imageUrl: productModel.image[0],
+                                  fit: BoxFit.cover,
                                   height: 50.sp,
                                   width: 50.sp,
-                                  fit: BoxFit.cover,
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                                 SizedBox(
                                   width: 10.sp,

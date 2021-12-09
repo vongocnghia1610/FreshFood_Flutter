@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
@@ -137,11 +138,13 @@ class BottomNavigationProduct extends StatelessWidget {
                         //   topLeft: Radius.circular(10),
                         //   topRight: Radius.circular(10),
                         // ),
-                        child: Image.network(
-                          productController.product.image[0],
+                        child: CachedNetworkImage(
+                          imageUrl: productController.product.image[0],
                           fit: BoxFit.fill,
                           height: 43.2.w,
                           width: 50.w,
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
                         ),
                       ),
                     ),

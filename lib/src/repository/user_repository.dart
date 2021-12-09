@@ -120,4 +120,17 @@ class UserRepository {
     }
     return [];
   }
+
+  Future<bool> updateUser({String phone, String name}) async {
+    var body = {
+      "phone": phone,
+      "name": name,
+    };
+    var response = await HandleApis().put(ApiGateway.UPDATE_PROFILE, body);
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
 }

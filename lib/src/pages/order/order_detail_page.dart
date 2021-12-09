@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -144,7 +145,6 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         flex: 1,
                         child: TextButton(
                           onPressed: () {
-                            print(widget.order.history);
                             Get.toNamed(Routes.HISTORY_ORDER,
                                 arguments: {"history": widget.order.history});
                           },
@@ -506,11 +506,12 @@ class ProductWidget extends StatelessWidget {
                     SizedBox(
                       width: 10.sp,
                     ),
-                    Image.network(
-                      product.image[0],
+                    CachedNetworkImage(
+                      imageUrl: product.image[0],
+                      fit: BoxFit.cover,
                       height: 70.sp,
                       width: 70.sp,
-                      fit: BoxFit.cover,
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                     SizedBox(
                       width: 20.sp,
