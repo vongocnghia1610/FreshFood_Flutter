@@ -7,6 +7,7 @@ import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/Admin/statistic_page.dart';
+import 'package:freshfood/src/pages/Admin/statistic_user.dart';
 import 'package:freshfood/src/pages/address/address_page.dart';
 import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';

@@ -36,4 +36,14 @@ class AdminRepository {
     }
     return [];
   }
+
+  Future<List<dynamic>> getStatisticUser(String id) async {
+    var response =
+        await HandleApis().get(ApiGateway.GET_STATISTIC_USER, 'id=$id');
+    print(jsonDecode(response.body)['data']);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
 }
