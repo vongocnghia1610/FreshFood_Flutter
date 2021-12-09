@@ -41,4 +41,26 @@ class ProfileController extends GetxController {
       }
     });
   }
+
+  updateProfile(File image) {
+    UserRepository().updateImage(avatar: image).then((value) {
+      Get.back();
+      if (value == null) {
+        GetSnackBar getSnackBar = GetSnackBar(
+          title: 'Thất bại',
+          subTitle: 'Cập nhật avatar thất bại',
+        );
+        getSnackBar.show();
+      } else {
+        userProvider.user.avatar = value['image'];
+        userProvider.setUserProvider(userProvider.user);
+        update();
+        GetSnackBar getSnackBar = GetSnackBar(
+          title: 'Thành công',
+          subTitle: 'Cập nhật avatar thành công',
+        );
+        getSnackBar.show();
+      }
+    });
+  }
 }

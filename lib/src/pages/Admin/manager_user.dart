@@ -20,11 +20,22 @@ class _ManagerUserState extends State<ManagerUser> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final adminController = Get.put(AdminController());
   ScrollController scrollController = ScrollController();
+  String _search = '';
 
   @override
   void initState() {
     super.initState();
-    adminController.getAllUser(search: '', skip: 1, limit: 10);
+    adminController.initialController();
+    adminController.getAllUser(search: '');
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels == 0) {
+          // You're at the top.
+        } else {
+          adminController.getAllUser(search: _search);
+        }
+      }
+    });
   }
 
   @override
@@ -71,8 +82,11 @@ class _ManagerUserState extends State<ManagerUser> {
                   ),
                   textInputAction: TextInputAction.search,
                   onSubmitted: (value) {
+                    _search = value;
+                    adminController.skip = 1;
                     adminController.getAllUser(
-                        search: value, skip: 1, limit: 10);
+                      search: _search,
+                    );
                   }),
             ),
             Expanded(

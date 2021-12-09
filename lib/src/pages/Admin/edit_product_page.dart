@@ -63,7 +63,6 @@ class _EditProductPageState extends State<EditProductPage> {
   initState() {
     super.initState();
 
-    productController.initialController();
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
     _nameProductController.text = widget.productCurrent.name;

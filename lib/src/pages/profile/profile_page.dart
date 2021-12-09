@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/option/controllers/profile_controller.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
@@ -27,6 +28,7 @@ class _ProfilePagesState extends State<ProfilePages> {
   File _image;
   ImagePicker _imagePicker = ImagePicker();
   final profileController = Get.put(ProfileController());
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -212,6 +214,7 @@ class _ProfilePagesState extends State<ProfilePages> {
       appBar: AppBar(
           backgroundColor: Colors.transparent, elevation: 0, actions: []),
       body: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -295,27 +298,20 @@ class _ProfilePagesState extends State<ProfilePages> {
                         BuildTextField(
                             'Vui lòng điền tên của bạn!',
                             _namecontroller,
-                            "name",
                             'Điền họ và tên của bạn',
                             'Họ và tên',
                             PhosphorIcons.user),
                         SizedBox(
                           height: 30.0,
                         ),
-                        BuildTextField(
-                            'Vui lòng điền email!',
-                            _emailcontroller,
-                            "name",
-                            'Điền Email',
-                            'Email',
-                            PhosphorIcons.envelope),
+                        BuildTextField('Vui lòng điền email!', _emailcontroller,
+                            'Điền Email', 'Email', PhosphorIcons.envelope),
                         SizedBox(
                           height: 30.0,
                         ),
                         BuildTextField(
                             'Vui lòng điền số điện thoại',
                             _phoneNumbercontroller,
-                            "name",
                             'Điền số điện thoại',
                             'Số điện thoại',
                             PhosphorIcons.phone),
@@ -324,7 +320,52 @@ class _ProfilePagesState extends State<ProfilePages> {
                         ),
                         Center(
                           child: InkWell(
-                            onTap: () async {},
+                            onTap: () {
+                              if (_formKey.currentState.validate()) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                                Colors.white),
+                                      ),
+                                    );
+                                  },
+                                  barrierColor: Color(0x80000000),
+                                  barrierDismissible: false,
+                                );
+
+                                UserRepository()
+                                    .updateUser(
+                                        phone:
+                                            _phoneNumbercontroller.text.trim(),
+                                        name: _namecontroller.text.trim())
+                                    .then((value) {
+                                  Get.back();
+                                  if (value == false) {
+                                    GetSnackBar getSnackBar = GetSnackBar(
+                                      title: 'Sửa thông tin thất bại!',
+                                      subTitle: '',
+                                    );
+                                    getSnackBar.show();
+                                  } else {
+                                    userProvider.user.name =
+                                        _namecontroller.text.trim();
+                                    userProvider.user.phone =
+                                        _phoneNumbercontroller.text.trim();
+                                    userProvider
+                                        .setUserProvider(userProvider.user);
+                                    GetSnackBar getSnackBar = GetSnackBar(
+                                      title: 'Thành công',
+                                      subTitle: 'Cập nhật thông tin thành công',
+                                    );
+                                    getSnackBar.show();
+                                  }
+                                });
+                              }
+                            },
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 24, vertical: 8),
@@ -354,16 +395,17 @@ class _ProfilePagesState extends State<ProfilePages> {
   }
 
   Material BuildTextField(String vali, TextEditingController name_controller,
-      String name, String placeholder, String lable_text, IconData iconData) {
+      String placeholder, String lable_text, IconData iconData) {
     return Material(
       elevation: 20.0,
       shadowColor: kPrimaryColor.withOpacity(0.2),
       child: TextFormField(
-        readOnly: true,
+        readOnly: lable_text == "Email" ? true : false,
         controller: name_controller,
         validator: (val) => val.trim().length == 0 ? vali : null,
         onChanged: (val) {
-          name = val.trim();
+          // name_controller.text = val.trim();
+          print(name_controller.text);
         },
         style: TextStyle(
           color: Colors.black,

@@ -35,14 +35,6 @@ class _ProductPageState extends State<ProductPage> {
         }
       }
     });
-    // bookController.getBooks();
-    // scrollController.addListener(() {
-    //   if (scrollController.position.atEdge) {
-    //     if (scrollController.offset != 0.0) {
-    //       bookController.getBooks();
-    //     }
-    //   }
-    // });
   }
 
   @override
@@ -91,6 +83,7 @@ class _ProductPageState extends State<ProductPage> {
                           onSubmitted: (value) {
                             print(value);
                             _search = value;
+                            productController.skip = 1;
                             productController.getAllProduct(
                                 search: _search, groupProduct: '');
                           }),

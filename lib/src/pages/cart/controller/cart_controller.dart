@@ -98,14 +98,9 @@ class CartController extends GetxController {
     CartRepository().getProductCart().then((value) {
       print(value);
       if (value.isNotEmpty) {
-        print("zo dc cart r nek");
         listProductCart = value;
-        print("nguyenphannhattu");
         getTotalQuantity();
-        print("nguyenphannhattu");
-
         listProductCartController.add(listProductCart);
-
         update();
       }
     });

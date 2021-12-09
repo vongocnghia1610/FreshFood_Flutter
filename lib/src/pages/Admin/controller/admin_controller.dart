@@ -14,13 +14,28 @@ class AdminController extends GetxController {
   List<BarChartGroupData> listOrderNumber = [];
   List<FlSpot> listOrderMoney = [];
   List<dynamic> listProduct = [];
-  getAllUser({String search, int skip, int limit}) {
-    AdminRepository().getAllUser(search, skip, limit).then((value) {
-      if (value.isNotEmpty) {
-        listUser = value.map((data) => UserModel.fromMap(data)).toList();
-        update();
-      }
-    });
+  int skip = 1;
+  initialController() {
+    skip = 1;
+    listUser = [];
+    listOrderMoney = [];
+    listProduct = [];
+    listOrderNumber = [];
+  }
+
+  getAllUser({String search}) {
+    if (skip != -1) {
+      AdminRepository().getAllUser(search, skip, 10).then((value) {
+        if (value.isNotEmpty) {
+          listUser
+              .addAll(value.map((data) => UserModel.fromMap(data)).toList());
+          update();
+        } else {
+          skip = -1;
+          update();
+        }
+      });
+    }
   }
 
   statisticOrder(dateStart, dateEnd) {

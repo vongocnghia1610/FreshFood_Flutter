@@ -27,6 +27,7 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String _search = '';
 
   @override
   void initState() {
@@ -35,8 +36,16 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
     productController.initialController();
     productController.getAllProduct(search: '', groupProduct: '');
     handleReceiveNotification(context);
-
     connectAndListen();
+    scrollController.addListener(() {
+      if (scrollController.position.atEdge) {
+        if (scrollController.position.pixels == 0) {
+          // You're at the top.
+        } else {
+          productController.getAllProduct(search: _search, groupProduct: '');
+        }
+      }
+    });
   }
 
   @override
@@ -102,8 +111,10 @@ class _ManagerProductPageState extends State<ManagerProductPage> {
                     ),
                     textInputAction: TextInputAction.search,
                     onSubmitted: (value) {
+                      _search = value;
+                      productController.skip = 1;
                       productController.getAllProduct(
-                          search: value, groupProduct: '');
+                          search: _search, groupProduct: '');
                     }),
               ),
               Container(

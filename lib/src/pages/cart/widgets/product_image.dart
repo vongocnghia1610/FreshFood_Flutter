@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
@@ -18,11 +19,12 @@ class ProductImage extends StatelessWidget {
         ? SizedBox.shrink()
         : Padding(
             padding: EdgeInsets.all(this.padding ?? 0),
-            child: Image.network(
-              this.image,
+            child: CachedNetworkImage(
+              imageUrl: this.image,
               fit: BoxFit.cover,
               height: this.height,
               width: this.width,
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           );
   }
