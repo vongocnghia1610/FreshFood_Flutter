@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
 import 'package:freshfood/src/pages/products/widget/product_card.dart';
 import 'package:freshfood/src/pages/home/components/recoment_product.dart';
 import 'package:freshfood/src/pages/home/components/title_with_button_more.dart';
@@ -21,17 +22,25 @@ class _ProductPageState extends State<ProductPage> {
   final productController = Get.put(ProductController());
   ScrollController scrollController = ScrollController();
   String _search = '';
+  final _groupProduct = Get.put(GroupProductController());
+
   @override
   void initState() {
     super.initState();
     productController.initialController();
+    _groupProduct.initialController();
+    _groupProduct.getGroupProduct();
     productController.getAllProduct(search: _search, groupProduct: '');
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
-          productController.getAllProduct(search: _search, groupProduct: '');
+          if (_groupProduct.selected == {})
+            productController.getAllProduct(search: _search, groupProduct: '');
+          else
+            productController.getAllProduct(
+                search: _search, groupProduct: _groupProduct.selected['key']);
         }
       }
     });
@@ -84,8 +93,14 @@ class _ProductPageState extends State<ProductPage> {
                             print(value);
                             _search = value;
                             productController.initialController();
-                            productController.getAllProduct(
-                                search: _search, groupProduct: '');
+                            if (_groupProduct.selected == {}) {
+                              productController.getAllProduct(
+                                  search: _search, groupProduct: '');
+                            } else {
+                              productController.getAllProduct(
+                                  search: _search,
+                                  groupProduct: _groupProduct.selected['key']);
+                            }
                           }),
                     ),
                     SvgPicture.asset("assets/icons/search.svg"),

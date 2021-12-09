@@ -38,4 +38,5 @@ abstract class Routes {
   static const DETAIL_INFORMATION_USER = '/DetailInformationUser';
   static const STATISTIC_USER = '/StatisticUser';
   static const MANAGER_STAFF = '/ManagerStaff';
+  static const FORGOT_PASSWORD = '/ForgotPassword';
 }

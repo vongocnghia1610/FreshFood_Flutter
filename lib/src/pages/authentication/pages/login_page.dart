@@ -196,6 +196,27 @@ class _LoginPagesState extends State<LoginPages> {
                   ),
                 ),
               ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.FORGOT_PASSWORD);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 24.0,
+                    bottom: 12.0,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Quên mật khẩu?',
+                      style: TextStyle(
+                        // color: colorTitle,
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ])),
       ),
     );
