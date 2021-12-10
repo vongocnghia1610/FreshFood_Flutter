@@ -258,14 +258,27 @@ class _DetailProductPageState extends State<DetailProductPage> {
                             ),
                           ),
                           Padding(
-                            padding:
-                                EdgeInsets.only(left: 20, right: 64, top: 20),
+                            padding: EdgeInsets.only(
+                                left: 17.sp, right: 20.sp, top: 17.sp),
+                            child: Text(
+                              'Khối lượng: ${_.product.weight.toString()} kg',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: 17.sp, right: 20.sp, top: 17.sp),
                             child: GetBuilder<ProductDetailController>(
                               init: productController,
                               builder: (_) => _.product.detail == null
                                   ? Container()
                                   : Text(
                                       _.product.detail,
+                                      textAlign: TextAlign.justify,
                                       style: TextStyle(
                                           fontStyle: FontStyle.italic,
                                           color: Colors.black,

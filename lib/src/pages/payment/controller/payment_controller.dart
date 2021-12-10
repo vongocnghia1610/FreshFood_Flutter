@@ -2,6 +2,7 @@ import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 
 import 'addressController.dart';
@@ -86,6 +87,11 @@ class PaymentController extends GetxController {
             arguments: {"link": value['link']});
       } else {
         Get.offAllNamed(Routes.ROOT);
+        GetSnackBar getSnackBar = GetSnackBar(
+          title: 'Tạo đơn hàng thành công',
+          subTitle: 'Bạn có thể theo dõi quá trình vận đơn tại mục Xem đơn',
+        );
+        getSnackBar.show();
       }
     });
   }
