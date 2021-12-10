@@ -65,7 +65,7 @@ class AdminRepository {
     return null;
   }
 
-  Future<Map<String, dynamic>> register(
+  Future<Map<String, dynamic>> createStaff(
       String email, String phone, String password, String fullname) async {
     var body = {
       "email": email,

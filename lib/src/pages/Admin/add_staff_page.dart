@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/user.dart';
+import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
+import 'package:freshfood/src/repository/admin_repository.dart';
 import 'package:freshfood/src/repository/authentication_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
@@ -25,6 +27,7 @@ class _CreateStaffPageState extends State<CreateStaffPage> {
   String phone = '';
   String email = '';
   String password = '';
+  final adminController = Get.put(AdminController());
 
   bool hidePassword = true;
 
@@ -42,7 +45,7 @@ class _CreateStaffPageState extends State<CreateStaffPage> {
         backgroundColor: Colors.green.shade50,
         brightness: Brightness.light,
         leading: IconButton(
-          onPressed: () => widget.toggleView(),
+          onPressed: () => Get.back(),
           icon: Icon(
             PhosphorIcons.arrow_left,
             color: Color(0xFF2C3D50),
@@ -187,8 +190,8 @@ class _CreateStaffPageState extends State<CreateStaffPage> {
                                   },
                                   barrierColor: Color(0x80000000),
                                   barrierDismissible: false);
-                              AuthenticationRepository()
-                                  .register(email, phone, password, fullName)
+                              AdminRepository()
+                                  .createStaff(email, phone, password, fullName)
                                   .then((value) {
                                 Get.back();
                                 if (value == null) {
@@ -199,6 +202,10 @@ class _CreateStaffPageState extends State<CreateStaffPage> {
                                   );
                                   getSnackBar.show();
                                 } else {
+                                  adminController.initialController();
+                                  adminController.getAllStaff(
+                                    search: '',
+                                  );
                                   GetSnackBar getSnackBar = GetSnackBar(
                                     title: 'Tạo nhân viên thành công',
                                     subTitle: '',
