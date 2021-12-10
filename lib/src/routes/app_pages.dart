@@ -1,4 +1,5 @@
 import 'package:freshfood/src/app.dart';
+import 'package:freshfood/src/pages/Admin/add_staff_page.dart';
 import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_staff.dart';
@@ -121,6 +122,7 @@ class AppPages {
       name: Routes.DETAIL_PAYMENT,
       page: () => PaymentDetailPage(
         list: Get.arguments['list'],
+        isBuyNow: Get.arguments['isBuyNow'],
       ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
@@ -222,6 +224,13 @@ class AppPages {
     GetPage(
       name: Routes.CREATE_PRODUCT,
       page: () => CreateProductPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CREATE_STAFF,
+      page: () => CreateStaffPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

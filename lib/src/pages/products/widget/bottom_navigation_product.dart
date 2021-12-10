@@ -92,12 +92,11 @@ class BottomNavigationProduct extends StatelessWidget {
                 splashColor: kPrimaryColor,
                 onTap: () {
                   bottomSheet(context, "Mua ngay", () {
-                    var a = productController.product;
                     List<CartModel> temp = [];
                     temp.add(CartModel.fromMap(
                         productController.product.toMapCart()));
                     Get.toNamed(Routes.DETAIL_PAYMENT,
-                        arguments: {"list": temp});
+                        arguments: {"list": temp, "isBuyNow": true});
                   });
                 },
                 child: Container(

@@ -20,6 +20,7 @@ class ApiGateway {
 
   //order
   static const CREATE_ORDER = 'order/createOrder';
+  static const CREATE_ORDER_BUY_NOW = 'order/CreateOrderWithByNow';
   static const GET_ORDER = 'order/getOrders';
   static const GET_ORDER_ADMIN = 'order/getOrdersByAdmin';
   static const UPDATE_STATUS_ORDER = 'order/updateStatusOrder';
@@ -53,6 +54,8 @@ class ApiGateway {
   static const GET_STATISTIC_USER = 'statistic/getStatisticByUser';
   static const GET_AVATAR_ADMIN = 'user/getAvatarAdmin';
   static const GET_USER_BY_ID = 'user/getInformationById';
+  static const CREATE_STAFF = 'user/createStaff';
+
   //eveluate
   static const GET_EVELUATE = 'eveluate/getEveluate';
   static const CREATE_EVELUATE = 'eveluate/createEveluate';

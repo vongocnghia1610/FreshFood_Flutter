@@ -64,4 +64,23 @@ class AdminRepository {
     }
     return null;
   }
+
+  Future<Map<String, dynamic>> register(
+      String email, String phone, String password, String fullname) async {
+    var body = {
+      "email": email,
+      "password": password,
+      "phone": phone,
+      "name": fullname,
+    };
+    var response = await HandleApis().post(
+      ApiGateway.CREATE_STAFF,
+      body,
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
 }

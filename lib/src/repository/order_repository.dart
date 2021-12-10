@@ -65,6 +65,38 @@ class OrderRepository {
     return [];
   }
 
+  Future<dynamic> createOrderBuyNow(
+      {String productId,
+      int quantity,
+      AddressModel address,
+      String note,
+      int typePaymentOrder}) async {
+    var body = {
+      "productId": productId,
+      "quantity": quantity,
+      "area": {
+        "name": address.name,
+        "phone": address.phone,
+        "province": address.province,
+        "district": address.district,
+        "address": address.address
+      },
+      "note": note,
+      "typePaymentOrder": typePaymentOrder
+    };
+    var response =
+        await HandleApis().post(ApiGateway.CREATE_ORDER_BUY_NOW, body);
+    print(jsonEncode(body));
+
+    print("chonayne");
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return [];
+  }
+
   Future<List<dynamic>> getOrders({
     String search,
     int skip,

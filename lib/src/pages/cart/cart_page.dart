@@ -203,7 +203,7 @@ class _CartPageState extends State<CartPage> {
                           getSnackBar.show();
                         } else {
                           Get.toNamed(Routes.DETAIL_PAYMENT,
-                              arguments: {"list": temp});
+                              arguments: {"list": temp, "isBuyNow": false});
                         }
                       },
                       child: Text(

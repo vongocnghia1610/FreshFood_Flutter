@@ -60,6 +60,17 @@ class _ManagerStaffState extends State<ManagerStaff> {
             "Quản Lý nhân viên",
             style: TextStyle(fontSize: 20),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.CREATE_STAFF);
+              },
+              icon: Icon(
+                PhosphorIcons.plus,
+                size: 7.w,
+              ),
+            ),
+          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
