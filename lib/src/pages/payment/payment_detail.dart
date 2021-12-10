@@ -18,7 +18,8 @@ import 'package:sizer/sizer.dart';
 
 class PaymentDetailPage extends StatefulWidget {
   List<CartModel> list;
-  PaymentDetailPage({this.list});
+  int quantity;
+  PaymentDetailPage({this.list, this.quantity = 0});
   @override
   State<StatefulWidget> createState() => _PaymentDetailPageState();
 }

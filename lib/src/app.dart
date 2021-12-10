@@ -21,6 +21,10 @@ String avatarAdmin = '';
 class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
+    AdminRepository().getAvatar().then((value) {
+      avatarAdmin = value['avatar'];
+      print(avatarAdmin);
+    });
     WidgetsBinding.instance.addObserver(this);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,
@@ -30,9 +34,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Provider.of<UserProvider>(context, listen: false).checkLogined();
       setState(() {});
-      AdminRepository().getAvatar().then((value) {
-        avatarAdmin = value['avatar'];
-      });
     });
   }
   // Provider.of<UserProvider>(context, listen: false).checkLogined();

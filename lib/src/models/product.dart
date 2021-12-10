@@ -99,6 +99,22 @@ class ProductModel {
     };
   }
 
+  Map<String, dynamic> toMapCart() {
+    return {
+      '_id': id,
+      'image': image,
+      'status': status,
+      'weight': weight,
+      'cost': price,
+      'name': name,
+      'detail': detail,
+      'quantity': number,
+      'starAVG': starAVG,
+      'eveluateCount': eveluateCount,
+      'sold': sold
+    };
+  }
+
   factory ProductModel.fromMap(Map<String, dynamic> map) {
     return ProductModel(
       id: map['_id'],

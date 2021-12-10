@@ -80,6 +80,7 @@ class MessageAdminController extends ChangeNotifier {
   }
 
   insertMessage(dynamic messages) {
+    print(messages);
     int index =
         listMessage.indexWhere((element) => element['_id'] == messages['_id']);
     if (index == -1) {
@@ -87,16 +88,18 @@ class MessageAdminController extends ChangeNotifier {
       _listMessageController.add(listMessage);
       skipMessage++;
       if (userProvider.user.role == 1) {
-        addLastMessage(messages['message'], messages['idRoom']);
+        addLastMessage(
+            messages['message'], messages['idRoom'], messages['updatedAt']);
       }
       notifyListeners();
     }
   }
 
-  addLastMessage(String message, String idUser) {
+  addLastMessage(String message, String idUser, String updatedAt) {
     int index = listRoom.indexWhere((element) => element['idRoom'] == idUser);
     if (index != -1) {
       listRoom[index]['message'] = message;
+      listRoom[index]['updatedAt'] = updatedAt;
       listRoom.insert(0, listRoom[index]);
       listRoom.removeAt(index + 1);
       _listRoomController.add(listRoom);

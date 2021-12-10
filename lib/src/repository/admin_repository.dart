@@ -56,4 +56,12 @@ class AdminRepository {
     }
     return [];
   }
+
+  Future<dynamic> getUserById(String id) async {
+    var response = await HandleApis().get(ApiGateway.GET_USER_BY_ID, 'id=$id');
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
 }
