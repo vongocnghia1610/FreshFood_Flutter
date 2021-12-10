@@ -38,9 +38,9 @@ class _DrawerLayoutState extends State<DrawerLayout> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          'https://images.unsplash.com/photo-1617909517211-c4e4275bf5b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzZ8fHNoaXBwaW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                          'http://freshfoods.vn/images/freshfoods.png',
                         ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
