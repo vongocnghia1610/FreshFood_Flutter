@@ -5,6 +5,9 @@ import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/order/controller/order_controller.dart';
 import 'package:freshfood/src/pages/order/pages/first_page_admin.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/services/fcm.dart';
+import 'package:freshfood/src/services/socket.dart';
+import 'package:freshfood/src/staff/widget/drawer_layout_staff.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -32,6 +35,8 @@ class _OrderPageAdminState extends State<OrderPageAdmin>
   @override
   void initState() {
     super.initState();
+    handleReceiveNotification(context);
+    connectAndListen();
     _tabController = new TabController(
       vsync: this,
       length: statusOrder.length,
@@ -47,7 +52,7 @@ class _OrderPageAdminState extends State<OrderPageAdmin>
       drawer: Container(
         width: 70.w,
         child: Drawer(
-          child: DrawerLayoutAdmin(status: 2),
+          child: DrawerLayoutStaff(status: 0),
         ),
       ),
       appBar: AppBar(
