@@ -17,6 +17,17 @@ class AdminRepository {
     return [];
   }
 
+  Future<dynamic> getAvatar() async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_AVATAR_ADMIN,
+    );
+    print(jsonDecode(response.body)['data']);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
+
   Future<List<dynamic>> getstatisticOrder(
       String timeStart, String timeEnd) async {
     var response = await HandleApis().get(ApiGateway.GET_STATISTIC_ORDER,
@@ -44,5 +55,32 @@ class AdminRepository {
       return jsonDecode(response.body)['data'];
     }
     return [];
+  }
+
+  Future<dynamic> getUserById(String id) async {
+    var response = await HandleApis().get(ApiGateway.GET_USER_BY_ID, 'id=$id');
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
+
+  Future<Map<String, dynamic>> createStaff(
+      String email, String phone, String password, String fullname) async {
+    var body = {
+      "email": email,
+      "password": password,
+      "phone": phone,
+      "name": fullname,
+    };
+    var response = await HandleApis().post(
+      ApiGateway.CREATE_STAFF,
+      body,
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
   }
 }

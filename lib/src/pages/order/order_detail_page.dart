@@ -387,34 +387,38 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       SizedBox(
                         height: 5.sp,
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Thời gian thanh toán:',
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              padding: EdgeInsets.only(right: 20.sp),
-                              child: Text(
-                                DateFormat("dd-MM-yyyy HH:mm:ss")
-                                    .format(widget.order.updatedAt.toLocal())
-                                    .toString(),
-                                textAlign: TextAlign.right,
-                                style: TextStyle(
-                                  // color: colorTitle,
-                                  fontSize: 13.sp,
-                                  fontWeight: FontWeight.w500,
+                      widget.order.typePayment == "Chưa thanh toán" ||
+                              widget.order.typePayment == "COD"
+                          ? Container()
+                          : Row(
+                              children: [
+                                Text(
+                                  'Thời gian thanh toán:',
+                                  style: TextStyle(
+                                    // color: colorTitle,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
-                              ),
+                                Expanded(
+                                  child: Container(
+                                    padding: EdgeInsets.only(right: 20.sp),
+                                    child: Text(
+                                      DateFormat("dd-MM-yyyy HH:mm:ss")
+                                          .format(
+                                              widget.order.updatedAt.toLocal())
+                                          .toString(),
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                        // color: colorTitle,
+                                        fontSize: 13.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
-                          )
-                        ],
-                      ),
                     ],
                   ),
                 ),

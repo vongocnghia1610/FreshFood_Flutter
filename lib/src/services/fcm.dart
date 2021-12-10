@@ -1,10 +1,13 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:freshfood/src/app.dart';
 import 'package:freshfood/src/common/dialog/dialogAnimationWrapper.dart';
 import 'package:freshfood/src/helpers/limit_string.dart';
 import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/admin_repository.dart';
+import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
@@ -66,14 +69,13 @@ handleReceiveNotification(context) async {
   });
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-    print('zodumcai');
     if (message.data != null) {
       if (message.data['action'] != 'MESSAGE') {
-        // if (message.data['action'] == 'NEW_LOAN') {
-        //   if (Get.currentRoute == Routes.LIST_REQUEST) {
-        //     AdminRepository().getLoanById(message.data['_id']).then((value) {
-        //       adminController.insertLoan(value);
-        //     });
+        // if (message.data['action'] == 'NEW_ORDER') {
+        //   if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
+        //     // AdminRepository().getLoanById(message.data['_id']).then((value) {
+        //       // adminController.insertLoan(value);
+        //     // });
         //   } else {
         //     showDialogFCM(context, message);
         //   }
@@ -81,17 +83,27 @@ handleReceiveNotification(context) async {
         //   showDialogFCM(context, message);
         // }
       } else {
-        print('nameneong');
-
-        print(message.data['name']);
         GetSnackBar getSnackBar = GetSnackBar(
           title: message.notification.title,
           subTitle: limitString(message.notification.body, 35),
           handlePressed: () {
-            Get.toNamed(Routes.CHAT_DETAIL, arguments: {
-              'id': message.data['idRoom'],
-              'name': message.data['name'],
-            });
+            if (userProvider.user.role == 0) {
+              Get.toNamed(Routes.CHAT_DETAIL, arguments: {
+                'id': message.data['idRoom'],
+                'name': message.data['name'],
+                'image': avatarAdmin
+              });
+            } else {
+              AdminRepository()
+                  .getUserById(message.data['idRoom'])
+                  .then((value) {
+                Get.toNamed(Routes.CHAT_DETAIL, arguments: {
+                  'id': message.data['idRoom'],
+                  'name': message.data['name'],
+                  'image': value['avatar']
+                });
+              });
+            }
           },
         );
         if (Get.currentRoute != Routes.CHAT_DETAIL) {
@@ -102,8 +114,6 @@ handleReceiveNotification(context) async {
   });
 
   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    print('zodumcai1');
-
     debugPrint(
         'A new onMessageOpenedApp event was published!' + ' lambiengcode');
     showDialogFCM(context, message);
@@ -219,18 +229,46 @@ handleNotificationInApp(Map<String, dynamic> data) {
       //   }
       //   break;
       case 'MESSAGE':
-        print('messageneong');
-        if (Get.currentRoute == Routes.CHAT_DETAIL) {
-          Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
-            'id': data['idRoom'],
-            'name': null,
-          });
+        // if (Get.currentRoute == Routes.CHAT_DETAIL) {
+        //   Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
+        //     'id': data['idRoom'],
+        //     'name': data['name'],
+        //   });
+        // } else {
+        if (Get.currentRoute != Routes.CHAT_DETAIL) {
+          if (userProvider.user.role == 0) {
+            Get.toNamed(Routes.CHAT_DETAIL, arguments: {
+              'id': data['idRoom'],
+              'name': data['name'],
+              'image': avatarAdmin
+            });
+          } else {
+            AdminRepository().getUserById(data['idRoom']).then((value) {
+              Get.toNamed(Routes.CHAT_DETAIL, arguments: {
+                'id': data['idRoom'],
+                'name': data['name'],
+                'image': value['avatar']
+              });
+            });
+          }
         } else {
-          Get.toNamed(Routes.CHAT_DETAIL, arguments: {
-            'id': data['idRoom'],
-            'name': null,
-          });
+          if (userProvider.user.role == 0) {
+            Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
+              'id': data['idRoom'],
+              'name': data['name'],
+              'image': avatarAdmin
+            });
+          } else {
+            AdminRepository().getUserById(data['idRoom']).then((value) {
+              Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
+                'id': data['idRoom'],
+                'name': data['name'],
+                'image': value['avatar']
+              });
+            });
+          }
         }
+        // }
         break;
     }
   }

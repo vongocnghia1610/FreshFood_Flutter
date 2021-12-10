@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
 import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:sizer/sizer.dart';
@@ -89,7 +91,13 @@ class BottomNavigationProduct extends StatelessWidget {
               child: InkWell(
                 splashColor: kPrimaryColor,
                 onTap: () {
-                  bottomSheet(context, "Mua ngay", () {});
+                  bottomSheet(context, "Mua ngay", () {
+                    List<CartModel> temp = [];
+                    temp.add(CartModel.fromMap(
+                        productController.product.toMapCart()));
+                    Get.toNamed(Routes.DETAIL_PAYMENT,
+                        arguments: {"list": temp, "isBuyNow": true});
+                  });
                 },
                 child: Container(
                   child: Text(

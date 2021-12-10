@@ -8,6 +8,7 @@ import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freshfood/src/repository/admin_repository.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
@@ -15,9 +16,15 @@ class App extends StatefulWidget {
   State<StatefulWidget> createState() => _AppState();
 }
 
+String avatarAdmin = '';
+
 class _AppState extends State<App> with WidgetsBindingObserver {
   @override
   void initState() {
+    AdminRepository().getAvatar().then((value) {
+      avatarAdmin = value['avatar'];
+      print(avatarAdmin);
+    });
     WidgetsBinding.instance.addObserver(this);
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitDown,

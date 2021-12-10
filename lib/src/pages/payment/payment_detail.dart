@@ -18,7 +18,8 @@ import 'package:sizer/sizer.dart';
 
 class PaymentDetailPage extends StatefulWidget {
   List<CartModel> list;
-  PaymentDetailPage({this.list});
+  bool isBuyNow;
+  PaymentDetailPage({this.list, this.isBuyNow});
   @override
   State<StatefulWidget> createState() => _PaymentDetailPageState();
 }
@@ -357,7 +358,7 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                 DefaultButton(
                   btnText: 'Đồng ý',
                   onPressed: () {
-                    paymentController.createOrder(widget.list);
+                    paymentController.createOrder(widget.list, widget.isBuyNow);
                   },
                 )
               ],

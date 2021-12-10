@@ -2,6 +2,7 @@ import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
 import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 
 import 'addressController.dart';
@@ -66,27 +67,60 @@ class PaymentController extends GetxController {
     });
   }
 
-  createOrder(List<CartModel> list) {
+  createOrder(List<CartModel> list, bool isBuyNow) {
     final addressController = Get.put(AddressController());
     List<String> id = list.map((value) => value.id).toList();
-    OrderRepository()
-        .createOrder(
-            cartId: id,
-            address: addressController.addressSelected,
-            note: note,
-            typePaymentOrder: methodPayment)
-        .then((value) {
-      print(value['link']);
-      final cartController = Get.put(CartController());
-      cartController.getListProduct();
-      var temp = methodPayment;
-      methodPayment = 0;
-      if (temp != 0) {
-        Get.toNamed(Routes.PAYMENT_WEB_PAGE,
-            arguments: {"link": value['link']});
-      } else {
-        Get.offAllNamed(Routes.ROOT);
-      }
-    });
+    if (isBuyNow == false) {
+      OrderRepository()
+          .createOrder(
+              cartId: id,
+              address: addressController.addressSelected,
+              note: note,
+              typePaymentOrder: methodPayment)
+          .then((value) {
+        print(value['link']);
+        final cartController = Get.put(CartController());
+        cartController.getListProduct();
+        var temp = methodPayment;
+        methodPayment = 0;
+        if (temp != 0) {
+          Get.toNamed(Routes.PAYMENT_WEB_PAGE,
+              arguments: {"link": value['link']});
+        } else {
+          Get.offAllNamed(Routes.ROOT);
+          GetSnackBar getSnackBar = GetSnackBar(
+            title: 'Tạo đơn hàng thành công',
+            subTitle: 'Bạn có thể theo dõi quá trình vận đơn tại mục Xem đơn',
+          );
+          getSnackBar.show();
+        }
+      });
+    } else {
+      OrderRepository()
+          .createOrderBuyNow(
+              productId: list[0].id,
+              quantity: list[0].quantity,
+              address: addressController.addressSelected,
+              note: note,
+              typePaymentOrder: methodPayment)
+          .then((value) {
+        print(value['link']);
+        final cartController = Get.put(CartController());
+        cartController.getListProduct();
+        var temp = methodPayment;
+        methodPayment = 0;
+        if (temp != 0) {
+          Get.toNamed(Routes.PAYMENT_WEB_PAGE,
+              arguments: {"link": value['link']});
+        } else {
+          Get.offAllNamed(Routes.ROOT);
+          GetSnackBar getSnackBar = GetSnackBar(
+            title: 'Tạo đơn hàng thành công',
+            subTitle: 'Bạn có thể theo dõi quá trình vận đơn tại mục Xem đơn',
+          );
+          getSnackBar.show();
+        }
+      });
+    }
   }
 }

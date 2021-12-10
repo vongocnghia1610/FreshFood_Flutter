@@ -203,7 +203,7 @@ class _CartPageState extends State<CartPage> {
                           getSnackBar.show();
                         } else {
                           Get.toNamed(Routes.DETAIL_PAYMENT,
-                              arguments: {"list": temp});
+                              arguments: {"list": temp, "isBuyNow": false});
                         }
                       },
                       child: Text(
@@ -247,10 +247,7 @@ class _CartPageState extends State<CartPage> {
                       //     .toList();
                       return Container(
                         child: ListView.builder(
-                          itemCount: snapshot.data
-                              .where((x) => x['status'] == 1)
-                              .toList()
-                              .length,
+                          itemCount: snapshot.data.length,
                           itemBuilder: (context, index) {
                             return snapshot.data[index]['status'] == 1
                                 ? CartItem(
@@ -262,7 +259,7 @@ class _CartPageState extends State<CartPage> {
                                         .toList(),
                                     index: index,
                                   )
-                                : null;
+                                : Container();
                           },
                         ),
                       );

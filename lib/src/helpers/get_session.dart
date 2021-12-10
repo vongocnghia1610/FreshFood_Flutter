@@ -2,14 +2,14 @@ String getSession() {
   final DateTime now = DateTime.now();
   final int hour = now.hour;
   if (hour <= 4) {
-    return "Buổi tối";
+    return "buổi tối";
   }
   if (hour < 11) {
-    return "Buổi sáng";
+    return "buổi sáng";
   } else if (hour < 14) {
-    return "Buổi trưa";
+    return "buổi trưa";
   } else if (hour < 18)
-    return "Buổi chiều";
+    return "buổi chiều";
   else
-    return "Buổi tối";
+    return "buổi tối";
 }
