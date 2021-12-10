@@ -50,6 +50,7 @@ class ApiGateway {
   static const GET_STATISTIC_ORDER = 'statistic/getStatisticByOrderMobile';
   static const GET_STATISTIC_PRODUCT = 'statistic/getStatisticByProduct';
   static const GET_STATISTIC_USER = 'statistic/getStatisticByUser';
+  static const GET_AVATAR_ADMIN = 'user/getAvatarAdmin';
 
   //eveluate
   static const GET_EVELUATE = 'eveluate/getEveluate';

@@ -8,12 +8,15 @@ import 'package:freshfood/src/pages/order/order_page_admin.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freshfood/src/repository/admin_repository.dart';
 import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _AppState();
 }
+
+String avatarAdmin = '';
 
 class _AppState extends State<App> with WidgetsBindingObserver {
   @override
@@ -27,6 +30,9 @@ class _AppState extends State<App> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Provider.of<UserProvider>(context, listen: false).checkLogined();
       setState(() {});
+      AdminRepository().getAvatar().then((value) {
+        avatarAdmin = value['avatar'];
+      });
     });
   }
   // Provider.of<UserProvider>(context, listen: false).checkLogined();

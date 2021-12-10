@@ -1,22 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/message_model.dart';
-import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/pages/Admin/controller/chat_admin_controller.dart';
-import 'package:freshfood/src/pages/chat/models/message_model.dart';
-import 'package:freshfood/src/pages/chat/models/user_model.dart';
-import 'package:freshfood/src/providers/chat_provider.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   final String id;
   final String name;
+  final String image;
 
-  ChatDetailScreen({this.id, this.name});
+  ChatDetailScreen({this.id, this.name, this.image});
 
   @override
   _ChatDetailScreenState createState() => _ChatDetailScreenState();
@@ -108,7 +106,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         radius: 15,
                         //sender img
                         backgroundImage: NetworkImage(
-                            "https://marvelvietnam.com/wp-content/uploads/2021/06/Iron-Man-4-905x613.jpg"),
+                            Provider.of<UserProvider>(context).user.avatar),
                       ),
                     ),
                   ],
@@ -165,8 +163,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       child: CircleAvatar(
                         radius: 15,
                         //sender image url
-                        backgroundImage: NetworkImage(
-                            "https://marvelvietnam.com/wp-content/uploads/2021/06/Iron-Man-4-905x613.jpg"),
+                        backgroundImage: NetworkImage(widget.image),
                       ),
                     ),
                     SizedBox(

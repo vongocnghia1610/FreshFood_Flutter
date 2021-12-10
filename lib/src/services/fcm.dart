@@ -69,11 +69,11 @@ handleReceiveNotification(context) async {
     print('zodumcai');
     if (message.data != null) {
       if (message.data['action'] != 'MESSAGE') {
-        // if (message.data['action'] == 'NEW_LOAN') {
-        //   if (Get.currentRoute == Routes.LIST_REQUEST) {
-        //     AdminRepository().getLoanById(message.data['_id']).then((value) {
-        //       adminController.insertLoan(value);
-        //     });
+        // if (message.data['action'] == 'NEW_ORDER') {
+        //   if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
+        //     // AdminRepository().getLoanById(message.data['_id']).then((value) {
+        //       // adminController.insertLoan(value);
+        //     // });
         //   } else {
         //     showDialogFCM(context, message);
         //   }

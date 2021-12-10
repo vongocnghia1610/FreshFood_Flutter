@@ -17,6 +17,17 @@ class AdminRepository {
     return [];
   }
 
+  Future<dynamic> getAvatar() async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_AVATAR_ADMIN,
+    );
+    print(jsonDecode(response.body)['data']);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+    return null;
+  }
+
   Future<List<dynamic>> getstatisticOrder(
       String timeStart, String timeEnd) async {
     var response = await HandleApis().get(ApiGateway.GET_STATISTIC_ORDER,

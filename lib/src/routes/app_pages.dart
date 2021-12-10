@@ -248,6 +248,7 @@ class AppPages {
       page: () => ChatDetailScreen(
         id: Get.arguments['id'],
         name: Get.arguments['name'],
+        image: Get.arguments['image'],
       ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),

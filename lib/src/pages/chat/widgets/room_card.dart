@@ -4,6 +4,7 @@ import 'package:freshfood/src/models/room_model.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -29,6 +30,7 @@ class _RoomCardState extends State<RoomCard> {
         Get.toNamed(Routes.CHAT_DETAIL, arguments: {
           "id": widget.room.idRoom,
           "name": widget.room.name,
+          'image': widget.room.avatar
         });
       },
       child: Container(
@@ -70,8 +72,7 @@ class _RoomCardState extends State<RoomCard> {
                     ),
               child: CircleAvatar(
                 radius: 35,
-                backgroundImage: NetworkImage(
-                    "https://marvelvietnam.com/wp-content/uploads/2021/06/Iron-Man-4-905x613.jpg"),
+                backgroundImage: NetworkImage(widget.room.avatar),
               ),
             ),
             Container(
@@ -109,14 +110,16 @@ class _RoomCardState extends State<RoomCard> {
                                 ),
                         ],
                       ),
-                      // Text(
-                      //   chat.time,
-                      //   style: TextStyle(
-                      //     fontSize: 11,
-                      //     fontWeight: FontWeight.w300,
-                      //     color: Colors.black54,
-                      //   ),
-                      // ),
+                      Text(
+                        DateFormat("hh:mm a")
+                            .format(widget.room.updatedAt.toLocal())
+                            .toString(),
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.black54,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(

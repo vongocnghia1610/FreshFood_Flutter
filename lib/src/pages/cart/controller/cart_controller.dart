@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/cart_update_model.dart';
 import 'package:freshfood/src/repository/cart_repository.dart';
@@ -50,14 +51,15 @@ class CartController extends GetxController {
   }
 
   deleteItem() {
-    List<dynamic> temp = listProductCart;
     listProductCart.forEach((element) {
       if (element['selected'] == 1) {
         element['status'] = 0;
-        temp.remove(element);
+        // temp.add(element);
       }
     });
-    listProductCartController.add(temp);
+
+    // listProductCart.removeWhere((element) => temp.contains(element));
+    listProductCartController.add(listProductCart);
     update();
     getTotalMoney();
     getTotalQuantity();
