@@ -171,8 +171,11 @@ class _OptionPageState extends State<OptionPage> {
                     ),
 
                     ProfileListItem(
-                      icon: LineAwesomeIcons.cog,
-                      text: 'Quên mật khẩu',
+                      icon: LineAwesomeIcons.lock,
+                      text: 'Đổi mật khẩu',
+                      tap: () {
+                        Get.toNamed(Routes.CHANGE_PASSWORD);
+                      },
                     ),
                     // ProfileListItem(
                     //   icon: LineAwesomeIcons.user_plus,

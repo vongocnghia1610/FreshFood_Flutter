@@ -5,6 +5,7 @@ class ApiGateway {
   static const FORGOTPASSWORD = 'user/forgotPassword';
   static const CONFIRMOTP = 'user/confirmOtp';
   static const CHANGEPASSWORDWITHOTP = 'user/changePasswordWithOtp';
+  static const CHANGE_PASSWORD = 'user/changePassword';
 
   static const READ = '/read';
   static const DELETE = '/read';

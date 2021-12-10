@@ -12,6 +12,7 @@ import 'package:freshfood/src/pages/address/edit_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page.dart';
 import 'package:freshfood/src/pages/address/update_address_page_detail.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
+import 'package:freshfood/src/pages/authentication/change_password.dart';
 import 'package:freshfood/src/pages/authentication/change_password_with_otp_page.dart';
 import 'package:freshfood/src/pages/authentication/fogot_password_page.dart';
 import 'package:freshfood/src/pages/authentication/otp_password_page.dart';
@@ -322,6 +323,13 @@ class AppPages {
     GetPage(
       name: Routes.FORGOT_PASSWORD,
       page: () => ForgotPassPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CHANGE_PASSWORD,
+      page: () => ChangePasswordPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

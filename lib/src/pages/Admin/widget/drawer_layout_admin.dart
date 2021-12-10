@@ -29,6 +29,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
     "Quản lý tài khoản PAYPAL",
     "Thống kê",
     "Thông tin cá nhân",
+    "Đổi mật khẩu",
     "Đăng xuất"
   ];
   @override
@@ -50,43 +51,6 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  // currentAccountPicture: Container(
-                  //   width: 30.sp,
-                  //   height: 30.sp,
-                  //   decoration: BoxDecoration(
-                  //     shape: BoxShape.circle,
-                  //     image: DecorationImage(
-                  //       fit: BoxFit.fill,
-                  //       image: NetworkImage(
-                  //         "https://www.google.com/imgres?imgurl=https%3A%2F%2Flookaside.fbsbx.com%2Flookaside%2Fcrawler%2Fmedia%2F%3Fmedia_id%3D309300366316049&imgrefurl=https%3A%2F%2Fwww.facebook.com%2FFreshFood-%25C4%2582n-V%25E1%25BA%25B7t-Ngon-309300366316049%2Fposts&tbnid=CXYmJu6eu5J7XM&vet=12ahUKEwjkoeDbxbPzAhVG7JQKHU-hCpQQMygBegUIARCzAQ..i&docid=DcHaRLaRnl3-SM&w=1500&h=1504&q=freshfood&ved=2ahUKEwjkoeDbxbPzAhVG7JQKHU-hCpQQMygBegUIARCzAQ",
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  // accountName: Container(
-                  //   child: Text(
-                  //     // Provider.of<UserProvider>(context).user.fullName,
-                  //     "a",
-                  //     style: TextStyle(
-                  //       // color: mCL,
-                  //       fontSize: 12.sp,
-                  //       // fontFamily: FontFamily.lato,
-                  //       fontWeight: FontWeight.w600,
-                  //     ),
-                  //   ),
-                  // ),
-                  // accountEmail: Container(
-                  //   child: Text(
-                  //     // Provider.of<UserProvider>(context).user.phone,
-                  //     "b",
-                  //     style: TextStyle(
-                  //       // color: mCL,
-                  //       fontSize: 10.sp,
-                  //       // fontFamily: FontFamily.lato,
-                  //       fontWeight: FontWeight.w600,
-                  //     ),
-                  //   ),
-                  // ),
                 ),
               ),
               GestureDetector(
@@ -179,6 +143,16 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 ),
               ),
               GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.CHANGE_PASSWORD);
+                },
+                child: _buildLineDrawer(
+                  context,
+                  8,
+                  PhosphorIcons.lock,
+                ),
+              ),
+              GestureDetector(
                 onTap: () async {
                   await SocketEmit().deleteDeviceInfo();
                   await FirebaseMessaging.instance.deleteToken();
@@ -188,7 +162,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  8,
+                  9,
                   PhosphorIcons.sign_out_bold,
                 ),
               ),
@@ -294,7 +268,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
             ],
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 18.sp, right: 8.sp),
+            padding: EdgeInsets.only(bottom: 5.sp, right: 8.sp),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
