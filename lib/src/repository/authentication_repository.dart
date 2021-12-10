@@ -42,6 +42,19 @@ class AuthenticationRepository {
     return null;
   }
 
+  Future<bool> changePassword(String oldPassword, String newPassword) async {
+    var body = {"oldPassword": oldPassword, "newPassword": newPassword};
+    var response = await HandleApis().post(
+      ApiGateway.CHANGE_PASSWORD,
+      body,
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      return true;
+    }
+    return false;
+  }
+
   Future<bool> forgotPassword(String email) async {
     var response = await HandleApis().get(
       ApiGateway.FORGOTPASSWORD,

@@ -9,20 +9,24 @@ import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-class ChangePasswordWithOtp extends StatefulWidget {
+class ChangePasswordPage extends StatefulWidget {
   final VoidCallback toggleView;
-  String token;
-  ChangePasswordWithOtp({this.toggleView, this.token});
+
+  ChangePasswordPage({this.toggleView});
   @override
-  _ChangePasswordWithOtpState createState() => _ChangePasswordWithOtpState();
+  _ChangePasswordPageState createState() => _ChangePasswordPageState();
 }
 
-class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _formKey = GlobalKey<FormState>();
 
   FocusNode textFieldFocus = FocusNode();
+  String fullName = '';
   String confirmPassword = '';
+  String phone = '';
+  String email = '';
   String password = '';
+  String passwordOld = '';
 
   bool hidePassword = true;
 
@@ -96,6 +100,13 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
                               SizedBox(height: 12.0),
                               _buildLineInfo(
                                 context,
+                                'Mật khẩu cũ',
+                                'Mật khẩu phải có ít nhất 6 kí tự',
+                              ),
+                              SizedBox(height: 12.0),
+                              _buildDivider(context),
+                              _buildLineInfo(
+                                context,
                                 'Mật khẩu',
                                 'Mật khẩu phải có ít nhất 6 kí tự',
                               ),
@@ -154,17 +165,15 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
                                   },
                                   barrierColor: Color(0x80000000),
                                   barrierDismissible: false);
-                              await AuthenticationRepository()
-                                  .changePasswordWithOtp(password, widget.token)
+                              AuthenticationRepository()
+                                  .changePassword(passwordOld, password)
                                   .then((value) {
                                 Get.back();
                                 if (value == false) {
-                                  print("value ne");
-                                  print(widget.token);
-
+                                  print(value);
                                   GetSnackBar getSnackBar = GetSnackBar(
-                                    title: 'Đổi mật khẩu không thành công',
-                                    subTitle: '',
+                                    title: 'Đổi mật khẩu thất bại!',
+                                    subTitle: 'Sai mật khẩu cũ',
                                   );
                                   getSnackBar.show();
                                 } else {
@@ -189,7 +198,7 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
                             ),
                             child: Center(
                               child: Text(
-                                'Đồng ý',
+                                'Lưu chỉnh sửa',
                                 style: TextStyle(
                                   color: Colors.pinkAccent.shade100,
                                   fontSize: 12.0,
@@ -225,13 +234,7 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
           fontWeight: FontWeight.w500,
         ),
         validator: (val) {
-          if (title == 'Email') {
-            return GetUtils.isEmail(val.trim()) ? null : valid;
-          } else if (title == 'Số điện thoại') {
-            return GetUtils.isPhoneNumber(val.trim()) ? null : valid;
-          } else if (title == 'Tên của bạn') {
-            return val.trim().length == 0 ? valid : null;
-          } else if (title == 'Mật khẩu') {
+          if (title == 'Mật khẩu' || title == 'Mật khẩu cũ') {
             return val.trim().length < 6 ? valid : null;
           }
           return null;
@@ -240,15 +243,13 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
           setState(() {
             if (title == 'Mật khẩu') {
               password = val.trim();
+            } else if (title == 'Mật khẩu cũ') {
+              passwordOld = val.trim();
             }
           });
         },
-        inputFormatters: [
-          title == 'Số điện thoại'
-              ? FilteringTextInputFormatter.digitsOnly
-              : FilteringTextInputFormatter.singleLineFormatter,
-        ],
-        obscureText: title == 'Mật khẩu' ? true : false,
+        obscureText:
+            title == 'Mật khẩu' || title == 'Mật khẩu cũ' ? true : false,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: EdgeInsets.only(

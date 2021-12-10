@@ -23,6 +23,7 @@ class _DrawerLayoutStaffState extends State<DrawerLayoutStaff> {
   List<String> listAdmin = [
     "Quản lý đơn hàng",
     "Thông tin cá nhân",
+    "Đổi mật khẩu",
     "Đăng xuất"
   ];
   @override
@@ -70,6 +71,16 @@ class _DrawerLayoutStaffState extends State<DrawerLayoutStaff> {
                 ),
               ),
               GestureDetector(
+                onTap: () {
+                  Get.toNamed(Routes.CHANGE_PASSWORD);
+                },
+                child: _buildLineDrawer(
+                  context,
+                  2,
+                  PhosphorIcons.lock,
+                ),
+              ),
+              GestureDetector(
                 onTap: () async {
                   await SocketEmit().deleteDeviceInfo();
                   await FirebaseMessaging.instance.deleteToken();
@@ -79,7 +90,7 @@ class _DrawerLayoutStaffState extends State<DrawerLayoutStaff> {
                 },
                 child: _buildLineDrawer(
                   context,
-                  2,
+                  3,
                   PhosphorIcons.sign_out_bold,
                 ),
               ),
