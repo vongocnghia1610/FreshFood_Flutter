@@ -52,25 +52,19 @@ class _UpdateAddressPageState extends State<UpdateAddressPage> {
             style: TextStyle(fontSize: 20),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                height: 145.w,
-                child: GetBuilder<AddressController>(
-                  init: addressController,
-                  builder: (_) => ListView.builder(
-                    controller: scrollController,
-                    itemCount: addressController.listAddress.length,
-                    itemBuilder: (context, index) {
-                      return WidgetAddress(
-                        addressModel: addressController.listAddress[index],
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+        body: Container(
+          height: 90.h,
+          child: GetBuilder<AddressController>(
+            init: addressController,
+            builder: (_) => ListView.builder(
+              controller: scrollController,
+              itemCount: addressController.listAddress.length,
+              itemBuilder: (context, index) {
+                return WidgetAddress(
+                  addressModel: addressController.listAddress[index],
+                );
+              },
+            ),
           ),
         ));
   }
@@ -79,6 +73,7 @@ class _UpdateAddressPageState extends State<UpdateAddressPage> {
 class WidgetAddress extends StatelessWidget {
   AddressModel addressModel;
   WidgetAddress({Key key, this.addressModel});
+  final addressController = Get.put(AddressController());
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +110,7 @@ class WidgetAddress extends StatelessWidget {
                   width: 10.sp,
                 ),
                 Text(
-                  '[Mặc định]',
+                  addressModel.isMain == true ? '[Mặc định]' : '',
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 12.sp,
@@ -156,10 +151,12 @@ class WidgetAddress extends StatelessWidget {
                     SizedBox(
                       width: 12.w,
                     ),
-                    Icon(
-                      PhosphorIcons.check,
-                      color: Colors.red,
-                    )
+                    addressModel.id == addressController.addressSelected.id
+                        ? Icon(
+                            PhosphorIcons.check,
+                            color: Colors.red,
+                          )
+                        : Container()
                   ]),
                   Row(children: [
                     Container(

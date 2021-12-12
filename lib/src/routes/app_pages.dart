@@ -208,6 +208,7 @@ class AppPages {
       name: Routes.HISTORY_ORDER,
       page: () => OrderHistoryPage(
         history: Get.arguments['history'],
+        orderCode: Get.arguments['orderCode'],
       ),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),

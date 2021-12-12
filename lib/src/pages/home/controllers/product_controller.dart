@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
 import 'package:freshfood/src/repository/product_repository.dart';
 import 'package:get/get.dart';
 
@@ -66,7 +67,7 @@ class ProductController extends GetxController {
           .getAllProduct(search, skip, 10, groupProduct)
           .then((value) {
         print(value);
-        if (value.isNotEmpty) {
+        if (value != null) {
           listAllProduct.addAll(value);
           _listProductController.add(listAllProduct);
           skip++;
@@ -90,6 +91,15 @@ class ProductController extends GetxController {
         update();
       }
     });
+  }
+
+  String getNameOfWidget() {
+    final _groupProduct = Get.put(GroupProductController());
+    if (_groupProduct.selected.toString() == '{}') {
+      return 'Tất cả';
+    } else {
+      return _groupProduct.selected['name'];
+    }
   }
 
   Stream<List<dynamic>> get listProductRecommend =>

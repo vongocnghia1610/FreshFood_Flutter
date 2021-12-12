@@ -12,7 +12,8 @@ import 'package:sizer/sizer.dart';
 
 class OrderHistoryPage extends StatefulWidget {
   final List<HistoryModel> history;
-  OrderHistoryPage({this.history});
+  final String orderCode;
+  OrderHistoryPage({this.history, this.orderCode});
   @override
   State<StatefulWidget> createState() => _OrderHistoryPageState();
 }
@@ -21,19 +22,6 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
 
-  List<HistoryModel> historyOrder = [
-    HistoryModel(
-        title: "Đơn hàng đang chờ xác nhận",
-        createdAt: DateTime(2021, 11, 1, 10, 30)),
-    HistoryModel(
-        title: "Đơn hàng đã được xác nhận",
-        createdAt: DateTime(2021, 11, 1, 10, 40)),
-    HistoryModel(
-        title: "Đơn hàng đang giao", createdAt: DateTime(2021, 11, 1, 11, 07)),
-    HistoryModel(
-        title: "Đơn hàng đã giao thành công",
-        createdAt: DateTime(2021, 11, 1, 11, 00)),
-  ];
   @override
   void initState() {
     super.initState();
@@ -91,7 +79,7 @@ class _OrderHistoryPageState extends State<OrderHistoryPage> {
                       width: 110.sp,
                     ),
                     Text(
-                      'FF-000000012',
+                      widget.orderCode,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 13.sp,

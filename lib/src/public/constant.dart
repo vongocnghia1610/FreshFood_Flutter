@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-const baseUrl = 'http://18.140.53.176:3005';
+const baseUrl = 'https://befreshfood.tk';
 var width = Get.width;
 var height = Get.height;
 

@@ -196,12 +196,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
       color: Colors.white,
       child: Row(
         children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.photo),
-            iconSize: 25,
-            color: Theme.of(context).primaryColor,
-            onPressed: () {},
-          ),
+          // IconButton(
+          //   icon: Icon(Icons.photo),
+          //   iconSize: 25,
+          //   color: Theme.of(context).primaryColor,
+          //   onPressed: () {},
+          // ),
+          SizedBox(width: 20.sp),
           Expanded(
             child: TextField(
               controller: msgController,

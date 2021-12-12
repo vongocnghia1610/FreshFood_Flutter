@@ -43,45 +43,46 @@ Future<void> requestPermission() async {
 handleReceiveNotification(context) async {
   print('chayne');
   await requestPermission();
-  FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
-    print('chayne1');
+  // FirebaseMessaging.instance.getInitialMessage().then((RemoteMessage message) {
+  //   print('chayne1');
 
-    if (message != null) {
-      if (message.data != null) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return Center(
-              child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            );
-          },
-          barrierColor: Color(0x80000000),
-          barrierDismissible: false,
-        );
-        Future.delayed(Duration(milliseconds: 1200), () async {
-          Get.back();
-          await handleNotificationInApp(message.data);
-        });
-      }
-    }
-  });
+  //   if (message != null) {
+  //     if (message.data != null) {
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) {
+  //           return Center(
+  //             child: CircularProgressIndicator(
+  //               valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+  //             ),
+  //           );
+  //         },
+  //         barrierColor: Color(0x80000000),
+  //         barrierDismissible: false,
+  //       );
+  //       Future.delayed(Duration(milliseconds: 1200), () async {
+  //         Get.back();
+  //         await handleNotificationInApp(message.data);
+  //       });
+  //     }
+  //   }
+  // });
 
   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
     if (message.data != null) {
       if (message.data['action'] != 'MESSAGE') {
-        // if (message.data['action'] == 'NEW_ORDER') {
-        //   if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
-        //     // AdminRepository().getLoanById(message.data['_id']).then((value) {
-        //       // adminController.insertLoan(value);
-        //     // });
-        //   } else {
-        //     showDialogFCM(context, message);
-        //   }
-        // } else {
-        //   showDialogFCM(context, message);
-        // }
+        if (message.data['action'] == 'NEW_ORDER' ||
+            message.data['action'] == 'UPDATE_STATUS_ORDER') {
+          //   if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
+          //     // AdminRepository().getLoanById(message.data['_id']).then((value) {
+          //       // adminController.insertLoan(value);
+          //     // });
+          //   } else {
+          showDialogFCM(context, message);
+          //   }
+          // } else {
+          //   showDialogFCM(context, message);
+        }
       } else {
         GetSnackBar getSnackBar = GetSnackBar(
           title: message.notification.title,
@@ -206,14 +207,7 @@ showDialogFCM(context, RemoteMessage message) async {
 handleNotificationInApp(Map<String, dynamic> data) {
   if (data != null) {
     switch (data['action']) {
-      // case 'NEW_LOAN':
-      //   if (Get.currentRoute == Routes.LIST_REQUEST) {
-      //   } else if (Get.currentRoute == Routes.LIST_LOANING) {
-      //     Get.offAndToNamed(Routes.LIST_REQUEST);
-      //   } else {
-      //     Get.toNamed(Routes.LIST_REQUEST);
-      //   }
-      //   break;
+
       // case 'ACCEPT':
       //   if (Get.currentRoute == Routes.HISTORY) {
       //     Get.offAndToNamed(Routes.HISTORY);
@@ -228,7 +222,31 @@ handleNotificationInApp(Map<String, dynamic> data) {
       //     Get.toNamed(Routes.HISTORY);
       //   }
       //   break;
+
+      case 'NEW_ORDER':
+        if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
+          Get.offAndToNamed(Routes.ADMIN_MANAGER_ORDER);
+        } else {
+          Get.toNamed(Routes.ADMIN_MANAGER_ORDER);
+        }
+        break;
+      case 'UPDATE_STATUS_ORDER':
+        if (userProvider.user.role == 0) {
+          if (Get.currentRoute == Routes.ORDER) {
+            Get.offAndToNamed(Routes.ORDER);
+          } else {
+            Get.toNamed(Routes.ORDER);
+          }
+        } else {
+          if (Get.currentRoute == Routes.ADMIN_MANAGER_ORDER) {
+            Get.offAndToNamed(Routes.ADMIN_MANAGER_ORDER);
+          } else {
+            Get.toNamed(Routes.ADMIN_MANAGER_ORDER);
+          }
+        }
+        break;
       case 'MESSAGE':
+        print('chanquadi');
         // if (Get.currentRoute == Routes.CHAT_DETAIL) {
         //   Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
         //     'id': data['idRoom'],

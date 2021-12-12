@@ -358,6 +358,18 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                 DefaultButton(
                   btnText: 'Đồng ý',
                   onPressed: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          );
+                        },
+                        barrierColor: Color(0x80000000),
+                        barrierDismissible: false);
                     paymentController.createOrder(widget.list, widget.isBuyNow);
                   },
                 )

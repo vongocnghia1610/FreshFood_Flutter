@@ -78,6 +78,7 @@ class PaymentController extends GetxController {
               note: note,
               typePaymentOrder: methodPayment)
           .then((value) {
+        Get.back();
         print(value['link']);
         final cartController = Get.put(CartController());
         cartController.getListProduct();

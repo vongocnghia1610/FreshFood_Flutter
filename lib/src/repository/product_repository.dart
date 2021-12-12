@@ -30,7 +30,7 @@ class ProductRepository {
       return jsonDecode(response.body)['data'];
     }
 
-    return [];
+    return null;
   }
 
   Future<dynamic> getDetail(id) async {
