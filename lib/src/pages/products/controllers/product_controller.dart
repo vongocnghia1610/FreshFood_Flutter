@@ -10,6 +10,8 @@ import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
+import 'group_product_controller.dart';
+
 class ProductDetailController extends GetxController {
   ProductModel product = new ProductModel();
   List<EveluateModel> eveluates = [];

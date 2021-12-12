@@ -97,12 +97,9 @@ class _ProductPageState extends State<ProductPage> {
                             _search = value;
                             productController.initialController();
                             if (_groupProduct.selected.toString() == '{}') {
-                              print("zonetu1");
                               productController.getAllProduct(
                                   search: _search, groupProduct: '');
                             } else {
-                              print("zonetu1");
-
                               productController.getAllProduct(
                                   search: _search,
                                   groupProduct: _groupProduct.selected['key']);
@@ -129,10 +126,13 @@ class _ProductPageState extends State<ProductPage> {
                       Padding(
                         padding:
                             const EdgeInsets.only(left: kDefaultPadding / 4),
-                        child: Text(
-                          "Tất cả",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                        child: GetBuilder<ProductController>(
+                          init: productController,
+                          builder: (_) => Text(
+                            productController.getNameOfWidget(),
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Positioned(
@@ -159,6 +159,17 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                         );
                       }
+                      if (snapshot.data.length == 0)
+                        return Container(
+                          child: Center(
+                            child: Text(
+                              'Không có sản phẩm',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        );
 
                       return Container(
                         margin: EdgeInsets.only(left: 5.sp, right: 10.sp),

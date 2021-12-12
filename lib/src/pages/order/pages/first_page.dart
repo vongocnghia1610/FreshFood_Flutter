@@ -213,8 +213,10 @@ class WidgetOrder extends StatelessWidget {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.HISTORY_ORDER,
-                            arguments: {"history": order.history});
+                        Get.toNamed(Routes.HISTORY_ORDER, arguments: {
+                          "history": order.history,
+                          "orderCode": order.orderCode
+                        });
                       },
                       child: Row(
                         children: [

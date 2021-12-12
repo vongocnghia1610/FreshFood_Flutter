@@ -145,8 +145,10 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                         flex: 1,
                         child: TextButton(
                           onPressed: () {
-                            Get.toNamed(Routes.HISTORY_ORDER,
-                                arguments: {"history": widget.order.history});
+                            Get.toNamed(Routes.HISTORY_ORDER, arguments: {
+                              "history": widget.order.history,
+                              "orderCode": widget.order.orderCode
+                            });
                           },
                           style: TextButton.styleFrom(
                             textStyle: TextStyle(fontSize: 14.sp),
