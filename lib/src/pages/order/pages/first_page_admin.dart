@@ -256,11 +256,8 @@ class WidgetOrder extends StatelessWidget {
           status == "Chờ xác nhận"
               ? Row(
                   children: [
-                    SizedBox(
-                      height: 5.sp,
-                    ),
                     Container(
-                      padding: EdgeInsets.only(left: 160.sp, right: 20.sp),
+                      padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
                       child: FlatButton(
                         height: 35.sp,
                         minWidth: 120.sp,
@@ -297,16 +294,50 @@ class WidgetOrder extends StatelessWidget {
                         child: Text("Xác nhận đơn hàng"),
                       ),
                     ),
+                    Container(
+                      padding: EdgeInsets.only(right: 20.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          OrderRepository()
+                              .changeStatusOrderByAdminOrStaff(
+                                  id: order.id, status: 4)
+                              .then((value) {
+                            if (value == true) {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Hủy đơn hàng thành công',
+                                subTitle: 'Đã chuyển đơn hàng sang đã hủy',
+                              );
+
+                              getSnackBar.show();
+                              orderController.getOrderByAdmin(
+                                  search: '', limit: 10, skip: 1);
+                            } else {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Hủy đơn hàng thất bại',
+                                subTitle: '',
+                              );
+                              getSnackBar.show();
+                            }
+                          });
+                        },
+                        child: Text("Hủy"),
+                      ),
+                    ),
                   ],
                 )
               : status == "Đã xác nhận"
                   ? Row(
                       children: [
-                        SizedBox(
-                          height: 5.sp,
-                        ),
                         Container(
-                          padding: EdgeInsets.only(left: 160.sp, right: 20.sp),
+                          padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
                           child: FlatButton(
                             height: 35.sp,
                             minWidth: 120.sp,
@@ -344,17 +375,51 @@ class WidgetOrder extends StatelessWidget {
                             child: Text("Giao hàng"),
                           ),
                         ),
+                        Container(
+                          padding: EdgeInsets.only(right: 20.sp),
+                          child: FlatButton(
+                            height: 35.sp,
+                            minWidth: 120.sp,
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            color: kPrimaryColor,
+                            textColor: Colors.white,
+                            highlightColor: Colors.transparent,
+                            onPressed: () {
+                              OrderRepository()
+                                  .changeStatusOrderByAdminOrStaff(
+                                      id: order.id, status: 4)
+                                  .then((value) {
+                                if (value == true) {
+                                  GetSnackBar getSnackBar = GetSnackBar(
+                                    title: 'Hủy đơn hàng thành công',
+                                    subTitle: 'Đã chuyển đơn hàng sang đã hủy',
+                                  );
+
+                                  getSnackBar.show();
+                                  orderController.getOrderByAdmin(
+                                      search: '', limit: 10, skip: 1);
+                                } else {
+                                  GetSnackBar getSnackBar = GetSnackBar(
+                                    title: 'Hủy đơn hàng thất bại',
+                                    subTitle: '',
+                                  );
+                                  getSnackBar.show();
+                                }
+                              });
+                            },
+                            child: Text("Hủy"),
+                          ),
+                        ),
                       ],
                     )
                   : status == "Đang giao"
                       ? Row(
                           children: [
-                            SizedBox(
-                              height: 5.sp,
-                            ),
                             Container(
                               padding:
-                                  EdgeInsets.only(left: 160.sp, right: 20.sp),
+                                  EdgeInsets.only(left: 20.sp, right: 20.sp),
                               child: FlatButton(
                                 height: 35.sp,
                                 minWidth: 120.sp,
@@ -390,6 +455,44 @@ class WidgetOrder extends StatelessWidget {
                                   });
                                 },
                                 child: Text("Đã giao"),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(right: 20.sp),
+                              child: FlatButton(
+                                height: 35.sp,
+                                minWidth: 120.sp,
+                                padding: EdgeInsets.symmetric(vertical: 3),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                color: kPrimaryColor,
+                                textColor: Colors.white,
+                                highlightColor: Colors.transparent,
+                                onPressed: () {
+                                  OrderRepository()
+                                      .changeStatusOrderByAdminOrStaff(
+                                          id: order.id, status: 4)
+                                      .then((value) {
+                                    if (value == true) {
+                                      GetSnackBar getSnackBar = GetSnackBar(
+                                        title: 'Hủy đơn hàng thành công',
+                                        subTitle:
+                                            'Đã chuyển đơn hàng sang đã hủy',
+                                      );
+
+                                      getSnackBar.show();
+                                      orderController.getOrderByAdmin(
+                                          search: '', limit: 10, skip: 1);
+                                    } else {
+                                      GetSnackBar getSnackBar = GetSnackBar(
+                                        title: 'Hủy đơn hàng thất bại',
+                                        subTitle: '',
+                                      );
+                                      getSnackBar.show();
+                                    }
+                                  });
+                                },
+                                child: Text("Hủy"),
                               ),
                             ),
                           ],

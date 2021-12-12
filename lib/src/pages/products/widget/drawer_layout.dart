@@ -45,27 +45,47 @@ class _DrawerLayoutState extends State<DrawerLayout> {
                     ),
                   ),
                 ),
+                Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      _groupProduct.selected = {};
+                      productController.initialController();
+                      productController.getAllProduct(
+                          search: '', groupProduct: '');
+                      Get.back();
+                    },
+                    child: _buildLineDrawer(
+                      context,
+                      'Tất cả',
+                      null,
+                    ),
+                  ),
+                ),
                 Expanded(
-                  child: ListView.builder(
-                      itemCount: _groupProduct.groupProduct.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          onTap: () {
-                            _groupProduct.selected =
-                                _groupProduct.groupProduct[index];
-                            productController.initialController();
-                            productController.getAllProduct(
-                                search: '',
-                                groupProduct: _groupProduct.selected['key']);
-                            Get.back();
-                          },
-                          child: _buildLineDrawer(
-                            context,
-                            _groupProduct.groupProduct[index]['name'],
-                            null,
-                          ),
-                        );
-                      }),
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
+                    child: ListView.builder(
+                        itemCount: _groupProduct.groupProduct.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              _groupProduct.selected =
+                                  _groupProduct.groupProduct[index];
+                              productController.initialController();
+                              productController.getAllProduct(
+                                  search: '',
+                                  groupProduct: _groupProduct.selected['key']);
+                              Get.back();
+                            },
+                            child: _buildLineDrawer(
+                              context,
+                              _groupProduct.groupProduct[index]['name'],
+                              null,
+                            ),
+                          );
+                        }),
+                  ),
                 )
               ],
             ),
@@ -99,18 +119,19 @@ class _DrawerLayoutState extends State<DrawerLayout> {
         children: [
           Icon(
             icon,
-            color: title == 'Đăng xuất' ? colorPrimary : colorTitle,
             size: 17.25.sp,
           ),
           SizedBox(width: 10.sp),
           Text(
             title,
             style: TextStyle(
-              color: _groupProduct.selected != {}
+              color: _groupProduct.selected.toString() != '{}'
                   ? title == _groupProduct.selected['name']
                       ? kPrimaryColor
                       : colorTitle
-                  : colorTitle,
+                  : title == "Tất cả"
+                      ? kPrimaryColor
+                      : colorTitle,
               fontSize: 11.25.sp,
               fontWeight: FontWeight.w500,
             ),

@@ -59,10 +59,13 @@ class ProductController extends GetxController {
   }
 
   getAllProduct({String search, String groupProduct}) {
+    print(skip);
+    print(search);
     if (skip != -1) {
       ProductRepository()
           .getAllProduct(search, skip, 10, groupProduct)
           .then((value) {
+        print(value);
         if (value.isNotEmpty) {
           listAllProduct.addAll(value);
           _listProductController.add(listAllProduct);
