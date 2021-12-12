@@ -142,8 +142,7 @@ class _EveluatePageState extends State<EveluatePage> {
                               color: Colors.amber,
                             ),
                             onRatingUpdate: (double value) {
-                              widget.listProduct[index].star =
-                                  int.tryParse((value.toString()));
+                              widget.listProduct[index].star = value.toInt();
                             },
                           ),
                         ),

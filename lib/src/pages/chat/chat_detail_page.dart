@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/message_model.dart';
 import 'package:freshfood/src/pages/Admin/controller/chat_admin_controller.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -274,13 +275,15 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             ],
           ),
         ),
-        leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            color: Colors.white,
-            onPressed: () {
-              messageAdminController.leaveChannel(widget.id);
-              Get.back();
-            }),
+        leading: Get.currentRoute == Routes.CHAT_DETAIL
+            ? IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                color: Colors.white,
+                onPressed: () {
+                  messageAdminController.leaveChannel(widget.id);
+                  Get.back();
+                })
+            : null,
       ),
       body: Column(
         children: <Widget>[

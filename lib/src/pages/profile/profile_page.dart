@@ -357,6 +357,7 @@ class _ProfilePagesState extends State<ProfilePages> {
                                         _phoneNumbercontroller.text.trim();
                                     userProvider
                                         .setUserProvider(userProvider.user);
+                                    Get.back();
                                     GetSnackBar getSnackBar = GetSnackBar(
                                       title: 'Thành công',
                                       subTitle: 'Cập nhật thông tin thành công',

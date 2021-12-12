@@ -6,9 +6,12 @@ import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/eveluate.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/order/controller/order_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/public/styles.dart';
+import 'package:freshfood/src/repository/order_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -58,6 +61,7 @@ class WidgetOrder extends StatelessWidget {
   OrderModel order;
   String status;
   WidgetOrder({this.order, this.status});
+  final orderController = Get.put(OrderController());
 
   @override
   Widget build(BuildContext context) {
@@ -249,68 +253,129 @@ class WidgetOrder extends StatelessWidget {
               ],
             ),
           ),
-          status == "Đã giao" || status == "Đã hủy"
-              ? SizedBox(
-                  height: 5.sp,
-                )
-              : SizedBox(),
-          status == "Đã giao" && order.checkEveluate == false
+          status == "Chờ xác nhận"
               ? Row(
                   children: [
-                    Expanded(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
-                        child: FlatButton(
-                          height: 35.sp,
-                          minWidth: 120.sp,
-                          padding: EdgeInsets.symmetric(vertical: 3),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          color: kPrimaryColor,
-                          textColor: Colors.white,
-                          highlightColor: Colors.transparent,
-                          onPressed: () {
-                            List<EveluateModel> product = [];
-                            product.addAll((order.product
-                                .map((e) => EveluateModel.fromMap1(e.toMap()))
-                                .toList()));
-                            product.forEach((element) {
-                              element.orderId = order.id;
-                            });
-                            Get.toNamed(Routes.EVELUATE_PRODUCT,
-                                arguments: {"listProduct": product});
-                            // arguments: {"list": product});
-                          },
-                          child: Text("Đánh giá"),
-                        ),
+                    SizedBox(
+                      height: 5.sp,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 160.sp, right: 20.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          OrderRepository()
+                              .changeStatusOrderByAdminOrStaff(
+                                  id: order.id, status: 4)
+                              .then((value) {
+                            if (value == true) {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Hủy đơn hàng thành công',
+                                subTitle:
+                                    'Đơn hàng đã chuyển sang trạng thái đã hủy',
+                              );
+                              getSnackBar.show();
+                              orderController.getOrder(
+                                  search: '', limit: 10, skip: 1);
+                            } else {
+                              GetSnackBar getSnackBar = GetSnackBar(
+                                title: 'Hủy đơn hàng thất bại',
+                                subTitle: '',
+                              );
+                              getSnackBar.show();
+                            }
+                          });
+                        },
+                        child: Text("Hủy"),
                       ),
                     ),
-                    // Expanded(
-                    //   child: Container(
-                    //     padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
-                    //     child: FlatButton(
-                    //       height: 35.sp,
-                    //       minWidth: 120.sp,
-                    //       padding: EdgeInsets.symmetric(vertical: 3),
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(10)),
-                    //       color: kPrimaryColor,
-                    //       textColor: Colors.white,
-                    //       highlightColor: Colors.transparent,
-                    //       onPressed: () {
-                    //         print(order.product.length);
-                    //         List<CartModel> product = [];
-                    //         product.addAll((order.product
-                    //             .map((e) => CartModel.fromMap1(e.toMap()))
-                    //             .toList()));
-                    //         Get.toNamed(Routes.DETAIL_PAYMENT,
-                    //             arguments: {"list": product});
-                    //       },
-                    //       child: Text("Mua lại"),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
+                )
+              : status == "Đang giao"
+                  ? Row(
+                      children: [
+                        SizedBox(
+                          height: 5.sp,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 160.sp, right: 20.sp),
+                          child: FlatButton(
+                            height: 35.sp,
+                            minWidth: 120.sp,
+                            padding: EdgeInsets.symmetric(vertical: 3),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            color: kPrimaryColor,
+                            textColor: Colors.white,
+                            highlightColor: Colors.transparent,
+                            onPressed: () {
+                              OrderRepository()
+                                  .changeStatusOrderByAdminOrStaff(
+                                      id: order.id, status: 3)
+                                  .then((value) {
+                                if (value == true) {
+                                  GetSnackBar getSnackBar = GetSnackBar(
+                                    title:
+                                        'Chuyển trạng thái đơn hàng thành công',
+                                    subTitle:
+                                        'Đã chuyển trạng thái thành "Đã giao"',
+                                  );
+                                  getSnackBar.show();
+                                  orderController.getOrder(
+                                      search: '', limit: 10, skip: 1);
+                                } else {
+                                  GetSnackBar getSnackBar = GetSnackBar(
+                                    title:
+                                        'Chuyển trạng thái đơn hàng thất bại',
+                                    subTitle: '',
+                                  );
+                                  getSnackBar.show();
+                                }
+                              });
+                            },
+                            child: Text("Đã nhận"),
+                          ),
+                        ),
+                      ],
+                    )
+                  : status == "Đã giao" || status == "Đã hủy"
+                      ? SizedBox(
+                          height: 5.sp,
+                        )
+                      : SizedBox(),
+          status == "Đã giao" && order.checkEveluate == false
+              ? Container(
+                  padding: EdgeInsets.only(left: 150.sp, right: 20.sp),
+                  child: FlatButton(
+                    height: 35.sp,
+                    minWidth: 120.sp,
+                    padding: EdgeInsets.symmetric(vertical: 3),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    color: kPrimaryColor,
+                    textColor: Colors.white,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      List<EveluateModel> product = [];
+                      product.addAll((order.product
+                          .map((e) => EveluateModel.fromMap1(e.toMap()))
+                          .toList()));
+                      product.forEach((element) {
+                        element.orderId = order.id;
+                      });
+                      Get.toNamed(Routes.EVELUATE_PRODUCT,
+                          arguments: {"listProduct": product});
+                      // arguments: {"list": product});
+                    },
+                    child: Text("Đánh giá"),
+                  ),
                 )
               // : status == "Đã hủy"
               //     ? Container(

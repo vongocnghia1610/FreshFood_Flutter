@@ -235,7 +235,7 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
                   child: Stack(
                     children: <Widget>[
                       AspectRatio(
-                        aspectRatio: 1.70,
+                        aspectRatio: 1.7,
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(
@@ -455,10 +455,11 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
       // maxX: 6,
       minY: 0,
       // maxY: 6,
+
       lineBarsData: [
         LineChartBarData(
           spots: _.listOrderMoney,
-          isCurved: true,
+          isCurved: false,
           colors: gradientColors,
           barWidth: 2.sp,
           dotData: FlDotData(

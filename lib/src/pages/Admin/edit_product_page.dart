@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/models/group_product.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
@@ -13,7 +10,6 @@ import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/product_repository.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
@@ -97,7 +93,7 @@ class _EditProductPageState extends State<EditProductPage> {
         .updateProduct(
             images: _image,
             weight: double.parse(_weightProductController.text),
-            price: double.parse(_priceProductController.text),
+            price: priceTest.numberValue,
             quantity: int.parse(_quantityProductController.text),
             name: _nameProductController.text,
             detail: _detailProductController.text,
@@ -112,9 +108,10 @@ class _EditProductPageState extends State<EditProductPage> {
         );
         getSnackBar.show();
       } else {
-        productController.getAllProduct();
+        productController.initialController();
+        productController.getAllProduct(search: '', groupProduct: '');
         GetSnackBar getSnackBar = GetSnackBar(
-          title: 'Cập nhật thành công nè',
+          title: 'Cập nhật thành công',
           subTitle: '',
         );
         getSnackBar.show();

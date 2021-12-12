@@ -51,14 +51,16 @@ class _CartPageState extends State<CartPage> {
           elevation: .0,
           backgroundColor: kPrimaryColor,
           brightness: Brightness.light,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              PhosphorIcons.arrow_left,
-              color: Colors.white,
-              size: 7.w,
-            ),
-          ),
+          leading: Get.currentRoute == Routes.CART
+              ? IconButton(
+                  onPressed: () => Get.back(),
+                  icon: Icon(
+                    PhosphorIcons.arrow_left,
+                    color: Colors.white,
+                    size: 7.w,
+                  ),
+                )
+              : null,
           title: Text(
             'Giỏ hàng',
             style: TextStyle(

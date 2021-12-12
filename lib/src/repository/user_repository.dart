@@ -18,7 +18,7 @@ class UserRepository {
 
   Future<dynamic> updateImage({File avatar}) async {
     var request = http.MultipartRequest(
-        'POST', Uri.http(root_url, ApiGateway.UPDATE_IMAGE));
+        'POST', Uri.https(root_url, ApiGateway.UPDATE_IMAGE));
     request.headers["Content-Type"] = 'multipart/form-data';
     request.headers["Authorization"] =
         'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);

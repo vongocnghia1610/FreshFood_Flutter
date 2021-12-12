@@ -55,7 +55,7 @@ class ProductRepository {
     String groupProduct,
   }) async {
     var request = http.MultipartRequest(
-        'POST', Uri.http(root_url, 'product/createProduct'));
+        'POST', Uri.https(root_url, 'product/createProduct'));
     request.headers["Content-Type"] = 'multipart/form-data';
     request.headers["Authorization"] =
         'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
@@ -106,7 +106,7 @@ class ProductRepository {
     String id,
   }) async {
     var request = http.MultipartRequest(
-        'PUT', Uri.http(root_url, 'product/updateProduct'));
+        'PUT', Uri.https(root_url, 'product/updateProduct'));
     request.headers["Content-Type"] = 'multipart/form-data';
     request.headers["Authorization"] =
         'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
