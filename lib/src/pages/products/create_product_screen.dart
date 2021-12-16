@@ -290,6 +290,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                         'Tên sản phẩm',
                         PhosphorIcons.package,
                         false,
+                        false,
                         false),
                     SizedBox(
                       height: 30.0,
@@ -348,6 +349,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                         'Chi tiết sản phẩm',
                         PhosphorIcons.clipboard_text,
                         null,
+                        false,
                         false),
                     SizedBox(
                       height: 30.0,
@@ -359,6 +361,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
                         'Giá sản phẩm',
                         PhosphorIcons.money,
                         priceTest,
+                        true,
                         true),
                     SizedBox(
                       height: 30.0,
@@ -370,7 +373,8 @@ class _CreateProductPageState extends State<CreateProductPage> {
                         'Khối lượng sản phẩm',
                         PhosphorIcons.scales,
                         null,
-                        true),
+                        true,
+                        false),
                     SizedBox(
                       height: 30.0,
                     ),
@@ -381,7 +385,8 @@ class _CreateProductPageState extends State<CreateProductPage> {
                         'Số lượng sản phẩm',
                         PhosphorIcons.stack,
                         null,
-                        true),
+                        true,
+                        false),
                     SizedBox(
                       height: 30.0,
                     ),
@@ -482,8 +487,15 @@ class _CreateProductPageState extends State<CreateProductPage> {
         ));
   }
 
-  Material BuildTextField(String vali, dynamic type, String placeholder,
-      String lable_text, IconData iconData, name_controller, bool number) {
+  Material BuildTextField(
+      String vali,
+      dynamic type,
+      String placeholder,
+      String lable_text,
+      IconData iconData,
+      name_controller,
+      bool number,
+      bool money) {
     return Material(
       elevation: 20.0,
       shadowColor: kPrimaryColor.withOpacity(0.38),
@@ -516,7 +528,11 @@ class _CreateProductPageState extends State<CreateProductPage> {
           fontSize: 18,
         ),
         keyboardType: number ? TextInputType.number : null,
-        // inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+        inputFormatters: (number == true && money != true)
+            ? [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))]
+            : (number == true && money == true)
+                ? [FilteringTextInputFormatter.digitsOnly]
+                : null,
         decoration: InputDecoration(
           fillColor: Colors.black,
           hintText: placeholder,

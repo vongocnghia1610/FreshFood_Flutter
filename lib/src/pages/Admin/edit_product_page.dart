@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
@@ -304,6 +305,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         'Tên sản phẩm',
                         PhosphorIcons.package,
                         _nameProductController,
+                        false,
                         false),
                     SizedBox(
                       height: 30.0,
@@ -362,6 +364,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         'Chi tiết sản phẩm',
                         PhosphorIcons.clipboard_text,
                         _detailProductController,
+                        false,
                         false),
                     SizedBox(
                       height: 30.0,
@@ -373,6 +376,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         'Giá sản phẩm',
                         PhosphorIcons.money,
                         priceTest,
+                        true,
                         true),
                     SizedBox(
                       height: 30.0,
@@ -384,7 +388,8 @@ class _EditProductPageState extends State<EditProductPage> {
                         'Khối lượng sản phẩm',
                         PhosphorIcons.scales,
                         _weightProductController,
-                        true),
+                        true,
+                        false),
                     SizedBox(
                       height: 30.0,
                     ),
@@ -395,7 +400,8 @@ class _EditProductPageState extends State<EditProductPage> {
                         'Số lượng sản phẩm',
                         PhosphorIcons.stack,
                         _quantityProductController,
-                        true),
+                        true,
+                        false),
                     SizedBox(
                       height: 30.0,
                     ),
@@ -528,8 +534,15 @@ class _EditProductPageState extends State<EditProductPage> {
         ));
   }
 
-  Material BuildTextField(String vali, dynamic type, String placeholder,
-      String lable_text, IconData iconData, name_controller, bool number) {
+  Material BuildTextField(
+      String vali,
+      dynamic type,
+      String placeholder,
+      String lable_text,
+      IconData iconData,
+      name_controller,
+      bool number,
+      bool money) {
     return Material(
       elevation: 20.0,
       shadowColor: kPrimaryColor.withOpacity(0.38),
@@ -562,6 +575,11 @@ class _EditProductPageState extends State<EditProductPage> {
           fontSize: 18,
         ),
         keyboardType: number ? TextInputType.number : null,
+        inputFormatters: (number == true && money != true)
+            ? [FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d*)'))]
+            : (number == true && money == true)
+                ? [FilteringTextInputFormatter.digitsOnly]
+                : null,
         decoration: InputDecoration(
           fillColor: Colors.black,
           hintText: placeholder,
