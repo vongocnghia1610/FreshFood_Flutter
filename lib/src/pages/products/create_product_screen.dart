@@ -489,15 +489,7 @@ class _CreateProductPageState extends State<CreateProductPage> {
       shadowColor: kPrimaryColor.withOpacity(0.38),
       child: TextFormField(
         controller: name_controller == false ? null : name_controller,
-        validator: (val) {
-          if (number == true) {
-            return val.trim().length == 0 || double.tryParse(val) == null
-                ? vali
-                : null;
-          } else {
-            return val.trim().length == 0 ? vali : null;
-          }
-        },
+        validator: (val) => val.trim().length == 0 ? vali : null,
         onChanged: (val) {
           setState(() {
             if (type == "name")

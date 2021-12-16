@@ -172,8 +172,8 @@ class _ChangePasswordWithOtpState extends State<ChangePasswordWithOtp> {
                                     title: 'Đổi mật khẩu thành công',
                                     subTitle: '',
                                   );
-                                  getSnackBar.show();
                                   Get.offAllNamed(Routes.ROOT);
+                                  getSnackBar.show();
                                 }
                               });
                             }
