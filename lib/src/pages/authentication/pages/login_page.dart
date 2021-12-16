@@ -168,11 +168,6 @@ class _LoginPagesState extends State<LoginPages> {
                           subTitle: 'Đăng nhập thành công',
                         );
                         getSnackBar.show();
-                        // Get.toNamed(Routes.HOME);
-                        // userProvider.setUser(
-                        //   User.fromLogin(value),
-                        // );
-                        // return HomePage();
                       }
                     });
                   }

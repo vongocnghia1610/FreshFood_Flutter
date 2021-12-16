@@ -23,6 +23,7 @@ class ProfileController extends GetxController {
   updateAvatar(File image) {
     UserRepository().updateImage(avatar: image).then((value) {
       Get.back();
+      Get.back();
       if (value == null) {
         GetSnackBar getSnackBar = GetSnackBar(
           title: 'Thất bại',

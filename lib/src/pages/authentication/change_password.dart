@@ -181,8 +181,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                                     title: 'Đổi mật khẩu thành công',
                                     subTitle: '',
                                   );
-                                  getSnackBar.show();
                                   Get.offAllNamed(Routes.ROOT);
+                                  getSnackBar.show();
                                 }
                               });
                             }

@@ -146,6 +146,17 @@ class _ProfilePagesState extends State<ProfilePages> {
         setState(() {
           _image = File(SelectedSource.path);
         });
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              );
+            },
+            barrierColor: Color(0x80000000),
+            barrierDismissible: false);
         profileController.updateAvatar(_image);
       }
     }
