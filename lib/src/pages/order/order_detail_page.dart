@@ -264,6 +264,32 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                       Row(
                         children: [
                           Text(
+                            'Giá ship:',
+                            style: TextStyle(
+                              // color: colorTitle,
+                              fontSize: 13.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 143.sp,
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10.sp),
+                            child: Text(
+                              formatMoney(widget.order.shipFee),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
                             'Thành Tiền:',
                             style: TextStyle(
                               // color: colorTitle,

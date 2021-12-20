@@ -54,7 +54,6 @@ class _CreateProductPageState extends State<CreateProductPage> {
   initState() {
     super.initState();
 
-    productController.initialController();
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
   }
@@ -367,10 +366,10 @@ class _CreateProductPageState extends State<CreateProductPage> {
                       height: 30.0,
                     ),
                     BuildTextField(
-                        'Vui lòng điền khối lượng sản phẩm!',
+                        'Vui lòng điền khối lượng sản phẩm (kg)!',
                         "weight",
-                        'Điền khối lượng sản phẩm',
-                        'Khối lượng sản phẩm',
+                        'Điền khối lượng sản phẩm (kg)',
+                        'Khối lượng sản phẩm (kg)',
                         PhosphorIcons.scales,
                         null,
                         true,

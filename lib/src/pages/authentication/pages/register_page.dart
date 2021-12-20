@@ -118,7 +118,7 @@ class _SignupPageState extends State<SignupPage> {
                               _buildLineInfo(
                                 context,
                                 'Số điện thoại',
-                                'Hãy nhập số điện thoại của bạn',
+                                'Hãy nhập số điện thoại của bạn (10 số)',
                               ),
                               _buildDivider(context),
                               _buildLineInfo(
@@ -262,7 +262,9 @@ class _SignupPageState extends State<SignupPage> {
           if (title == 'Email') {
             return GetUtils.isEmail(val.trim()) ? null : valid;
           } else if (title == 'Số điện thoại') {
-            return GetUtils.isPhoneNumber(val.trim()) ? null : valid;
+            return GetUtils.isPhoneNumber(val.trim()) && val.trim().length == 10
+                ? null
+                : valid;
           } else if (title == 'Tên của bạn') {
             return val.trim().length == 0 ? valid : null;
           } else if (title == 'Mật khẩu') {

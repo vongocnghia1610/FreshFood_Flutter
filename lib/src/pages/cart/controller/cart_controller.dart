@@ -23,7 +23,7 @@ class CartController extends GetxController {
   getTotalMoney() {
     double temp = 0;
     listProductCart.forEach((element) {
-      if (element['selected'] == 1) {
+      if (element['selected'] == 1 && element['status'] != 0) {
         temp += element['cost'] * element['quantity'];
       }
     });

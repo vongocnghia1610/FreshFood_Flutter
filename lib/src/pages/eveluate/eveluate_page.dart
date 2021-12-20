@@ -141,6 +141,7 @@ class _EveluatePageState extends State<EveluatePage> {
                               Icons.star,
                               color: Colors.amber,
                             ),
+                            minRating: 1,
                             onRatingUpdate: (double value) {
                               widget.listProduct[index].star = value.toInt();
                             },

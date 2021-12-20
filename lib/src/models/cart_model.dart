@@ -82,7 +82,7 @@ class CartModel extends GetxController {
       weight: double.tryParse((map['weight'] ?? 0).toString()),
     );
   }
-  factory CartModel.fromMap1(Map<String, dynamic> map) {
+  factory CartModel.fromMapCart(Map<String, dynamic> map) {
     return CartModel(
         id: map['productId'],
         image: List<String>.from(map['image']),
@@ -92,6 +92,7 @@ class CartModel extends GetxController {
         name: map['name'],
         detail: map['detail'],
         nameGroup: map['nameGroup'],
+        weight: double.tryParse((map['weight'] ?? 0).toString()),
         selected: map['selected']);
   }
   String toJson() => json.encode(toMap());

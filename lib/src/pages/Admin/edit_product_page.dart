@@ -382,10 +382,10 @@ class _EditProductPageState extends State<EditProductPage> {
                       height: 30.0,
                     ),
                     BuildTextField(
-                        'Vui lòng điền khối lượng sản phẩm!',
+                        'Vui lòng điền khối lượng sản phẩm (kg)!',
                         "weight",
-                        'Điền khối lượng sản phẩm',
-                        'Khối lượng sản phẩm',
+                        'Điền khối lượng sản phẩm (kg)',
+                        'Khối lượng sản phẩm (kg)',
                         PhosphorIcons.scales,
                         _weightProductController,
                         true,

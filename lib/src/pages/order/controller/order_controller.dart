@@ -9,6 +9,13 @@ class OrderController extends GetxController {
   List<OrderModel> list2 = [];
   List<OrderModel> list3 = [];
   List<OrderModel> list4 = [];
+  initController() {
+    list0 = [];
+    list1 = [];
+    list2 = [];
+    list3 = [];
+    list4 = [];
+  }
 
   //Chờ xác nhận
   getOrder({
@@ -23,7 +30,6 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list0 = value.map((e) => OrderModel.fromMap(e)).toList();
-
       update();
     });
     OrderRepository()
@@ -33,6 +39,7 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list1 = value.map((e) => OrderModel.fromMap(e)).toList();
+      update();
     });
     OrderRepository()
         .getOrders(search: search, skip: skip, limit: limit, status: 2)
@@ -41,6 +48,7 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list2 = value.map((e) => OrderModel.fromMap(e)).toList();
+      update();
     });
     OrderRepository()
         .getOrders(search: search, skip: skip, limit: limit, status: 3)
@@ -49,6 +57,7 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list3 = value.map((e) => OrderModel.fromMap(e)).toList();
+      update();
     });
     OrderRepository()
         .getOrders(search: search, skip: skip, limit: limit, status: 4)
@@ -57,8 +66,8 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list4 = value.map((e) => OrderModel.fromMap(e)).toList();
+      update();
     });
-    update();
   }
 
   getOrderByAdmin({
@@ -84,6 +93,9 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list1 = value.map((e) => OrderModel.fromMap(e)).toList();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     });
     OrderRepository()
         .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 2)
@@ -92,6 +104,9 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list2 = value.map((e) => OrderModel.fromMap(e)).toList();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     });
     OrderRepository()
         .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 3)
@@ -100,6 +115,9 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list3 = value.map((e) => OrderModel.fromMap(e)).toList();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     });
     OrderRepository()
         .getOrdersByAdmin(search: search, skip: skip, limit: limit, status: 4)
@@ -108,9 +126,9 @@ class OrderController extends GetxController {
       print(value);
       if (value != null)
         list4 = value.map((e) => OrderModel.fromMap(e)).toList();
-    });
-    Future.delayed(Duration(milliseconds: 20), () {
-      update();
+      Future.delayed(Duration(milliseconds: 20), () {
+        update();
+      });
     });
   }
 

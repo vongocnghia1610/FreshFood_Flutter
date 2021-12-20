@@ -42,7 +42,6 @@ class _RoomCardState extends State<RoomCard> {
         child: Row(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(2),
               decoration: !widget.room.seenByUser
                       .contains(Provider.of<UserProvider>(context).user.id)
                   ? BoxDecoration(
@@ -75,73 +74,68 @@ class _RoomCardState extends State<RoomCard> {
                 backgroundImage: NetworkImage(widget.room.avatar),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width * 0.65,
-              padding: EdgeInsets.only(
-                left: 20,
-              ),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(
-                            widget.room.name,
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+            Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: 20,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 10,
+                          child: Container(
+                            child: Text(
+                              widget.room.name,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          // chat.sender.isOnline
-                          true
-                              ? Container(
-                                  margin: const EdgeInsets.only(left: 5),
-                                  width: 7,
-                                  height: 7,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Theme.of(context).primaryColor,
-                                  ),
-                                )
-                              : Container(
-                                  child: null,
-                                ),
-                        ],
-                      ),
-                      Text(
-                        DateFormat("hh:mm a")
-                            .format(widget.room.updatedAt.toLocal())
-                            .toString(),
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.black54,
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      widget.room.message,
-                      style: TextStyle(
-                        fontSize: 11.5.sp,
-                        color: Colors.black54,
-                        fontWeight: widget.room.seenByUser.contains(
-                                Provider.of<UserProvider>(context).user.id)
-                            ? FontWeight.w400
-                            : FontWeight.w800,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
+                        SizedBox(width: 2.w),
+                        Expanded(
+                          flex: 4,
+                          child: Text(
+                            DateFormat("hh:mm a")
+                                .format(widget.room.updatedAt.toLocal())
+                                .toString(),
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w300,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.room.message,
+                        style: TextStyle(
+                          fontSize: 11.5.sp,
+                          color: Colors.black54,
+                          fontWeight: widget.room.seenByUser.contains(
+                                  Provider.of<UserProvider>(context).user.id)
+                              ? FontWeight.w400
+                              : FontWeight.w800,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
