@@ -31,7 +31,6 @@ class UserRepository {
     print("phongtu");
 
     print(response.statusCode);
-    print(jsonDecode(response.body)['data']);
     if ([200, 201].contains(response.statusCode)) {
       var jsonResult = jsonDecode(response.body)['data'];
       return jsonResult;
