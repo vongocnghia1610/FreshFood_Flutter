@@ -94,7 +94,7 @@ class OrderRepository {
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
-    return [];
+    return null;
   }
 
   Future<List<dynamic>> getOrders({

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/room_model.dart';
 import 'package:freshfood/src/pages/Admin/controller/chat_admin_controller.dart';
+import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_page.dart';
 import 'package:freshfood/src/pages/chat/models/user_model.dart';
 import 'package:freshfood/src/pages/chat/widgets/room_card.dart';
@@ -48,18 +50,14 @@ class _ChatPageState extends State<ChatPage> {
       drawer: Container(
         width: 70.w,
         child: Drawer(
-          child: DrawerLayout(),
+          child: DrawerLayoutAdmin(status: 3),
         ),
       ),
       appBar: AppBar(
         elevation: 0,
         leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: Icon(
-            PhosphorIcons.arrow_left,
-            color: Colors.white,
-            size: 7.w,
-          ),
+          onPressed: () => _scaffoldKey.currentState.openDrawer(),
+          icon: SvgPicture.asset("assets/icons/menu.svg"),
         ),
         title: Text(
           "Chat",

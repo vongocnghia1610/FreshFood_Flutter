@@ -49,6 +49,7 @@ class _OrderPageState extends State<OrderPage>
       length: statusOrder.length,
       initialIndex: 0,
     );
+    orderController.initController();
     orderController.getOrder(search: '', limit: 10, skip: 1);
   }
 
