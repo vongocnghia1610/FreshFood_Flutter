@@ -38,10 +38,10 @@ class EveluateController extends GetxController {
           title: 'Đánh giá thành công',
           subTitle: '',
         );
-        getSnackBar.show();
         final orderController = Get.put(OrderController());
         orderController.getOrder(search: '', limit: 10, skip: 1);
         Get.back();
+        getSnackBar.show();
         Get.currentRoute == Routes.DETAIL_ORDER
             ? Get.back()
             : null; // do nothing
