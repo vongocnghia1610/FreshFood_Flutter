@@ -353,31 +353,57 @@ class WidgetOrder extends StatelessWidget {
                         )
                       : SizedBox(),
           status == "Đã giao" && order.checkEveluate == false
-              ? Container(
-                  padding: EdgeInsets.only(left: 150.sp, right: 20.sp),
-                  child: FlatButton(
-                    height: 35.sp,
-                    minWidth: 120.sp,
-                    padding: EdgeInsets.symmetric(vertical: 3),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    color: kPrimaryColor,
-                    textColor: Colors.white,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      List<EveluateModel> product = [];
-                      product.addAll((order.product
-                          .map((e) => EveluateModel.fromMap1(e.toMap()))
-                          .toList()));
-                      product.forEach((element) {
-                        element.orderId = order.id;
-                      });
-                      Get.toNamed(Routes.EVELUATE_PRODUCT,
-                          arguments: {"listProduct": product});
-                      // arguments: {"list": product});
-                    },
-                    child: Text("Đánh giá"),
-                  ),
+              ? Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(left: 20.sp, right: 20.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          List<CartModel> product = [];
+                          product.addAll((order.product
+                              .map((e) => CartModel.fromMapCart(e.toMap()))
+                              .toList()));
+                          Get.toNamed(Routes.DETAIL_PAYMENT,
+                              arguments: {"list": product});
+                        },
+                        child: Text("Mua lại"),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 20.sp),
+                      child: FlatButton(
+                        height: 35.sp,
+                        minWidth: 120.sp,
+                        padding: EdgeInsets.symmetric(vertical: 3),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: kPrimaryColor,
+                        textColor: Colors.white,
+                        highlightColor: Colors.transparent,
+                        onPressed: () {
+                          List<EveluateModel> product = [];
+                          product.addAll((order.product
+                              .map((e) => EveluateModel.fromMap1(e.toMap()))
+                              .toList()));
+                          product.forEach((element) {
+                            element.orderId = order.id;
+                          });
+                          Get.toNamed(Routes.EVELUATE_PRODUCT,
+                              arguments: {"listProduct": product});
+                          // arguments: {"list": product});
+                        },
+                        child: Text("Đánh giá"),
+                      ),
+                    )
+                  ],
                 )
               : status == "Đã hủy"
                   ? Container(
