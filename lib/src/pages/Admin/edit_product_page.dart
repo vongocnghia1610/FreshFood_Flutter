@@ -8,8 +8,10 @@ import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/public/constant.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/product_repository.dart';
+import 'package:freshfood/src/services/upload_storage.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -89,10 +91,17 @@ class _EditProductPageState extends State<EditProductPage> {
     );
   }
 
-  void updateProduct() {
+  Future<void> updateProduct() async {
+    List<String> listImage = [];
+    for (var element in _image) {
+      String url =
+          await StorageService().uploadImageToStorage(element, folderProduct);
+      listImage.add(url);
+    }
+
     ProductRepository()
         .updateProduct(
-            images: _image,
+            images: listImage,
             weight: double.parse(_weightProductController.text),
             price: priceTest.numberValue,
             quantity: int.parse(_quantityProductController.text),

@@ -41,7 +41,9 @@ class _ProductItem extends State<ProductItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ProductImage(
-                widget.product.image[0],
+                widget.product.image.length == 0
+                    ? null
+                    : widget.product.image[0],
                 height: 30.w,
                 width: 30.w,
                 padding: 3.w,
