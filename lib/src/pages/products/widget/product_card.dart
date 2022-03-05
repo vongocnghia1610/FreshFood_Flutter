@@ -41,12 +41,11 @@ class _ProductCardState extends State<ProductCard> {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: widget.product.image[0],
+                child: Image.network(
+                  widget.product.image[0],
                   fit: BoxFit.cover,
                   height: 100.sp,
                   width: 50.w,
-                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               Container(

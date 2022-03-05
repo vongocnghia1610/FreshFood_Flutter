@@ -146,13 +146,11 @@ class BottomNavigationProduct extends StatelessWidget {
                         //   topLeft: Radius.circular(10),
                         //   topRight: Radius.circular(10),
                         // ),
-                        child: CachedNetworkImage(
-                          imageUrl: productController.product.image[0],
+                        child: Image.network(
+                          productController.product.image[0],
                           fit: BoxFit.fill,
                           height: 43.2.w,
                           width: 50.w,
-                          errorWidget: (context, url, error) =>
-                              Icon(Icons.error),
                         ),
                       ),
                     ),

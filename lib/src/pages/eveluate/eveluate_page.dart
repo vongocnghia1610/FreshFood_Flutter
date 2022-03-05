@@ -104,13 +104,11 @@ class _EveluatePageState extends State<EveluatePage> {
                             splashColor: Colors.grey,
                             child: Row(
                               children: [
-                                CachedNetworkImage(
-                                  imageUrl: productModel.image[0],
+                                Image.network(
+                                  productModel.image[0],
                                   fit: BoxFit.cover,
                                   height: 50.sp,
                                   width: 50.sp,
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
                                 ),
                                 SizedBox(
                                   width: 10.sp,

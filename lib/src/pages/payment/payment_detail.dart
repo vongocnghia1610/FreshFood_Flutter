@@ -405,12 +405,11 @@ class CartDetail extends StatelessWidget {
               width: 10.sp,
             ),
             Container(
-              child: CachedNetworkImage(
-                imageUrl: cartModel.image[0],
+              child: Image.network(
+                cartModel.image[0],
                 fit: BoxFit.cover,
                 height: 70.sp,
                 width: 70.sp,
-                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             SizedBox(
