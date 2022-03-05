@@ -139,14 +139,11 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                     },
                                     child: AspectRatio(
                                       aspectRatio: 1.2,
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            _.product.image[selectedImage],
+                                      child: Image.network(
+                                        _.product.image[selectedImage],
                                         fit: BoxFit.fitHeight,
                                         width: 80.w,
                                         height: 70.w,
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
                                       ),
                                     ),
                                   ),
@@ -427,12 +424,17 @@ class _DetailProductPageState extends State<DetailProductPage> {
                 color: selectedImage == index
                     ? kPrimaryColor
                     : Colors.transparent)),
-        child: CachedNetworkImage(
-          imageUrl: listImage[index],
+        child:
+            // CachedNetworkImage(
+            //   imageUrl: listImage[index],
+            //   fit: BoxFit.cover,
+            //   // height: 70.sp,
+            //   // width: 70.sp,
+            //   errorWidget: (context, url, error) => Icon(Icons.error),
+            // ),
+            Image.network(
+          listImage[index],
           fit: BoxFit.cover,
-          // height: 70.sp,
-          // width: 70.sp,
-          errorWidget: (context, url, error) => Icon(Icons.error),
         ),
       ),
     );

@@ -43,12 +43,11 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: widget.product.image[0],
+                child: Image.network(
+                  widget.product.image[0],
                   fit: BoxFit.cover,
                   height: 100.sp,
                   width: 40.w,
-                  errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
               Container(

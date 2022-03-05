@@ -19,12 +19,11 @@ class ProductImage extends StatelessWidget {
         ? SizedBox.shrink()
         : Padding(
             padding: EdgeInsets.all(this.padding ?? 0),
-            child: CachedNetworkImage(
-              imageUrl: this.image,
+            child: Image.network(
+              this.image,
               fit: BoxFit.cover,
               height: this.height,
               width: this.width,
-              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           );
   }
