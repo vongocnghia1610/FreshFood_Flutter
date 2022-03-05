@@ -46,7 +46,7 @@ class ProductRepository {
   }
 
   Future<ProductModel> createProduct({
-    List<File> images,
+    List<String> images,
     double weight,
     double price,
     int quantity,
@@ -54,40 +54,58 @@ class ProductRepository {
     String detail,
     String groupProduct,
   }) async {
-    var request = http.MultipartRequest(
-        'POST', Uri.https(root_url, 'product/createProduct'));
-    request.headers["Content-Type"] = 'multipart/form-data';
-    request.headers["Authorization"] =
-        'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
+    // var request = http.MultipartRequest(
+    //     'POST', Uri.https(root_url, 'product/createProduct'));
+    // request.headers["Content-Type"] = 'multipart/form-data';
+    // request.headers["Authorization"] =
+    //     'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
 
-    request.fields.addAll({
+    // request.fields.addAll({
+    //   'name': name,
+    //   'detail': detail,
+    //   'price': price.toString(),
+    //   'groupProduct': groupProduct,
+    //   'weight': weight.toString(),
+    //   'quantity': quantity.toString(),
+    // });
+
+    // if (images != null) {
+    //   images.forEach((image) {
+    //     print("aaaaaa");
+
+    //     request.files.add(
+    //       http.MultipartFile.fromBytes(
+    //         "image",
+    //         image.readAsBytesSync(),
+    //         filename: image.path,
+    //       ),
+    //     );
+    //   });
+    // }
+    // if (request.files.length == 0) return null;
+
+    // var response = await http.Response.fromStream(await request.send());
+    // print(response.statusCode);
+    // print(jsonDecode(response.body));
+    // if ([200, 201].contains(response.statusCode)) {
+    //   var jsonResult = jsonDecode(response.body)['data'];
+    //   return ProductModel.fromMap(jsonResult);
+    // }
+
+    // return null;
+    var body = {
       'name': name,
       'detail': detail,
       'price': price.toString(),
       'groupProduct': groupProduct,
       'weight': weight.toString(),
       'quantity': quantity.toString(),
-    });
+      "image": images,
+    };
 
-    if (images != null) {
-      images.forEach((image) {
-        print("aaaaaa");
-
-        request.files.add(
-          http.MultipartFile.fromBytes(
-            "image",
-            image.readAsBytesSync(),
-            filename: image.path,
-          ),
-        );
-      });
-    }
-    if (request.files.length == 0) return null;
-
-    var response = await http.Response.fromStream(await request.send());
-    print(response.statusCode);
-    print(jsonDecode(response.body));
-    if ([200, 201].contains(response.statusCode)) {
+    var response = await HandleApis().post(ApiGateway.CREATE_PRODUCt, body);
+    print(response.body);
+    if (response.statusCode == 200) {
       var jsonResult = jsonDecode(response.body)['data'];
       return ProductModel.fromMap(jsonResult);
     }
@@ -96,7 +114,7 @@ class ProductRepository {
   }
 
   Future<ProductModel> updateProduct({
-    List<File> images,
+    List<String> images,
     double weight,
     double price,
     int quantity,
@@ -105,13 +123,7 @@ class ProductRepository {
     String groupProduct,
     String id,
   }) async {
-    var request = http.MultipartRequest(
-        'PUT', Uri.https(root_url, 'product/updateProduct'));
-    request.headers["Content-Type"] = 'multipart/form-data';
-    request.headers["Authorization"] =
-        'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
-
-    request.fields.addAll({
+    var body = {
       'name': name,
       'detail': detail,
       'price': price.toString(),
@@ -119,27 +131,12 @@ class ProductRepository {
       'weight': weight.toString(),
       'quantity': quantity.toString(),
       "id": id,
-    });
+      "image": images,
+    };
 
-    if (images != null) {
-      images.forEach((image) {
-        print("aaaaaa");
-
-        request.files.add(
-          http.MultipartFile.fromBytes(
-            "image",
-            image.readAsBytesSync(),
-            filename: image.path,
-          ),
-        );
-      });
-    }
-    // if (request.files.length == 0) return null;
-    print(request.fields);
-    var response = await http.Response.fromStream(await request.send());
-    print(response.statusCode);
-    print(jsonDecode(response.body));
-    if ([200, 201].contains(response.statusCode)) {
+    var response = await HandleApis().put(ApiGateway.UPDATE_PRODUCT, body);
+    print(response.body);
+    if (response.statusCode == 200) {
       var jsonResult = jsonDecode(response.body)['data'];
       return ProductModel.fromMap(jsonResult);
     }
