@@ -5,10 +5,8 @@ import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:http/http.dart' as http;
 
 // const root_url = "freshfoodbe.tk";
-// const root_url = "befreshfood.tk";
-const root_url = "54.179.53.76:3005";
-const socket_url = "54.179.53.76:3005";
-// const socket_url = "befreshfood.tk";
+const root_url = "befreshfood.tk";
+const socket_url = "befreshfood.tk";
 
 class HandleApis {
   Future<String> getBaseURLSocket() async {

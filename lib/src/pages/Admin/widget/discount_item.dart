@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
-import 'package:freshfood/src/models/cart_model.dart';
-import 'package:freshfood/src/models/product.dart';
-import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
-import 'package:freshfood/src/pages/cart/widgets/cart_item_button.dart';
+import 'package:freshfood/src/models/discount.dart';
 import 'package:freshfood/src/pages/cart/widgets/product_image.dart';
-import 'package:freshfood/src/routes/app_pages.dart';
-import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
-class ProductItem extends StatefulWidget {
-  ProductModel product;
-  ProductItem({this.product});
+class DiscountItem extends StatefulWidget {
+  DiscountModel discount;
+  DiscountItem({this.discount});
   @override
   State<StatefulWidget> createState() {
-    return _ProductItem();
+    return _DiscountItem();
   }
 }
 
-class _ProductItem extends State<ProductItem> {
+class _DiscountItem extends State<DiscountItem> {
   @override
   void initState() {
     super.initState();
@@ -29,8 +24,8 @@ class _ProductItem extends State<ProductItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed(Routes.UPDATE_PRODUCT,
-            arguments: {"productCurrent": widget.product});
+        // Get.toNamed(Routes.UPDATE_PRODUCT,
+        //     arguments: {"productCurrent": widget.product});
       },
       splashColor: Colors.grey,
       child: Container(
@@ -41,7 +36,7 @@ class _ProductItem extends State<ProductItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ProductImage(
-                widget.product.image[0],
+                'https://cdn4.vectorstock.com/i/1000x1000/71/83/sign-board-discount-vector-1947183.jpg',
                 height: 30.w,
                 width: 30.w,
                 padding: 3.w,
@@ -54,7 +49,7 @@ class _ProductItem extends State<ProductItem> {
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Text(
-                      widget.product.name,
+                      'Giảm ${widget.discount.percentDiscount}%',
                       style: TextStyle(
                         fontSize: 5.w,
                         color: Colors.black,
@@ -65,7 +60,9 @@ class _ProductItem extends State<ProductItem> {
                     Row(
                       children: <Widget>[
                         Text(
-                          formatMoney(widget.product.price),
+                          'Tối đa ' +
+                              formatMoney(
+                                  widget.discount.maxDiscount.toDouble()),
                           style: TextStyle(
                             fontSize: 5.w,
                             color: Colors.green,
@@ -77,47 +74,50 @@ class _ProductItem extends State<ProductItem> {
                     SizedBox(
                       height: 2.w,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "Số lượng sản phẩm còn ",
-                          style: TextStyle(
-                            fontSize: 4.w,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          widget.product.quantity.toString(),
-                          style: TextStyle(
-                            fontSize: 4.w,
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       "Số lượng sản phẩm còn ",
+                    //       style: TextStyle(
+                    //         fontSize: 4.w,
+                    //         color: Colors.black,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //     Text(
+                    //       widget.product.quantity.toString(),
+                    //       style: TextStyle(
+                    //         fontSize: 4.w,
+                    //         color: Colors.red,
+                    //         fontWeight: FontWeight.bold,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 2.w,
                     ),
                     Row(
                       children: [
                         Text(
-                          "Số lượng sản phẩm đã bán ",
+                          "Hết hạn: " +
+                              DateFormat("dd-MM-yyyy HH:mm:ss")
+                                  .format(widget.discount.duration.toLocal())
+                                  .toString(),
                           style: TextStyle(
                             fontSize: 3.5.w,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          widget.product.sold.toString(),
-                          style: TextStyle(
-                            fontSize: 4.w,
-                            color: Colors.red,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        // Text(
+                        //   widget.product.sold.toString(),
+                        //   style: TextStyle(
+                        //     fontSize: 4.w,
+                        //     color: Colors.red,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 1.w),

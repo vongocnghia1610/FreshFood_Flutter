@@ -1,12 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:freshfood/src/models/product.dart';
-import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/repository/api_gateway.dart';
 import 'package:freshfood/src/repository/base_repository.dart';
-import 'package:http/http.dart' as http;
 
 class ProductRepository {
   Future<List<dynamic>> getRecommendProduct(skip, limit) async {
@@ -54,45 +50,6 @@ class ProductRepository {
     String detail,
     String groupProduct,
   }) async {
-    // var request = http.MultipartRequest(
-    //     'POST', Uri.https(root_url, 'product/createProduct'));
-    // request.headers["Content-Type"] = 'multipart/form-data';
-    // request.headers["Authorization"] =
-    //     'Bearer ' + (userProvider.user == null ? '' : userProvider.user.token);
-
-    // request.fields.addAll({
-    //   'name': name,
-    //   'detail': detail,
-    //   'price': price.toString(),
-    //   'groupProduct': groupProduct,
-    //   'weight': weight.toString(),
-    //   'quantity': quantity.toString(),
-    // });
-
-    // if (images != null) {
-    //   images.forEach((image) {
-    //     print("aaaaaa");
-
-    //     request.files.add(
-    //       http.MultipartFile.fromBytes(
-    //         "image",
-    //         image.readAsBytesSync(),
-    //         filename: image.path,
-    //       ),
-    //     );
-    //   });
-    // }
-    // if (request.files.length == 0) return null;
-
-    // var response = await http.Response.fromStream(await request.send());
-    // print(response.statusCode);
-    // print(jsonDecode(response.body));
-    // if ([200, 201].contains(response.statusCode)) {
-    //   var jsonResult = jsonDecode(response.body)['data'];
-    //   return ProductModel.fromMap(jsonResult);
-    // }
-
-    // return null;
     var body = {
       'name': name,
       'detail': detail,
