@@ -57,19 +57,26 @@ class _DiscountItem extends State<DiscountItem> {
                       ),
                     ),
                     SizedBox(height: 3.w),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          'Tối đa ' +
-                              formatMoney(
-                                  widget.discount.maxDiscount.toDouble()),
-                          style: TextStyle(
-                            fontSize: 5.w,
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'Đơn tối thiểu ' +
+                          formatMoney(
+                              widget.discount.minimumDiscount.toDouble()) +
+                          ' Giảm tối đa ' +
+                          formatMoney(widget.discount.maxDiscount.toDouble()),
+                      style: TextStyle(
+                        fontSize: 3.5.w,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 2,
+                    ),
+                    SizedBox(
+                      height: 2.w,
+                    ),
+                    LinearProgressIndicator(
+                      value: 0.5,
+                      semanticsLabel: 'Linear progress indicator',
+                      color: Colors.green,
+                      backgroundColor: Colors.grey.shade300,
                     ),
                     SizedBox(
                       height: 2.w,
@@ -101,12 +108,12 @@ class _DiscountItem extends State<DiscountItem> {
                       children: [
                         Text(
                           "Hết hạn: " +
-                              DateFormat("dd-MM-yyyy HH:mm:ss")
+                              DateFormat("dd-MM-yyyy")
                                   .format(widget.discount.duration.toLocal())
                                   .toString(),
                           style: TextStyle(
                             fontSize: 3.5.w,
-                            color: Colors.black,
+                            color: Colors.grey.shade500,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

@@ -8,6 +8,7 @@ class DiscountModel extends GetxController {
   String idGroupProduct;
   bool totalProduct;
   int percentDiscount;
+  int minimumDiscount;
   int maxDiscount;
   DateTime duration;
   DiscountModel({
@@ -18,6 +19,7 @@ class DiscountModel extends GetxController {
     this.percentDiscount,
     this.maxDiscount,
     this.duration,
+    this.minimumDiscount,
   });
 
   DiscountModel copyWith({
@@ -28,6 +30,7 @@ class DiscountModel extends GetxController {
     int percentDiscount,
     int maxDiscount,
     DateTime duration,
+    int minimumDiscount,
   }) {
     return DiscountModel(
       id: id ?? this.id,
@@ -37,6 +40,7 @@ class DiscountModel extends GetxController {
       percentDiscount: percentDiscount ?? this.percentDiscount,
       maxDiscount: maxDiscount ?? this.maxDiscount,
       duration: duration ?? this.duration,
+      minimumDiscount: minimumDiscount ?? this.minimumDiscount,
     );
   }
 
@@ -49,6 +53,7 @@ class DiscountModel extends GetxController {
       'percentDiscount': percentDiscount,
       'maxDiscount': maxDiscount,
       'duration': duration.millisecondsSinceEpoch,
+      'minimumDiscount': minimumDiscount,
     };
   }
 
@@ -59,6 +64,7 @@ class DiscountModel extends GetxController {
       idGroupProduct: map['idGroupProduct'] ?? '',
       totalProduct: map['totalProduct'] ?? false,
       percentDiscount: map['percentDiscount']?.toInt() ?? 0,
+      minimumDiscount: map['minimumDiscount']?.toInt() ?? 0,
       maxDiscount: map['maxDiscount']?.toInt() ?? 0,
       duration: DateTime.parse(map['duration']),
     );
