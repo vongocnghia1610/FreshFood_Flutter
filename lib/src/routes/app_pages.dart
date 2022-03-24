@@ -1,6 +1,7 @@
 import 'package:freshfood/src/app.dart';
 import 'package:freshfood/src/pages/Admin/add_staff_page.dart';
 import 'package:freshfood/src/pages/Admin/edit_product_page.dart';
+import 'package:freshfood/src/pages/Admin/manager_discount.dart';
 import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
 import 'package:freshfood/src/pages/Admin/manager_staff.dart';
 import 'package:freshfood/src/pages/Admin/manager_user.dart';
@@ -21,6 +22,7 @@ import 'package:freshfood/src/pages/authentication/pages/login_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
 import 'package:freshfood/src/pages/chat/chat_detail_page.dart';
 import 'package:freshfood/src/pages/chat/chat_page.dart';
+import 'package:freshfood/src/pages/discount/create_discount_screen.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_page.dart';
 import 'package:freshfood/src/pages/eveluate/eveluate_product_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
@@ -340,6 +342,20 @@ class AppPages {
     GetPage(
       name: Routes.CHANGE_PASSWORD,
       page: () => ChangePasswordPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.MANAGER_DISCOUNT,
+      page: () => ManagerDiscount(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CREATE_DISCOUNT,
+      page: () => CreateDiscountPage(),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

@@ -41,4 +41,7 @@ abstract class Routes {
   static const MANAGER_STAFF = '/ManagerStaff';
   static const FORGOT_PASSWORD = '/ForgotPassword';
   static const CHANGE_PASSWORD = '/ChangePassword';
+  //Discount
+  static const MANAGER_DISCOUNT = '/GetAllDiscount';
+  static const CREATE_DISCOUNT = '/createDiscount';
 }

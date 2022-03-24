@@ -59,4 +59,8 @@ class ApiGateway {
   //eveluate
   static const GET_EVELUATE = 'eveluate/getEveluate';
   static const CREATE_EVELUATE = 'eveluate/createEveluate';
+
+  //discount
+  static const GET_ALL_DISCOUNT = 'discount/getAllDiscount';
+  static const CREATE_DISCOUNT = 'discount/createDiscount';
 }
