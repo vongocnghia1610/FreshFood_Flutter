@@ -63,4 +63,7 @@ class ApiGateway {
   //discount
   static const GET_ALL_DISCOUNT = 'discount/getAllDiscount';
   static const CREATE_DISCOUNT = 'discount/createDiscount';
+
+  //Group Question
+  static const GETGROUPQUESTION = 'groupQuestion/getAllGroupQuestion';
 }
