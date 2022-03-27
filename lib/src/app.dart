@@ -3,6 +3,7 @@ import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/pages/answer/answer_page.dart';
 import 'package:freshfood/src/pages/authentication/authentication_page.dart';
 import 'package:freshfood/src/pages/cart/cart_page.dart';
+import 'package:freshfood/src/pages/discount/apply_discount_page.dart';
 import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/pages/navigation/navigation.dart';
 import 'package:freshfood/src/pages/order/order_page_admin.dart';
@@ -42,13 +43,13 @@ class _AppState extends State<App> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // return Provider.of<UserProvider>(context).user != null
-    //     ? Provider.of<UserProvider>(context).user.role == 0
-    //         ? Navigation()
-    //         : Provider.of<UserProvider>(context).user.role == 1
-    //             ? ManagerProductPage()
-    //             : OrderPageAdmin()
-    //     : AuthenticationPages();
-    return AnswerPage();
+    return Provider.of<UserProvider>(context).user != null
+        ? Provider.of<UserProvider>(context).user.role == 0
+            ? Navigation()
+            : Provider.of<UserProvider>(context).user.role == 1
+                ? ManagerProductPage()
+                : OrderPageAdmin()
+        : AuthenticationPages();
+    // return ApplyDiscountPage();
   }
 }

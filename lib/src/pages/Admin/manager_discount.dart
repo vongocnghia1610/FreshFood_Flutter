@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/discount.dart';
-import 'package:freshfood/src/pages/Admin/widget/discount_item.dart';
+import 'package:freshfood/src/pages/Admin/widget/discount_item_host.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/discount/controllers/discount_controlller.dart';
 import 'package:freshfood/src/public/styles.dart';

@@ -15,6 +15,16 @@ class DiscountRepository {
     return [];
   }
 
+  Future<List<dynamic>> getDiscountActive() async {
+    var response = await HandleApis().get(ApiGateway.GET_DISCOUNT_ACTIVE);
+    print(response.body);
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
+
   Future<dynamic> createDiscount({
     double percentDiscount,
     DateTime duration,
