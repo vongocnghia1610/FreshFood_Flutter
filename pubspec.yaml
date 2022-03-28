@@ -54,7 +54,6 @@ dependencies:
   fl_chart: ^0.40.5
   cached_network_image: ^3.2.0
   firebase_storage: ^10.2.7
-
   
 dev_dependencies:
   flutter_test:

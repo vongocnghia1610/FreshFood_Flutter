@@ -22,7 +22,7 @@ class _AnswerPageState extends State<AnswerPage> {
   final discountController = Get.put(DiscountController());
 
   bool hidePassword = true;
-
+  int timeQuestion = 11;
   @override
   void initState() {
     // TODO: implement initState
@@ -57,6 +57,40 @@ class _AnswerPageState extends State<AnswerPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        actions: [
+          Stack(children: [
+            Icon(
+              PhosphorIcons.circle,
+              color: Colors.black,
+              size: _size.width / 7.0,
+            ),
+            timeQuestion > 9
+                ? Container(
+                    margin: EdgeInsets.only(top: 13.sp, left: 13.sp),
+                    child: Text(
+                      timeQuestion.toString(),
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  )
+                : Container(
+                    margin: EdgeInsets.only(top: 13.sp, left: 17.sp),
+                    child: Text(
+                      timeQuestion.toString(),
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+          ])
+        ],
       ),
       body: Container(
         height: _size.height,

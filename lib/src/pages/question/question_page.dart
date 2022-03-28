@@ -53,7 +53,7 @@ class _QuestionPageState extends State<QuestionPage> {
           ),
         ),
         title: Text(
-          'Tạo câu hỏi',
+          'Danh sách câu hỏi',
           style: TextStyle(
             color: Color(0xFF2C3D50),
             fontSize: _size.width / 20.5,
