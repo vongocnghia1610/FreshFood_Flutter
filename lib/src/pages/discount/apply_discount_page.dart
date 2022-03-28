@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:freshfood/src/models/discount.dart';
-import 'package:freshfood/src/pages/Admin/widget/discount_item_host.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/discount/controllers/discount_controlller.dart';
 import 'package:freshfood/src/pages/discount/widget/discount_item_user.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
-import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -80,6 +77,7 @@ class _ApplyDiscountPageState extends State<ApplyDiscountPage> {
                           return DiscountItemUser(
                             discount:
                                 DiscountModel.fromMap(_.listDiscount[index]),
+                            index: index,
                           );
                         },
                       ),
@@ -88,7 +86,10 @@ class _ApplyDiscountPageState extends State<ApplyDiscountPage> {
                   Container(
                     child: DefaultButton(
                       btnText: 'Áp dụng',
-                      onPressed: () {},
+                      onPressed: () {
+                        discountController.applyDiscount();
+                        Get.back();
+                      },
                     ),
                   )
 

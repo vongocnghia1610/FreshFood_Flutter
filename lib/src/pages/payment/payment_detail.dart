@@ -7,6 +7,7 @@ import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/order.dart';
 import 'package:freshfood/src/models/product.dart';
+import 'package:freshfood/src/pages/discount/controllers/discount_controlller.dart';
 import 'package:freshfood/src/pages/payment/controller/addressController.dart';
 import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
@@ -29,6 +30,8 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
   ScrollController scrollController = ScrollController();
   final addressController = Get.put(AddressController());
   final paymentController = Get.put(PaymentController());
+  final discountController = Get.put(DiscountController());
+
   TextEditingController _noteController = TextEditingController();
 
   double heighContainer;
@@ -231,18 +234,22 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                           SizedBox(
                             width: 10.sp,
                           ),
-                          Text(
-                            'Phương thức thanh toán:',
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              'Phương thức thanh toán:',
+                              style: TextStyle(
+                                // color: colorTitle,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 10.sp,
                           ),
                           Expanded(
+                            flex: 2,
                             child: TextButton(
                               onPressed: () {
                                 Get.toNamed(Routes.METHOD_PAYMENT);
@@ -280,35 +287,42 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                           SizedBox(
                             width: 10.sp,
                           ),
-                          Text(
-                            'Voucher:',
-                            style: TextStyle(
-                              // color: colorTitle,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                          Expanded(
+                            flex: 3,
+                            child: Text(
+                              'Voucher:',
+                              style: TextStyle(
+                                // color: colorTitle,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           SizedBox(
                             width: 10.sp,
                           ),
                           Expanded(
+                            flex: 2,
                             child: TextButton(
                               onPressed: () {
-                                Get.toNamed(Routes.METHOD_PAYMENT);
+                                Get.toNamed(Routes.APPLY_DISCOUNT);
                               },
                               style: TextButton.styleFrom(
                                 textStyle: TextStyle(fontSize: 12.sp),
                               ),
-                              child: GetBuilder<PaymentController>(
-                                init: paymentController,
-                                builder: (_) => _.methodPayment == null
+                              child: GetBuilder<DiscountController>(
+                                init: discountController,
+                                builder: (_) => _.currentDiscount == null
                                     ? Text(
-                                        'Chọn hoặc nhập mã',
+                                        'Chọn mã giảm',
                                         maxLines: 3,
                                         style: TextStyle(color: Colors.orange),
                                       )
                                     : Text(
-                                        paymentController.getPaymentMethod(),
+                                        '-' +
+                                            formatMoney(discountController
+                                                .moneyDiscount
+                                                .toDouble()),
                                         maxLines: 3,
                                         style: TextStyle(color: Colors.orange),
                                       ),
@@ -349,6 +363,39 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                       ),
                       SizedBox(
                         height: 5.sp,
+                      ),
+                      GetBuilder<DiscountController>(
+                        init: discountController,
+                        builder: (_) => _.currentDiscount != null
+                            ? Row(
+                                children: [
+                                  Text(
+                                    'Tổng voucher giảm giá:',
+                                    style: TextStyle(
+                                      // color: colorTitle,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 110.sp,
+                                  ),
+                                  Text(
+                                    '-' +
+                                        formatMoney(discountController
+                                            .moneyDiscount
+                                            .toDouble()),
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : SizedBox(
+                                height: 5.sp,
+                              ),
                       ),
                       Row(children: [
                         Text(

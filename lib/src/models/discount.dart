@@ -11,6 +11,9 @@ class DiscountModel extends GetxController {
   int minimumDiscount;
   int maxDiscount;
   DateTime duration;
+  int quantity;
+  int used;
+  bool active;
   DiscountModel({
     this.id,
     this.idProduct,
@@ -20,6 +23,9 @@ class DiscountModel extends GetxController {
     this.maxDiscount,
     this.duration,
     this.minimumDiscount,
+    this.quantity,
+    this.used,
+    this.active,
   });
 
   DiscountModel copyWith({
@@ -54,20 +60,25 @@ class DiscountModel extends GetxController {
       'maxDiscount': maxDiscount,
       'duration': duration.millisecondsSinceEpoch,
       'minimumDiscount': minimumDiscount,
+      'quantity': quantity,
+      'used': used,
+      'active': active
     };
   }
 
   factory DiscountModel.fromMap(Map<String, dynamic> map) {
     return DiscountModel(
-      id: map['_id'] ?? '',
-      idProduct: map['idProduct'] ?? '',
-      idGroupProduct: map['idGroupProduct'] ?? '',
-      totalProduct: map['totalProduct'] ?? false,
-      percentDiscount: map['percentDiscount']?.toInt() ?? 0,
-      minimumDiscount: map['minimumDiscount']?.toInt() ?? 0,
-      maxDiscount: map['maxDiscount']?.toInt() ?? 0,
-      duration: DateTime.parse(map['duration']),
-    );
+        id: map['_id'] ?? '',
+        idProduct: map['idProduct'] ?? '',
+        idGroupProduct: map['idGroupProduct'] ?? '',
+        totalProduct: map['totalProduct'] ?? false,
+        percentDiscount: map['percentDiscount']?.toInt() ?? 0,
+        minimumDiscount: map['minimumDiscount']?.toInt() ?? 0,
+        maxDiscount: map['maxDiscount']?.toInt() ?? 0,
+        duration: DateTime.parse(map['duration']),
+        quantity: map['quantity']?.toInt() ?? 0,
+        used: map['used']?.toInt() ?? 0,
+        active: map['active'] ?? false);
   }
 
   String toJson() => json.encode(toMap());
