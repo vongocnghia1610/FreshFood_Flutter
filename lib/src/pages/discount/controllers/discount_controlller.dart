@@ -37,6 +37,22 @@ class DiscountController extends GetxController {
     }
   }
 
+  getDiscountActive() {
+    if (skip != -1) {
+      DiscountRepository().getDiscountActive().then((value) {
+        print(value);
+        if (value != null) {
+          listDiscount.addAll(value);
+          skip++;
+          update();
+        } else {
+          skip = -1;
+          update();
+        }
+      });
+    }
+  }
+
   initDateTime() {
     startTime = DateTime.now();
     endTime = DateTime.now();

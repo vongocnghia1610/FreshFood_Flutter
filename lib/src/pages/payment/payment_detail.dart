@@ -225,7 +225,7 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                       Row(
                         children: [
                           Icon(
-                            PhosphorIcons.currency_circle_dollar,
+                            PhosphorIcons.wallet,
                             size: 20.sp,
                           ),
                           SizedBox(
@@ -255,6 +255,55 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                                 builder: (_) => _.methodPayment == null
                                     ? Text(
                                         'Phương thức thanh toán',
+                                        maxLines: 3,
+                                        style: TextStyle(color: Colors.orange),
+                                      )
+                                    : Text(
+                                        paymentController.getPaymentMethod(),
+                                        maxLines: 3,
+                                        style: TextStyle(color: Colors.orange),
+                                      ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5.sp,
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Icon(
+                            PhosphorIcons.tag,
+                            size: 20.sp,
+                          ),
+                          SizedBox(
+                            width: 10.sp,
+                          ),
+                          Text(
+                            'Voucher:',
+                            style: TextStyle(
+                              // color: colorTitle,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.sp,
+                          ),
+                          Expanded(
+                            child: TextButton(
+                              onPressed: () {
+                                Get.toNamed(Routes.METHOD_PAYMENT);
+                              },
+                              style: TextButton.styleFrom(
+                                textStyle: TextStyle(fontSize: 12.sp),
+                              ),
+                              child: GetBuilder<PaymentController>(
+                                init: paymentController,
+                                builder: (_) => _.methodPayment == null
+                                    ? Text(
+                                        'Chọn hoặc nhập mã',
                                         maxLines: 3,
                                         style: TextStyle(color: Colors.orange),
                                       )
