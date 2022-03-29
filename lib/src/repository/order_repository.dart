@@ -40,7 +40,8 @@ class OrderRepository {
       {List<String> cartId,
       AddressModel address,
       String note,
-      int typePaymentOrder}) async {
+      int typePaymentOrder,
+      String idDiscount}) async {
     var body = {
       "cartId": cartId,
       "area": {
@@ -48,17 +49,14 @@ class OrderRepository {
         "phone": address.phone,
         "province": address.province,
         "district": address.district,
-        "address": address.address
+        "address": address.address,
       },
       "note": note,
-      "typePaymentOrder": typePaymentOrder
+      "typePaymentOrder": typePaymentOrder,
+      "idDiscount": idDiscount,
     };
     var response = await HandleApis().post(ApiGateway.CREATE_ORDER, body);
-    print(jsonEncode(body));
 
-    print("chonayne");
-
-    print(response.statusCode);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -70,7 +68,8 @@ class OrderRepository {
       int quantity,
       AddressModel address,
       String note,
-      int typePaymentOrder}) async {
+      int typePaymentOrder,
+      String idDiscount}) async {
     var body = {
       "productId": productId,
       "quantity": quantity,
@@ -82,15 +81,12 @@ class OrderRepository {
         "address": address.address
       },
       "note": note,
-      "typePaymentOrder": typePaymentOrder
+      "typePaymentOrder": typePaymentOrder,
+      "idDiscount": idDiscount,
     };
     var response =
         await HandleApis().post(ApiGateway.CREATE_ORDER_BUY_NOW, body);
-    print(jsonEncode(body));
-
-    print("chonayne");
-
-    print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

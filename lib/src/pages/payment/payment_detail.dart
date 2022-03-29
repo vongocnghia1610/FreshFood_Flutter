@@ -1,18 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/cart_model.dart';
-import 'package:freshfood/src/models/order.dart';
-import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/discount/controllers/discount_controlller.dart';
 import 'package:freshfood/src/pages/payment/controller/addressController.dart';
 import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/pages/payment/widget/default_button.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
-import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -42,305 +38,115 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
     heighContainer = 95.sp * widget.list.length;
     addressController.getAllAddress();
     _noteController.text = paymentController.note;
-    print('start');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        drawer: Container(
-          width: 70.w,
-          child: Drawer(
-            child: DrawerLayout(),
-          ),
-        ),
-        appBar: AppBar(
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () => Get.back(),
-            icon: Icon(
-              PhosphorIcons.arrow_left,
-              color: Colors.white,
-              size: 7.w,
+    return GetBuilder<DiscountController>(
+        init: discountController,
+        builder: (_) => Scaffold(
+            key: _scaffoldKey,
+            drawer: Container(
+              width: 70.w,
+              child: Drawer(
+                child: DrawerLayout(),
+              ),
             ),
-          ),
-          title: Text(
-            "Thanh Toán",
-            style: TextStyle(fontSize: 17.sp),
-          ),
-        ),
-        body: Container(
-          height: 100.h,
-          width: 100.w,
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                InkWell(
-                  splashColor: Colors.greenAccent,
-                  onTap: () {
-                    Get.toNamed(Routes.ADDRESS);
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(left: 20),
-                    margin: EdgeInsets.only(
-                      top: 25.0,
+            appBar: AppBar(
+              elevation: 0,
+              leading: IconButton(
+                onPressed: () => Get.back(),
+                icon: Icon(
+                  PhosphorIcons.arrow_left,
+                  color: Colors.white,
+                  size: 7.w,
+                ),
+              ),
+              title: Text(
+                "Thanh Toán",
+                style: TextStyle(fontSize: 17.sp),
+              ),
+            ),
+            body: Container(
+              height: 100.h,
+              width: 100.w,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    InkWell(
+                      splashColor: Colors.greenAccent,
+                      onTap: () {
+                        Get.toNamed(Routes.ADDRESS);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(left: 20),
+                        margin: EdgeInsets.only(
+                          top: 25.0,
+                        ),
+                        child: Row(children: [
+                          Icon(
+                            PhosphorIcons.map_pin_line,
+                            size: 20.sp,
+                          ),
+                          SizedBox(
+                            width: 16.sp,
+                          ),
+                          Expanded(
+                            child: GetBuilder<AddressController>(
+                                init: addressController,
+                                builder: (_) => _.addressSelected == null
+                                    ? Text(
+                                        'Bạn chưa có địa chỉ, vui lòng chọn địa chỉ',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 2.5.w),
+                                      )
+                                    : Text(
+                                        ' ${_.addressSelected.address} - ${_.addressSelected.district} - ${_.addressSelected.province}',
+                                        style: TextStyle(
+                                          // color: colorTitle,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                      )),
+                          ),
+                        ]),
+                      ),
                     ),
-                    child: Row(children: [
-                      Icon(
-                        PhosphorIcons.map_pin_line,
-                        size: 20.sp,
-                      ),
-                      SizedBox(
-                        width: 16.sp,
-                      ),
-                      Expanded(
-                        child: GetBuilder<AddressController>(
-                            init: addressController,
-                            builder: (_) => _.addressSelected == null
-                                ? Text(
-                                    'Bạn chưa có địa chỉ, vui lòng chọn địa chỉ',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 2.5.w),
-                                  )
-                                : Text(
-                                    ' ${_.addressSelected.address} - ${_.addressSelected.district} - ${_.addressSelected.province}',
-                                    style: TextStyle(
-                                      // color: colorTitle,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
-                                  )),
-                      ),
-                    ]),
-                  ),
-                ),
-                Container(
-                  height: heighContainer,
-                  child: ListView.builder(
-                    controller: scrollController,
-                    itemCount: widget.list.length,
-                    itemBuilder: (context, index) {
-                      return CartDetail(
-                        cartModel: widget.list[index],
-                      );
-                    },
-                  ),
-                ),
-
-                // cart image
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  margin: EdgeInsets.only(
-                    top: 25.0,
-                    bottom: 12.0,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        PhosphorIcons.note,
-                        size: 20.sp,
-                      ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      Text(
-                        'Tin nhắn:',
-                        style: TextStyle(
-                          // color: colorTitle,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      Expanded(
-                          child: TextField(
-                        onChanged: (value) {
-                          paymentController.note = value;
+                    Container(
+                      height: heighContainer,
+                      child: ListView.builder(
+                        controller: scrollController,
+                        itemCount: widget.list.length,
+                        itemBuilder: (context, index) {
+                          return CartDetail(
+                            cartModel: widget.list[index],
+                          );
                         },
-                        textAlign: TextAlign.end,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Nhập ghi chú cho đơn hàng',
-                          hintStyle: TextStyle(color: Colors.grey),
-                        ),
-                        textCapitalization: TextCapitalization.sentences,
-                      )),
-                      SizedBox(
-                        width: 10.sp,
                       ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  margin: EdgeInsets.only(
-                    top: 25.0,
-                    bottom: 12.0,
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        PhosphorIcons.money,
-                        size: 20.sp,
+                    ),
+
+                    // cart image
+                    Container(
+                      padding: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(
+                        top: 25.0,
+                        bottom: 12.0,
                       ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      Text(
-                        'Tổng Số tiền:',
-                        style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.sp,
-                      ),
-                      Text(
-                        formatMoney(
-                            paymentController.getproductPrice(widget.list)),
-                        style: TextStyle(
-                          color: Colors.redAccent,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
-                        textAlign: TextAlign.end,
-                      ),
-                      SizedBox(
-                        width: 5.sp,
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  margin: EdgeInsets.only(
-                    top: 25.0,
-                    bottom: 12.0,
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
+                      child: Row(
                         children: [
                           Icon(
-                            PhosphorIcons.wallet,
+                            PhosphorIcons.note,
                             size: 20.sp,
                           ),
                           SizedBox(
                             width: 10.sp,
                           ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Phương thức thanh toán:',
-                              style: TextStyle(
-                                // color: colorTitle,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.sp,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TextButton(
-                              onPressed: () {
-                                Get.toNamed(Routes.METHOD_PAYMENT);
-                              },
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 12.sp),
-                              ),
-                              child: GetBuilder<PaymentController>(
-                                init: paymentController,
-                                builder: (_) => _.methodPayment == null
-                                    ? Text(
-                                        'Phương thức thanh toán',
-                                        maxLines: 3,
-                                        style: TextStyle(color: Colors.orange),
-                                      )
-                                    : Text(
-                                        paymentController.getPaymentMethod(),
-                                        maxLines: 3,
-                                        style: TextStyle(color: Colors.orange),
-                                      ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5.sp,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            PhosphorIcons.tag,
-                            size: 20.sp,
-                          ),
-                          SizedBox(
-                            width: 10.sp,
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              'Voucher:',
-                              style: TextStyle(
-                                // color: colorTitle,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 10.sp,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: TextButton(
-                              onPressed: () {
-                                Get.toNamed(Routes.APPLY_DISCOUNT);
-                              },
-                              style: TextButton.styleFrom(
-                                textStyle: TextStyle(fontSize: 12.sp),
-                              ),
-                              child: GetBuilder<DiscountController>(
-                                init: discountController,
-                                builder: (_) => _.currentDiscount == null
-                                    ? Text(
-                                        'Chọn mã giảm',
-                                        maxLines: 3,
-                                        style: TextStyle(color: Colors.orange),
-                                      )
-                                    : Text(
-                                        '-' +
-                                            formatMoney(discountController
-                                                .moneyDiscount
-                                                .toDouble()),
-                                        maxLines: 3,
-                                        style: TextStyle(color: Colors.orange),
-                                      ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5.sp,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 15.sp,
-                      ),
-                      Row(
-                        children: [
                           Text(
-                            'Tổng tiền hàng:',
+                            'Tin nhắn:',
                             style: TextStyle(
                               // color: colorTitle,
                               fontSize: 12.sp,
@@ -348,131 +154,274 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 110.sp,
+                            width: 10.sp,
+                          ),
+                          Expanded(
+                              child: TextField(
+                            onChanged: (value) {
+                              paymentController.note = value;
+                            },
+                            textAlign: TextAlign.end,
+                            decoration: InputDecoration.collapsed(
+                              hintText: 'Nhập ghi chú cho đơn hàng',
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            textCapitalization: TextCapitalization.sentences,
+                          )),
+                          SizedBox(
+                            width: 10.sp,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(
+                        top: 25.0,
+                        bottom: 12.0,
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            PhosphorIcons.money,
+                            size: 20.sp,
+                          ),
+                          SizedBox(
+                            width: 10.sp,
+                          ),
+                          Text(
+                            'Tổng Số tiền:',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10.sp,
                           ),
                           Text(
                             formatMoney(
                                 paymentController.getproductPrice(widget.list)),
                             style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 10.sp,
+                              color: Colors.redAccent,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
+                            textAlign: TextAlign.end,
+                          ),
+                          SizedBox(
+                            width: 5.sp,
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 5.sp,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left: 20),
+                      margin: EdgeInsets.only(
+                        top: 25.0,
+                        bottom: 12.0,
                       ),
-                      GetBuilder<DiscountController>(
-                        init: discountController,
-                        builder: (_) => _.currentDiscount != null
-                            ? Row(
-                                children: [
-                                  Text(
-                                    'Tổng voucher giảm giá:',
-                                    style: TextStyle(
-                                      // color: colorTitle,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 110.sp,
-                                  ),
-                                  Text(
-                                    '-' +
-                                        formatMoney(discountController
-                                            .moneyDiscount
-                                            .toDouble()),
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : SizedBox(
-                                height: 5.sp,
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                PhosphorIcons.wallet,
+                                size: 20.sp,
                               ),
+                              SizedBox(
+                                width: 10.sp,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                  'Phương thức thanh toán:',
+                                  style: TextStyle(
+                                    // color: colorTitle,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.sp,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Get.toNamed(Routes.METHOD_PAYMENT);
+                                  },
+                                  style: TextButton.styleFrom(
+                                    textStyle: TextStyle(fontSize: 12.sp),
+                                  ),
+                                  child: GetBuilder<PaymentController>(
+                                    init: paymentController,
+                                    builder: (_) => _.methodPayment == null
+                                        ? Text(
+                                            'Phương thức thanh toán',
+                                            maxLines: 3,
+                                            style:
+                                                TextStyle(color: Colors.orange),
+                                          )
+                                        : Text(
+                                            paymentController
+                                                .getPaymentMethod(),
+                                            maxLines: 3,
+                                            style:
+                                                TextStyle(color: Colors.orange),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.sp,
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Icon(
+                                PhosphorIcons.tag,
+                                size: 20.sp,
+                              ),
+                              SizedBox(
+                                width: 10.sp,
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: Text(
+                                  'Voucher:',
+                                  style: TextStyle(
+                                    // color: colorTitle,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.sp,
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: TextButton(
+                                  onPressed: () {
+                                    Get.toNamed(Routes.APPLY_DISCOUNT);
+                                  },
+                                  style: TextButton.styleFrom(
+                                    textStyle: TextStyle(fontSize: 12.sp),
+                                  ),
+                                  child: GetBuilder<DiscountController>(
+                                    init: discountController,
+                                    builder: (_) => _.currentDiscount == null
+                                        ? Text(
+                                            'Chọn mã giảm',
+                                            maxLines: 3,
+                                            style:
+                                                TextStyle(color: Colors.orange),
+                                          )
+                                        : Text(
+                                            '-' +
+                                                formatMoney(discountController
+                                                    .moneyDiscount
+                                                    .toDouble()),
+                                            maxLines: 3,
+                                            style:
+                                                TextStyle(color: Colors.orange),
+                                          ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 5.sp,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 15.sp,
+                          ),
+                          widgetMoney('Tổng tiền hàng:',
+                              paymentController.getproductPrice(widget.list)),
+                          SizedBox(
+                            height: 5.sp,
+                          ),
+                          discountController.currentDiscount != null
+                              ? widgetMoney('Tổng voucher giảm giá:',
+                                  _.moneyDiscount.toDouble())
+                              : SizedBox(),
+                          SizedBox(
+                            height: 5.sp,
+                          ),
+                          GetBuilder<PaymentController>(
+                              init: paymentController,
+                              builder: (_) => widgetMoney(
+                                  'Tổng phí vận chuyển:',
+                                  paymentController.transportFee)),
+                          SizedBox(
+                            height: 7.sp,
+                          ),
+                          GetBuilder<PaymentController>(
+                              init: paymentController,
+                              builder: (_) => widgetMoney(
+                                  'Tổng thanh toán:', paymentController.total)),
+                        ],
                       ),
-                      Row(children: [
-                        Text(
-                          'Tổng phí vận chuyển:',
-                          style: TextStyle(
-                            // color: colorTitle,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 80.sp,
-                        ),
-                        GetBuilder<PaymentController>(
-                          init: paymentController,
-                          builder: (_) => Text(
-                            formatMoney(paymentController.transportFee),
-                            style: TextStyle(
-                              color: Colors.orange,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ]),
-                      SizedBox(
-                        height: 5.sp,
-                      ),
-                      Row(children: [
-                        Text(
-                          'Tổng thanh toán:',
-                          style: TextStyle(
-                            // color: colorTitle,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 80.sp,
-                        ),
-                        GetBuilder<PaymentController>(
-                          init: paymentController,
-                          builder: (_) => Text(
-                            formatMoney(paymentController.total),
-                            style: TextStyle(
-                              color: Colors.orange,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ])
-                    ],
-                  ),
+                    ),
+                    DefaultButton(
+                      btnText: 'Đồng ý',
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                ),
+                              );
+                            },
+                            barrierColor: Color(0x80000000),
+                            barrierDismissible: false);
+                        discountController.createOrder(
+                            widget.list, widget.isBuyNow);
+                      },
+                    )
+                  ],
                 ),
-                DefaultButton(
-                  btnText: 'Đồng ý',
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Center(
-                            child: CircularProgressIndicator(
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          );
-                        },
-                        barrierColor: Color(0x80000000),
-                        barrierDismissible: false);
-                    paymentController.createOrder(widget.list, widget.isBuyNow);
-                  },
-                )
-              ],
+              ),
+            )));
+  }
+
+  Row widgetMoney(String title, double value) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Text(
+            title,
+            style: TextStyle(
+              // color: colorTitle,
+              fontSize: title == 'Tổng thanh toán:' ? 15.sp : 12.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
-        ));
+        ),
+        Expanded(
+          flex: 1,
+          child: Text(
+            title == 'Tổng voucher giảm giá:'
+                ? '-' + formatMoney(value)
+                : formatMoney(value),
+            style: TextStyle(
+              color:
+                  title == 'Tổng thanh toán:' ? Colors.orange : Colors.black87,
+              fontSize: title == 'Tổng thanh toán:' ? 14.sp : 11.sp,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
