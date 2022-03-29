@@ -1,6 +1,12 @@
+import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/discount.dart';
+import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/pages/payment/controller/addressController.dart';
 import 'package:freshfood/src/pages/payment/controller/payment_controller.dart';
 import 'package:freshfood/src/repository/discount_repository.dart';
+import 'package:freshfood/src/repository/order_repository.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
@@ -10,14 +16,13 @@ class DiscountController extends GetxController {
   DateTime startTime;
   DateTime endTime;
   DiscountModel currentDiscount;
-  int indexSelected;
+  int indexSelected = -1;
   int moneyDiscount = 0;
   final paymentController = Get.put(PaymentController());
 
   initialController() {
     listDiscount = [];
     skip = 1;
-    moneyDiscount = 0;
   }
 
   getAllDiscount() {
@@ -64,16 +69,89 @@ class DiscountController extends GetxController {
   }
 
   applyDiscount() {
+    if (indexSelected == -1) return;
+    if (currentDiscount != null &&
+        currentDiscount.id == listDiscount[indexSelected]['_id']) return;
+
     currentDiscount = DiscountModel.fromMap(listDiscount[indexSelected]);
     moneyDiscount =
         paymentController.productPrice * currentDiscount.percentDiscount ~/ 100;
     if (moneyDiscount > currentDiscount.maxDiscount)
       moneyDiscount = currentDiscount.maxDiscount;
     update();
+    paymentController.total = paymentController.total - moneyDiscount;
+    update();
   }
 
   selectIndexDiscount(int index) {
     indexSelected = index;
     update();
+  }
+
+  createOrder(List<CartModel> list, bool isBuyNow) {
+    final addressController = Get.put(AddressController());
+    if (addressController.addressSelected != null) {
+      List<String> id = list.map((value) => value.id).toList();
+      if (isBuyNow == false) {
+        OrderRepository()
+            .createOrder(
+                cartId: id,
+                address: addressController.addressSelected,
+                note: paymentController.note,
+                typePaymentOrder: paymentController.methodPayment,
+                idDiscount: currentDiscount != null ? currentDiscount.id : '')
+            .then((value) {
+          Get.back();
+          final cartController = Get.put(CartController());
+          cartController.getListProduct();
+          var temp = paymentController.methodPayment;
+          paymentController.methodPayment = 0;
+          if (temp != 0) {
+            Get.toNamed(Routes.PAYMENT_WEB_PAGE,
+                arguments: {"link": value['link']});
+          } else {
+            Get.offAllNamed(Routes.ROOT);
+            GetSnackBar getSnackBar = GetSnackBar(
+              title: 'Tạo đơn hàng thành công',
+              subTitle: 'Bạn có thể theo dõi quá trình vận đơn tại mục Xem đơn',
+            );
+            getSnackBar.show();
+          }
+        });
+      } else {
+        OrderRepository()
+            .createOrderBuyNow(
+                productId: list[0].id,
+                quantity: list[0].quantity,
+                address: addressController.addressSelected,
+                note: paymentController.note,
+                typePaymentOrder: paymentController.methodPayment,
+                idDiscount: currentDiscount != null ? currentDiscount.id : '')
+            .then((value) {
+          final cartController = Get.put(CartController());
+          cartController.getListProduct();
+          var temp = paymentController.methodPayment;
+          paymentController.methodPayment = 0;
+          if (temp != 0) {
+            Get.toNamed(Routes.PAYMENT_WEB_PAGE,
+                arguments: {"link": value['link']});
+          } else {
+            Get.offAllNamed(Routes.ROOT);
+            GetSnackBar getSnackBar = GetSnackBar(
+              title: 'Tạo đơn hàng thành công',
+              subTitle: 'Bạn có thể theo dõi quá trình vận đơn tại mục Xem đơn',
+            );
+            getSnackBar.show();
+          }
+        });
+      }
+    } else {
+      Get.back();
+      GetSnackBar getSnackBar = GetSnackBar(
+        title: 'Tạo đơn hàng thất bại',
+        subTitle: 'Vui lòng chọn địa chỉ nhận hàng!',
+      );
+      getSnackBar.show();
+    }
   }
 }
