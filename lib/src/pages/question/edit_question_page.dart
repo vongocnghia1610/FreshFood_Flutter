@@ -1,26 +1,16 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/models/group_product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
-import 'package:freshfood/src/public/constant.dart';
 import 'package:freshfood/src/public/styles.dart';
-import 'package:freshfood/src/repository/product_repository.dart';
-import 'package:freshfood/src/routes/app_pages.dart';
-import 'package:freshfood/src/services/upload_storage.dart';
-import 'package:freshfood/src/utils/snackbar.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class EditQuestionPage extends StatefulWidget {
@@ -65,121 +55,6 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
 
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
-  }
-
-  void showImageBottomSheet() {
-    showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(30.0),
-        ),
-      ),
-      isScrollControlled: true,
-      context: context,
-      builder: (context) {
-        return _chooseImage(context);
-      },
-    );
-  }
-
-  // Future<void> createProduct() async {
-  //   List<String> listImage = [];
-  //   for (var element in _image) {
-  //     String url =
-  //         await StorageService().uploadImageToStorage(element, folderProduct);
-  //     listImage.add(url);
-  //   }
-
-  //   ProductRepository()
-  //       .createProduct(
-  //     images: listImage,
-  //     weight: weight,
-  //     price: price,
-  //     quantity: quantity,
-  //     name: name,
-  //     detail: detail,
-  //     groupProduct: grProduct,
-  //   )
-  //       .then((value) {
-  //     Get.back();
-  //     if (value == null) {
-  //       GetSnackBar getSnackBar = GetSnackBar(
-  //         title: 'Tạo thất bại',
-  //         subTitle: 'Vui lòng kiểm tra đủ các trường',
-  //       );
-  //       getSnackBar.show();
-  //     } else {
-  //       Get.offAndToNamed(Routes.ADMIN_MANAGER_PRODUCT);
-  //       GetSnackBar getSnackBar = GetSnackBar(
-  //         title: 'Tạo thành công',
-  //         subTitle: 'Tạo thành công sản phẩm',
-  //       );
-  //       getSnackBar.show();
-  //     }
-  //   });
-  // }
-
-  Widget _chooseImage(context) {
-    final _size = MediaQuery.of(context).size;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: mC,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(
-            30.0,
-          ),
-        ),
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 12.0),
-            Container(
-              height: 4.0,
-              margin: EdgeInsets.symmetric(horizontal: _size.width * .35),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: mCD,
-                boxShadow: [
-                  BoxShadow(
-                    color: mCD,
-                    offset: Offset(2.0, 2.0),
-                    blurRadius: 2.0,
-                  ),
-                  BoxShadow(
-                    color: mCL,
-                    offset: Offset(-1.0, -1.0),
-                    blurRadius: 1.0,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 8.0),
-            _buildAction(
-              context,
-              'Chụp ảnh',
-              PhosphorIcons.instagram_logo_bold,
-            ),
-            Divider(
-              color: Colors.grey,
-              thickness: .25,
-              height: .25,
-              indent: 8.0,
-              endIndent: 8.0,
-            ),
-            _buildAction(
-              context,
-              'Chọn ảnh từ Album',
-              PhosphorIcons.image_square_bold,
-            ),
-            SizedBox(height: 18.0),
-          ],
-        ),
-      ),
-    );
   }
 
   Widget _buildAction(context, title, icon) {
@@ -373,75 +248,6 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                         true),
                     SizedBox(
                       height: 30.0,
-                    ),
-                    FlatButton(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        onPressed: showImageBottomSheet,
-                        child: Text(
-                          'Thêm ảnh',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        )),
-                    Material(
-                      elevation: 20.0,
-                      shadowColor: kPrimaryColor.withOpacity(0.38),
-                      child: Container(
-                        height: 150.sp,
-                        padding: const EdgeInsets.all(3.0),
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1),
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        child: StreamBuilder(
-                          stream: _listImage.stream,
-                          builder: (context, AsyncSnapshot snapshot) {
-                            if (!snapshot.hasData) {
-                              return Container(
-                                child: Center(
-                                  child: Text("Chưa có ảnh"),
-                                ),
-                              );
-                            }
-
-                            return Container(
-                              width: 150.w,
-                              height: 150.sp,
-                              child: ListView.builder(
-                                controller: scrollController,
-                                // gridDelegate:
-                                //     SliverGridDelegateWithFixedCrossAxisCount(
-                                //   crossAxisCount: 2,
-                                //   crossAxisSpacing: 4.0,
-                                //   mainAxisExtent: 4.0,
-                                // ),
-                                scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    child: Container(
-                                        margin: EdgeInsets.only(
-                                          left: kDefaultPadding,
-                                          top: kDefaultPadding / 2,
-                                          bottom: kDefaultPadding / 2,
-                                        ),
-                                        width: 150.sp,
-                                        height: 150.sp,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: FileImage(
-                                                  snapshot.data[index],
-                                                )))),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: 30.0,

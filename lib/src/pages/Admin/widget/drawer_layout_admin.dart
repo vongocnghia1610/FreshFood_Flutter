@@ -26,7 +26,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
     "Quản lý nhân viên",
     "Tin nhắn",
     "Quản lý giảm giá",
-    "Quản lý tài khoản PAYPAL",
+    "Quản lý bộ câu hỏi",
     "Thống kê",
     "Thông tin cá nhân",
     "Đổi mật khẩu",
@@ -112,12 +112,14 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
               ),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed(Routes.ADMIN_WALLET, arguments: {'method': 1});
+                  Get.toNamed(
+                    Routes.MANAGER_GROUP_QUESTION,
+                  );
                 },
                 child: _buildLineDrawer(
                   context,
                   5,
-                  PhosphorIcons.wallet_bold,
+                  PhosphorIcons.question,
                 ),
               ),
 
