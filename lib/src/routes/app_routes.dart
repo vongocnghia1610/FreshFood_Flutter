@@ -45,4 +45,9 @@ abstract class Routes {
   static const MANAGER_DISCOUNT = '/GetAllDiscount';
   static const CREATE_DISCOUNT = '/createDiscount';
   static const APPLY_DISCOUNT = '/appDiscount';
+
+  //Question
+  static const CREATE_QUESTION = '/createQuestion';
+  static const MANAGER_GROUP_QUESTION = '/managerGroupQuestion';
+  static const MANAGER_QUESTION = '/managetQuestion';
 }

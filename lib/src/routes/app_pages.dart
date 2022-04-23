@@ -40,6 +40,9 @@ import 'package:freshfood/src/pages/products/create_product_screen.dart';
 import 'package:freshfood/src/pages/products/detail_product_screen.dart';
 import 'package:freshfood/src/pages/products/product_screen.dart';
 import 'package:freshfood/src/pages/profile/profile_page.dart';
+import 'package:freshfood/src/pages/question/create_question_page.dart';
+import 'package:freshfood/src/pages/question/group_question_page.dart';
+import 'package:freshfood/src/pages/question/question_page.dart';
 import 'package:get/get.dart';
 part 'app_routes.dart';
 
@@ -364,6 +367,30 @@ class AppPages {
     GetPage(
       name: Routes.APPLY_DISCOUNT,
       page: () => ApplyDiscountPage(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.CREATE_QUESTION,
+      page: () => CreateQuestionPage(
+        idGroup: Get.arguments['idGroup'],
+        question: Get.arguments['question'],
+      ),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.MANAGER_GROUP_QUESTION,
+      page: () => ManagerGroupQuestion(),
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: 100),
+      children: [],
+    ),
+    GetPage(
+      name: Routes.MANAGER_QUESTION,
+      page: () => QuestionPage(idGroup: Get.arguments['idGroup']),
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: 100),
       children: [],

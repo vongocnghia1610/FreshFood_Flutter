@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
 import 'package:freshfood/src/pages/discount/controllers/discount_controlller.dart';
-import 'package:freshfood/src/public/styles.dart';
-import 'package:freshfood/src/repository/admin_repository.dart';
-import 'package:freshfood/src/repository/discount_repository.dart';
-import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
