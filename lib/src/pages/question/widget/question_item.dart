@@ -44,7 +44,7 @@ class _QuestiontItemState extends State<QuestionItem> {
         ),
         onPressed: () {
           Get.toNamed(Routes.CREATE_QUESTION, arguments: {
-            'idGroup': widget.question['idGroup'],
+            'idGroup': widget.question['groupQuestion'],
             'question': widget.question
           });
         },

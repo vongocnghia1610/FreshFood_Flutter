@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/models/product.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
@@ -68,13 +69,30 @@ class _ProductCardState extends State<ProductCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            height: 10.w,
                             child: Text(widget.product.name.toUpperCase(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 12,
                                 )),
+                          ),
+                          IgnorePointer(
+                            child: RatingBar.builder(
+                              initialRating: widget.product.starAVG.toDouble(),
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 6.w,
+                              // itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
                           ),
                           Text('Số lượng: ${widget.product.quantity}',
                               maxLines: 1,
@@ -89,7 +107,19 @@ class _ProductCardState extends State<ProductCard> {
                                 .button
                                 .copyWith(color: kPrimaryColor),
                           ),
-                          SizedBox(height: 5.sp),
+                          Container(
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text(
+                                widget.product.sold.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .button
+                                    .copyWith(color: Colors.grey),
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

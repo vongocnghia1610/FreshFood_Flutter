@@ -50,4 +50,7 @@ abstract class Routes {
   static const CREATE_QUESTION = '/createQuestion';
   static const MANAGER_GROUP_QUESTION = '/managerGroupQuestion';
   static const MANAGER_QUESTION = '/managetQuestion';
+
+  //answer
+  static const ANSWER_PAGE = '/answerQuestion';
 }

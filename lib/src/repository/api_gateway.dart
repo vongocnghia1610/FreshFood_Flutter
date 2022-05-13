@@ -73,4 +73,8 @@ class ApiGateway {
   //Question
   static const GET_ALL_QUESTION = 'question/getAllQuestionByGroup';
   static const CREATE_QUESTION = 'question/createQuestion';
+  static const UPDATE_QUESTION = 'question/updateQuestion';
+
+  //Answer
+  static const CREATE_ANSWER = 'answer/createAnswer';
 }

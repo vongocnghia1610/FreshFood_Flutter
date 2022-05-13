@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 class UserRepository {
   Future<dynamic> getProfile() async {
     var response = await HandleApis().get(ApiGateway.GET_PROFILE);
+    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

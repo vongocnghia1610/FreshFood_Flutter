@@ -6,11 +6,14 @@ import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:freshfood/src/pages/home/controllers/product_controller.dart';
 import 'package:freshfood/src/pages/products/controllers/group_product_controller.dart';
 import 'package:freshfood/src/pages/products/widget/drawer_layout.dart';
+import 'package:freshfood/src/pages/question/controllers/question_controller.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/question_repository.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+
+import 'controllers/group_question_controller.dart';
 
 class CreateQuestionPage extends StatefulWidget {
   String idGroup;
@@ -31,6 +34,8 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
   TextEditingController _answerBController = new TextEditingController();
   TextEditingController _answerCController = new TextEditingController();
   TextEditingController _answerDController = new TextEditingController();
+  final _groupQuestionController = Get.put(GroupQuestionController());
+  final _questionController = Get.put(QuestionController());
 
   int time;
   String title;
@@ -54,13 +59,21 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
       _answerCController.text = widget.question['answerC'];
       _answerDController.text = widget.question['answerD'];
       isCorrectA = widget.question['isTrueA'];
-      isCorrectA = widget.question['isTrueB'];
-      isCorrectA = widget.question['isTrueC'];
-      isCorrectA = widget.question['isTrueD'];
+      isCorrectB = widget.question['isTrueB'];
+      isCorrectC = widget.question['isTrueC'];
+      isCorrectD = widget.question['isTrueD'];
     }
   }
 
-  Future<void> createProduct() async {
+  Future<void> updateListQuestion() {
+    _groupQuestionController.initialController();
+    _groupQuestionController.getGroupQuestion();
+
+    _questionController.initialController();
+    _questionController.getAllQuestionByGroup(widget.idGroup);
+  }
+
+  Future<void> createQuestion() async {
     QuestionRepository()
         .createQuestion(
       time: time,
@@ -84,11 +97,47 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
         );
         getSnackBar.show();
       } else {
-        // Get.offAndToNamed(Routes.ADMIN_MANAGER_PRODUCT);
+        updateListQuestion();
         Get.back();
         GetSnackBar getSnackBar = GetSnackBar(
           title: 'Tạo thành công',
           subTitle: 'Tạo thành công câu hỏi',
+        );
+        getSnackBar.show();
+      }
+    });
+  }
+
+  Future<void> updateQuestion() async {
+    QuestionRepository()
+        .updateQuestion(
+      id: widget.question['_id'],
+      time: int.parse(_timeController.text),
+      groupQuestion: widget.idGroup,
+      title: _titleController.text,
+      answerA: _answerAController.text,
+      answerB: _answerBController.text,
+      answerC: _answerCController.text,
+      answerD: _answerDController.text,
+      isCorrectA: isCorrectA,
+      isCorrectB: isCorrectB,
+      isCorrectC: isCorrectC,
+      isCorrectD: isCorrectD,
+    )
+        .then((value) {
+      Get.back();
+      if (value == null) {
+        GetSnackBar getSnackBar = GetSnackBar(
+          title: 'Cập nhật thất bại',
+          subTitle: 'Vui lòng kiểm tra đủ các trường',
+        );
+        getSnackBar.show();
+      } else {
+        updateListQuestion();
+        Get.back();
+        GetSnackBar getSnackBar = GetSnackBar(
+          title: 'Cập nhật thành công',
+          subTitle: 'Cập nhật thành công câu hỏi',
         );
         getSnackBar.show();
       }
@@ -232,11 +281,13 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
                                 },
                                 barrierColor: Color(0x80000000),
                                 barrierDismissible: false);
-                            createProduct();
+                            widget.question == null
+                                ? createQuestion()
+                                : updateQuestion();
                           }
                         },
                         child: Text(
-                          'Tạo Câu hỏi',
+                          widget.question == null ? 'Tạo Câu hỏi' : 'Sửa',
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         )),

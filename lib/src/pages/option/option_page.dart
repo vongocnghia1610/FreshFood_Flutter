@@ -1,8 +1,7 @@
-import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:freshfood/src/pages/answer/controllers/answer_controller.dart';
 import 'package:freshfood/src/pages/option/widgets/profile_list_item.dart';
-import 'package:freshfood/src/pages/products/controllers/product_controller.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
@@ -22,11 +21,14 @@ class OptionPage extends StatefulWidget {
 }
 
 class _OptionPageState extends State<OptionPage> {
-  final profileController = Get.put(ProfileController());
+  final _profileController = Get.put(ProfileController());
+  final _answerController = Get.put(AnswerController());
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _answerController.initController();
   }
 
   @override
@@ -103,13 +105,37 @@ class _OptionPageState extends State<OptionPage> {
             Provider.of<UserProvider>(context).user.name,
             style: kTitleTextStyle,
           ),
-          SizedBox(height: 3.w),
+          SizedBox(height: 2.w),
           Text(
             Provider.of<UserProvider>(context).user.email,
             style: kCaptionTextStyle,
           ),
+          Row(
+            children: [
+              SizedBox(width: 25.w),
+              Container(
+                margin: EdgeInsets.only(left: 20.sp),
+                child: Image(
+                  image: AssetImage('images/icon-money.png'),
+                  height: 7.h,
+                  width: 7.h,
+                  fit: BoxFit.fill,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10.sp, right: 10.sp),
+                width: 20.w,
+                child: Text(
+                  "${Provider.of<UserProvider>(context).user.point.toString()} xu",
+                  style: TextStyle(fontSize: 14.sp, color: Colors.green),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
 
-          SizedBox(height: 10.w),
+          SizedBox(height: 5.w),
           // Container(
           //   height: 10.w * 4,
           //   width: 10.w * 20,
@@ -169,7 +195,6 @@ class _OptionPageState extends State<OptionPage> {
                         Get.toNamed(Routes.ORDER);
                       },
                     ),
-
                     ProfileListItem(
                       icon: LineAwesomeIcons.lock,
                       text: 'Đổi mật khẩu',
@@ -177,10 +202,13 @@ class _OptionPageState extends State<OptionPage> {
                         Get.toNamed(Routes.CHANGE_PASSWORD);
                       },
                     ),
-                    // ProfileListItem(
-                    //   icon: LineAwesomeIcons.user_plus,
-                    //   text: 'Invite a Friend',
-                    // ),
+                    ProfileListItem(
+                      icon: LineAwesomeIcons.book_open,
+                      text: 'Câu hỏi kiếm xu',
+                      tap: () {
+                        _answerController.getAllQuestion();
+                      },
+                    ),
                     ProfileListItem(
                       icon: LineAwesomeIcons.alternate_sign_out,
                       text: 'Đăng xuất',
