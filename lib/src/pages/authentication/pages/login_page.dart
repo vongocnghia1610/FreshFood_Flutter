@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:freshfood/src/models/user.dart';
-import 'package:freshfood/src/pages/home/home_page.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/repository/authentication_repository.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPages extends StatefulWidget {
   final VoidCallback toggleView;
@@ -22,6 +23,19 @@ class _LoginPagesState extends State<LoginPages> {
   String email;
   String password;
   bool _isObscure = true;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+
+  Future<void> _handleSignIn() async {
+    try {
+      await _googleSignIn.signIn();
+      var user = _googleSignIn.currentUser;
+      print({"a": "test", "user": user});
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<void> _handleSignOut() => _googleSignIn.disconnect();
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +199,41 @@ class _LoginPagesState extends State<LoginPages> {
                       style: TextStyle(
                         color: Colors.pinkAccent.shade100,
                         fontSize: 12.8,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 46.8,
+                margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                child: SignInButton(
+                  Buttons.Google,
+                  text: "Sign up with Google",
+                  onPressed: () {
+                    _handleSignIn();
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _handleSignOut();
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: 24.0,
+                    bottom: 12.0,
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Dang xuat',
+                      style: TextStyle(
+                        // color: colorTitle,
+                        fontSize: 12.5,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

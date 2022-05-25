@@ -68,18 +68,21 @@ class DiscountController extends GetxController {
     update();
   }
 
-  applyDiscount() {
+  applyDiscount() async {
     if (indexSelected == -1) return;
     if (currentDiscount != null &&
         currentDiscount.id == listDiscount[indexSelected]['_id']) return;
 
+    await paymentController.getMoney();
     currentDiscount = DiscountModel.fromMap(listDiscount[indexSelected]);
     moneyDiscount =
         paymentController.productPrice * currentDiscount.percentDiscount ~/ 100;
     if (moneyDiscount > currentDiscount.maxDiscount)
       moneyDiscount = currentDiscount.maxDiscount;
-    update();
+
+    paymentController.isUsePoint = false;
     paymentController.total = paymentController.total - moneyDiscount;
+    paymentController.calculatePoint();
     update();
   }
 

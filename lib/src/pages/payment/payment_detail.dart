@@ -360,57 +360,61 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                           SizedBox(
                             height: 7.sp,
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 2,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "Dùng xu",
-                                      style: TextStyle(
-                                        // color: colorTitle,
-                                        fontSize: 12.sp,
-                                        fontWeight: FontWeight.w600,
+                          GetBuilder<PaymentController>(
+                            init: paymentController,
+                            builder: (_) => Row(
+                              children: [
+                                Expanded(
+                                  flex: 2,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Dùng xu",
+                                        style: TextStyle(
+                                          // color: colorTitle,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                    Transform.scale(
-                                      scale: 0.8,
-                                      child: CupertinoSwitch(
-                                        value: false,
-                                        onChanged: (value) {
-                                          // if (value &&
-                                          //     widget.groupQuestion.numberQuestion == 0) {
-                                          //   GetSnackBar getSnackBar = GetSnackBar(
-                                          //     title: 'Vui lòng thêm câu hỏi trước',
-                                          //     subTitle:
-                                          //         'Không thể mở bộ câu hỏi khi chưa có câu nào',
-                                          //   );
-                                          //   getSnackBar.show();
-                                          //   return;
-                                          // }
-                                          // _groupQuestionController.changeStatus(
-                                          //     widget.index, value);
-                                        },
+                                      Transform.scale(
+                                        scale: 0.8,
+                                        child: CupertinoSwitch(
+                                          value: _.isUsePoint,
+                                          onChanged: (value) {
+                                            _.changeStatusUsePoint();
+                                            // if (value &&
+                                            //     widget.groupQuestion.numberQuestion == 0) {
+                                            //   GetSnackBar getSnackBar = GetSnackBar(
+                                            //     title: 'Vui lòng thêm câu hỏi trước',
+                                            //     subTitle:
+                                            //         'Không thể mở bộ câu hỏi khi chưa có câu nào',
+                                            //   );
+                                            //   getSnackBar.show();
+                                            //   return;
+                                            // }
+                                            // _groupQuestionController.changeStatus(
+                                            //     widget.index, value);
+                                          },
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  '- ' + formatMoney(200),
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 11.sp,
-                                    fontWeight: FontWeight.w600,
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ],
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    '- ' + formatMoney(_.usePoint),
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 11.sp,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           SizedBox(
                             height: 7.sp,
