@@ -1,6 +1,7 @@
 class ApiGateway {
 // Authentication
   static const LOGIN = 'user/login';
+  static const LOGIN_WITH_GOOGLE = 'user/loginGoogle';
   static const REGISTER = 'user/register';
   static const FORGOTPASSWORD = 'user/forgotPassword';
   static const CONFIRMOTP = 'user/confirmOtp';
@@ -73,4 +74,13 @@ class ApiGateway {
   //Question
   static const GET_ALL_QUESTION = 'question/getAllQuestionByGroup';
   static const CREATE_QUESTION = 'question/createQuestion';
+  static const UPDATE_QUESTION = 'question/updateQuestion';
+
+  //Answer
+  static const CREATE_ANSWER = 'answer/createAnswer';
+
+  //inventory history
+  static const GET_HISTORY_INVENTORY = 'iventoryHistory/getAllIventoryHistory';
+  static const CREATE_HISTORY_INVENTORY =
+      'iventoryHistory/createIventoryHistory';
 }

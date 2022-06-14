@@ -1,10 +1,7 @@
 import 'package:freshfood/src/models/cart_model.dart';
-import 'package:freshfood/src/pages/cart/controller/cart_controller.dart';
+import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/repository/order_repository.dart';
-import 'package:freshfood/src/routes/app_pages.dart';
-import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
-
 import 'addressController.dart';
 
 class PaymentController extends GetxController {
@@ -13,6 +10,8 @@ class PaymentController extends GetxController {
   double productPrice = 0;
   int methodPayment = 0;
   List<CartModel> list = [];
+  double usePoint = 0;
+  bool isUsePoint = false;
   String note = '';
   double getproductPrice(List<CartModel> list) {
     productPrice = 0;
@@ -24,6 +23,13 @@ class PaymentController extends GetxController {
 
   initPaymentController(List<CartModel> listProduct) {
     list = listProduct;
+    usePoint = 0;
+  }
+
+  changeStatusUsePoint() {
+    isUsePoint = !isUsePoint;
+    isUsePoint ? total -= usePoint : total += usePoint;
+    update();
   }
 
   String getPaymentMethod() {
@@ -48,13 +54,13 @@ class PaymentController extends GetxController {
     update();
   }
 
-  getMoney() {
+  getMoney() async {
     final addressController = Get.put(AddressController());
     double weight = 0;
     list.forEach((element) {
       weight += element.weight;
     });
-    OrderRepository()
+    await OrderRepository()
         .getShipFee(
             address: addressController.addressSelected.address,
             province: addressController.addressSelected.province,
@@ -63,7 +69,18 @@ class PaymentController extends GetxController {
         .then((value) {
       transportFee = double.parse(value.toString());
       total = transportFee + productPrice;
+      isUsePoint = false;
+      calculatePoint();
       update();
     });
+  }
+
+  calculatePoint() {
+    var temp = total / 2;
+    if (temp > userProvider.user.point) {
+      usePoint = userProvider.user.point.toDouble();
+    } else {
+      usePoint = temp;
+    }
   }
 }

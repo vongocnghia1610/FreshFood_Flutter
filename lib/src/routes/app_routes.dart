@@ -50,4 +50,12 @@ abstract class Routes {
   static const CREATE_QUESTION = '/createQuestion';
   static const MANAGER_GROUP_QUESTION = '/managerGroupQuestion';
   static const MANAGER_QUESTION = '/managetQuestion';
+
+  //answer
+  static const ANSWER_PAGE = '/answerQuestion';
+
+  //inventory history
+  static const CREATE_INVENTORY_HISTORY = '/createInventoryHistory';
+  static const MANAGER_INVENTORY_HISTORY = '/inventoryHistory';
+  static const DETAIL_MANAGER_INVENTORY_HISTORY = '/detailInventoryHistory';
 }

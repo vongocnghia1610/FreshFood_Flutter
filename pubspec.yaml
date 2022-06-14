@@ -54,6 +54,8 @@ dependencies:
   fl_chart: ^0.40.5
   cached_network_image: ^3.2.0
   firebase_storage: ^10.2.7
+  google_sign_in: ^5.1.0
+  flutter_signin_button: ^2.0.0
   
 dev_dependencies:
   flutter_test:

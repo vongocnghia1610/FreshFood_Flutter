@@ -75,7 +75,6 @@ class GroupQuestionRepository {
       body,
     );
 
-    print(body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

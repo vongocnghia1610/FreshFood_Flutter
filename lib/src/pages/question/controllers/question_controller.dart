@@ -12,11 +12,9 @@ class QuestionController extends GetxController {
   getAllQuestionByGroup(String id) {
     listQuestion = [];
     QuestionRepository().getAllQuestionByGroup(id).then((value) {
-      if (value.isNotEmpty) {
+      if (value != []) {
         listQuestion.addAll(value);
         update();
-        // question.addAll(value);
-        // _listGroupQuestionController.add(groupQuestion);
       }
     });
   }

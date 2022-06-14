@@ -41,7 +41,8 @@ class OrderRepository {
       AddressModel address,
       String note,
       int typePaymentOrder,
-      String idDiscount}) async {
+      String idDiscount,
+      double bonusMoney}) async {
     var body = {
       "cartId": cartId,
       "area": {
@@ -54,6 +55,7 @@ class OrderRepository {
       "note": note,
       "typePaymentOrder": typePaymentOrder,
       "idDiscount": idDiscount,
+      "bonusMoney": bonusMoney,
     };
     var response = await HandleApis().post(ApiGateway.CREATE_ORDER, body);
 
@@ -63,13 +65,15 @@ class OrderRepository {
     return [];
   }
 
-  Future<dynamic> createOrderBuyNow(
-      {String productId,
-      int quantity,
-      AddressModel address,
-      String note,
-      int typePaymentOrder,
-      String idDiscount}) async {
+  Future<dynamic> createOrderBuyNow({
+    String productId,
+    int quantity,
+    AddressModel address,
+    String note,
+    int typePaymentOrder,
+    String idDiscount,
+    double bonusMoney,
+  }) async {
     var body = {
       "productId": productId,
       "quantity": quantity,
@@ -83,6 +87,7 @@ class OrderRepository {
       "note": note,
       "typePaymentOrder": typePaymentOrder,
       "idDiscount": idDiscount,
+      "bonusMoney": bonusMoney,
     };
     var response =
         await HandleApis().post(ApiGateway.CREATE_ORDER_BUY_NOW, body);

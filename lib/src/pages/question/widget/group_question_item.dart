@@ -5,6 +5,7 @@ import 'package:freshfood/src/models/group_question_model.dart';
 import 'package:freshfood/src/pages/cart/widgets/product_image.dart';
 import 'package:freshfood/src/pages/question/controllers/group_question_controller.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
+import 'package:freshfood/src/utils/snackbar.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
@@ -104,6 +105,16 @@ class _GroupQuestiontItemState extends State<GroupQuestionItem> {
                       child: CupertinoSwitch(
                         value: widget.groupQuestion.isActive,
                         onChanged: (value) {
+                          if (value &&
+                              widget.groupQuestion.numberQuestion == 0) {
+                            GetSnackBar getSnackBar = GetSnackBar(
+                              title: 'Vui lòng thêm câu hỏi trước',
+                              subTitle:
+                                  'Không thể mở bộ câu hỏi khi chưa có câu nào',
+                            );
+                            getSnackBar.show();
+                            return;
+                          }
                           _groupQuestionController.changeStatus(
                               widget.index, value);
                         },
