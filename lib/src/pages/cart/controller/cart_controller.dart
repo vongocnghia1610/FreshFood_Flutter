@@ -66,12 +66,9 @@ class CartController extends GetxController {
   }
 
   increaseQuantity(index) {
-    // if(listProductCart[index]['quantity'] )
-    // {
     listProductCart[index]['quantity']++;
     getTotalMoney();
     getTotalQuantity();
-    // }
   }
 
   decreaseQuantity(index) {

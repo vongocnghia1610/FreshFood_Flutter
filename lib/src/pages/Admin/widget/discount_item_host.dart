@@ -36,7 +36,7 @@ class _DiscountItem extends State<DiscountItem> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               ProductImage(
-                'https://cdn4.vectorstock.com/i/1000x1000/71/83/sign-board-discount-vector-1947183.jpg',
+                'https://img.timviec.com.vn/2020/08/voucher-la-gi-4.jpg?fbclid=IwAR2b0RjRjzwLKxjnqymd-A4UKRJ_b6TTD1CjP4xM7oVmm5-WTkkWe2C80uo',
                 height: 30.w,
                 width: 30.w,
                 padding: 3.w,
@@ -73,7 +73,9 @@ class _DiscountItem extends State<DiscountItem> {
                       height: 2.w,
                     ),
                     LinearProgressIndicator(
-                      value: 0.5,
+                      value: widget.discount.quantity > 50
+                          ? 0
+                          : (50 - widget.discount.quantity) / 50,
                       semanticsLabel: 'Linear progress indicator',
                       color: Colors.green,
                       backgroundColor: Colors.grey.shade300,
@@ -81,26 +83,14 @@ class _DiscountItem extends State<DiscountItem> {
                     SizedBox(
                       height: 2.w,
                     ),
-                    // Row(
-                    //   children: [
-                    //     Text(
-                    //       "Số lượng sản phẩm còn ",
-                    //       style: TextStyle(
-                    //         fontSize: 4.w,
-                    //         color: Colors.black,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //     Text(
-                    //       widget.product.quantity.toString(),
-                    //       style: TextStyle(
-                    //         fontSize: 4.w,
-                    //         color: Colors.red,
-                    //         fontWeight: FontWeight.bold,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    Text(
+                      "Còn lại: " + widget.discount.quantity.toString(),
+                      style: TextStyle(
+                        fontSize: 3.5.w,
+                        color: Colors.grey.shade500,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     SizedBox(
                       height: 2.w,
                     ),

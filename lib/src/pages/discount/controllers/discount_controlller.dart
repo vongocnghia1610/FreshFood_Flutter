@@ -18,7 +18,7 @@ class DiscountController extends GetxController {
   DiscountModel currentDiscount;
   int indexSelected = -1;
   int moneyDiscount = 0;
-  final paymentController = Get.put(PaymentController());
+  PaymentController paymentController = Get.put(PaymentController());
 
   initialController() {
     listDiscount = [];
@@ -98,11 +98,14 @@ class DiscountController extends GetxController {
       if (isBuyNow == false) {
         OrderRepository()
             .createOrder(
-                cartId: id,
-                address: addressController.addressSelected,
-                note: paymentController.note,
-                typePaymentOrder: paymentController.methodPayment,
-                idDiscount: currentDiscount != null ? currentDiscount.id : '')
+          cartId: id,
+          address: addressController.addressSelected,
+          note: paymentController.note,
+          typePaymentOrder: paymentController.methodPayment,
+          idDiscount: currentDiscount != null ? currentDiscount.id : '',
+          bonusMoney:
+              paymentController.isUsePoint ? paymentController.usePoint : 0,
+        )
             .then((value) {
           Get.back();
           final cartController = Get.put(CartController());
@@ -124,12 +127,15 @@ class DiscountController extends GetxController {
       } else {
         OrderRepository()
             .createOrderBuyNow(
-                productId: list[0].id,
-                quantity: list[0].quantity,
-                address: addressController.addressSelected,
-                note: paymentController.note,
-                typePaymentOrder: paymentController.methodPayment,
-                idDiscount: currentDiscount != null ? currentDiscount.id : '')
+          productId: list[0].id,
+          quantity: list[0].quantity,
+          address: addressController.addressSelected,
+          note: paymentController.note,
+          typePaymentOrder: paymentController.methodPayment,
+          idDiscount: currentDiscount != null ? currentDiscount.id : '',
+          bonusMoney:
+              paymentController.isUsePoint ? paymentController.usePoint : 0,
+        )
             .then((value) {
           final cartController = Get.put(CartController());
           cartController.getListProduct();

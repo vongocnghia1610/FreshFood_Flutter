@@ -383,6 +383,9 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                                         child: CupertinoSwitch(
                                           value: _.isUsePoint,
                                           onChanged: (value) {
+                                            if (_.usePoint == 0) {
+                                              return;
+                                            }
                                             _.changeStatusUsePoint();
                                             // if (value &&
                                             //     widget.groupQuestion.numberQuestion == 0) {
@@ -421,8 +424,8 @@ class _PaymentDetailPageState extends State<PaymentDetailPage> {
                           ),
                           GetBuilder<PaymentController>(
                               init: paymentController,
-                              builder: (_) => widgetMoney(
-                                  'Tổng thanh toán:', paymentController.total)),
+                              builder: (_) =>
+                                  widgetMoney('Tổng thanh toán:', _.total)),
                         ],
                       ),
                     ),

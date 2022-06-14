@@ -53,4 +53,9 @@ abstract class Routes {
 
   //answer
   static const ANSWER_PAGE = '/answerQuestion';
+
+  //inventory history
+  static const CREATE_INVENTORY_HISTORY = '/createInventoryHistory';
+  static const MANAGER_INVENTORY_HISTORY = '/inventoryHistory';
+  static const DETAIL_MANAGER_INVENTORY_HISTORY = '/detailInventoryHistory';
 }

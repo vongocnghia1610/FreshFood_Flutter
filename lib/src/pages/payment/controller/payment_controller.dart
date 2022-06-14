@@ -54,13 +54,13 @@ class PaymentController extends GetxController {
     update();
   }
 
-  getMoney() {
+  getMoney() async {
     final addressController = Get.put(AddressController());
     double weight = 0;
     list.forEach((element) {
       weight += element.weight;
     });
-    OrderRepository()
+    await OrderRepository()
         .getShipFee(
             address: addressController.addressSelected.address,
             province: addressController.addressSelected.province,

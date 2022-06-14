@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/screenutil.dart';
 import 'package:freshfood/src/services/socket.dart';
 import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -126,7 +127,9 @@ class _OptionPageState extends State<OptionPage> {
                 margin: EdgeInsets.only(top: 10.sp, right: 10.sp),
                 width: 20.w,
                 child: Text(
-                  "${Provider.of<UserProvider>(context).user.point.toString()} xu",
+                  Provider.of<UserProvider>(context).user.point != null
+                      ? "${Provider.of<UserProvider>(context).user.point.toString()} xu"
+                      : "0 xu",
                   style: TextStyle(fontSize: 14.sp, color: Colors.green),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -136,20 +139,6 @@ class _OptionPageState extends State<OptionPage> {
           ),
 
           SizedBox(height: 5.w),
-          // Container(
-          //   height: 10.w * 4,
-          //   width: 10.w * 20,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(10.w * 3),
-          //     color: Theme.of(context).accentColor,
-          //   ),
-          //   child: Center(
-          //     child: Text(
-          //       'Upgrade to PRO',
-          //       style: kButtonTextStyle,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
@@ -219,6 +208,8 @@ class _OptionPageState extends State<OptionPage> {
                         socket.disconnect();
                         userProvider.setUser(null);
                         Get.offAllNamed(Routes.ROOT);
+                        GoogleSignIn _googleSignIn = GoogleSignIn();
+                        _googleSignIn.disconnect();
                       },
                     ),
                   ],

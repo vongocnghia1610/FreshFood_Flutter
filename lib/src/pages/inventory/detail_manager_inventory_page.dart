@@ -1,30 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freshfood/src/models/group_question_model.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
+import 'package:freshfood/src/pages/inventory/widget/detail_inventory_history_item.dart';
 import 'package:freshfood/src/pages/question/widget/dialog_group_question.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
-import 'controllers/group_question_controller.dart';
-import 'widget/group_question_item.dart';
+import 'controllers/inventory_history_controller.dart';
 
-class ManagerGroupQuestion extends StatefulWidget {
+class DetailManagerInventoryHistory extends StatefulWidget {
+  dynamic inventoryHistory;
+  DetailManagerInventoryHistory({this.inventoryHistory});
   @override
-  _ManagerGroupQuestionState createState() => _ManagerGroupQuestionState();
+  _DetailManagerInventoryHistoryState createState() =>
+      _DetailManagerInventoryHistoryState();
 }
 
-class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
+class _DetailManagerInventoryHistoryState
+    extends State<DetailManagerInventoryHistory> {
   ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _groupQuestionController = Get.put(GroupQuestionController());
+  final _inventoryHistoryController = Get.put(InventoryHistoryController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _groupQuestionController.initialController();
-    _groupQuestionController.getGroupQuestion();
+    _inventoryHistoryController.initialController();
+    _inventoryHistoryController.getInventoryHistory();
     // scrollController.addListener(() {
     //   if (scrollController.position.atEdge) {
     //     if (scrollController.position.pixels == 0) {
@@ -44,65 +48,48 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
         resizeToAvoidBottomInset: false,
         // backgroundColor: AppColors.LIGHT,
         key: _scaffoldKey,
-        drawer: Container(
-          width: 70.w,
-          child: Drawer(
-            child: DrawerLayoutAdmin(status: 5),
-          ),
-        ),
         appBar: AppBar(
           elevation: 0,
           leading: IconButton(
-            onPressed: () => _scaffoldKey.currentState.openDrawer(),
-            icon: SvgPicture.asset("assets/icons/menu.svg"),
+            onPressed: () => Get.back(),
+            icon: Icon(
+              PhosphorIcons.arrow_left,
+              color: Colors.white,
+              size: 7.w,
+            ),
           ),
           title: Text(
-            'Quản lý bộ câu hỏi',
+            'Phiếu nhập xuất ' +
+                DateFormat("dd-MM-yyyy")
+                    .format(DateTime.parse(widget.inventoryHistory['createdAt'])
+                        .toLocal())
+                    .toString(),
             style: TextStyle(
               color: Colors.white,
               fontSize: _size.width / 20.5,
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {
-                // Get.toNamed(Routes.MANAGER_QUESTION);
-                showDialogFCM(context, '', '');
-              },
-              icon: Icon(
-                PhosphorIcons.plus,
-                size: 7.w,
-              ),
-            ),
-          ],
         ),
         body: Container(
           child: Column(
             children: [
               Expanded(
                 child: Container(
-                  child: GetBuilder<GroupQuestionController>(
-                    init: _groupQuestionController,
+                  child: GetBuilder<InventoryHistoryController>(
+                    init: _inventoryHistoryController,
                     builder: (_) => ListView.builder(
                       controller: scrollController,
-                      itemCount: _.groupQuestion.length,
+                      itemCount: widget.inventoryHistory['history'].length,
                       itemBuilder: (context, index) {
-                        return GroupQuestionItem(
-                          groupQuestion: GroupQuestionModel.fromMap(
-                              _.groupQuestion[index]),
-                          index: index,
+                        return DetailInventoryHistoryItem(
+                          history: widget.inventoryHistory['history'][index],
                         );
                       },
                     ),
                   ),
                 ),
               ),
-
-              // Container(
-              //   decoration:
-              //       BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-              // ),
             ],
           ),
           // bottomNavigationBar: CartTotal(),

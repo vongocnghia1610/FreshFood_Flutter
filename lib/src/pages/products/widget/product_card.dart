@@ -70,11 +70,55 @@ class _ProductCardState extends State<ProductCard> {
                         children: <Widget>[
                           Container(
                             child: Text(widget.product.name.toUpperCase(),
-                                maxLines: 2,
+                                maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 12,
                                 )),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                formatMoney(widget.product.price),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .button
+                                    .copyWith(
+                                      fontSize: widget.product.priceDiscount ==
+                                                  0 ||
+                                              widget.product.priceDiscount ==
+                                                  widget.product.price
+                                          ? 13.sp
+                                          : 9.sp,
+                                      decoration:
+                                          widget.product.priceDiscount == 0 ||
+                                                  widget.product
+                                                          .priceDiscount ==
+                                                      widget.product.price
+                                              ? null
+                                              : TextDecoration.lineThrough,
+                                      color: widget.product.priceDiscount ==
+                                                  0 ||
+                                              widget.product.priceDiscount ==
+                                                  widget.product.price
+                                          ? kPrimaryColor
+                                          : Colors.grey,
+                                    ),
+                              ),
+                              widget.product.priceDiscount == 0 ||
+                                      widget.product.priceDiscount ==
+                                          widget.product.price
+                                  ? SizedBox()
+                                  : Text(
+                                      formatMoney(widget.product.priceDiscount),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .button
+                                          .copyWith(
+                                              color: kPrimaryColor,
+                                              fontSize: 13.sp),
+                                    ),
+                            ],
                           ),
                           IgnorePointer(
                             child: RatingBar.builder(
@@ -94,24 +138,12 @@ class _ProductCardState extends State<ProductCard> {
                               },
                             ),
                           ),
-                          Text('Số lượng: ${widget.product.quantity}',
-                              maxLines: 1,
-                              style: TextStyle(
-                                  color: kPrimaryColor.withOpacity(0.5),
-                                  fontSize: 12)),
                           SizedBox(height: 5.sp),
-                          Text(
-                            formatMoney(widget.product.price),
-                            style: Theme.of(context)
-                                .textTheme
-                                .button
-                                .copyWith(color: kPrimaryColor),
-                          ),
                           Container(
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: Text(
-                                widget.product.sold.toString(),
+                                'Đã bán ' + widget.product.sold.toString(),
                                 style: Theme.of(context)
                                     .textTheme
                                     .button

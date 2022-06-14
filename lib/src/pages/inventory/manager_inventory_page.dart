@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:freshfood/src/models/group_question_model.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
+import 'package:freshfood/src/pages/inventory/widget/inventory_history_item.dart';
 import 'package:freshfood/src/pages/question/widget/dialog_group_question.dart';
+import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'controllers/group_question_controller.dart';
-import 'widget/group_question_item.dart';
 
-class ManagerGroupQuestion extends StatefulWidget {
+import 'controllers/inventory_history_controller.dart';
+
+class ManagerInventoryHistory extends StatefulWidget {
   @override
-  _ManagerGroupQuestionState createState() => _ManagerGroupQuestionState();
+  _ManagerInventoryHistoryState createState() =>
+      _ManagerInventoryHistoryState();
 }
 
-class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
+class _ManagerInventoryHistoryState extends State<ManagerInventoryHistory> {
   ScrollController scrollController = ScrollController();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final _groupQuestionController = Get.put(GroupQuestionController());
+  final _inventoryHistoryController = Get.put(InventoryHistoryController());
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _groupQuestionController.initialController();
-    _groupQuestionController.getGroupQuestion();
+    _inventoryHistoryController.initialController();
+    _inventoryHistoryController.getInventoryHistory();
     // scrollController.addListener(() {
     //   if (scrollController.position.atEdge) {
     //     if (scrollController.position.pixels == 0) {
@@ -47,7 +49,7 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
         drawer: Container(
           width: 70.w,
           child: Drawer(
-            child: DrawerLayoutAdmin(status: 5),
+            child: DrawerLayoutAdmin(status: 6),
           ),
         ),
         appBar: AppBar(
@@ -57,7 +59,7 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
             icon: SvgPicture.asset("assets/icons/menu.svg"),
           ),
           title: Text(
-            'Quản lý bộ câu hỏi',
+            'Quản lý phiếu nhập kho',
             style: TextStyle(
               color: Colors.white,
               fontSize: _size.width / 20.5,
@@ -67,8 +69,7 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
           actions: [
             IconButton(
               onPressed: () {
-                // Get.toNamed(Routes.MANAGER_QUESTION);
-                showDialogFCM(context, '', '');
+                Get.toNamed(Routes.CREATE_INVENTORY_HISTORY);
               },
               icon: Icon(
                 PhosphorIcons.plus,
@@ -82,15 +83,14 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
             children: [
               Expanded(
                 child: Container(
-                  child: GetBuilder<GroupQuestionController>(
-                    init: _groupQuestionController,
+                  child: GetBuilder<InventoryHistoryController>(
+                    init: _inventoryHistoryController,
                     builder: (_) => ListView.builder(
                       controller: scrollController,
-                      itemCount: _.groupQuestion.length,
+                      itemCount: _.listImportInventory.length,
                       itemBuilder: (context, index) {
-                        return GroupQuestionItem(
-                          groupQuestion: GroupQuestionModel.fromMap(
-                              _.groupQuestion[index]),
+                        return InventoryHistoryItem(
+                          inventoryHistory: _.listImportInventory[index],
                           index: index,
                         );
                       },
@@ -98,11 +98,6 @@ class _ManagerGroupQuestionState extends State<ManagerGroupQuestion> {
                   ),
                 ),
               ),
-
-              // Container(
-              //   decoration:
-              //       BoxDecoration(border: Border.all(color: Colors.blueAccent)),
-              // ),
             ],
           ),
           // bottomNavigationBar: CartTotal(),

@@ -29,6 +29,40 @@ class _LoginPagesState extends State<LoginPages> {
     try {
       await _googleSignIn.signIn();
       var user = _googleSignIn.currentUser;
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          );
+        },
+        barrierColor: Color(0x80000000),
+        barrierDismissible: false,
+      );
+      AuthenticationRepository()
+          .loginWithGoogle(user.email, user.displayName, user.photoUrl)
+          .then((value) {
+        Get.back();
+        if (value == null) {
+          GetSnackBar getSnackBar = GetSnackBar(
+            title: 'Đăng nhập thất bại!',
+            subTitle: 'Sai tài khoản hoặc mật khẩu',
+          );
+          getSnackBar.show();
+        } else {
+          userProvider.setUser(
+            UserModel.fromLogin(value),
+          );
+          print("dang nhap thanh cong");
+          GetSnackBar getSnackBar = GetSnackBar(
+            title: 'Đăng nhập thành công!',
+            subTitle: 'Đăng nhập thành công',
+          );
+          getSnackBar.show();
+        }
+      });
       print({"a": "test", "user": user});
     } catch (error) {
       print(error);
@@ -216,27 +250,6 @@ class _LoginPagesState extends State<LoginPages> {
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  _handleSignOut();
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: 24.0,
-                    bottom: 12.0,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Dang xuat',
-                      style: TextStyle(
-                        // color: colorTitle,
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
                   ),
                 ),
               ),

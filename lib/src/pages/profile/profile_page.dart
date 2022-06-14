@@ -40,26 +40,6 @@ class _ProfilePagesState extends State<ProfilePages> {
     avatar = widget.user.avatar;
   }
 
-  // void updateAvatar() {
-  //   UserRepository().updateImage(avatar: _image).then((value) {
-  //     Get.back();
-  //     if (value == null) {
-  //       GetSnackBar getSnackBar = GetSnackBar(
-  //         title: 'Thất bại',
-  //         subTitle: 'Cập nhật avatar thất bại',
-  //       );
-  //       getSnackBar.show();
-  //     } else {
-  //       profileController.user.avatar = value['image'];
-  //       GetSnackBar getSnackBar = GetSnackBar(
-  //         title: 'Thành công',
-  //         subTitle: 'Cập nhật avatar thành công',
-  //       );
-  //       getSnackBar.show();
-  //     }
-  //   });
-  // }
-
   void showImageBottomSheet() {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(

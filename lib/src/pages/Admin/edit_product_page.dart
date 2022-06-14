@@ -73,7 +73,6 @@ class _EditProductPageState extends State<EditProductPage> {
     priceTest.text = (widget.productCurrent.price).toStringAsFixed(0);
     id = widget.productCurrent.id;
     grProduct = widget.productCurrent.groupProduct.key;
-    print(widget.productCurrent.price.toString());
   }
 
   void showImageBottomSheet() {
@@ -99,6 +98,8 @@ class _EditProductPageState extends State<EditProductPage> {
       listImage.add(url);
     }
 
+    if (listImage.length == 0) listImage = widget.productCurrent.image;
+
     ProductRepository()
         .updateProduct(
             images: listImage,
@@ -110,7 +111,6 @@ class _EditProductPageState extends State<EditProductPage> {
             groupProduct: grProduct,
             id: id)
         .then((value) {
-      Get.back();
       if (value == null) {
         GetSnackBar getSnackBar = GetSnackBar(
           title: 'Cập nhật thất bại',
@@ -118,6 +118,7 @@ class _EditProductPageState extends State<EditProductPage> {
         );
         getSnackBar.show();
       } else {
+        Get.back();
         productController.initialController();
         productController.getAllProduct(search: '', groupProduct: '');
         GetSnackBar getSnackBar = GetSnackBar(
