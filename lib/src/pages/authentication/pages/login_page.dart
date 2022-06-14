@@ -55,7 +55,6 @@ class _LoginPagesState extends State<LoginPages> {
           userProvider.setUser(
             UserModel.fromLogin(value),
           );
-          print("dang nhap thanh cong");
           GetSnackBar getSnackBar = GetSnackBar(
             title: 'Đăng nhập thành công!',
             subTitle: 'Đăng nhập thành công',
@@ -63,7 +62,6 @@ class _LoginPagesState extends State<LoginPages> {
           getSnackBar.show();
         }
       });
-      print({"a": "test", "user": user});
     } catch (error) {
       print(error);
     }
@@ -210,7 +208,6 @@ class _LoginPagesState extends State<LoginPages> {
                         userProvider.setUser(
                           UserModel.fromLogin(value),
                         );
-                        print("dang nhap thanh cong");
                         GetSnackBar getSnackBar = GetSnackBar(
                           title: 'Đăng nhập thành công!',
                           subTitle: 'Đăng nhập thành công',

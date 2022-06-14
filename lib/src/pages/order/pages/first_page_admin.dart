@@ -80,7 +80,6 @@ class WidgetOrder extends StatelessWidget {
                       Get.toNamed(Routes.DETAIL_ORDER,
                           arguments: {"order": order});
 
-                      print(order);
                     },
                     child: Row(
                       children: [

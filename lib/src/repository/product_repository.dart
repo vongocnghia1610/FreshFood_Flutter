@@ -9,7 +9,6 @@ class ProductRepository {
     var response = await HandleApis().get(ApiGateway.GET_RECOMMEND);
 
     if (response.statusCode == 200) {
-      print("huhu");
       return jsonDecode(response.body)['data'];
     }
 
@@ -61,7 +60,6 @@ class ProductRepository {
     };
 
     var response = await HandleApis().post(ApiGateway.CREATE_PRODUCt, body);
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResult = jsonDecode(response.body)['data'];
       return ProductModel.fromMap(jsonResult);
@@ -92,7 +90,6 @@ class ProductRepository {
     };
 
     var response = await HandleApis().put(ApiGateway.UPDATE_PRODUCT, body);
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResult = jsonDecode(response.body)['data'];
       return ProductModel.fromMap(jsonResult);
@@ -106,9 +103,7 @@ class ProductRepository {
       ApiGateway.PRODUCT_USER,
     );
 
-    print(response.statusCode);
     if (response.statusCode == 200) {
-      print("huhu");
       return jsonDecode(response.body)['data'];
     }
 
@@ -117,13 +112,10 @@ class ProductRepository {
 
   Future<bool> createProductUser(String productId) async {
     var body = {"productId": productId};
-    print(body);
     var response =
         await HandleApis().post(ApiGateway.CREATE_PRODUCT_USER, body);
-    print(response.body);
 
     if (response.statusCode == 200) {
-      print("add product user success");
       return true;
     }
 

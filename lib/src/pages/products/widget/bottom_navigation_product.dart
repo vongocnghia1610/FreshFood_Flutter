@@ -95,6 +95,7 @@ class BottomNavigationProduct extends StatelessWidget {
                     List<CartModel> temp = [];
                     temp.add(CartModel.fromMap(
                         productController.product.toMapCart()));
+                    Get.back();
                     Get.toNamed(Routes.DETAIL_PAYMENT,
                         arguments: {"list": temp, "isBuyNow": true});
                   });

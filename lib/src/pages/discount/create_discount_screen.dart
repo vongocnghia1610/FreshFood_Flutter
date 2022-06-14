@@ -181,7 +181,6 @@ class _CreateDiscountPageState extends State<CreateDiscountPage> {
                                     .then((value) {
                                   Get.back();
                                   if (value == null) {
-                                    print(value);
                                     GetSnackBar getSnackBar = GetSnackBar(
                                       title: 'Tạo voucher thất bại',
                                       subTitle: 'Vui lòng nhập đủ các trường',

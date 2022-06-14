@@ -566,7 +566,6 @@ class _EditProductPageState extends State<EditProductPage> {
             else if (type == "detail")
               detail = val.trim();
             else if (type == "price") {
-              // print(name_controller.numberValue);
               // // name_controller.updateValue(val);
               // if(name_controller.toString())
               if (name_controller.text.toString() == "đ") {

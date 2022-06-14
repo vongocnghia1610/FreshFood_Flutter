@@ -44,7 +44,6 @@ class AuthenticationRepository {
       ApiGateway.REGISTER,
       body,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -57,7 +56,6 @@ class AuthenticationRepository {
       ApiGateway.CHANGE_PASSWORD,
       body,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return true;
     }

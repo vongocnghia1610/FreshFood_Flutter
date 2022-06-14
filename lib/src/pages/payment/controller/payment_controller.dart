@@ -76,6 +76,8 @@ class PaymentController extends GetxController {
   }
 
   calculatePoint() {
+    if (userProvider.user.point == null || userProvider.user.point == 0) return;
+
     var temp = total / 2;
     if (temp > userProvider.user.point) {
       usePoint = userProvider.user.point.toDouble();

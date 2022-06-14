@@ -101,7 +101,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                                               widget.product.priceDiscount ==
                                                   widget.product.price
                                           ? kPrimaryColor
-                                          : Colors.grey,
+                                          : Colors.red,
                                     ),
                               ),
                               widget.product.priceDiscount == 0 ||
@@ -132,9 +132,7 @@ class _RecomendProductCardState extends State<RecomendProductCard> {
                                 color: Colors.amber,
                               ),
 
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
+                              onRatingUpdate: (rating) {},
                             ),
                           ),
                           SizedBox(height: 5.sp),

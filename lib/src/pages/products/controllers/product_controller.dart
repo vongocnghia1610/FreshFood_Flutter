@@ -21,7 +21,6 @@ class ProductDetailController extends GetxController {
         eveluates = (value['eveluates'] as List<dynamic>)
             .map((data) => EveluateModel.fromMap(data))
             .toList();
-        print(eveluates);
 
         // _listProductController.add(_listRecomPro);
         update();

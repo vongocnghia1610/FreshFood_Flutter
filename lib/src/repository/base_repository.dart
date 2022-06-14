@@ -37,7 +37,6 @@ class HandleApis {
       // Uri.http(root_url, '/' + name, paramsObject),
       headers: getHeaders(),
     );
-    print(getHeaders()['Authorization']);
     return response;
   }
 

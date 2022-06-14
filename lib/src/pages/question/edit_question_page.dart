@@ -401,7 +401,6 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                           if (type == 'answerA') {
                             isCorrectA = false;
                             isCorrect = false;
-                            print(isCorrectA);
                           } else if (type == 'answerB') {
                             isCorrectB = false;
                             isCorrect = false;
@@ -429,7 +428,6 @@ class _EditQuestionPageState extends State<EditQuestionPage> {
                           if (type == 'answerA') {
                             isCorrectA = true;
                             isCorrect = true;
-                            print(isCorrectA);
                           } else if (type == 'answerB') {
                             isCorrectB = true;
                             isCorrect = true;

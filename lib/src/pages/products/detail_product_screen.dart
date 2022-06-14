@@ -120,7 +120,6 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                             selectedImage = 0;
                                           else
                                             selectedImage++;
-                                          // print(selectedImage);
                                         }
                                         if (details.primaryVelocity > 0) {
                                           if (selectedImage == 0)
@@ -200,7 +199,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                           style: TextStyle(
                                               decoration:
                                                   TextDecoration.lineThrough,
-                                              color: Colors.grey,
+                                              color: Colors.red,
                                               fontWeight: FontWeight.w500,
                                               fontSize: 4.w),
                                         ),
