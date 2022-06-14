@@ -49,10 +49,8 @@ class InventoryHistoryController extends GetxController {
               ? -1
               : listCreateInventory
                   ?.indexWhere((x) => x['_id'] == value[i]['_id']);
-          print(index);
           if (index != -1) {
             value[i] = listCreateInventory[index];
-            print(listCreateInventory[index]);
           } else {
             if (value[i]['priceDiscount'] == 0) {
               value[i]['priceDiscount'] = value[i]['price'];
@@ -93,7 +91,6 @@ class InventoryHistoryController extends GetxController {
 
   changePrice(String id, String value, bool isDiscount) {
     var index = listProduct.indexWhere((element) => element['_id'] == id);
-    print({'ttt': index});
     isDiscount
         ? listProduct[index]['priceDiscount'] = int.tryParse(value)
         : listProduct[index]['price'] = int.tryParse(value);

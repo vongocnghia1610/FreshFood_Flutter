@@ -35,7 +35,6 @@ class _EveluatePageState extends State<EveluatePage> {
       element.star = 5;
       element.content = "";
     });
-    print(widget.listProduct);
   }
 
   @override

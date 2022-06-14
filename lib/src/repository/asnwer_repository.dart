@@ -8,9 +8,7 @@ class AnswerRepository {
   Future<dynamic> createAnswer({String questionId, String result}) async {
     var body = {'questionId': questionId, 'result': result};
     var response = await HandleApis().post(ApiGateway.CREATE_ANSWER, body);
-    print(body);
 
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -27,7 +25,6 @@ class AnswerRepository {
   //     body,
   //   );
 
-  //   print(body);
   //   if (response.statusCode == 200) {
   //     return jsonDecode(response.body)['data'];
   //   }

@@ -9,7 +9,6 @@ import 'package:http/http.dart' as http;
 class UserRepository {
   Future<dynamic> getProfile() async {
     var response = await HandleApis().get(ApiGateway.GET_PROFILE);
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -63,10 +62,7 @@ class UserRepository {
       "isMain": isMain,
       "id": id,
     };
-    print(body);
     var response = await HandleApis().put(ApiGateway.UPDATE_ADDRESS, body);
-    print("response ne");
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return true;
@@ -90,7 +86,6 @@ class UserRepository {
       ApiGateway.GET_MESSAGE,
       'skip=$skip&idRoom=$idRoom',
     );
-    print(response.body.toString());
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

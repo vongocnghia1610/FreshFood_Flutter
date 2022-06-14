@@ -35,7 +35,6 @@ class AnswerController extends GetxController {
       if (value.length != 0 && !value.every((element) => element['isAnswer'])) {
         listQuestion.addAll(value);
         update();
-        print(listQuestion);
         Get.toNamed(Routes.ANSWER_PAGE);
         nextQuestion();
       } else {

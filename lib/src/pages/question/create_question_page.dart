@@ -420,7 +420,6 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
                           if (type == 'answerA') {
                             isCorrectA = false;
                             isCorrect = false;
-                            print(isCorrectA);
                           } else if (type == 'answerB') {
                             isCorrectB = false;
                             isCorrect = false;
@@ -448,7 +447,6 @@ class _CreateQuestionPageState extends State<CreateQuestionPage> {
                           if (type == 'answerA') {
                             isCorrectA = true;
                             isCorrect = true;
-                            print(isCorrectA);
                           } else if (type == 'answerB') {
                             isCorrectB = true;
                             isCorrect = true;

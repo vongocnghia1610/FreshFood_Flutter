@@ -397,7 +397,6 @@ class _ProfilePagesState extends State<ProfilePages> {
         validator: (val) => val.trim().length == 0 ? vali : null,
         onChanged: (val) {
           // name_controller.text = val.trim();
-          print(name_controller.text);
         },
         style: TextStyle(
           color: Colors.black,

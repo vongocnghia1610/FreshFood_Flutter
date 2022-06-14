@@ -73,7 +73,6 @@ class AdminRepository {
       ApiGateway.CREATE_STAFF,
       body,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

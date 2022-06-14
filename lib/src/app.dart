@@ -26,7 +26,6 @@ class _AppState extends State<App> with WidgetsBindingObserver {
   void initState() {
     AdminRepository().getAvatar().then((value) {
       avatarAdmin = value['avatar'];
-      print(avatarAdmin);
     });
     WidgetsBinding.instance.addObserver(this);
     SystemChrome.setPreferredOrientations([

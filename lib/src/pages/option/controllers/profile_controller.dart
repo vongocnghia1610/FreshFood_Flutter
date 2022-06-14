@@ -24,7 +24,6 @@ class ProfileController extends GetxController {
   updateAvatar(File image) async {
     String url =
         await StorageService().uploadImageToStorage(image, folderAvatar);
-    print('url:' + url);
     UserRepository().updateImage(avatar: url).then((value) {
       Get.back();
       Get.back();

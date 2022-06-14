@@ -112,7 +112,6 @@ class _CreateInventoryHistoryItemState
                             onChanged: (v) {
                               _inventoryHistoryController.changePrice(
                                   widget.product['_id'], v, false);
-                              print(priceController.text);
                             },
                             decoration: InputDecoration(
                               isDense: true,
@@ -145,7 +144,6 @@ class _CreateInventoryHistoryItemState
                             onChanged: (v) {
                               _inventoryHistoryController.changePrice(
                                   widget.product['_id'], v, true);
-                              print(priceDiscountController.text);
                             },
                             decoration: InputDecoration(
                               isDense: true,
