@@ -6,7 +6,6 @@ class AdminRepository {
   Future<List<dynamic>> getAllUser(search, skip, limit, role) async {
     var response = await HandleApis().get(ApiGateway.GET_ALL_USER,
         'skip=$skip&limit=$limit&search=$search&role=$role');
-    print(jsonDecode(response.body)['data']);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -17,7 +16,6 @@ class AdminRepository {
     var response = await HandleApis().get(
       ApiGateway.GET_AVATAR_ADMIN,
     );
-    print(jsonDecode(response.body)['data']);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -28,7 +26,6 @@ class AdminRepository {
       String timeStart, String timeEnd) async {
     var response = await HandleApis().get(ApiGateway.GET_STATISTIC_ORDER,
         'timeStart=$timeStart&timeEnd=$timeEnd');
-    print(jsonDecode(response.body)['data']);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -37,7 +34,6 @@ class AdminRepository {
 
   Future<List<dynamic>> getstatisticProduct() async {
     var response = await HandleApis().get(ApiGateway.GET_STATISTIC_PRODUCT);
-    print(jsonDecode(response.body)['data']);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

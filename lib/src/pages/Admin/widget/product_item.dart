@@ -55,6 +55,8 @@ class _ProductItem extends State<ProductItem> {
                   children: <Widget>[
                     Text(
                       widget.product.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 5.w,
                         color: Colors.black,

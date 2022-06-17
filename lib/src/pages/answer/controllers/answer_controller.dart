@@ -84,6 +84,7 @@ class AnswerController extends GetxController {
     _timer.cancel();
     AnswerRepository()
         .createAnswer(questionId: currentQuestion['_id'], result: answer);
+    print(currentQuestion);
     if (answer != 'E' && currentQuestion['isTrue$answer']) {
       statusAnswer = 1;
       userProvider.user.point += 100;

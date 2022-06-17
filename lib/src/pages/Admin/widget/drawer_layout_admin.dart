@@ -1,8 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
-import 'package:freshfood/src/pages/Admin/manager_product_page.dart';
-import 'package:freshfood/src/pages/Admin/manager_user.dart';
 import 'package:freshfood/src/providers/user_provider.dart';
 import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
@@ -10,7 +8,6 @@ import 'package:freshfood/src/services/socket.dart';
 import 'package:freshfood/src/services/socket_emit.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
 class DrawerLayoutAdmin extends StatefulWidget {
@@ -43,7 +40,7 @@ class _DrawerLayoutAdminState extends State<DrawerLayoutAdmin> {
           Column(
             children: [
               Container(
-                height: 50.w,
+                height: 40.w,
                 child: UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
                     image: DecorationImage(
