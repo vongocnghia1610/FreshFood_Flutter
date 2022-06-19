@@ -9,12 +9,19 @@ class OrderController extends GetxController {
   List<OrderModel> list2 = [];
   List<OrderModel> list3 = [];
   List<OrderModel> list4 = [];
+  List<int> listQuantity = [0, 0, 0, 0, 0];
+
   initController() {
     list0 = [];
     list1 = [];
     list2 = [];
     list3 = [];
     list4 = [];
+    listQuantity[0] = 0;
+    listQuantity[1] = 0;
+    listQuantity[2] = 0;
+    listQuantity[3] = 0;
+    listQuantity[4] = 0;
   }
 
   //Chờ xác nhận
@@ -57,6 +64,16 @@ class OrderController extends GetxController {
       if (value != null)
         list4 = value.map((e) => OrderModel.fromMap(e)).toList();
       update();
+    });
+    OrderRepository().getQuantityOrders().then((value) {
+      if (value.length > 0) {
+        listQuantity[0] = value[0]['quantityOrder'];
+        listQuantity[1] = value[1]['quantityOrder'];
+        listQuantity[2] = value[2]['quantityOrder'];
+        listQuantity[3] = value[3]['quantityOrder'];
+        listQuantity[4] = value[4]['quantityOrder'];
+        update();
+      }
     });
   }
 

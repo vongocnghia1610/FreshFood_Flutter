@@ -241,7 +241,7 @@ class _LoginPagesState extends State<LoginPages> {
                 margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                 child: SignInButton(
                   Buttons.Google,
-                  text: "Sign up with Google",
+                  text: "Đăng nhập bằng Google",
                   onPressed: () {
                     _handleSignIn();
                   },

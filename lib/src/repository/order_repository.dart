@@ -101,16 +101,20 @@ class OrderRepository {
     int limit,
     int status,
   }) async {
-    // Map<String, dynamic> paramsObject = {
-    //   "search": search,
-    //   "skip": skip,
-    //   "limit": limit,
-    //   "status": status,
-    // };
-
     var response = await HandleApis().get(
       ApiGateway.GET_ORDER,
       'search=$search&status=$status&skip=$skip&limit=$limit',
+    );
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body)['data'];
+    }
+
+    return [];
+  }
+
+  Future<List<dynamic>> getQuantityOrders() async {
+    var response = await HandleApis().get(
+      ApiGateway.GET_QUANTITY_ORDER,
     );
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];

@@ -23,6 +23,7 @@ class ApiGateway {
   static const CREATE_ORDER = 'order/createOrder';
   static const CREATE_ORDER_BUY_NOW = 'order/CreateOrderWithByNow';
   static const GET_ORDER = 'order/getOrders';
+  static const GET_QUANTITY_ORDER = 'order/getQuantityOrder';
   static const GET_ORDER_ADMIN = 'order/getOrdersByAdmin';
   static const UPDATE_STATUS_ORDER = 'order/updateStatusOrder';
 

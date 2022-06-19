@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
@@ -119,36 +120,11 @@ class _OrderPageState extends State<OrderPage>
                 fontSize: 12.sp,
               ),
               tabs: [
-                Container(
-                  width: 25.w,
-                  child: Tab(
-                    text: statusOrder[0],
-                  ),
-                ),
-                Container(
-                  width: 25.w,
-                  child: Tab(
-                    text: statusOrder[1],
-                  ),
-                ),
-                Container(
-                  width: 20.w,
-                  child: Tab(
-                    text: statusOrder[2],
-                  ),
-                ),
-                Container(
-                  width: 15.w,
-                  child: Tab(
-                    text: statusOrder[3],
-                  ),
-                ),
-                Container(
-                  width: 15.w,
-                  child: Tab(
-                    text: statusOrder[4],
-                  ),
-                ),
+                ItemStatus(0, 25.w),
+                ItemStatus(1, 25.w),
+                ItemStatus(2, 20.w),
+                ItemStatus(3, 15.w),
+                ItemStatus(4, 15.w),
               ],
             ),
           ),
@@ -175,5 +151,26 @@ class _OrderPageState extends State<OrderPage>
         ],
       ),
     );
+  }
+
+  Badge ItemStatus(indexStatus, widthContainer) {
+    return Badge(
+        position: BadgePosition.topEnd(top: 0, end: -5),
+        animationDuration: Duration(milliseconds: 300),
+        animationType: BadgeAnimationType.slide,
+        borderSide: BorderSide(color: Colors.white),
+        badgeColor: Colors.red,
+        badgeContent: GetBuilder<OrderController>(
+            init: orderController,
+            builder: (_) => Text(
+                  _.listQuantity[indexStatus].toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 2.5.w),
+                )),
+        child: Container(
+          width: widthContainer,
+          child: Tab(
+            text: statusOrder[indexStatus],
+          ),
+        ));
   }
 }
