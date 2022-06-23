@@ -17,7 +17,6 @@ class DiscountRepository {
 
   Future<List<dynamic>> getDiscountActive() async {
     var response = await HandleApis().get(ApiGateway.GET_DISCOUNT_ACTIVE);
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -42,7 +41,6 @@ class DiscountRepository {
       'quantity': quantity,
     };
     var response = await HandleApis().post(ApiGateway.CREATE_DISCOUNT, body);
-    print(response.body);
     if (response.statusCode == 200) {
       var jsonResult = jsonDecode(response.body)['data'];
       return jsonResult;

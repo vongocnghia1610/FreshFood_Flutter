@@ -13,8 +13,6 @@ IO.Socket socket;
 
 void connectAndListen() async {
   HandleApis().getBaseURLSocket().then((value) {
-    print("zo socket nek");
-    print(value);
     socket = IO.io(
       value,
       IO.OptionBuilder().enableForceNew().setTransports(['websocket']).build(),

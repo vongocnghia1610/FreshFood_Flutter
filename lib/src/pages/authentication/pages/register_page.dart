@@ -191,7 +191,6 @@ class _SignupPageState extends State<SignupPage> {
                                   .then((value) {
                                 Get.back();
                                 if (value == null) {
-                                  print(value);
                                   GetSnackBar getSnackBar = GetSnackBar(
                                     title: 'Đăng kí thất bại!',
                                     subTitle: 'Email đã được đăng kí.',

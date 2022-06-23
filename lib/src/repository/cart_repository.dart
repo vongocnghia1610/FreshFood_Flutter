@@ -7,7 +7,6 @@ class CartRepository {
     var response = await HandleApis().get(ApiGateway.GETCART);
 
     if (response.statusCode == 200) {
-      print("hello");
       return jsonDecode(response.body)['data'];
     }
     return [];

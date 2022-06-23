@@ -244,7 +244,6 @@ handleNotificationInApp(Map<String, dynamic> data) {
         }
         break;
       case 'MESSAGE':
-        print('chanquadi');
         // if (Get.currentRoute == Routes.CHAT_DETAIL) {
         //   Get.offAndToNamed(Routes.CHAT_DETAIL, arguments: {
         //     'id': data['idRoom'],

@@ -13,7 +13,6 @@ class EveluateRepository {
       ApiGateway.GET_EVELUATE,
       'productId=$productId&skip=$skip&limit=$limit',
     );
-    print(jsonDecode(response.body)['data']);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -23,7 +22,6 @@ class EveluateRepository {
   Future<dynamic> createEveluate({List<Map<String, dynamic>> product}) async {
     var response =
         await HandleApis().postArray(ApiGateway.CREATE_EVELUATE, product);
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }

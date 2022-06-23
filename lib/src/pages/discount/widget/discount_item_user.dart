@@ -82,7 +82,8 @@ class _DiscountItemUser extends State<DiscountItemUser> {
                               height: 2.w,
                             ),
                             LinearProgressIndicator(
-                              value: 0.5,
+                              value: widget.discount.used /
+                                  widget.discount.quantity,
                               semanticsLabel: 'Linear progress indicator',
                               color: Colors.green,
                               backgroundColor: Colors.grey.shade300,

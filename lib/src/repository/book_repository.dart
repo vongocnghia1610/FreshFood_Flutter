@@ -17,20 +17,4 @@ class BookRepository {
 
     return [];
   }
-
-  // Future<Map<String, dynamic>> createBook(String id) async {
-  //   var body = {
-  //     'id': id,
-  //   };
-  //   var response = await HandleApis().post(
-  //     ApiGateway.CREATE,
-  //     body,
-  //   );
-
-  //   print(body);
-  //   if (response.statusCode == 200) {
-  //     return jsonDecode(response.body)['data'];
-  //   }
-  //   return null;
-  // }
 }

@@ -195,7 +195,6 @@ class _CartPageState extends State<CartPage> {
                                 element.selected == 1 && element.status == 1)
                             .toList();
 
-                        print(temp);
                         if (temp.length <= 0) {
                           GetSnackBar getSnackBar = GetSnackBar(
                             title: 'Bạn chưa chọn sản phẩm nào',
