@@ -261,9 +261,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                                             color: Colors.amber,
                                           ),
 
-                                          onRatingUpdate: (rating) {
-                                            print(rating);
-                                          },
+                                          onRatingUpdate: (rating) {},
                                         ),
                                       ),
                                       SizedBox(

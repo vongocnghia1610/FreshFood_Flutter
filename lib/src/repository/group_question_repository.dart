@@ -8,7 +8,6 @@ class GroupQuestionRepository {
     var response = await HandleApis().get(
       ApiGateway.GET_GROUP_QUESTION,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
@@ -19,7 +18,7 @@ class GroupQuestionRepository {
   Future<Map<String, dynamic>> createGroupQuestion(String title) async {
     var body = {
       'title': title,
-      'isActive': true,
+      'isActive': false,
     };
     var response = await HandleApis().post(
       ApiGateway.CREATE_GROUP_QUESTION,

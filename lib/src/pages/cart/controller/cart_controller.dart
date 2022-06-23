@@ -90,15 +90,12 @@ class CartController extends GetxController {
     getTotalMoney();
   }
 
-  getListProduct() {
-    CartRepository().getProductCart().then((value) {
-      print(value);
-      if (value.isNotEmpty) {
-        listProductCart = value;
-        getTotalQuantity();
-        listProductCartController.add(listProductCart);
-        update();
-      }
+  getListProduct() async {
+    await CartRepository().getProductCart().then((value) {
+      listProductCart = value;
+      getTotalQuantity();
+      listProductCartController.add(listProductCart);
+      update();
     });
   }
 
@@ -109,9 +106,7 @@ class CartController extends GetxController {
             .toList())
         .then((value) {
       getTotalQuantity();
-      print(value);
-      if (value.isNotEmpty) {
-      }
+      if (value.isNotEmpty) {}
     });
   }
 

@@ -106,10 +106,10 @@ class DiscountController extends GetxController {
           bonusMoney:
               paymentController.isUsePoint ? paymentController.usePoint : 0,
         )
-            .then((value) {
+            .then((value) async {
           Get.back();
           final cartController = Get.put(CartController());
-          cartController.getListProduct();
+          await cartController.getListProduct();
           var temp = paymentController.methodPayment;
           paymentController.methodPayment = 0;
           if (temp != 0) {

@@ -29,7 +29,6 @@ class _ProductPageState extends State<ProductPage> {
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
     productController.getAllProduct(search: _search, groupProduct: '');
-    print(_groupProduct.selected);
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
@@ -38,7 +37,6 @@ class _ProductPageState extends State<ProductPage> {
           if (_groupProduct.selected.toString() == '{}') {
             productController.getAllProduct(search: _search, groupProduct: '');
           } else {
-            print(_groupProduct.selected);
             productController.getAllProduct(
                 search: _search, groupProduct: _groupProduct.selected['key']);
           }
@@ -91,7 +89,6 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                           textInputAction: TextInputAction.search,
                           onSubmitted: (value) {
-                            print(value);
                             _search = value;
                             productController.initialController();
                             if (_groupProduct.selected.toString() == '{}') {

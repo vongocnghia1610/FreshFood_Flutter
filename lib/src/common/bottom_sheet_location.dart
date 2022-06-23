@@ -57,7 +57,6 @@ class _BottomSheet_LocationScreenState extends State<BottomSheet_Location> {
         : District().getDistrictListByProvinceCode(
             Province().getCodeOfProvince(widget.textProvinceSelected));
 
-    print(_dataLocation);
     return SafeArea(
       child: Container(
           width: double.infinity,

@@ -73,9 +73,7 @@ class _DiscountItem extends State<DiscountItem> {
                       height: 2.w,
                     ),
                     LinearProgressIndicator(
-                      value: widget.discount.quantity > 50
-                          ? 0
-                          : (50 - widget.discount.quantity) / 50,
+                      value: widget.discount.used / widget.discount.quantity,
                       semanticsLabel: 'Linear progress indicator',
                       color: Colors.green,
                       backgroundColor: Colors.grey.shade300,
@@ -84,7 +82,9 @@ class _DiscountItem extends State<DiscountItem> {
                       height: 2.w,
                     ),
                     Text(
-                      "Còn lại: " + widget.discount.quantity.toString(),
+                      "Còn lại: " +
+                          (widget.discount.quantity - widget.discount.used)
+                              .toString(),
                       style: TextStyle(
                         fontSize: 3.5.w,
                         color: Colors.grey.shade500,

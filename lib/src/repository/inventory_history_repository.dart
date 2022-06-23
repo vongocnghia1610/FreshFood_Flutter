@@ -9,7 +9,6 @@ class InventoryHistoryRepository {
     var response = await HandleApis().get(
       ApiGateway.GET_HISTORY_INVENTORY,
     );
-    print(response.body);
     if (response.statusCode == 200) {
       return jsonDecode(response.body)['data'];
     }
