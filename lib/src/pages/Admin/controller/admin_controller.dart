@@ -1,9 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:freshfood/src/models/address.dart';
 import 'package:freshfood/src/models/user.dart';
 import 'package:freshfood/src/repository/admin_repository.dart';
-import 'package:freshfood/src/repository/user_repository.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -15,6 +13,8 @@ class AdminController extends GetxController {
   List<FlSpot> listOrderMoney = [];
   List<dynamic> listProduct = [];
   dynamic resultStatisticUser;
+  int totalOrderNumber = 0;
+  int totalOrderMoney = 0;
 
   int skip = 1;
   int skipStaff = 1;
@@ -26,6 +26,8 @@ class AdminController extends GetxController {
     listOrderMoney = [];
     listProduct = [];
     listOrderNumber = [];
+    totalOrderNumber = 0;
+    totalOrderMoney = 0;
   }
 
   getAllUser({String search}) {
@@ -67,8 +69,6 @@ class AdminController extends GetxController {
       if (value.isNotEmpty) {
         // listOrderNumber = makeGroupData(value);
         // update();
-        final Color leftBarColor = const Color(0xff53fdd7);
-        final Color rightBarColor = const Color(0xffff5182);
         int i = 0;
         for (i = 0; i < 7; i++) {
           listOrderNumber.add(makeGroupData(
@@ -77,6 +77,8 @@ class AdminController extends GetxController {
             FlSpot(double.parse(i.toString()),
                 double.parse(value[i]['totalMoney'].toString())),
           );
+          totalOrderMoney += value[i]['totalMoney'];
+          totalOrderNumber += value[i]['totalOrder'];
           update();
         }
         // value.forEach((element) {});
@@ -94,7 +96,6 @@ class AdminController extends GetxController {
 
   statisticUser(String id) {
     AdminRepository().getStatisticUser(id).then((value) {
-
       resultStatisticUser = value;
       update();
     });
