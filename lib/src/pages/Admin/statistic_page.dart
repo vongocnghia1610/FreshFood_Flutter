@@ -2,11 +2,14 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phosphor_icons/flutter_phosphor_icons.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:freshfood/src/helpers/money_formatter.dart';
 import 'package:freshfood/src/pages/Admin/controller/admin_controller.dart';
 import 'package:freshfood/src/pages/Admin/widget/drawer_layout_admin.dart';
 import 'package:freshfood/src/pages/Admin/widget/indicatior.dart';
+import 'package:freshfood/src/public/styles.dart';
 import 'package:freshfood/src/routes/app_pages.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class StatisticAdminPage extends StatefulWidget {
@@ -26,17 +29,18 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
   List<String> listTime = [];
   List<dynamic> listStatisticOrder = [];
   int touchedIndex = -1;
+  DateTime dateEnd = DateTime.now();
+  DateTime dateStart = DateTime.now().subtract(Duration(days: 6));
 
   @override
   void initState() {
     super.initState();
 
-    var dateEnd = DateTime.now();
-    var dateStart = dateEnd.subtract(Duration(days: 6));
     for (int i = 6; i >= 0; i--) {
       var time = dateEnd.subtract(Duration(days: i));
       listTime.add('${time.day}/${time.month}');
     }
+    adminController.initialController();
     adminController.statisticOrder(dateStart, dateEnd);
     adminController.statisticProduct();
   }
@@ -83,7 +87,6 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // makeTransactionsIcon(),
               SizedBox(
                 width: 30.sp,
               ),
@@ -221,171 +224,80 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
   }
 
   Widget OrderWidget() {
-    return Column(
-      children: [
-        Text(
-          'Doanh thu',
-          style: TextStyle(color: Color(0xff77839a), fontSize: 15.sp),
-        ),
-        GetBuilder<AdminController>(
-          init: adminController,
-          builder: (_) => _.listOrderMoney == null
-              ? Container()
-              : Container(
-                  child: Stack(
-                    children: <Widget>[
-                      AspectRatio(
-                        aspectRatio: 1.7,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(13.sp),
-                            ),
-                            // color: Color(0xff232d37)
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                right: 15.sp,
-                                left: 10.sp,
-                                top: 20.sp,
-                                bottom: 10.sp),
-                            child: LineChart(
-                              mainData(_),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 60,
-                        height: 34,
-                        child: TextButton(
-                          onPressed: () {
-                            setState(() {
-                              showAvg = !showAvg;
-                            });
-                          },
-                          child: Text(
-                            'avg',
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: showAvg
-                                    ? Colors.white.withOpacity(0.5)
-                                    : Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+    return GetBuilder<AdminController>(
+        init: adminController,
+        builder: (_) => Column(
+              children: [
+                Text(
+                  'Doanh thu',
+                  style: TextStyle(color: Color(0xff77839a), fontSize: 15.sp),
                 ),
-        ),
-        SizedBox(height: 10.sp),
-        Text(
-          'Số đơn',
-          style: TextStyle(color: Color(0xff77839a), fontSize: 15.sp),
-        ),
-        Container(
-          height: 45.h,
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: Card(
-              elevation: 0,
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 30.sp,
-                    ),
-                    Expanded(
-                      child: GetBuilder<AdminController>(
-                        init: adminController,
-                        builder: (_) => _.listOrderNumber == null
-                            ? Container()
-                            : BarChart(
-                                BarChartData(
-                                  // maxY: 10,
-                                  barTouchData: BarTouchData(
-                                    touchTooltipData: BarTouchTooltipData(
-                                      tooltipBgColor: Colors.grey,
-                                      getTooltipItem: (_a, _b, _c, _d) => null,
-                                    ),
+                SizedBox(
+                  height: 10.sp,
+                ),
+                dateStart == null || dateEnd == null
+                    ? SizedBox()
+                    : Text(
+                        DateFormat("dd/MM/yyyy").format(dateStart).toString() +
+                            ' - ' +
+                            DateFormat("dd/MM/yyyy").format(dateEnd).toString(),
+                        style: TextStyle(
+                            color: Color(0xff77839a), fontSize: 15.sp),
+                      ),
+                _.listOrderMoney == null
+                    ? Container()
+                    : Container(
+                        child: Stack(
+                          children: <Widget>[
+                            AspectRatio(
+                              aspectRatio: 1.7,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(13.sp),
                                   ),
-                                  titlesData: FlTitlesData(
-                                    show: true,
-                                    rightTitles: SideTitles(showTitles: false),
-                                    topTitles: SideTitles(showTitles: false),
-                                    bottomTitles: SideTitles(
-                                      showTitles: true,
-                                      getTextStyles: (context, value) =>
-                                          const TextStyle(
-                                              color: Color(0xff7589a2),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14),
-                                      margin: 20,
-                                      getTitles: (double value) {
-                                        switch (value.toInt()) {
-                                          case 0:
-                                            return listTime[0];
-                                          case 1:
-                                            return '';
-                                          case 2:
-                                            return '';
-                                          case 3:
-                                            return listTime[3];
-                                          case 4:
-                                            return '';
-                                          case 5:
-                                            return '';
-                                          case 6:
-                                            return listTime[6];
-                                          default:
-                                            return '';
-                                        }
-                                      },
-                                    ),
-                                    leftTitles: SideTitles(
-                                      showTitles: true,
-                                      getTextStyles: (context, value) =>
-                                          const TextStyle(
-                                              color: Color(0xff7589a2),
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14),
-                                      margin: 5.sp,
-                                      reservedSize: 30.sp,
-                                      interval: 2,
-                                      // getTitles: (value) {
-                                      //   if (value == 0) {
-                                      //     return '1K';
-                                      //   } else if (value == 10) {
-                                      //     return '5K';
-                                      //   } else if (value == 19) {
-                                      //     return '10K';
-                                      //   } else {
-                                      //     return '';
-                                      //   }
-                                      // },
-                                    ),
+                                  // color: Color(0xff232d37)
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      right: 15.sp,
+                                      left: 10.sp,
+                                      top: 20.sp,
+                                      bottom: 10.sp),
+                                  child: LineChart(
+                                    mainData(_),
                                   ),
-                                  borderData: FlBorderData(
-                                    show: true,
-                                  ),
-                                  barGroups: _.listOrderNumber,
-                                  gridData: FlGridData(show: true),
                                 ),
                               ),
+                            ),
+                            SizedBox(
+                              width: 60,
+                              height: 34,
+                              child: TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showAvg = !showAvg;
+                                  });
+                                },
+                                child: Text(
+                                  'avg',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      color: showAvg
+                                          ? Colors.white.withOpacity(0.5)
+                                          : Colors.white),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 12.sp,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
+                SizedBox(height: 30.sp),
+                _buildLineInfo('Tổng đơn hàng:', _.totalOrderNumber.toString()),
+                _buildLineInfo('Tổng thu nhập:',
+                    formatMoney(double.parse(_.totalOrderMoney.toString()))),
+              ],
+            ));
   }
 
   LineChartData mainData(AdminController _) {
@@ -475,68 +387,6 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
     );
   }
 
-  // List<BarChartGroupData> makeGroupData(List<dynamic> listData) {
-  //   List<BarChartGroupData> result = [];
-  //   listData.asMap().forEach((index, element) {
-  //     result.add(BarChartGroupData(barsSpace: 4, x: index, barRods: [
-  //       BarChartRodData(
-  //         y: element['totalOrder'],
-  //         colors: [leftBarColor],
-  //         width: 20.sp,
-  //       ),
-  //     ]));
-  //     return result;
-  //   });
-  // }
-
-  Widget makeTransactionsIcon() {
-    const width = 4.5;
-    const space = 3.5;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 42,
-          color: Colors.white.withOpacity(1),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 28,
-          color: Colors.white.withOpacity(0.8),
-        ),
-        const SizedBox(
-          width: space,
-        ),
-        Container(
-          width: width,
-          height: 10,
-          color: Colors.white.withOpacity(0.4),
-        ),
-      ],
-    );
-  }
-
   List<PieChartSectionData> showingSections(AdminController _) {
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
@@ -591,5 +441,38 @@ class StatisticAdminPageState extends State<StatisticAdminPage> {
           throw Error();
       }
     });
+  }
+
+  Widget _buildLineInfo(title, value) {
+    return Container(
+      padding: EdgeInsets.only(top: 20.sp, left: 14.sp, right: 12.sp),
+      margin: EdgeInsets.only(bottom: 15.sp),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text(
+              title,
+              style: TextStyle(
+                color: colorPrimary,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              value,
+              style: TextStyle(
+                color: colorTitle,
+                fontSize: 15.sp,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
