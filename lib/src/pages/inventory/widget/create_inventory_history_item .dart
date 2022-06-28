@@ -48,7 +48,7 @@ class _CreateInventoryHistoryItemState
                 widget.product['image'][0],
                 height: 30.w,
                 width: 30.w,
-                padding: 3.w,
+                padding: 1.w,
               ),
               SizedBox(width: 3.w),
               Expanded(
@@ -69,7 +69,7 @@ class _CreateInventoryHistoryItemState
                     Row(
                       children: [
                         Text(
-                          'Số lượng: ',
+                          'Số lượng (${widget.product['quantity']}): ',
                           style: TextStyle(
                             fontSize: 4.w,
                             color: Colors.black,

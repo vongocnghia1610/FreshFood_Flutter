@@ -26,7 +26,6 @@ class ProductController extends GetxController {
   getRecommendProduct() {
     ProductRepository().getRecommendProduct(skip, 10).then((value) {
       if (value.isNotEmpty) {
-
         _listRecomPro.addAll(value);
         _listRecommendController.add(_listRecomPro);
         update();
@@ -50,6 +49,8 @@ class ProductController extends GetxController {
     ProductRepository().getRecommendProduct(1, 10).then((value) {
       if (value.isNotEmpty) {
         _listRecomPro.addAll(value);
+        _listRecomPro =
+            _listRecomPro.where((element) => element['quantity'] > 0).toList();
         _listProductController.add(_listRecomPro);
         update();
       }
@@ -74,10 +75,34 @@ class ProductController extends GetxController {
     }
   }
 
+  getAllProductInCustommer({String search, String groupProduct}) {
+    if (skip != -1) {
+      ProductRepository()
+          .getAllProduct(search, skip, 10, groupProduct)
+          .then((value) {
+        if (value != null) {
+          listAllProduct.addAll(value);
+          listAllProduct = listAllProduct
+              .where((element) => element['quantity'] > 0)
+              .toList();
+          _listProductController.add(listAllProduct);
+          skip++;
+          update();
+        } else {
+          skip = -1;
+          update();
+        }
+      });
+    }
+  }
+
   getProductUser() {
     ProductRepository().getProductUser().then((value) {
       if (value.isNotEmpty) {
-        _listProductUser = value;
+        _listProductUser.addAll(value);
+        _listProductUser = _listProductUser
+            .where((element) => element['quantity'] > 0)
+            .toList();
         _listProductUserController.add(_listProductUser);
         update();
       }
