@@ -28,16 +28,18 @@ class _ProductPageState extends State<ProductPage> {
     productController.initialController();
     _groupProduct.initialController();
     _groupProduct.getGroupProduct();
-    productController.getAllProduct(search: _search, groupProduct: '');
+    productController.getAllProductInCustommer(
+        search: _search, groupProduct: '');
     scrollController.addListener(() {
       if (scrollController.position.atEdge) {
         if (scrollController.position.pixels == 0) {
           // You're at the top.
         } else {
           if (_groupProduct.selected.toString() == '{}') {
-            productController.getAllProduct(search: _search, groupProduct: '');
+            productController.getAllProductInCustommer(
+                search: _search, groupProduct: '');
           } else {
-            productController.getAllProduct(
+            productController.getAllProductInCustommer(
                 search: _search, groupProduct: _groupProduct.selected['key']);
           }
         }
@@ -92,10 +94,10 @@ class _ProductPageState extends State<ProductPage> {
                             _search = value;
                             productController.initialController();
                             if (_groupProduct.selected.toString() == '{}') {
-                              productController.getAllProduct(
+                              productController.getAllProductInCustommer(
                                   search: _search, groupProduct: '');
                             } else {
-                              productController.getAllProduct(
+                              productController.getAllProductInCustommer(
                                   search: _search,
                                   groupProduct: _groupProduct.selected['key']);
                             }
