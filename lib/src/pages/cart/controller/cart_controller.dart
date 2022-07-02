@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:freshfood/src/models/cart_model.dart';
 import 'package:freshfood/src/models/cart_update_model.dart';
 import 'package:freshfood/src/repository/cart_repository.dart';
 import 'package:get/get.dart';
@@ -23,7 +21,10 @@ class CartController extends GetxController {
     double temp = 0;
     listProductCart.forEach((element) {
       if (element['selected'] == 1 && element['status'] != 0) {
-        temp += element['cost'] * element['quantity'];
+        temp += element['cost'] == element['priceDiscount'] ||
+                element['priceDiscount'] == 0
+            ? element['cost'] * element['quantity']
+            : element['priceDiscount'] * element['quantity'];
       }
     });
     _total.add(temp.toString());

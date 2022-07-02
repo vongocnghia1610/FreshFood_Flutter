@@ -94,25 +94,45 @@ class _CartItem extends State<CartItem> {
                 children: <Widget>[
                   Text(
                     widget.cart.name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 5.w,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 5.w),
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        formatMoney(widget.cart.cost),
-                        style: TextStyle(
-                          fontSize: 5.w,
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
+                  SizedBox(height: 3.w),
+                  widget.cart.cost != widget.cart.priceDiscount &&
+                          widget.cart.priceDiscount != 0
+                      ? Text(
+                          formatMoney(widget.cart.cost),
+                          style: TextStyle(
+                            decoration: TextDecoration.lineThrough,
+                            fontSize: 3.w,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : Text(
+                          formatMoney(widget.cart.cost),
+                          style: TextStyle(
+                            fontSize: 5.w,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                  widget.cart.cost != widget.cart.priceDiscount &&
+                          widget.cart.priceDiscount != 0
+                      ? Text(
+                          formatMoney(widget.cart.priceDiscount.toDouble()),
+                          style: TextStyle(
+                            fontSize: 5.w,
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )
+                      : SizedBox(),
                   SizedBox(height: 1.w),
                   Row(
                     children: <Widget>[

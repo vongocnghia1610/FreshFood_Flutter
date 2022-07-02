@@ -16,7 +16,9 @@ class PaymentController extends GetxController {
   double getproductPrice(List<CartModel> list) {
     productPrice = 0;
     list.forEach((element) {
-      productPrice += element.cost * element.quantity;
+      productPrice += element.priceDiscount == 0
+          ? element.cost * element.quantity
+          : element.priceDiscount * element.quantity;
     });
     return productPrice;
   }
@@ -58,7 +60,7 @@ class PaymentController extends GetxController {
     final addressController = Get.put(AddressController());
     double weight = 0;
     list.forEach((element) {
-      weight += element.weight;
+      weight += element.weight * element.quantity;
     });
     await OrderRepository()
         .getShipFee(

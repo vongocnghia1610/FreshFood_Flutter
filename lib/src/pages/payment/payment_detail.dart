@@ -552,7 +552,9 @@ class CartDetail extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.only(top: 5.sp),
                     child: Text(
-                      formatMoney(cartModel.cost),
+                      cartModel.priceDiscount == 0
+                          ? formatMoney(cartModel.cost)
+                          : formatMoney(cartModel.priceDiscount.toDouble()),
                       style: TextStyle(
                           color: Colors.orange,
                           fontSize: 13.sp,

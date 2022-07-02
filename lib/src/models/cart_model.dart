@@ -8,6 +8,7 @@ class CartModel extends GetxController {
   List<String> image;
   int status = 0;
   double cost;
+  int priceDiscount;
   int quantity;
   String name;
   String detail;
@@ -19,6 +20,7 @@ class CartModel extends GetxController {
     this.image,
     this.status,
     this.cost,
+    this.priceDiscount,
     this.quantity,
     this.name,
     this.detail,
@@ -65,6 +67,7 @@ class CartModel extends GetxController {
       'nameGroup': nameGroup,
       'selected': selected,
       'weight': weight,
+      'priceDiscount': priceDiscount,
     };
   }
 
@@ -74,6 +77,7 @@ class CartModel extends GetxController {
       image: List<String>.from(map['image']),
       status: map['status'],
       cost: double.tryParse((map['cost'] ?? 0).toString()),
+      priceDiscount: map['priceDiscount'],
       quantity: map['quantity'],
       name: map['name'],
       detail: map['detail'],
@@ -93,6 +97,7 @@ class CartModel extends GetxController {
         detail: map['detail'],
         nameGroup: map['nameGroup'],
         weight: double.tryParse((map['weight'] ?? 0).toString()),
+        priceDiscount: map['priceDiscount'],
         selected: map['selected']);
   }
   String toJson() => json.encode(toMap());

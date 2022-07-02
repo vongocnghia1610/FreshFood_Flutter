@@ -172,7 +172,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                             child: GetBuilder<ProductDetailController>(
                               init: productController,
                               builder: (_) => Text(_.product.name.toString(),
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: Theme.of(context).textTheme.headline5),
                             ),
