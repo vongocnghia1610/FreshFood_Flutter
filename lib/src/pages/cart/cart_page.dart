@@ -221,7 +221,7 @@ class _CartPageState extends State<CartPage> {
           child: Column(
             children: [
               Container(
-                height: 145.w,
+                height: 150.w,
                 child: StreamBuilder(
                     stream: cartController.listProduct,
                     builder: (context, AsyncSnapshot snapshot) {
