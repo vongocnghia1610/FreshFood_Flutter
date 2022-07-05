@@ -120,6 +120,7 @@ class ProductModel {
       'starAVG': starAVG,
       'eveluateCount': eveluateCount,
       'sold': sold,
+      'priceDiscount': priceDiscount.toInt()
     };
   }
 
